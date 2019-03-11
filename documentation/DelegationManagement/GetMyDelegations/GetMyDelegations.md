@@ -91,6 +91,9 @@ end
 ![Mobile mockup](./Mockups/Delegations_mobile.png?raw=true "Mobile mockup")
 
 ### 4. Test cases
-
-Do ustalenia
-
+| Lp. | Test type | Name | Initial requirements | Users actions and objectives | Expected Outcome |
+| --- | --- | --- | --- | --- | --- |
+|1.| manual | Show all delegations | 1. User should have at least 1 delegation |  1. Click "show" button | All user's delegations are listed |
+|2 .| manual | Show delegations in date range | 1. User should have at least 2 delegation | 1. Select date range (user have at least 1 delegation in that range and at least 1 delegation beyond that range)| 1. User's delegations from date range are listed 2. User's delegations beyond date range are not listed |
+|3.| manual | Rejecting invalid dates | None | 1. Select date "From" 2. Select date "To" erlier than "From". |  Error message under date picker |
+|4. | manual | Columns sorting | List of delegations should have at least 2 elements | 1. Click triangle next to column name | Table should be sorted by that column |
