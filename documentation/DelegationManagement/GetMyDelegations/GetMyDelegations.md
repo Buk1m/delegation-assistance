@@ -85,8 +85,10 @@ end
 - Status code 400 if the query parameters contain invalid values + error message in response body
 
 ###  3. Mockups
-
-Iza dla Ciebie :))
+#### Browser
+![Browser mockup](./Mockups/Delegations_website.png?raw=true "Browser mockup")
+#### Mobile
+![Mobile mockup](./Mockups/Delegations_mobile.png?raw=true "Mobile mockup")
 
 ### 4. Test cases
 
