@@ -1,0 +1,6 @@
+@startuml
+"Client"->"AuthController":authenticateMe(AuthenticationData authData)
+"AuthController"->AuthService:getAuthenticationToken(AuthenticationData authData)
+AuthService-->"AuthController":AuthenticationToken token
+"AuthController"-->Client:AuthenticationToken token
+@enduml
