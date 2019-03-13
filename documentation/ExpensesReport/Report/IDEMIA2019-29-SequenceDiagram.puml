@@ -1,0 +1,12 @@
+@startuml
+Client->ExpensesReportGenerator:generateExpenseReport()
+ExpensesReportGenerator->ExpenseService:{Get} getExpenses()
+ExpenseService->ExpenseRepository:getExpensesByDelegationId()
+database db
+ExpenseRepository->db:query
+db-->ExpenseRepository:entities
+ExpenseRepository-->ExpenseService:Expenses
+ExpenseService-->ExpensesReportGenerator:ExpensesDTO
+ExpensesReportGenerator-->ExpensesReportGenerator:generateReport()
+ExpensesReportGenerator-->Client:ExpensesReport
+@enduml
