@@ -1,0 +1,9 @@
+@startuml SendDelegationToTravelManagerToAccept
+Client->DelegationService:{Post} sendDelegationToTravelManager()
+DelegationService->DelegationRepository:assignDelegationToTravelManager()
+database db
+DelegationRepository->db:query
+db-->DelegationRepository:entities
+DelegationRepository-->DelegationService:Delegation
+DelegationService-->Client:DelegationDTO
+@enduml
