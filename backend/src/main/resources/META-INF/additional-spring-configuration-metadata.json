@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.maximum-pool-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of threads available that allow for safe isolation of the blocking operations."
+  }
+] }
