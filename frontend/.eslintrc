@@ -1,0 +1,25 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "semi": 2,
+    "eqeqeq": 1,
+    "default-case": 1,
+    "max-classes-per-file": 1,
+    "no-var": "error",
+    "react/display-name": [0, { "ignoreTranspilerName": false }]
+  },
+  "plugins": ["react"],
+  "globals": {
+    "window": true,
+    "document": true,
+    "Promise": true
+  }
+}
