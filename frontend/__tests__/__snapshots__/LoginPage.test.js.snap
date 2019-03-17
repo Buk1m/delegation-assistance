@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <div>
+    Header
+  </div>,
+  <div>
+    Login page
+  </div>,
+  <a
+    href="/"
+  >
+    Back to home
+  </a>,
+  <div>
+    Footer
+  </div>,
+]
+`;

@@ -1,4 +1,4 @@
-# Delegation Assistant frontend mobile
+# Delegation Assistant frontend web
 
 ## Requirements
 
@@ -18,7 +18,6 @@ In your workspace/directory/whole program settings set `editor.formatOnSave` to 
 
 Optional, but recommended. It will help you code it:
 
-- [React Native Tools](https://marketplace.visualstudio.com/items?itemName=vsmobile.vscode-react-native)
 - [ES7 React/Redux/GraphQL/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 - [Error Gutters](https://marketplace.visualstudio.com/items?itemName=IgorSbitnev.error-gutters)
 
@@ -41,13 +40,9 @@ Recommended extensions:
 
 ### Running the app
 
-#### Run on Android
-
-You have to install Android Studio. If you already have it, run emulator on AVD Packager and after that, type `yarn android` in CLI.
-
-#### Run on iOS
-
-Please visit https://developer.apple.com/xcode/download/ to download Xcode and the iOS simulator. If you already have the latest version of Xcode installed, you may have to run the command `sudo xcode-select -s /Applications/Xcode.app`. If the emulator is working, enter `yarn ios` in CLI.
+- `yarn dev` - for live building and starting the app
+- `yarn build` - for building the app
+- `yarn start` - for starting the app
 
 ### Tests
 
@@ -61,25 +56,25 @@ Please visit https://developer.apple.com/xcode/download/ to download Xcode and t
 
 ## FAQ
 
-### How to add new screen to app?
+### How to add new page to app?
 
-Assuming that you want to create a screen that would show list of user delegations. Add new directory to `src/features`, named `DelegationListScreen` (camel case required). In that directory create (according to methodology _dumb & smart components_ ) two files:
+Assuming that you want to create a page that would show list of user delegations. Add new directory to `src/features`, named `DelegationListPage` (camel case required). In that directory create (according to methodology _dumb & smart components_ ) two files:
 
-- `DelegationListScreen.component.js` - _dumb component_ - this file is only displaying the contents with props passed by _smart component_,
-- `DelegationListScreen.container.js` - _smart component_ - this file is preparing data to show.
+- `DelegationListPage.component.js` - _dumb component_ - this file is only displaying the contents with props passed by _smart component_,
+- `DelegationListPage.container.js` - _smart component_ - this file is preparing data to show.
 
 In addition, create one more file named: `index.js`. It is useful when you'll need to use component somewhere else. Thanks to this you do not have to distinguish _dumb & smart_, you only import the directory and `index.js` will return us the appropriate one (ie container). Example content of `index.js` file:
 
 ```javascript
-import DelegationListScreen from "./DelegationListScreen.container";
-export default DelegationListScreen;
+import DelegationListPage from "./DelegationListPage.container";
+export default DelegationListPage;
 ```
 
 If you have already created these files, add them to the navigation.
 
 ### Navigation
 
-The navigation files are located in the folder: `src/navigation`, and their use is explained in the [documentation of the react-navigation](https://reactnavigation.org/docs/en/navigating.html).
+Create new folder eg. `delegationlist` in `pages` directory. In this directory, create `index.js` file in which you invoke your new page.
 
 ### How to show something only on one platform?
 
