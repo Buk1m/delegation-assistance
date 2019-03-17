@@ -116,3 +116,7 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Package manager generated files
+yarn.lock
+package-lock.json
