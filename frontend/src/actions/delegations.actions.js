@@ -1,24 +1,20 @@
-import {APIService} from "../services/data";
+import { APIService } from "../services/data";
 
 export const ACTIONS = {
-  POST_DELEGATION: "DELEGATIONS_POST_DELEGATION"
+  ADD_DELEGATION: "DELEGATIONS_ADD_DELEGATION"
 };
 
-const addNewDelegation = (delegation) => dispatch => {
+const addNewDelegation = delegation => dispatch => {
   return dispatch(
-    APIService.post(ACTIONS.POST_DELEGATION, {
-      url: '/delegations',
-      //TODO: add authorization token from sessionStorage
+    APIService.post(ACTIONS.ADD_DELEGATION, {
+      url: "/delegations",
       headers: {
-        "Content-type": "application/json",
-        "Bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbXBsb3llZSIsIm5iZiI6MTU1Mjg1Njg4NSwiaXNzIjoiaWRlbWlhIiwiZXhwIjoxNTUyODYwNDg1LCJpYXQiOjE1NTI4NTY4ODUsImF1dGhvcml0aWVzIjpbIlJPTEVfRU1QTE9ZRUUiXX0.PINY8fxa2TKFut7UBf-S08eKCZ7Yo2FolyU6AjwqpfzK3mSRIvlEHJUgejTq86lImFDhm_J5lb34KQbIhaHaEA"
+        "Content-type": "application/json"
       },
-      needAuth: false,
+      needAuth: true,
       data: delegation
     })
   );
 };
 
-export {
-  addNewDelegation
-};
+export { addNewDelegation };

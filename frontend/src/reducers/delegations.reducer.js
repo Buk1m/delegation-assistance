@@ -1,34 +1,35 @@
-import {ACTIONS} from "../actions/delegations.actions";
-import {PENDING, FULFILLED, REJECTED} from "../middleware";
+import { ACTIONS } from "../actions/delegations.actions";
+import { PENDING, FULFILLED, REJECTED } from "../middleware";
 
 const initialState = {
   startDate: Date.now(),
   endDate: Date.now(),
-  delegationObjective: '',
-  destinationCountryISO3: '',
-  destinationLocation: ''
+  delegationObjective: "",
+  destinationCountryISO3: "",
+  destinationLocation: ""
 };
 
 const delegationsReducer = (state = initialState, action) => {
   let result;
 
   switch (action.type) {
-    case `${ACTIONS.POST_DELEGATION}_${PENDING}`: {
+    case `${ACTIONS.ADD_DELEGATION}_${PENDING}`: {
       result = {
         ...state,
-        fetching:true
+        fetching: true
       };
       break;
     }
-    case `${ACTIONS.POST_DELEGATION}_${FULFILLED}`:{
+    case `${ACTIONS.ADD_DELEGATION}_${FULFILLED}`: {
       result = {
         ...state,
-        fetching: false,
+        fetching: false
       };
       break;
     }
-    case `${ACTIONS.POST_DELEGATION}_${REJECTED}`: {
-      result = {...state,
+    case `${ACTIONS.ADD_DELEGATION}_${REJECTED}`: {
+      result = {
+        ...state,
         fetching: false,
         errors: action.payload.Message,
         subErrors: action.payload.SubErrors

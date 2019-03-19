@@ -26,7 +26,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         fetchingUser: false,
         logged: true
-        // TODO: operate with returned data
       };
       break;
     case `${ACTIONS.LOGIN_USER}_${REJECTED}`:
