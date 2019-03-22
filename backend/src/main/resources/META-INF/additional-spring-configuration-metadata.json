@@ -4,5 +4,31 @@
       "name": "spring.datasource.maximum-pool-size",
       "type": "java.lang.Integer",
       "description": "Maximum number of threads available that allow for safe isolation of the blocking operations."
-  }
-] }
+    },
+    {
+      "name": "jwt.lifetime",
+      "type": "java.lang.Integer",
+      "description": "Access token lifetime (in seconds)."
+    },
+    {
+      "name": "exception.security.incorrect-credentials",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if login or password is incorrect."
+    },
+    {
+      "name": "exception.users.user-not-found",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if a user doesn't exist."
+    },
+    {
+      "name": "exception.users.user-login-already-exists",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if someone is trying to add a user with already taken login."
+    },
+    {
+      "name": "jwt.private-key-file-name",
+      "type": "java.lang.String",
+      "description": "The name of the file that contains the private key for jwt encryption."
+    }
+  ]
+}

@@ -2,12 +2,7 @@
 
 ### 1. Sequence Diagram
 
-@startuml
-"Client"->"AuthController":authenticateMe(AuthenticationData authData)
-"AuthController"->AuthService:getAuthenticationToken(AuthenticationData authData)
-AuthService-->"AuthController":AuthenticationToken token
-"AuthController"-->Client:AuthenticationToken token
-@enduml
+!["sequence diagram"](<https://www.plantuml.com/plantuml/svg/RKz12i8m4Bpd5I4d2-O3HK9BFNgh7mZjKXVZhYJR-dqJAcZLox8pm-pED4bybFaMbEa20ecnphIpN3ecYHm2H5FxZBE4WnVOjM-0J4SlNXUzB9NwjbfNY1xYWWDix_GIaIOTU4BQwnUw-vGU7CTAVVZidqWdJ79OJKvd4jBlR-lMIlKsyfclG5hAL0tGcCi_0G00>)
 
 ### 2. Technical and functional description
 
@@ -50,7 +45,10 @@ AuthService-->"AuthController":AuthenticationToken token
 
 #### Possible errors:
 
-- Status code 400 if the operation fails + error message in response body
+- Status code 400 if the operation fails + error code in response body
+
+##### Possible error codes:
+- incorrect-credentials - if login or password is incorrect
 
 ###  3. Mockups
 #### Browser
