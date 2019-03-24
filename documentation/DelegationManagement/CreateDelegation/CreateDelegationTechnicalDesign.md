@@ -46,33 +46,31 @@ _(Post)_ `/delegations`
    "delegationObjective": "Buy high quality rice"
 }
 ```
-* `startDate`: required field
-* `endDate`: required field, `endDate > startDate`
-* `destinationCountryISO`: required field
-* `destinationLocation`: required field
-*  `delegationObjective`: required field
+* `startDate`: wymagane pole, format: `yyyy-MM-dd'T'HH:mm:ss`
+* `endDate`: wymagane pole, `endDate > startDate`, format `yyyy-MM-dd'T'HH:mm:ss`
+* `destinationCountryISO`: wymagane pole, musi mieć długość 3 znaków
+* `destinationLocation`: wymagane pole
+*  `delegationObjective`: wymagane pole
+
+#### Additional info
+Informacje o użytkowniku, wyciągane są z JWT tokenu
+Delegacja jest tworzona ze statusem `CREATED`
+
+##### Lista statusów:
+1. `CREATED` - delegacja została stworzona, ale jeszcze nie została w całości przygotowana, delegacja jest tworzona z tym statusem
+2. `PREPARED` - delegacja została przygotowana i czeka na potwierdzona travel managera
+3. `TRAVEL_MANGER_APPROVED` - delegacja została potwierdzona przez travel managera
+4. `APPROVER_APPROVED` - delegacja dostała approve oosby z zarządu
+5. `RATIFIED` - osoba dostała approve od księgowego, ostateczny status
 
 <a name="response"></a>
 ### Response:
 __Http (201)__
 
-OR
-
-`ApiError`:
-```json5
-{
-  "Message": "Something went wrong",
-  "SubErrors": [
-    {
-      "Message": "More errors"
-    }
-  ]
-}
-```
 #### Error response codes:
 * __Http (400)__
-* __Http (500)__
-
+* __Http (401)__
+* __Http (403)__
 
 <a name="mockups"></a>
 ##Page Mocups
