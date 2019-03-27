@@ -1,20 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
-Array [
-  <div>
-    Header
-  </div>,
-  <div>
-    Login page
-  </div>,
-  <a
-    href="/"
+exports[`Create Login Page should render correctly 1`] = `
+<LayoutMain>
+  <div
+    className="container"
   >
-    Back to home
-  </a>,
-  <div>
-    Footer
-  </div>,
-]
+    <div
+      className="my-frame"
+    >
+      <div
+        className="frame-header"
+      >
+        <h1
+          className="title-text"
+        >
+          Hello!
+        </h1>
+      </div>
+      <div
+        className="login-container"
+      >
+        <Form
+          onSubmit={[MockFunction]}
+        >
+          <h7
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          />
+          <Input
+            className="input-login"
+            name="login"
+            onChange={[Function]}
+            placeholder="Username"
+            validate={[Function]}
+          />
+          <Input
+            className="input-login"
+            name="password"
+            onChange={[Function]}
+            placeholder="Password"
+            type="password"
+            validate={[Function]}
+          />
+          <button
+            className="button-login"
+            type="submit"
+          >
+            Sign In
+          </button>
+        </Form>
+      </div>
+    </div>
+  </div>
+</LayoutMain>
 `;

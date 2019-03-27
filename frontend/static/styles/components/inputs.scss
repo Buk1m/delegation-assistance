@@ -1,6 +1,6 @@
 $primary-color: #590BAD;
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
   display: block;
   width: 100%;
   height: calc(2em + 0.75rem + 2px);

@@ -25,7 +25,8 @@ const userReducer = (state = initialState, action) => {
       result = {
         ...state,
         fetchingUser: false,
-        logged: true
+        logged: true,
+        token: action.payload.data.token
       };
       break;
     case `${ACTIONS.LOGIN_USER}_${REJECTED}`:

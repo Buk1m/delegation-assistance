@@ -1,37 +1,63 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import { loginUser } from "../../actions/user.actions";
-import { getLoggedStatus } from "../../selectors/user.selectors";
-import LoginScreen from "./LoginScreen.component";
+import { loginUser } from '../../actions/user.actions'
+import { getLoggedStatus, getToken } from '../../selectors/user.selectors'
+import LoginScreen from './LoginScreen.component'
 
 class LoginScreenContainer extends Component {
-  static navigationOptions = {
-    header: null
-  };
+	static navigatonOptions = {
+		header: null
+	}
 
-  componentDidMount = () => {
-    if (this.props.loggedStatus) {
-      this.props.navigation.navigate("Main");
-    }
-  };
+	constructor() {
+		super()
+		this.state = {
+			errors: ''
+		}
+	}
 
-  render() {
-    return <LoginScreen navigate={this.props.navigation} />;
-  }
+	componentDidMount = () => {
+		if (this.props.loggedStatus && this.props.myToken) {
+			this.props.navigation.navigate('Main')
+		}
+		this.setState(() => {
+			return {
+				errors: '',
+			}
+		})
+	}
+
+	handleSubmit = values => {
+		this.setState({errors: 'Loading...'})
+		this.props.loginUser(values.login, values.password)
+			.then(response => {
+				if (response.status === 200) {
+					this.props.navigation.navigate('Main')
+				}
+			})
+			.catch(err => {
+				this.setState({errors: 'Invalid Username or Password'})
+			})
+	}
+
+	render() {
+		return <LoginScreen onSubmit={this.handleSubmit} errors={this.state.errors}/>
+	}
 }
 
 const mapStateToProps = state => {
-  return {
-    loggedStatus: getLoggedStatus(state)
-  };
-};
+	return {
+		loggedStatus: getLoggedStatus(state),
+		myToken: getToken(state)
+	}
+}
 
 const mapDispatchToProps = {
-  loginUser
-};
+	loginUser
+}
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginScreenContainer);
+	mapStateToProps,
+	mapDispatchToProps
+)(LoginScreenContainer)

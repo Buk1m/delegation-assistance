@@ -1,14 +1,36 @@
-import React from "react";
+import React from 'react'
+import { reduxForm, Form } from 'redux-form'
 
-import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.component";
+import { validateRequired } from '../../shared/validators/Validators'
+import LayoutMain from '../../components/layouts/LayoutMain/LayoutMain.component'
+import Input from '../../components/Input/Input.component'
 
-const LoginPage = props => {
-  return (
-    <LayoutMain>
-      <div>Login page</div>
-      <a href="/">Back to home</a>
-    </LayoutMain>
-  );
-};
+export const LoginPage = props => {
+	const {handleSubmit} = props
+	return (
+		<LayoutMain>
+			<div className="container">
+				<div className="my-frame">
+					<div className="frame-header">
+						<h1 className="title-text">Hello!</h1>
+					</div>
+					<div className="login-container">
+						<Form onSubmit={handleSubmit}>
+							<h7 style={{color: 'red'}}>{props.errors}</h7>
+							<Input name="login" placeholder="Username" validate={validateRequired}
+							       className="input-login" onChange={(event) => this.handleUserInput(event)}/>
+							<Input name="password" placeholder="Password" validate={validateRequired} type="password"
+							       className="input-login" onChange={(event) => this.handleUserInput(event)}/>
+							<button className="button-login" type="submit">Sign In</button>
+						</Form>
+					</div>
+				</div>
+			</div>
+		</LayoutMain>
+	)
+}
 
-export default LoginPage;
+export default reduxForm({
+	form: 'loginform'
+})(LoginPage)
+

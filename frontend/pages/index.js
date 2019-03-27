@@ -1,2 +1,2 @@
-import HomePage from '../src/features/HomePage';
-export default HomePage;
+import LoginPage from '../src/features/LoginPage';
+export default LoginPage;
