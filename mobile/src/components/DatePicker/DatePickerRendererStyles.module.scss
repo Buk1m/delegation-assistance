@@ -1,0 +1,30 @@
+@import "../../assets/styles/constants";
+
+.dateIcon {
+  position: absolute;
+  left: 0;
+  top: 0.25rem  /* 4/16 */;
+  margin-left: 0;
+}
+
+.dateInput {
+  margin-left: 2.25rem  /* 36/16 */;
+  border-color: $primary-color;
+  border-radius: 10px;
+  border-width: 2px;
+  height: 2.3125rem  /* 37/16 */;
+  min-width: 15.625rem  /* 250/16 */;
+  max-width: 18.75rem  /* 300/16 */;
+  padding-left: 0.625rem  /* 10/16 */;
+}
+
+.datePicker {
+  width: 18.75rem  /* 300/16 */;
+  margin: 0  /* 0/16 */ 1.25rem  /* 20/16 */;
+}
+
+.validationField {
+  color: $validate-text-color;
+  padding-left: 1.25rem  /* 20/16 */;
+  margin: 0  /* 0/16 */ 1.25rem  /* 20/16 */;
+}

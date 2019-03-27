@@ -9,7 +9,7 @@ class DelegationsScreenContainer extends Component {
   };
 
   render() {
-    return <DelegationsScreen />;
+    return <DelegationsScreen navigate={this.props.navigation} />;
   }
 }
 

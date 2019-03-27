@@ -9,7 +9,7 @@ class HomeScreenContainer extends Component {
   };
 
   render() {
-    return <HomeScreen />;
+    return <HomeScreen navigate={this.props.navigation} />;
   }
 }
 

@@ -1,12 +1,17 @@
-import React from "react";
-import { Text, View, Button } from "react-native";
+import React, { Component } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import style from "../CreateDelegationScreen/CreateDelegationButtonStyles.module.scss";
 
 const DelegationsScreen = props => {
-  return (
-    <View>
-      <Text>Delegations Screen</Text>
-    </View>
-  );
+        const {navigate} = props;
+
+        return (
+            <View>
+                <TouchableOpacity title="+" onPress={() => navigate.navigate("CreateDelegation")}>
+                    <Text style={style.addDelegationButton}> + </Text>
+                </TouchableOpacity>
+            </View>
+        );
 };
 
 export default DelegationsScreen;

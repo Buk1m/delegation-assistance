@@ -1,21 +1,21 @@
- Create Delegation Docs
+Stworzenie nowej delegacji - dokumentacja
 
-## Table of contents
-- [Sequence Diagram](#sequence-diagram)
+## Spis treści
+- [Diagram sekwencyjny](#sequence-diagram)
 - [API](#api)
     - [Endpoint URL](#endpoint-url)
-    - [Request data](#request-data)
-    - [Response](#response)
-- [Mockups](#mockups)
-    - [Browser mockup](#browser)
-    - [Browser error](#browser-error)
-    - [Mobile mockup](#mobile)
-    - [Mobile error](#mobile-error)
-- [Test cases](#test-cases)
+    - [Żądanie danych](#request-data)
+    - [Odpowiedzi](#response)
+- [Mockupy](#mockups)
+    - [Wyszukiwarka](#browser)
+    - [Wyszukiwarka - błędy](#browser-error)
+    - [Systemy mobilne](#mobile)
+    - [Systemy mobilne - błędy](#mobile-error)
+- [Przypadki testowe](#test-cases)
 
 
 <a name="sequence-diagram"></a>
-## Sequence Diagram
+## Diagram sekwencyjny
 @startuml
 Client->DelegationService:{Post} saveDelegation()
 DelegationService->DelegationRepository:saveDelegation()
@@ -35,7 +35,7 @@ DelegationService-->Client:status
 _(Post)_ `/delegations`
 
 <a name="request-data"></a>
-### Request data:
+### Żądanie danych
 (application/json)
 ```json5
 {
@@ -45,6 +45,7 @@ _(Post)_ `/delegations`
    "destinationLocation": "Radom",
    "delegationObjective": "Buy high quality rice"
 }
+
 ```
 * `startDate`: wymagane pole, format: `yyyy-MM-dd'T'HH:mm:ss`
 * `endDate`: wymagane pole, `endDate > startDate`, format `yyyy-MM-dd'T'HH:mm:ss`
@@ -52,7 +53,7 @@ _(Post)_ `/delegations`
 * `destinationLocation`: wymagane pole
 *  `delegationObjective`: wymagane pole
 
-#### Additional info
+#### Dodatkowe informacje
 Informacje o użytkowniku, wyciągane są z JWT tokenu
 Delegacja jest tworzona ze statusem `CREATED`
 
@@ -64,39 +65,39 @@ Delegacja jest tworzona ze statusem `CREATED`
 5. `RATIFIED` - osoba dostała approve od księgowego, ostateczny status
 
 <a name="response"></a>
-### Response:
+### Odpowiedzi:
 __Http (201)__
 
-#### Error response codes:
+#### Kody błędów:
 * __Http (400)__
 * __Http (401)__
 * __Http (403)__
 
 <a name="mockups"></a>
-##Page Mocups
+##Mockupy
 
 <a name="browser"></a>
-### Browser
+### Wyszukiwarka
 ![Browser mockup](mockups/web.png?raw=true "Browser")
 
 <a name="country-list"></a>
-##Country List
+##Lista krajów przy wybieraniu kraju delegacji
 ![Browser error](mockups/webCountries.png?raw=true "Browser Error")
 
 <a name="browser-error"></a>
-##Browser Error
+##Wyszukiwarka - błędy
 ![Browser error](mockups/webError.png?raw=true "Browser Error")
 
 <a name="mobile"></a>
-##Mobile
+##Systemy mobilne
 ![Mobile](mockups/mobile.png?raw=true "Mobile")
 
 <a name="mobile-error"></a>
-##Mobile Error
+##Systemy mobilne - błędy
 ![Mobile error](mockups/mobileError.png?raw=true "Mobile Error")
 
 <a name="test-cases"></a>
-## Test cases:
+## Przypadki testowe
 
 | Lp. | Typ testu | Nazwa | Warunki wstępne | Kroki wykonania |Oczekiwany rezultat |
 | --- | --- | --- | --- | --- | --- |

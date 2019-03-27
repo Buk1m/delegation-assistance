@@ -6,18 +6,21 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../features/HomeScreen";
 import ProfileScreen from "../features/ProfileScreen";
 import DelegationsScreen from "../features/DelegationsScreen";
+import CreateDelegationScreen from "../features/CreateDelegationScreen"
 import ExpensesScreen from "../features/ExpensesScreen";
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen
+  Home: HomeScreen,
 });
+
 HomeStack.navigationOptions = {
   tabBarLabel: "Home",
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={Platform.OS === "ios" ? `ios-home` : "md-home"} />
 };
 
 const DelegationsStack = createStackNavigator({
-  Home: DelegationsScreen
+  Home: DelegationsScreen,
+  CreateDelegation: CreateDelegationScreen
 });
 DelegationsStack.navigationOptions = {
   tabBarLabel: "Delegations",

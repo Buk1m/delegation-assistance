@@ -120,3 +120,6 @@ typings/
 # Package manager generated files
 yarn.lock
 package-lock.json
+
+# Expo package
+.expo/*
