@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import {string, bool, array, func, number, oneOfType} from "prop-types";
 import {Field} from "redux-form";
+import "./inputs.scss";
 
 const renderField = ({input, label, type, disabled, className, meta: {touched, error, warning}}) => {
   return (

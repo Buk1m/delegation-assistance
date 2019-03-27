@@ -1,8 +1,11 @@
 import React from "react";
 import { Field, reduxForm, Form } from "redux-form";
 import DatePicker from "react-datepicker";
-import { validateRequired } from "../../shared/validators/Validators";
+import { func, bool } from "prop-types";
+
 import Input from "../../components/Input/Input.component";
+import { validateRequired } from "../../shared/validators/Validators";
+
 
 //TODO: optional change to react-day-picker with range selection
 const renderDateTimePicker = ({ input: { onChange, value } }) => {
@@ -19,27 +22,27 @@ const renderDateTimePicker = ({ input: { onChange, value } }) => {
   );
 };
 
-const CreateDelegationPage = props => {
+export const CreateDelegationPage = props => {
   const { handleSubmit, submitting } = props;
   return (
     <Form onSubmit={handleSubmit} id="create-delegation">
       <div className="container">
         <Input
-          label="Destination Country:"
+          label="Destination Country"
           name="destinationCountryISO3"
-          placeholder="Destination Country:"
+          placeholder="Destination Country"
           validate={validateRequired}
         />
         <Input
-          label="Destination Location:"
+          label="Destination Location"
           name="destinationLocation"
-          placeholder="Destination Location:"
+          placeholder="Destination Location"
           validate={validateRequired}
         />
         <Input
-          label="Destination Objective:"
+          label="Delegation Objective"
           name="delegationObjective"
-          placeholder="Delegation Objective:"
+          placeholder="Delegation Objective"
           validate={validateRequired}
         />
         <div className="date-pickers-container">
@@ -62,6 +65,11 @@ const CreateDelegationPage = props => {
       </div>
     </Form>
   );
+};
+
+CreateDelegationPage.propTypes = {
+  handleSubmit: func,
+  submitting: bool
 };
 
 export default reduxForm({

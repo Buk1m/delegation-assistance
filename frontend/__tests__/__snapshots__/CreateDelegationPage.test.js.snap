@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Delegation Page should render correctly 1`] = `
+<Form
+  id="create-delegation"
+  onSubmit={[MockFunction]}
+>
+  <div
+    className="container"
+  >
+    <Input
+      label="Destination Country"
+      name="destinationCountryISO3"
+      placeholder="Destination Country"
+      validate={[Function]}
+    />
+    <Input
+      label="Destination Location"
+      name="destinationLocation"
+      placeholder="Destination Location"
+      validate={[Function]}
+    />
+    <Input
+      label="Delegation Objective"
+      name="delegationObjective"
+      placeholder="Delegation Objective"
+      validate={[Function]}
+    />
+    <div
+      className="date-pickers-container"
+    >
+      <div>
+        <label
+          htmlFor="startDate"
+        >
+          Start date:
+        </label>
+        <Field
+          component={[Function]}
+          name="startDate"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="endDate"
+        >
+          End date:
+        </label>
+        <Field
+          component={[Function]}
+          name="endDate"
+        />
+      </div>
+    </div>
+    <button
+      className="btn btn-primary btn-create-delegation"
+      type="submit"
+    >
+      CREATE DELEGATION
+    </button>
+  </div>
+</Form>
+`;

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input Component should render Input correctly 1`] = `
+<div
+  className="field"
+>
+  <div
+    className="control text"
+  >
+    <label
+      className="label label-fluid"
+    >
+      <span
+        className="label-bold"
+      >
+        testLabel
+      </span>
+      <Field
+        className="input"
+        component={[Function]}
+        disabled={false}
+        label=""
+        minlength={0}
+        name="testName"
+        type="text"
+        validate={null}
+        value=""
+      />
+    </label>
+  </div>
+</div>
+`;

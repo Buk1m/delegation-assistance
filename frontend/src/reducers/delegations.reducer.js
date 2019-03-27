@@ -2,11 +2,6 @@ import { ACTIONS } from "../actions/delegations.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
 
 const initialState = {
-  startDate: Date.now(),
-  endDate: Date.now(),
-  delegationObjective: "",
-  destinationCountryISO3: "",
-  destinationLocation: ""
 };
 
 const delegationsReducer = (state = initialState, action) => {
