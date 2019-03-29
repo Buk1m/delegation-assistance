@@ -31,6 +31,11 @@
       "description": "The name of the file that contains the private key for jwt encryption."
     },
     {
+      "name": "jwt.private-key-file-path",
+      "type": "java.lang.String",
+      "description": "The path to the file that contains the private key for jwt encryption."
+    },
+    {
       "name": "exception.internal.monkeys-ran-out-of-bananas",
       "type": "java.lang.String",
       "description": "Error code when something unexpected happen on backend."

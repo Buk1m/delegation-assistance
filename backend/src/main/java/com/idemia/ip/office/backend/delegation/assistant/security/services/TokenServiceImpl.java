@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Date;
@@ -26,10 +28,23 @@ public class TokenServiceImpl implements TokenService {
 	private final long lifetime;
 
 	public TokenServiceImpl(@Value("${jwt.lifetime}") int lifetime,
+							@Value("${jwt.private-key-file-path:#{null}}") Optional<String> privateKeySystemFilePath,
 							@Value("${jwt.private-key-file-name}") String privateKeyFileName) throws Exception {
-		Path privateKeyFilePath = Path.of(getClass().getClassLoader().getResource(privateKeyFileName).toURI());
+        Path privateKeyFilePath =
+				privateKeySystemFilePath
+						.map(keySystemPath -> Paths.get(keySystemPath, privateKeyFileName))
+						.orElseGet(() -> getPrivateKeyFilePath(privateKeyFileName));
 		this.lifetime = lifetime;
 		this.algorithm = Algorithm.HMAC512(Files.readAllBytes(privateKeyFilePath));
+	}
+
+	private Path getPrivateKeyFilePath(@Value("${jwt.private-key-file-name}") String privateKeyFileName) {
+		try {
+			return Path.of(getClass().getClassLoader().getResource(privateKeyFileName).toURI());
+		} catch (URISyntaxException e) {
+			logger.error("URI for the private key {} cannot be parsed.", privateKeyFileName);
+			throw new IllegalArgumentException(e);
+		}
 	}
 
 	@Override
