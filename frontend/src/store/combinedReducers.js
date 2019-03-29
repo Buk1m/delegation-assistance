@@ -1,13 +1,13 @@
-import { reducer as formReducer } from "redux-form";
 import { combineReducers } from "redux";
+import { reducer as formReducer } from "redux-form";
 
 import userReducer from "../reducers/user.reducer";
 import delegationsReducer from "../reducers/delegations.reducer";
 
-const combinedReducers = {
-  form: formReducer,
+const combinedReducers = combineReducers({
   user: userReducer,
-  delegations: delegationsReducer,
-};
+  form: formReducer,
+  delegations: delegationsReducer
+});
 
-export default combineReducers(combinedReducers);
+export default combinedReducers;

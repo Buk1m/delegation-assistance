@@ -1,11 +1,9 @@
-import React, { Fragment } from "react";
+import React from "react";
+
+import styles from "./Footer.module.scss";
 
 const Footer = () => {
-  return (
-    <Fragment>
-      <div>Footer</div>
-    </Fragment>
-  );
+  return <footer className={styles.footer}>2019 &copy; Delegation Assistant</footer>;
 };
 
 export default Footer;

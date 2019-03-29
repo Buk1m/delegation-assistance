@@ -5,27 +5,25 @@ import { func } from "prop-types";
 
 import CreateDelegationsScreen from "./CreateDelegationsScreen.component";
 
-
 class CreateDelegationsScreenContainer extends Component {
-    static navigationOptions = {
-        title: "Create Delegation"
-    };
+  static navigationOptions = {
+    title: "Create Delegation"
+  };
 
-    handleSubmit = values => {
-        this.props.addNewDelegation(values);
-    };
+  handleSubmit = values => {
+    this.props.addNewDelegation(values);
+  };
 
-    render() {
-        return <CreateDelegationsScreen onSubmit={this.handleSubmit}/>;
-    }
+  render() {
+    return <CreateDelegationsScreen onSubmit={this.handleSubmit} />;
+  }
 }
 
 const mapDispatchToProps = {
-    addNewDelegation
+  addNewDelegation
 };
 
 export default connect(
-    null,
-    mapDispatchToProps
+  null,
+  mapDispatchToProps
 )(CreateDelegationsScreenContainer);
-

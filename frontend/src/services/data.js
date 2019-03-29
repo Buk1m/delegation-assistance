@@ -1,5 +1,7 @@
 import RequestServiceCreator from "./RequestServiceCreator/RequestServiceCreator";
+import { environments } from "../config";
+
 export const APIService = RequestServiceCreator.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: environments.API_URL,
   apiVersion: "1.0.0"
 });

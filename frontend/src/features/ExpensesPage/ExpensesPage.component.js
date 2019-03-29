@@ -1,12 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 
-import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.component";
+import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
 
 const ExpensesPage = props => {
   return (
-    <LayoutMain>
-      <div>Expenses page</div>
-      <a href="/">Back to home</a>
+    <LayoutMain title="Expenses">
+      <Fragment>
+        <div>Expenses page</div>
+        <a href="/">Back to home</a>
+      </Fragment>
     </LayoutMain>
   );
 };

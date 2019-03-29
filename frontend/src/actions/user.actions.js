@@ -22,7 +22,7 @@ const loginUser = (login, password) => dispatch => {
 };
 
 const logoutUser = () => dispatch => {
-  dispatch({
+  return dispatch({
     type: ACTIONS.LOGOUT_USER
   });
 };

@@ -6,6 +6,7 @@ const initialState = {
   logged: false,
   id: null,
   token: null,
+  tokenExpDate: null,
   roles: [userRoles.guest],
   roleActive: userRoles.guest,
   firstname: null,
@@ -34,8 +35,12 @@ const userReducer = (state = initialState, action) => {
         ...state,
         fetchingUser: false,
         logged: false,
-        token: null
+        token: null,
+        tokenExpDate: null
       };
+      break;
+    case ACTIONS.LOGOUT_USER:
+      result = initialState;
       break;
     default:
       result = state;

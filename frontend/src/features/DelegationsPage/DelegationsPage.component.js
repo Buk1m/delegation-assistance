@@ -1,12 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 
-import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.component";
+import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
 
 const DelegationsPage = props => {
   return (
-    <LayoutMain>
-      <div>Delegations page</div>
-      <a href="/">Back to home</a>
+    <LayoutMain title="Delegations">
+      <Fragment>
+        <div>Delegations page</div>
+        <a href="/">Back to home</a>
+      </Fragment>
     </LayoutMain>
   );
 };

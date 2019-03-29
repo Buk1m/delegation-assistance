@@ -1,59 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Create Login Page should render correctly 1`] = `
-<LayoutMain>
+<Connect(LayoutMainContainer)
+  addPadding={false}
+  hideSidebar={true}
+>
   <div
-    className="container"
+    id="login-screen"
   >
     <div
-      className="my-frame"
+      className="login-container"
     >
-      <div
-        className="frame-header"
+      <h1
+        className="title-text"
       >
-        <h1
-          className="title-text"
-        >
-          Hello!
-        </h1>
-      </div>
-      <div
-        className="login-container"
+        Nice to see you again!
+      </h1>
+      <Form
+        className="form-container"
+        onSubmit={[MockFunction]}
       >
-        <Form
-          onSubmit={[MockFunction]}
-        >
-          <h7
-            style={
-              Object {
-                "color": "red",
-              }
+        <span
+          style={
+            Object {
+              "color": "red",
             }
-          />
-          <Input
-            className="input-login"
-            name="login"
-            onChange={[Function]}
-            placeholder="Username"
-            validate={[Function]}
-          />
-          <Input
-            className="input-login"
-            name="password"
-            onChange={[Function]}
-            placeholder="Password"
-            type="password"
-            validate={[Function]}
-          />
-          <button
-            className="button-login"
-            type="submit"
-          >
-            Sign In
-          </button>
-        </Form>
-      </div>
+          }
+        />
+        <Input
+          className="input-login"
+          name="login"
+          onChange={[Function]}
+          placeholder="Username"
+          validate={[Function]}
+        />
+        <Input
+          className="input-login"
+          name="password"
+          onChange={[Function]}
+          placeholder="Password"
+          type="password"
+          validate={[Function]}
+        />
+        <Button
+          text="sign in"
+          type="submit"
+        />
+      </Form>
     </div>
   </div>
-</LayoutMain>
+</Connect(LayoutMainContainer)>
 `;

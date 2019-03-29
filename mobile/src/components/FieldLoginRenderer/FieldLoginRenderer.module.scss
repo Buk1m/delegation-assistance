@@ -1,0 +1,12 @@
+@import "../../assets/styles/constants";
+
+.input-login {
+  position: relative;
+  border-color: $primary-color;
+  padding-left: 20px;
+  border-radius: 6px;
+  width: 150px;
+  height: 40px;
+  border-width: 2px;
+  margin: 10px;
+}

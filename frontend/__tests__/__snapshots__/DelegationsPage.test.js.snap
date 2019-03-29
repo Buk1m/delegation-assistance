@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delegations Page should render correctly 1`] = `
+<Connect(LayoutMainContainer)
+  title="Delegations"
+>
+  <div>
+    Delegations page
+  </div>
+  <a
+    href="/"
+  >
+    Back to home
+  </a>
+</Connect(LayoutMainContainer)>
+`;

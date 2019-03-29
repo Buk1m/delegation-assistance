@@ -1,6 +1,8 @@
 import { get, isNil, omit } from "lodash";
 import axios from "axios";
 
+import { getLoggedStatus } from "../../selectors/user.selectors";
+
 export const PENDING = "PENDING";
 export const FULFILLED = "FULFILLED";
 export const REJECTED = "REJECTED";
@@ -27,7 +29,7 @@ const checkIfIsRegularAction = action => {
 };
 
 const checkIfUserCanPerformRequest = (state, action) => {
-  const loggedStatus = true; // TODO: Is always logged.
+  const loggedStatus = getLoggedStatus(state);
   const { needAuth } = action.payload;
   let result = true;
   if (needAuth === true && loggedStatus === false) {

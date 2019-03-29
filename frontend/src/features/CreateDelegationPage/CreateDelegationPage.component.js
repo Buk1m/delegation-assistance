@@ -5,7 +5,7 @@ import { func, bool } from "prop-types";
 
 import Input from "../../components/Input/Input.component";
 import { validateRequired } from "../../shared/validators/Validators";
-
+import LayoutMain from "../../components/layouts/LayoutMain";
 
 //TODO: optional change to react-day-picker with range selection
 const renderDateTimePicker = ({ input: { onChange, value } }) => {
@@ -25,45 +25,43 @@ const renderDateTimePicker = ({ input: { onChange, value } }) => {
 export const CreateDelegationPage = props => {
   const { handleSubmit, submitting } = props;
   return (
-    <Form onSubmit={handleSubmit} id="create-delegation">
-      <div className="container">
-        <Input
-          label="Destination Country"
-          name="destinationCountryISO3"
-          placeholder="Destination Country"
-          validate={validateRequired}
-        />
-        <Input
-          label="Destination Location"
-          name="destinationLocation"
-          placeholder="Destination Location"
-          validate={validateRequired}
-        />
-        <Input
-          label="Delegation Objective"
-          name="delegationObjective"
-          placeholder="Delegation Objective"
-          validate={validateRequired}
-        />
-        <div className="date-pickers-container">
-          <div>
-            <label htmlFor="startDate">Start date:</label>
-            <Field name="startDate" component={renderDateTimePicker} />
+    <LayoutMain title="Create delegation">
+      <Form onSubmit={handleSubmit} id="create-delegation">
+        <div className="container">
+          <Input
+            label="Destination Country"
+            name="destinationCountryISO3"
+            placeholder="Destination Country"
+            validate={validateRequired}
+          />
+          <Input
+            label="Destination Location"
+            name="destinationLocation"
+            placeholder="Destination Location"
+            validate={validateRequired}
+          />
+          <Input
+            label="Delegation Objective"
+            name="delegationObjective"
+            placeholder="Delegation Objective"
+            validate={validateRequired}
+          />
+          <div className="date-pickers-container">
+            <div>
+              <label htmlFor="startDate">Start date:</label>
+              <Field name="startDate" component={renderDateTimePicker} />
+            </div>
+            <div>
+              <label htmlFor="endDate">End date:</label>
+              <Field name="endDate" component={renderDateTimePicker} />
+            </div>
           </div>
-          <div>
-            <label htmlFor="endDate">End date:</label>
-            <Field name="endDate" component={renderDateTimePicker} />
-          </div>
+          <button className="btn btn-primary btn-create-delegation" type="submit" disabled={submitting}>
+            CREATE DELEGATION
+          </button>
         </div>
-        <button
-          className="btn btn-primary btn-create-delegation"
-          type="submit"
-          disabled={submitting}
-        >
-          CREATE DELEGATION
-        </button>
-      </div>
-    </Form>
+      </Form>
+    </LayoutMain>
   );
 };
 

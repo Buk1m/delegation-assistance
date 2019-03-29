@@ -1,0 +1,119 @@
+@import "../../static/styles/constants";
+
+.btn {
+  display: inline-block;
+  zoom: 1;
+  line-height: normal;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  padding: 0.45rem 0.75rem;
+  margin: 0.2rem 0;
+  min-width: 6rem;
+  width: auto;
+  max-width: 100%;
+  position: relative;
+  border: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.primary {
+  @extend .btn;
+  background: $primary-color;
+  letter-spacing: 0.0313rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  transition-duration: 0.3s;
+  border-radius: 3px;
+  color: #fff;
+
+  &:before,
+  &:after,
+  & > span:before,
+  & > span:after {
+    content: "";
+    position: absolute;
+  }
+
+  &:hover {
+    background: #fff;
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:before {
+      left: 0%;
+    }
+
+    &:after {
+      right: 0%;
+    }
+
+    & > span {
+      &:after {
+        top: 0%;
+      }
+
+      &:before {
+        bottom: 0%;
+      }
+    }
+  }
+
+  &:before,
+  &:after,
+  & > span:before,
+  & > span:after {
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:before {
+    border-top: 2px solid $primary-color;
+    left: 100%;
+    right: 0;
+    top: 0;
+  }
+
+  &:after {
+    border-bottom: 2px solid $primary-color;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+  }
+
+  & > span {
+    &:before {
+      border-left: 2px solid $primary-color;
+      top: 0;
+      bottom: 100%;
+      left: 0;
+    }
+
+    &:after {
+      border-right: 2px solid $primary-color;
+      top: 100%;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+.secondary {
+  @extend .btn;
+  background: #fff;
+  border: 3px solid $secondary-color;
+  font-weight: bold;
+  transition-duration: 0.3s;
+  color: $secondary-color;
+  border-radius: 3px;
+
+  &:hover {
+    background: $secondary-color;
+    color: #fff;
+  }
+}

@@ -1,0 +1,15 @@
+@import "../constants";
+
+#create-delegation {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+
+  .react-datepicker__day--selected {
+    background: $primary-color;
+  }
+
+  .date-pickers-container {
+    display: flex;
+  }
+}

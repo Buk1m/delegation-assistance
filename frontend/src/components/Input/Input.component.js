@@ -1,16 +1,21 @@
-import React, {Fragment} from "react";
-import {string, bool, array, func, number, oneOfType} from "prop-types";
-import {Field} from "redux-form";
-import "./inputs.scss";
+import React, { Fragment } from "react";
+import { string, bool, array, func, number, oneOfType } from "prop-types";
+import { Field } from "redux-form";
+import "./Inputs.module.scss";
 
-const renderField = ({input, label, type, disabled, className, meta: {touched, error, warning}}) => {
+const renderField = ({ input, label, type, disabled, className, meta: { touched, error, warning } }) => {
   return (
     <Fragment>
-      <input {...input} disabled={disabled} className={className + (touched && error ? " invalid" : "valid")}
-             placeholder={label} type={type}/>
+      <input
+        {...input}
+        disabled={disabled}
+        className={className + (touched && error ? " invalid" : "valid")}
+        placeholder={label}
+        type={type}
+      />
       {touched &&
-      ((error && <span className={"text-danger " + (touched && error ? " invalid" : "valid")}>{error}</span>) ||
-        (warning && <span className="text-warning">{warning}</span>))}
+        ((error && <span className={"text-danger " + (touched && error ? " invalid" : "valid")}>{error}</span>) ||
+          (warning && <span className="text-warning">{warning}</span>))}
     </Fragment>
   );
 };
@@ -24,10 +29,11 @@ const Input = props => {
     placeholder = "",
     validate = null,
     minlength = 0,
-    disabled = false
+    disabled = false,
+    className = ""
   } = props;
   return (
-    <div className="field">
+    <div className={"field " + className}>
       <div className={"control " + type}>
         <label className="label label-fluid">
           {label ? <span className="label-bold">{label}</span> : ""}
@@ -56,7 +62,8 @@ Input.propTypes = {
   placeholder: string,
   validate: oneOfType([func, array]),
   minlength: number,
-  disabled: bool
+  disabled: bool,
+  className: string
 };
 
 export default Input;

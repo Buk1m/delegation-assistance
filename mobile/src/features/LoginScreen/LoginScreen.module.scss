@@ -1,0 +1,45 @@
+@import "../../assets/styles/constants";
+
+.container {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 150px;
+}
+
+.title-text {
+  padding-right: 60px;
+  position: relative;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px;
+  padding-left: 0;
+}
+
+.error-text {
+  font-size: 13px;
+  position: relative;
+  text-align: center;
+  color: red;
+}
+
+.frame-header {
+  flex-direction: row;
+}
+
+.frame {
+  margin: auto;
+  align-items: center;
+  border-width: 0.5px;
+  border-color: $frame-border-color;
+  width: 200px;
+  height: 300px;
+}
+
+.login-container {
+  margin: 10px;
+}
+
+.button-login {
+  color: $primary-color;
+}

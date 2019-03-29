@@ -2,15 +2,15 @@ import React from "react";
 import { Platform } from "react-native";
 import { createStackNavigator, createBottomTabNavigator } from "react-navigation";
 
-import TabBarIcon from "../components/TabBarIcon";
+import TabBarIcon from "../components/TabBarIcon/TabBarIcon.component";
 import HomeScreen from "../features/HomeScreen";
 import ProfileScreen from "../features/ProfileScreen";
 import DelegationsScreen from "../features/DelegationsScreen";
-import CreateDelegationScreen from "../features/CreateDelegationScreen"
+import CreateDelegationScreen from "../features/CreateDelegationScreen";
 import ExpensesScreen from "../features/ExpensesScreen";
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: HomeScreen
 });
 
 HomeStack.navigationOptions = {

@@ -1,36 +1,49 @@
-import React from 'react'
-import { reduxForm, Form } from 'redux-form'
+import React from "react";
+import { reduxForm, Form } from "redux-form";
+import { func, string } from "prop-types";
 
-import { validateRequired } from '../../shared/validators/Validators'
-import LayoutMain from '../../components/layouts/LayoutMain/LayoutMain.component'
-import Input from '../../components/Input/Input.component'
+import { validateRequired } from "../../shared/validators/Validators";
+import LayoutMain from "../../components/layouts/LayoutMain";
+import Input from "../../components/Input/Input.component";
+import Button from "../../components/Button/Button.component";
 
 export const LoginPage = props => {
-	const {handleSubmit} = props
-	return (
-		<LayoutMain>
-			<div className="container">
-				<div className="my-frame">
-					<div className="frame-header">
-						<h1 className="title-text">Hello!</h1>
-					</div>
-					<div className="login-container">
-						<Form onSubmit={handleSubmit}>
-							<h7 style={{color: 'red'}}>{props.errors}</h7>
-							<Input name="login" placeholder="Username" validate={validateRequired}
-							       className="input-login" onChange={(event) => this.handleUserInput(event)}/>
-							<Input name="password" placeholder="Password" validate={validateRequired} type="password"
-							       className="input-login" onChange={(event) => this.handleUserInput(event)}/>
-							<button className="button-login" type="submit">Sign In</button>
-						</Form>
-					</div>
-				</div>
-			</div>
-		</LayoutMain>
-	)
-}
+  const { handleSubmit, errors } = props;
+  return (
+    <LayoutMain hideSidebar={true} addPadding={false}>
+      <div id="login-screen">
+        <div className="login-container">
+          <h1 className="title-text">Nice to see you again!</h1>
+          <Form onSubmit={handleSubmit} className="form-container">
+            <span style={{ color: "red" }}>{errors}</span>
+            <Input
+              name="login"
+              placeholder="Username"
+              validate={validateRequired}
+              className="input-login"
+              onChange={event => this.handleUserInput(event)}
+            />
+            <Input
+              name="password"
+              placeholder="Password"
+              validate={validateRequired}
+              type="password"
+              className="input-login"
+              onChange={event => this.handleUserInput(event)}
+            />
+            <Button type="submit" text="sign in" />
+          </Form>
+        </div>
+      </div>
+    </LayoutMain>
+  );
+};
+
+LoginPage.propTypes = {
+  handleSubmit: func,
+  errors: string
+};
 
 export default reduxForm({
-	form: 'loginform'
-})(LoginPage)
-
+  form: "loginform"
+})(LoginPage);

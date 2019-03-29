@@ -34,13 +34,18 @@ Recommended extensions:
 ### Prepare project
 
 1. Clone this repository
-2. `cd ./idemia/frontend`
-3. `npm i`
+2. Go to `frontend` directory in this repository
+3. `yarn install`
 4. `yarn`
 
 ### Running the app
 
-- `yarn dev` - for live building and starting the app
+- `yarn dev` - for live building and starting the app on localhost
+- `yarn dev:all-logs` - for live building and starting the app on localhost with all logs
+- `yarn dev:req-logs` - for live building and starting the app on localhost with important logs
+- `yarn dev-production` - for live building and starting the app on production
+- `yarn dev-production:all-logs` - for live building and starting the app on production with all logs
+- `yarn dev-production:req-logs` - for live building and starting the app on production with important logs
 - `yarn build` - for building the app
 - `yarn start` - for starting the app
 
@@ -68,27 +73,6 @@ In addition, create one more file named: `index.js`. It is useful when you'll ne
 ```javascript
 import DelegationListPage from "./DelegationListPage.container";
 export default DelegationListPage;
-```
-
-If you have already created these files, add them to the navigation.
-
-### Navigation
-
-Create new folder eg. `delegationlist` in `pages` directory. In this directory, create `index.js` file in which you invoke your new page.
-
-### How to show something only on one platform?
-
-If you want to show something only on one platform, you should use `Platform` from package `react-native`. For example if you want to show a `<Text>` on ios you will write:
-
-```javascript
-import { Platform } from "react-native";
-
-/// ...
-return (
-    {Platform.OS === 'ios' && (
-        <Text>Only on ios</Text>
-    )}
-);
 ```
 
 ### How to use `react-redux`?

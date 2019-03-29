@@ -1,12 +1,13 @@
 import React from "react";
 
-import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.component";
+import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
 
 const HomePage = props => {
   return (
-    <LayoutMain>
-      <div>Home page</div>
-      <a href="/login">Login to app</a>
+    <LayoutMain title="Home page">
+      <section>
+        <div>Home page</div>
+      </section>
     </LayoutMain>
   );
 };

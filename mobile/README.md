@@ -35,15 +35,15 @@ Recommended extensions:
 ### Prepare project
 
 1. Clone this repository
-2. `cd ./idemia/frontend`
-3. `npm i`
+2. Go to `mobile` directory in this repository
+3. `yarn install`
 4. `yarn`
 
 ### Running the app
 
 #### Run on Android
 
-You have to install Android Studio. If you already have it, run emulator on AVD Packager and after that, type `yarn android` in CLI.
+You have to install Android Studio. If you already have it, **run emulator or device** and after that, type `yarn android` in CLI.
 
 #### Run on iOS
 

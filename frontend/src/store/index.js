@@ -1,23 +1,14 @@
 import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 
-import combinedReducers from "./combinedReducers";
+import Logger from "../middleware/Logger/Logger";
 import { RequestActionMiddleware } from "../middleware";
+import combinedReducers from "./combinedReducers";
+import persistConfig from "./persistConfig";
 
-const enhancers = applyMiddleware(thunk, RequestActionMiddleware);
+const persistedReducer = persistReducer(persistConfig, combinedReducers);
+const enhancers = applyMiddleware(thunk, RequestActionMiddleware, Logger);
 
-const makeConfiguredStore = (reducer, initialState) => createStore(reducer, initialState, enhancers);
-
-export const makeStore = (initialState, options) => {
-  const persistConfig = {
-    key: "root",
-    storage,
-    whitelist: ["user"]
-  };
-  const persistedReducer = persistReducer(persistConfig, combinedReducers);
-  const store = makeConfiguredStore(persistedReducer, initialState);
-  store.__persistor = persistStore(store);
-  return store;
-};
+export const store = createStore(persistedReducer, enhancers);
+export const persistor = persistStore(store);
