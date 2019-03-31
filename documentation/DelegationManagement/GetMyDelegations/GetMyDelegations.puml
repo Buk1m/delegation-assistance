@@ -1,26 +1,36 @@
-@startuml
-"Client"->"DelegationController":getMyDelegations(Timestamp from, Timestamp to, String status)
+@startuml getMyDelegations
+"Client"->"DelegationService":getMyDelegations(LocalDateTime since, LocalDateTime until, DelegationStatus status)
 alt filtering by date and status
-    "DelegationController"->DelegationService:getDelegationsByUserId(Long userId, Timestamp from, Timestamp to, String status)
+    "DelegationService"->DelegationRepository:getDelegationsByUserLogin(String userLogin, LocalDateTime since, LocalDateTime until, DelegationStatus status)
     database DB
-    DelegationService->DB:query
-    DB-->DelegationService:result
-    DelegationService-->"DelegationController":Iterable<Delegation> delegations
+    DelegationRepository->DB:query
+    DB-->DelegationRepository:result
+    DelegationRepository-->"DelegationService":Iterable<Delegation> delegations
 else filtering by date
-    "DelegationController"->DelegationService:getDelegationsByUserId(Long userId, Timestamp from, Timestamp to)
-    DelegationService->DB:query
-    DB-->DelegationService:result
-    DelegationService-->"DelegationController":Iterable<Delegation> delegations
+    "DelegationService"->DelegationRepository:getDelegationsByUserLogin(String userLogin, LocalDateTime since, LocalDateTime until)
+    DelegationRepository->DB:query
+    DB-->DelegationRepository:result
+    DelegationRepository-->"DelegationService":Iterable<Delegation> delegations
 else flitering by status
-    "DelegationController"->DelegationService:getDelegationsByUserId(Long userId, String status)
-    DelegationService->DB:query
-    DB-->DelegationService:result
-    DelegationService-->"DelegationController":Iterable<Delegation> delegations
+    "DelegationService"->DelegationRepository:getDelegationsByUserLogin(String userLogin, DelegationStatus status)
+    DelegationRepository->DB:query
+    DB-->DelegationRepository:result
+    DelegationRepository-->"DelegationService":Iterable<Delegation> delegations
+else flitering by status and since
+    "DelegationService"->DelegationRepository:getDelegationsByUserLogin(String userLogin, DelegationStatus status, LocalDateTime since)
+    DelegationRepository->DB:query
+    DB-->DelegationRepository:result
+    DelegationRepository-->"DelegationService":Iterable<Delegation> delegations
+else flitering by status and until
+    "DelegationService"->DelegationRepository:getDelegationsByUserLogin(String userLogin, DelegationStatus status, LocalDateTime until)
+    DelegationRepository->DB:query
+    DB-->DelegationRepository:result
+    DelegationRepository-->"DelegationService":Iterable<Delegation> delegations
 else without filtering - all delegations
-    "DelegationController"->DelegationService:getDelegationsByUserId(Long userId)
-    DelegationService->DB:query
-    DB-->DelegationService:result
-    DelegationService-->"DelegationController":Iterable<Delegation> delegations
+    "DelegationService"->DelegationRepository:getDelegationsByUserLogin(String userLogin)
+    DelegationRepository->DB:query
+    DB-->DelegationRepository:result
+    DelegationRepository-->"DelegationService":Iterable<Delegation> delegations
 end
-"DelegationController"-->Client:Iterable<DelegationDTO> delegationDtos
+"DelegationService"-->Client:Iterable<DelegationDTO> delegationDtos
 @enduml

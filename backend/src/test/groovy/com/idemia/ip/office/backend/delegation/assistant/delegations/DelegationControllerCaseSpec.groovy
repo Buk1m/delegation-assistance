@@ -1,7 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.controllers.DelegationController
-import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDTO
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
@@ -23,11 +23,11 @@ class DelegationControllerCaseSpec extends Specification {
 
     def 'Delegation is correctly mapped and saved'() {
         given: 'User is creating delegation'
-            DelegationDTO delegationDTO = anyDelegationDTO()
+            DelegationDto delegationDTO = anyDelegationDTO()
             String login = 'login'
             Authentication principal = new AuthenticationImpl("", "", login, new ArrayList<GrantedAuthority>())
 
-        when: 'User is posting DelegationDTO'
+        when: 'User is posting DelegationDto'
             delegationController.postDelegation(delegationDTO, principal).block()
 
         then: 'User is in the system'
@@ -43,8 +43,8 @@ class DelegationControllerCaseSpec extends Specification {
             }
     }
 
-    DelegationDTO anyDelegationDTO() {
-        DelegationDTO.builder()
+    DelegationDto anyDelegationDTO() {
+        DelegationDto.builder()
                 .delegationObjective('Objective')
                 .destinationLocation('Radom')
                 .destinationCountryISO3('tst')

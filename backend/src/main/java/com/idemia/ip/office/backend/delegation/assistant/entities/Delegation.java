@@ -1,7 +1,10 @@
 package com.idemia.ip.office.backend.delegation.assistant.entities;
 
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
