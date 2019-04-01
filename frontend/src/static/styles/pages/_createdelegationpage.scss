@@ -1,15 +1,82 @@
 @import "../constants";
 
 #create-delegation {
-  padding: 20px;
-  max-width: 800px;
+  padding: 10px 20px;
   margin: auto;
+
+  h1 {
+    color: $primary-color;
+  }
+
+  hr {
+    margin-bottom: 20px;
+  }
 
   .react-datepicker__day--selected {
     background: $primary-color;
   }
 
+  .react-datepicker__time-list-item--selected {
+    background: $primary-color;
+  }
+
   .date-pickers-container {
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .date-picker {
+    width: 314px;
+    min-width: 314px;
+  }
+
+  .label-delegation-page {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: $primary-color;
+  }
+
+  .btn-create-delegation {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+  }
+}
+
+.create-delegation-card {
+  max-width: 800px;
+}
+
+@media all and (max-width: $small) {
+  #create-delegation {
+    .date-pickers-container {
+      justify-content: center;
+    }
+  }
+}
+
+.select-control {
+  margin-bottom: 12px;
+
+  .react-select__value-container {
+    height: 45px;
+  }
+
+  .react-select__control--is-focused {
+    border: 1px solid $primary-color !important;
+    box-shadow: 0 0 0 0.1rem rgba($primary-color, 0.25) !important;
+  }
+
+  .react-select__menu {
+    z-index: 2;
+  }
+
+  span {
+    &.text-warning,
+    &.text-danger {
+      margin-left: 5px;
+      font-size: 0.85em;
+    }
   }
 }

@@ -4,64 +4,101 @@ exports[`Create Delegation Page should render correctly 1`] = `
 <Connect(LayoutMainContainer)
   title="Create delegation"
 >
-  <Form
-    id="create-delegation"
-    onSubmit={[MockFunction]}
+  <div
+    className="create-delegation-card m-auto pb-4"
   >
-    <div
-      className="container"
+    <Card
+      number="1"
+      title="Delegation information"
     >
-      <Input
-        label="Destination Country"
-        name="destinationCountryISO3"
-        placeholder="Destination Country"
-        validate={[Function]}
-      />
-      <Input
-        label="Destination Location"
-        name="destinationLocation"
-        placeholder="Destination Location"
-        validate={[Function]}
-      />
-      <Input
-        label="Delegation Objective"
-        name="delegationObjective"
-        placeholder="Delegation Objective"
-        validate={[Function]}
-      />
-      <div
-        className="date-pickers-container"
+      <Form
+        id="create-delegation"
+        onSubmit={[MockFunction]}
       >
-        <div>
+        <div
+          className="container"
+        >
           <label
-            htmlFor="startDate"
+            className="label-delegation-page"
+            htmlFor="destinationCountryISO3"
           >
-            Start date:
+            Destination Country:
           </label>
           <Field
             component={[Function]}
-            name="startDate"
+            isSearchable={true}
+            name="destinationCountryISO3"
+            validate={
+              Array [
+                [Function],
+              ]
+            }
           />
-        </div>
-        <div>
-          <label
-            htmlFor="endDate"
+          <Input
+            label="Destination Location"
+            name="destinationLocation"
+            placeholder="Destination Location"
+            validate={[Function]}
+          />
+          <Input
+            label="Delegation Objective"
+            name="delegationObjective"
+            placeholder="Delegation Objective"
+            validate={[Function]}
+          />
+          <div
+            className="date-pickers-container"
           >
-            End date:
-          </label>
-          <Field
-            component={[Function]}
-            name="endDate"
-          />
+            <div
+              className="date-picker"
+            >
+              <label
+                className="label-delegation-page"
+                htmlFor="startDate"
+              >
+                Start date:
+              </label>
+              <Field
+                component={[Function]}
+                name="startDate"
+                validate={
+                  Array [
+                    [Function],
+                  ]
+                }
+              />
+            </div>
+            <div
+              className="date-picker"
+            >
+              <label
+                className="label-delegation-page"
+                htmlFor="endDate"
+              >
+                End date:
+              </label>
+              <Field
+                component={[Function]}
+                name="endDate"
+                validate={
+                  Array [
+                    [Function],
+                  ]
+                }
+              />
+            </div>
+            <div
+              className="btn-create-delegation"
+            >
+              <Button
+                text="Create delegation"
+                type="submit"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      <button
-        className="btn btn-primary btn-create-delegation"
-        type="submit"
-      >
-        CREATE DELEGATION
-      </button>
-    </div>
-  </Form>
+      </Form>
+    </Card>
+  </div>
 </Connect(LayoutMainContainer)>
 `;

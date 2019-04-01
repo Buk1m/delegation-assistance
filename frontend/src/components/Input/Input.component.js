@@ -1,21 +1,33 @@
 import React, { Fragment } from "react";
 import { string, bool, array, func, number, oneOfType } from "prop-types";
 import { Field } from "redux-form";
-import "./Inputs.module.scss";
 
-const renderField = ({ input, label, type, disabled, className, meta: { touched, error, warning } }) => {
+import styles from "./Inputs.module.scss";
+import ValidationError from "../ValidationError/ValidationError.component";
+
+const renderField = ({
+  input,
+  label,
+  type,
+  disabled,
+  className,
+  meta: { touched, error, warning }
+}) => {
   return (
     <Fragment>
-      <input
-        {...input}
-        disabled={disabled}
-        className={className + (touched && error ? " invalid" : "valid")}
-        placeholder={label}
-        type={type}
-      />
-      {touched &&
-        ((error && <span className={"text-danger " + (touched && error ? " invalid" : "valid")}>{error}</span>) ||
-          (warning && <span className="text-warning">{warning}</span>))}
+      <div className={styles["render-field"]}>
+        <input
+          {...input}
+          disabled={disabled}
+          className={[
+            styles[className],
+            [touched && error ? styles["invalid"] : ""]
+          ].join(" ")}
+          placeholder={label}
+          type={type}
+        />
+        <ValidationError touched={touched} error={error} warning={warning} />
+      </div>
     </Fragment>
   );
 };
@@ -33,10 +45,16 @@ const Input = props => {
     className = ""
   } = props;
   return (
-    <div className={"field " + className}>
-      <div className={"control " + type}>
-        <label className="label label-fluid">
-          {label ? <span className="label-bold">{label}</span> : ""}
+    <div className={[styles["field"], styles[className]].join(" ")}>
+      <div className={styles["control " + type]}>
+        <label className={[styles["label"], styles["label-fluid"]].join(" ")}>
+          {label ? (
+            <span className={styles["label-bold"]} data-test="label-value">
+              {label}
+            </span>
+          ) : (
+            ""
+          )}
           <Field
             className={"input"}
             name={name}

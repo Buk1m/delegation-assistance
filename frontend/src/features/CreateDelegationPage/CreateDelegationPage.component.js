@@ -1,75 +1,92 @@
 import React from "react";
-import { Field, reduxForm, Form } from "redux-form";
-import DatePicker from "react-datepicker";
-import { func, bool } from "prop-types";
+import { Field, reset, reduxForm, Form } from "redux-form";
+import { func, bool, array } from "prop-types";
 
+import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
+import Card from "../../components/Card/Card.component";
 import Input from "../../components/Input/Input.component";
+import DateTimePicker from "../../components/DateTimePicker/DateTimePicker.component";
 import { validateRequired } from "../../shared/validators/Validators";
-import LayoutMain from "../../components/layouts/LayoutMain";
-
-//TODO: optional change to react-day-picker with range selection
-const renderDateTimePicker = ({ input: { onChange, value } }) => {
-  return (
-    <DatePicker
-      inline
-      dropdownMode="select"
-      selected={!value ? new Date() : new Date(value)}
-      onChange={onChange}
-      showTimeSelect
-      timeFormat="HH:mm"
-      timeIntervals={15}
-    />
-  );
-};
+import startDateEarlierThanEndDate from "../../shared/validators/startDateEarlierThenEndDate";
+import Typeahead from "../../components/Typeahead/Typeahead.component";
+import Button from "../../components/Button/Button.component";
 
 export const CreateDelegationPage = props => {
-  const { handleSubmit, submitting } = props;
+  const { handleSubmit, countriesISOCodes } = props;
   return (
     <LayoutMain title="Create delegation">
-      <Form onSubmit={handleSubmit} id="create-delegation">
-        <div className="container">
-          <Input
-            label="Destination Country"
-            name="destinationCountryISO3"
-            placeholder="Destination Country"
-            validate={validateRequired}
-          />
-          <Input
-            label="Destination Location"
-            name="destinationLocation"
-            placeholder="Destination Location"
-            validate={validateRequired}
-          />
-          <Input
-            label="Delegation Objective"
-            name="delegationObjective"
-            placeholder="Delegation Objective"
-            validate={validateRequired}
-          />
-          <div className="date-pickers-container">
-            <div>
-              <label htmlFor="startDate">Start date:</label>
-              <Field name="startDate" component={renderDateTimePicker} />
+      <div className="create-delegation-card m-auto pb-4">
+        <Card title="Delegation information" number="1">
+          <Form onSubmit={handleSubmit} id="create-delegation">
+            <div className="container">
+              <label
+                className="label-delegation-page"
+                htmlFor="destinationCountryISO3"
+              >
+                Destination Country:
+              </label>
+              <Field
+                name="destinationCountryISO3"
+                component={Typeahead}
+                validate={[validateRequired]}
+                options={countriesISOCodes}
+                isSearchable={true}
+              />
+              <Input
+                label="Destination Location"
+                name="destinationLocation"
+                placeholder="Destination Location"
+                validate={validateRequired}
+              />
+              <Input
+                label="Delegation Objective"
+                name="delegationObjective"
+                placeholder="Delegation Objective"
+                validate={validateRequired}
+              />
+              <div className="date-pickers-container">
+                <div className="date-picker">
+                  <label className="label-delegation-page" htmlFor="startDate">
+                    Start date:
+                  </label>
+                  <Field
+                    name="startDate"
+                    component={DateTimePicker}
+                    validate={[validateRequired]}
+                  />
+                </div>
+                <div className="date-picker">
+                  <label className="label-delegation-page" htmlFor="endDate">
+                    End date:
+                  </label>
+                  <Field
+                    name="endDate"
+                    component={DateTimePicker}
+                    validate={[validateRequired]}
+                  />
+                </div>
+                <div className="btn-create-delegation">
+                  <Button type="submit" text="Create delegation" />
+                </div>
+              </div>
             </div>
-            <div>
-              <label htmlFor="endDate">End date:</label>
-              <Field name="endDate" component={renderDateTimePicker} />
-            </div>
-          </div>
-          <button className="btn btn-primary btn-create-delegation" type="submit" disabled={submitting}>
-            CREATE DELEGATION
-          </button>
-        </div>
-      </Form>
+          </Form>
+        </Card>
+      </div>
     </LayoutMain>
   );
 };
 
 CreateDelegationPage.propTypes = {
   handleSubmit: func,
-  submitting: bool
+  submitting: bool,
+  countriesISOCodes: array
 };
 
 export default reduxForm({
-  form: "createDelegation"
+  form: "createDelegation",
+  ...startDateEarlierThanEndDate,
+  onSubmitSuccess: (result, dispatch) => {
+    dispatch(reset("createDelegation"));
+  }
 })(CreateDelegationPage);

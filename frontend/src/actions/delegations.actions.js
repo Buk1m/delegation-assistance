@@ -8,10 +8,10 @@ const addNewDelegation = delegation => dispatch => {
   return dispatch(
     APIService.post(ACTIONS.ADD_DELEGATION, {
       url: "/delegations",
+      needAuth: true,
       headers: {
         "Content-type": "application/json"
       },
-      needAuth: true,
       data: delegation
     })
   );

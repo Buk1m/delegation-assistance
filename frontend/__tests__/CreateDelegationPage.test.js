@@ -1,13 +1,13 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import configureStore from "redux-mock-store"; 
+import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
 import { CreateDelegationPage } from "../src/features/CreateDelegationPage/CreateDelegationPage.component";
 import { addNewDelegation } from "../src/actions/delegations.actions";
 
-const middlewares = [thunk]; 
+const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -28,12 +28,11 @@ const setup = () => {
 };
 
 describe("Create Delegation Page", () => {
-
   let enzymeWrapper;
   let props;
-  
+
   beforeEach(() => {
-     ({ enzymeWrapper, props } = setup());
+    ({ enzymeWrapper, props } = setup());
   });
 
   it("should render correctly", () => {
@@ -52,13 +51,13 @@ describe("Create Delegation Page", () => {
     expect(props.handleSubmit).toBeCalledWith(value);
   });
 
-  it("should render 3 Inputs", () => {
-    expect(enzymeWrapper.find("Input").length).toBe(3);
+  it("should render 2 Inputs", () => {
+    expect(enzymeWrapper.find("Input").length).toBe(2);
   });
 
   it("should render destinationCountryISO3 Input", () => {
     expect(
-      enzymeWrapper.find("Input[name='destinationCountryISO3']").length
+      enzymeWrapper.find("Field[name='destinationCountryISO3']").length
     ).toBe(1);
   });
 

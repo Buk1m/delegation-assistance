@@ -1,5 +1,6 @@
 $primary-color: #430099;
 $secondary-color: #f3e035;
+$error-color: #dc3545;
 
 $header-size: 75px;
 $footer-size: 60px;
@@ -7,3 +8,22 @@ $sidebar-size: 265px;
 $sidebar-line-width: 27px;
 $sidebar-line-space: 12px;
 $main-content-padding: 20px;
+
+$xs-end: 575px;
+$sm-start: 576px;
+$sm-end: 767px;
+$md-start: 768px;
+$md-end: 991px;
+$lg-start: 992px;
+$lg-end: 1199px;
+$xl-start: 1200px;
+$xsmall: "(max-width: " + $xs-end + ")";
+$small: "(max-width: " + $sm-end + ")";
+$mobile: "(max-width: " + $md-end + ")";
+$mobiletablet: "(max-width: " + $lg-end + ")";
+$tablet: "(min-width: " + $md-start + ") and (max-width: " + $lg-end + ")";
+$desktop: "(min-width: " + $xl-start + ")";
+
+:export {
+  primary: $primary-color;
+}

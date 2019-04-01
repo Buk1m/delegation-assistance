@@ -8,7 +8,7 @@ Enzyme.configure({ adapter: new Adapter() });
 const setup = () => {
   const props = {
     name: "testName",
-    label: "testLabel",
+    label: "testLabel"
   };
 
   const enzymeWrapper = shallow(<Input {...props} />);
@@ -27,12 +27,12 @@ describe("Input Component", () => {
 
   it("should render provided label correctly", () => {
     const { enzymeWrapper } = setup();
-    expect(enzymeWrapper.find(".label-bold").props().children).toEqual(
-      "testLabel"
-    );
+    expect(
+      enzymeWrapper.find("[data-test='label-value']").props().children
+    ).toEqual("testLabel");
   });
 
-  it("should change disabled state", ()=>{
+  it("should change disabled state", () => {
     const { props } = setup();
     props.disabled = false;
     const enzymeWrapper = shallow(<Input {...props} />);
@@ -41,5 +41,4 @@ describe("Input Component", () => {
     enzymeWrapper.setProps(props);
     expect(enzymeWrapper.find("Field").prop("disabled")).toEqual(true);
   });
-
 });

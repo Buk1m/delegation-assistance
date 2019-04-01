@@ -2,16 +2,14 @@
 
 exports[`Input Component should render Input correctly 1`] = `
 <div
-  className="field "
+  className=" "
 >
-  <div
-    className="control text"
-  >
+  <div>
     <label
-      className="label label-fluid"
+      className=" "
     >
       <span
-        className="label-bold"
+        data-test="label-value"
       >
         testLabel
       </span>

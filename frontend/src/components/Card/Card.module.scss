@@ -1,0 +1,92 @@
+@import "../../static/styles/_constants";
+
+.db-card {
+  box-shadow: 0 1px 2px 1px rgba(154, 154, 204, 0.22);
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  position: relative;
+  min-width: 0;
+
+  &.color-primary {
+    background-color: $primary-color;
+    color: #fff;
+  }
+
+  &.text-w-number {
+    min-height: 200px;
+    .db-card-content {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      position: relative;
+      text-align: center;
+      font-weight: bold;
+      overflow: hidden;
+    }
+
+    h2 {
+      margin: 0;
+      position: absolute;
+      left: 0;
+      top: calc(50% - 50px);
+      color: #fff;
+      font-weight: bold;
+      display: block;
+      font-size: 100px;
+      min-width: 100px;
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+    }
+  }
+
+  &.p-0 .db-card-content {
+    padding: 0;
+  }
+
+  &.link {
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.db-card-header {
+  background-color: #fff;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  font-weight: bold;
+  &:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+  }
+}
+
+.db-card-content {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  outline: none;
+}
+
+.c-p-0 {
+  .db-card-content {
+    padding: 0;
+  }
+}
+
+@media #{$mobile} {
+  .db-card-content {
+    padding: 0.75rem;
+  }
+}
