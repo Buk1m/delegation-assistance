@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Configuration
-@ConfigurationProperties(prefix = "exception.security")
+@ConfigurationProperties(prefix = "exception.delegations")
 @Getter
 @Setter
 public class DelegationsExceptionProperties {
     String sinceDateMustBeEarlierThanUntilDate;
+    String delegationNotFound;
 }

@@ -39,11 +39,11 @@ _(Post)_ `/delegations`
 (application/json)
 ```json5
 {
-   "startDate": "2019-03-09 9:30",
-   "endDate": "2019-03-23 12:05",
-   "destinationCountryISO3": "BFA",
-   "destinationLocation": "Radom",
-   "delegationObjective": "Buy high quality rice"
+	"startDate": "1998-02-03T01:01:01",
+    "endDate": "1998-03-03T01:01:02",
+    "destinationCountryISO3": "BFA",
+    "destinationLocation": "Radom",
+    "delegationObjective": "Buy high quality rice"
 }
 
 ```
@@ -69,9 +69,9 @@ Delegacja jest tworzona ze statusem `CREATED`
 __Http (201)__
 
 #### Kody błędów:
-* __Http (400)__
-* __Http (401)__
-* __Http (403)__
+- Status code _401_ jeśli użytkownik jest nie zalogowany
+- Status code _403_ jeśli uzytkownik nie ma uprawnień
+- Status code _400_ jeśli body nie jest poprawne
 
 <a name="mockups"></a>
 ##Mockupy

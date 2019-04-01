@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Configuration
-@ConfigurationProperties(prefix = "exception.internal")
+@ConfigurationProperties(prefix = "exception.forbidden")
 @Getter
 @Setter
-public class UnexpectedErrorsProperties {
-    String monkeysRanOutOfBananas;
+public class ForbiddenExceptionProperties {
+    String roleHasNoAccessToResource;
 }

@@ -3,48 +3,48 @@
 ### 1. Sequence Diagram
 
 @startuml SendDelegationToTravelManagerToAccept
-Client->DelegationService:{Post} sendDelegationToTravelManager()
-DelegationService->DelegationRepository:assignDelegationToTravelManager()
-database db
-DelegationRepository->db:query
-db-->DelegationRepository:entities
+Client->DelegationService:{PATCH} patchDelegation()
+DelegationService->DelegationPatchStrategyContext:validateDelegationPatch()
+DelegationPatchStrategyContext->DelegationService:Delegation
+DelegationService->DelegationRepository:save()
 DelegationRepository-->DelegationService:Delegation
-DelegationService-->Client:DelegationDTO
+DelegationService-->Client:result
 @enduml
 
 ### 2. API
 
 ##### Endpoint
 
-**Endpoint URL:** POST `/delegations/sendToTravelManager`
+**Endpoint URL:** PATCH `/delegations/{delegationId}`
+
 **Required headers:** Authorization
-**Query parameters:** none
-**Body parameters**:
 
-- _id_ - (`required`) the id of delegation, which is sending to travel manager to accept
+**Dostępny dla ról:** TRAVEL_MANAGER, APPROVER, ACCOUNTANT, EMPLOYEE
 
-##### Successful response
-
-**Status code:** 200
-**Media type:** application/json
-**Data:** data of sent delegation
-
-```json
+**Request data:**
+(application/json)
+```json5
 {
-  "startDate": "2019-03-09 9:30",
-  "endDate": "2019-03-23 12:05",
-  "destinationCountryISO3": "BFA",
-  "destinationLocation": "Radom",
-  "delegationObjective": "Buy high quality rice",
-  "status": WAITING_FOR_APPROVE
+  "delegationStatus": "PREPARED"
 }
 ```
 
+`delegationStatus` - pole to jest wymagane, powinno być przekazywane jako `string`, [lista możliwych statusów](../../DelegationManagement/CreateDelegation/CreateDelegationTechnicalDesign.md).
+    
+`Employee` moze ustawic nastepujace statusy:
+* `PREPARED`
+* `CREATED`
+##### Successful response
+
+**Status code:** 200
+
+**Media type:** application/json
+
 ##### Possible errors:
 
-- Status code _401_ if the user is not authenticated
-- Status code _403_ if the user does not have permission
-- Status code _400_ if the body includes invalid values + error message in body of response
+- Status code _401_ jeśli użytkownik jest nie zalogowany
+- Status code _403_ jeśli uzytkownik nie ma uprawnień
+- Status code _400_ jeśli body nie jest poprawne
 
 ### 3. Mockups
 
@@ -64,7 +64,5 @@ DelegationService-->Client:DelegationDTO
 
 | Lp. | Test type | Name                                                                     | Initial requirements                            | Users actions and objectives | Expected Outcome                                                |
 | --- | --------- | ------------------------------------------------------------------------ | ----------------------------------------------- | ---------------------------- | --------------------------------------------------------------- |
-| 1.  | manual    | Send delegation to accept to travel manager                              | 1. User should have at least 1 delegation       | 1. Click "send" button       | Delegation is sent to travel manager to accept                  |
-| 2 . | manual    | Send delegation to accept to travel manager without header Authorization | 1. User should have at least 1 delegation       | 1. Click "send" button       | Error message - user is not authorized                          |
-| 3.  | manual    | Send other user delegation to accept to travel manager                   | 1. Other user should have at least 1 delegation | 1. Click "send" button       | Error message - user has no permissions to send this delegation |
-| 4.  | manual    | Send non-existing delegation to accept to travel manager                 | 1. Sending delegation doesn't exists            | 1. Click "send" button       | Error message - sending non-existing delegation                 |
+| 1.  | manual    | Wysłąnie delegacji do travel manager                            | 1. Uzytkownik ma przynajmniej jedna delegacje       | 1. Naciska przycisk "Send"    | Delegacja zostałą wysłana do travel manager                  |
+| 2 . | manual    | Send delegation to accept to travel manager without header Authorization | 1. Uzytkownik ma przynajmniej jedna delegacje | 1. Naciska przycisk "Send" | Uzytkowni nie jest autoryzowany                          |

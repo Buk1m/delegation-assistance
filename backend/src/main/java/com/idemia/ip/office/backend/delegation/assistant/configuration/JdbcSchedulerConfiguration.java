@@ -11,14 +11,14 @@ import java.util.concurrent.Executors;
 @Configuration
 public class JdbcSchedulerConfiguration {
 
-	private final Integer connectionPoolSize;
+    private final Integer connectionPoolSize;
 
-	JdbcSchedulerConfiguration(@Value("${spring.datasource.maximum-pool-size}") int connectionPoolSize) {
-		this.connectionPoolSize = connectionPoolSize;
-	}
+    JdbcSchedulerConfiguration(@Value("${spring.datasource.maximum-pool-size}") int connectionPoolSize) {
+        this.connectionPoolSize = connectionPoolSize;
+    }
 
-	@Bean
-	public Scheduler jdbcScheduler() {
-		return Schedulers.fromExecutor(Executors.newFixedThreadPool(connectionPoolSize));
-	}
+    @Bean
+    public Scheduler jdbcScheduler() {
+        return Schedulers.fromExecutor(Executors.newFixedThreadPool(connectionPoolSize));
+    }
 }

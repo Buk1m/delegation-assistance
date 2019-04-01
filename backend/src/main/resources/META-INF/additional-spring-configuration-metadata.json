@@ -49,6 +49,16 @@
       "name": "cors.origin",
       "type": "java.lang.String",
       "description": "Allowed cors for production."
+    },
+    {
+      "name": "exception.delegations.delegation-not-found",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if a delegation doesn't exist."
+    },
+    {
+      "name": "exception.forbidden.role-has-no-access-to-resource",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if user with role hasn't got access to resource."
     }
   ]
 }
