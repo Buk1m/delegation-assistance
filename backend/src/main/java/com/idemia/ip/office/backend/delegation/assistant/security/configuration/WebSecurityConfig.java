@@ -35,6 +35,7 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 		return http.csrf().disable()
+				.cors().and()
 				.formLogin().disable()
 				.httpBasic().disable()
 				.logout().disable()

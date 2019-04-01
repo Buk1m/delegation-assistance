@@ -44,6 +44,11 @@
       "name": "exception.delegations.invalid-since-and-until-parameter",
       "type": "java.lang.String",
       "description": "Error code for an exception which is thrown if since date is after until date."
+    },
+    {
+      "name": "cors.origin",
+      "type": "java.lang.String",
+      "description": "Allowed cors for production."
     }
   ]
 }

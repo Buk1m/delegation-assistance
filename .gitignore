@@ -20,6 +20,9 @@ target
 *.iml
 .idea
 
+# config
+**\*-dev.properties
+
 # FRONTEND
 # misc
 .DS_Store

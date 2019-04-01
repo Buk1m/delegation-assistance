@@ -13,8 +13,9 @@ Here's the software you'll need before you start running the application.
 - Maven (>=3.0.5)
 
 ## Start up
-If you have the required software and you've cloned this repository, navigate to the root project directory and run:
-```mvn spring-boot:run```
+If you have the required software and you've cloned this repository, navigate to the root project directory and:
+1. Delete from application-dev.properties.sample appendix `.sample`
+2. Run ```mvn spring-boot:run -Dspring-boot.run.profiles=dev```
 
 ## Example accounts
 List of test accounts:
