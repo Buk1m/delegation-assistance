@@ -43,7 +43,9 @@ class LoginScreenContainer extends Component {
   };
 
   render() {
-    return <LoginScreen onSubmit={this.handleSubmit} errors={this.state.errors} />;
+    return (
+      <LoginScreen onSubmit={this.handleSubmit} errors={this.state.errors} />
+    );
   }
 }
 

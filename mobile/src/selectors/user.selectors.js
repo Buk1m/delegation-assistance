@@ -7,4 +7,13 @@ const getLastname = state => state.user.lastname;
 const getAccountBlocked = state => state.user.accountBlocked;
 const getFetchingUser = state => state.user.fetchingUser;
 
-export { getLoggedStatus, getId, getToken, getRoles, getFirstname, getLastname, getAccountBlocked, getFetchingUser };
+export {
+  getLoggedStatus,
+  getId,
+  getToken,
+  getRoles,
+  getFirstname,
+  getLastname,
+  getAccountBlocked,
+  getFetchingUser
+};

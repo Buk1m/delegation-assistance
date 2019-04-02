@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home snapshot renders the Home screen 1`] = `
+exports[`Home snapshot renders correctly 1`] = `
 <View>
   <Text>
     Home Screen

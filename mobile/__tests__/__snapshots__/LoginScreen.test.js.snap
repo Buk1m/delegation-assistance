@@ -1,54 +1,91 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Login snapshot renders the Login screen 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "#f2f2f2",
-      "flex": 1,
-      "justifyContent": "center",
-    }
-  }
->
-  <View
-    accessibilityRole="button"
-    accessibilityStates={Array []}
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "opacity": 1,
-      }
-    }
-  >
-    <View
-      style={
-        Array [
-          Object {},
-        ]
-      }
-    >
-      <Text
+exports[`Login screen rendering renders the Login screen 1`] = `
+<View>
+  <View>
+    <View>
+      <Text>
+        Hello!
+      </Text>
+    </View>
+    <View>
+      <Text />
+      <View>
+        <View>
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize="none"
+            name="login"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder="Username"
+            secureTextEntry={false}
+            underlineColorAndroid="transparent"
+            value=""
+          />
+        </View>
+      </View>
+      <View>
+        <View>
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize="none"
+            name="password"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder="Password"
+            secureTextEntry={true}
+            underlineColorAndroid="transparent"
+            value=""
+          />
+        </View>
+      </View>
+      <View
+        accessibilityRole="button"
+        accessibilityStates={Array []}
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "color": "#007AFF",
-              "fontSize": 18,
-              "padding": 8,
-              "textAlign": "center",
-            },
-          ]
+          Object {
+            "opacity": 1,
+          }
         }
       >
-        Sign in to app
-      </Text>
+        <View
+          style={
+            Array [
+              Object {},
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#007AFF",
+                  "fontSize": 18,
+                  "padding": 8,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Sign in
+          </Text>
+        </View>
+      </View>
     </View>
   </View>
 </View>

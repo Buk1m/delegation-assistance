@@ -17,6 +17,7 @@ const LoginScreen = props => {
         <View style={styles["login-container"]}>
           <Text style={styles["error-text"]}>{props.errors}</Text>
           <Field
+            testID="field-login"
             name="login"
             placeholder="Username"
             component={FieldLoginRenderer}
@@ -24,13 +25,25 @@ const LoginScreen = props => {
             isSecure={false}
           />
           <Field
+            testID="field-password"
             name="password"
             placeholder="Password"
             component={FieldLoginRenderer}
             validate={[validateRequired]}
             isSecure={true}
           />
-          <Button title="Sign in" onPress={handleSubmit} color={styles["button-login"].color} />
+          <Button
+            title="Sign in"
+            onPress={handleSubmit}
+            // TODO: export color scss variables from _constants
+            // and import primary color here. (Example -> frontend/src/features/CreateDelegationPage/component)
+            // The assignment below breaks tests because `styles` is mocked and
+            // any atempts to access `styles` properties will
+            // throw an exception. Any suggestions on how to resolve this problem
+            // differently are welcome.
+            // color={styles["button-login"].color}
+            data-test="login-button"
+          />
         </View>
       </View>
     </View>
