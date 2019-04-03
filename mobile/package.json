@@ -6,7 +6,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "node ./node_modules/jest/bin/jest.js",
+    "test": "JEST_REPORT_FILE=\"./node_modules/jest-report.json\" node ./node_modules/jest/bin/jest.js",
     "test-watch": "node ./node_modules/jest/bin/jest.js --watchAll",
     "test-update": "node ./node_modules/jest/bin/jest.js -u"
   },
@@ -14,6 +14,7 @@
     "@expo/samples": "2.1.1",
     "axios": "^0.18.0",
     "expo": "^32.0.0",
+    "jest-bamboo-reporter": "^1.2.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-datepicker": "^1.7.2",

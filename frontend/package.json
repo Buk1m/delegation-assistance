@@ -41,7 +41,7 @@
     "build": "react-scripts build",
     "prod": "node ./server.js",
     "eject": "react-scripts eject",
-    "test": "jest",
+    "test": "JEST_REPORT_FILE=\"./node_modules/jest-report.json\" jest",
     "test-watch": "jest --watchAll",
     "test-update": "jest -u"
   },
@@ -56,17 +56,18 @@
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "cross-env": "^5.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "enzyme-to-json": "^3.3.5",
-    "cross-env": "^5.2.0",
     "jest": "^24.5.0",
+    "jest-bamboo-reporter": "^1.2.1",
+    "jquery": "^3.3.1",
     "node-sass": "^4.11.0",
+    "popper.js": "^1.14.7",
+    "prop-types": "^15.5.0",
     "react-test-renderer": "^16.8.4",
     "redux-mock-store": "^1.5.3",
-    "sass-loader": "^7.1.0",
-    "popper.js": "^1.14.7",
-    "jquery": "^3.3.1",
-    "prop-types": "^15.5.0"
+    "sass-loader": "^7.1.0"
   }
 }
