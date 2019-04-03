@@ -59,6 +59,11 @@
       "name": "exception.forbidden.role-has-no-access-to-resource",
       "type": "java.lang.String",
       "description": "Error code for an exception which is thrown if user with role hasn't got access to resource."
+	},
+	{
+      "name": "exception.checklists.checklist-not-found",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if a checklist doesn't exist."
     }
   ]
 }
