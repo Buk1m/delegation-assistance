@@ -1,0 +1,6 @@
+@startuml
+"Client"->"ChecklistController":deleteTaskFromChecklist(Long taskId)
+"ChecklistController"->"ChecklistService":deleteTaskFromChecklist(Long taskId)
+database DB
+"ChecklistService"->DB:query
+@enduml
