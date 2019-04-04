@@ -75,7 +75,7 @@ const Input = props => {
 Input.propTypes = {
   label: string,
   name: string.isRequired,
-  value: string,
+  value: oneOfType([number, string]),
   type: string,
   placeholder: string,
   validate: oneOfType([func, array]),

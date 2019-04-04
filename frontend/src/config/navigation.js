@@ -1,5 +1,11 @@
+import { userRoles } from "./index";
+
 const sidebarNavigation = [
-  { to: "/expenses", text: "Expenses" },
+  {
+    to: "/checklist",
+    text: "Checklist",
+    subitems: [{ to: "/checklist/create", text: "Create", for: [userRoles.travelmanager] }]
+  },
   {
     to: "/delegations",
     text: "Delegations",

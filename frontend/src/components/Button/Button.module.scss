@@ -117,3 +117,20 @@
     color: #fff;
   }
 }
+
+.warning {
+  @extend .primary;
+  background: darkred;
+  border-radius: 3px;
+
+  &:hover {
+    background: #fff;
+    color: darkred;
+  }
+  &:before,
+  &:after,
+  & > span:before,
+  & > span:after {
+    border-color: darkred;
+  }
+}

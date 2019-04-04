@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checklists Page should render correctly 1`] = `
+<Connect(LayoutMainContainer)
+  title="Checklist management"
+>
+  <div
+    className="container"
+  >
+    <Card
+      title="Add new task"
+    >
+      <Form
+        onSubmit={[MockFunction]}
+      >
+        <Input
+          label="Task name"
+          name="name"
+        />
+        <Textarea
+          label="Task description"
+          name="description"
+          type="textarea"
+        />
+        <Button
+          text="Add task"
+          type="submit"
+        />
+      </Form>
+    </Card>
+  </div>
+</Connect(LayoutMainContainer)>
+`;

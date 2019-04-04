@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checklists Page should render correctly 1`] = `
+<Connect(LayoutMainContainer)
+  title="Checklist"
+>
+  <Card>
+    <Form
+      onSubmit={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              [Function],
+            ],
+          ],
+          "results": Array [
+            Object {
+              "isThrow": false,
+              "value": undefined,
+            },
+          ],
+        }
+      }
+    >
+      <div
+        className="checklist-list"
+      >
+        <CheckboxGroupChecklist
+          name="tasks"
+          options={
+            Array [
+              Object {
+                "description": "Description 1",
+                "id": 1,
+                "name": "Checkbox 1",
+              },
+              Object {
+                "description": "Description 2",
+                "id": 2,
+                "name": "Checkbox 2",
+              },
+              Object {
+                "description": "Description 3",
+                "id": 3,
+                "name": "Checkbox 3",
+              },
+            ]
+          }
+          path="id"
+        />
+      </div>
+      <Button
+        text="Save"
+        type="submit"
+      />
+      <span
+        className="delete-wrapper"
+      >
+        <Button
+          className="warning"
+          text="delete"
+          type="submit"
+        />
+      </span>
+    </Form>
+  </Card>
+</Connect(LayoutMainContainer)>
+`;
