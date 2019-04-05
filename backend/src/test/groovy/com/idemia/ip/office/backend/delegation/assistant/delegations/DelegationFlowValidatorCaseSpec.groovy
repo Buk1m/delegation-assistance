@@ -1,22 +1,26 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations
 
+import com.idemia.ip.office.backend.delegation.assistant.delegations.configuration.DelegationsExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowStrategy
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.ApplicationException
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import spock.lang.Specification
 
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
-import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.RATIFIED
 import static com.idemia.ip.office.backend.delegation.assistant.security.configuration.Role.*
+import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegation
+import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyExpense
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.getDelegationWithStatus
 
 class DelegationFlowValidatorCaseSpec extends Specification {
     DelegationFlowStrategy delegationPatchStrategyApprover = Mock()
     DelegationFlowStrategy delegationPatchStrategyEmployee = Mock()
     DelegationFlowStrategy delegationPatchStrategyTravelManager = Mock()
-    DelegationFlowValidator delegationPatchStrategyContext
+    DelegationsExceptionProperties delegationsExceptionProperties = Mock()
+    DelegationFlowValidator delegationFlowStrategyContext
     String employeeRole = EMPLOYEE.name()
     String approverRole = APPROVER.name()
     String accountantRole = ACCOUNTANT.name()
@@ -33,7 +37,7 @@ class DelegationFlowValidatorCaseSpec extends Specification {
         delegationPatchStrategyEmployee.getRoleValidates() >> EMPLOYEE
         delegationPatchStrategyTravelManager.getRoleValidates() >> TRAVEL_MANAGER
 
-        delegationPatchStrategyContext = new DelegationFlowValidator(patchStrategies)
+        delegationFlowStrategyContext = new DelegationFlowValidator(patchStrategies, delegationsExceptionProperties)
         authorities = [
                 new SimpleGrantedAuthority(employeeRole),
                 new SimpleGrantedAuthority(approverRole),
@@ -44,28 +48,46 @@ class DelegationFlowValidatorCaseSpec extends Specification {
     def 'Validate delegation to patch if one of role is appropriate'() {
         given: 'Delegation status and user roles'
             Delegation delegation = getDelegationWithStatus(PREPARED)
+            Delegation newDelegation = anyDelegation()
+            delegation.expenses = [anyExpense()]
 
         when: 'Validate delegation'
-            delegationPatchStrategyContext.validateDelegationFlow(delegation, authorities)
+            delegationFlowStrategyContext.validateDelegationFlow(newDelegation, delegation, authorities)
 
         then: 'Validators are invoked'
-            (0..1) * delegationPatchStrategyApprover.validate(delegation) >> false
-            1 * delegationPatchStrategyEmployee.validate(delegation) >> true
-            0 * delegationPatchStrategyTravelManager.validate(delegation)
+            (0..1) * delegationPatchStrategyApprover.validate(newDelegation) >> false
+            1 * delegationPatchStrategyEmployee.validate(newDelegation) >> true
+            0 * delegationPatchStrategyTravelManager.validate(newDelegation)
     }
 
     def 'When no strategy validates delegations false is returned'() {
         given: 'Delegation status and user roles'
-            Delegation delegation = getDelegationWithStatus(RATIFIED)
+            Delegation newDelegation = getDelegationWithStatus(PREPARED)
+            Delegation delegation = anyDelegation()
+            delegation.expenses = [anyExpense()]
 
         when: 'Validate delegation'
-            boolean result = delegationPatchStrategyContext.validateDelegationFlow(delegation, authorities)
+            boolean result = delegationFlowStrategyContext.validateDelegationFlow(newDelegation, delegation, authorities)
 
         then: 'Validators are do not validate'
-            1 * delegationPatchStrategyApprover.validate(delegation) >> false
-            1 * delegationPatchStrategyEmployee.validate(delegation) >> false
-            0 * delegationPatchStrategyTravelManager.validate(delegation) >> false
+            1 * delegationPatchStrategyApprover.validate(newDelegation) >> false
+            1 * delegationPatchStrategyEmployee.validate(newDelegation) >> false
+            0 * delegationPatchStrategyTravelManager.validate(newDelegation) >> false
 
             !result
+    }
+
+    def 'Validator throws exception if delegation has not have expenses'() {
+        given: 'Delegation without expenses'
+            Delegation newDelegation = getDelegationWithStatus(PREPARED)
+            Delegation delegation = anyDelegation()
+            delegation.expenses = []
+
+        when: 'Validate delegation'
+            delegationFlowStrategyContext.validateDelegationFlow(newDelegation, delegation, authorities)
+
+        then: 'Exception is thrown'
+        delegationsExceptionProperties.getNoExpenses() >> 'Test'
+        thrown(ApplicationException)
     }
 }

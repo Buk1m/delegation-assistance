@@ -3,33 +3,23 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.EmployeeDelegationFlowStrategy
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import spock.lang.Specification
+import spock.lang.Unroll
 
-import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.APPROVER_APPROVED
-import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.getDelegationWithStatus
+import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.*
+import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.getDelegationToValidate
 
 class EmployeeDelegationFlowStrategyCaseSpec extends Specification {
-    EmployeeDelegationFlowStrategy employeeDelegationPatchStrategy = new EmployeeDelegationFlowStrategy()
+    EmployeeDelegationFlowStrategy employeeDelegationFlowStrategy = new EmployeeDelegationFlowStrategy()
 
-    def 'EmployeeDelegationPatchStrategy validates delegation'() {
-        given: 'Delegation with appropriate status'
-            Delegation delegation = getDelegationWithStatus(PREPARED)
+    @Unroll
+    def 'EmployeeDelegationFlowStrategy do not validate delegation'(Delegation newDelegation, boolean result) {
+        expect: 'Validation works'
+            employeeDelegationFlowStrategy.validate(newDelegation) == result
 
-        when: 'EmployeeDelegationFlowStrategy validate'
-            boolean result = employeeDelegationPatchStrategy.validate(delegation)
-
-        then: 'Delegation is validated'
-            result
-    }
-
-    def 'EmployeeDelegationPatchStrategy do not validate delegation'() {
-        given: 'Delegation with inappropriate status'
-            Delegation delegation = getDelegationWithStatus(APPROVER_APPROVED)
-
-        when: 'EmployeeDelegationFlowStrategy validate'
-            boolean result = employeeDelegationPatchStrategy.validate(delegation)
-
-        then: 'Delegation is not validated'
-            !result
+        where: 'Delegation parameters cases'
+            newDelegation                              | result
+            getDelegationToValidate(CREATED)           | true
+            getDelegationToValidate(PREPARED)          | true
+            getDelegationToValidate(APPROVER_APPROVED) | false
     }
 }

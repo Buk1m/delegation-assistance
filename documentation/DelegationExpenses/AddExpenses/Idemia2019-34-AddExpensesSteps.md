@@ -42,48 +42,37 @@ ExpenseService-->Client:List<Long>
 ### Request data:
 **Method: POST**  
 (multipart/form-data)
-This request will contain photo of reciept ("recieptPhoto": {image})
+To zapytanie zawiera plik ("attachment": {file})
 ```
 "expenseName": "Expense Name",
 "expenseValue": "1234.56",
 "expenseCurrency": "dzd",
-"receiptPhoto": {image}
+"attachments": [{file}, {file}]
 ```
-* `exponseName`: required field
-* `expenseValue`: required field, higher than 0
-* `expenseCurrency`: required field
+* `exponseName`: wymagane pole
+* `expenseValue`: wymagane pole, większe od zera
+* `expenseCurrency`: wymagane pole
+* `attachments`: wymagany chociaż jeden plik
  
 <a name="response"></a>
 ### Response:
 
-**Status code:** 200  
+**Status code:** 201 
 **Media type:** application/json  
-**Data:** list of ids
-
-`List<Long>`:
-```json5
-[1, 2]
-```
-OR
-
-`ApiError`:
-```json5
-{
-  "Message": "Something went wrong",
-  "SubErrors": [
-    {
-      "Message": "More errors"
-    }
-  ]
-}
-```
 
 <a name="error-response-codes"></a>
 ### Possible errors:
-* __Http (400)__ if the body includes invalid values + error message in 
-* __Http (401)__ if the user is not authenticated
-* __Http (403)__ if the user does not have permission
-* __Http (404)__ if the delegation was not found
+* __Http (400)__ jeśli body ma złe dane 
+* __Http (401)__ jeśli uzytkownik nie jest zalogowany
+* __Http (403)__ jeśli uzytkownik nie ma uprawnien
+* __Http (404)__ jeśli delegacja nie została znaleziona
+* __Http (404)__ jeśli uzytkownik nie został znaleziony
+
+##### Możliwe kody błędów:
+- delegation-not-found - jeśli delegacja nie istnieje
+- user-not-found - jeśli uzytkownik nie istnieje
+- no-access-to-delegation - jeśli uzytkownik probuje dodac expense do nie swojej delegacji
+- could-not-save-file - jeśli się nie udało zapisać pliku, z powodu np.: złego formatu danych
 
 <a name="page-mockups"></a>
 ## Page Mockups
@@ -121,13 +110,13 @@ OR
 
 | Lp. | Typ testu | Nazwa | Warunki wstępne | Kroki wykonania |Oczekiwany rezultat |
 | --- | --- | --- | --- | --- | --- |
-| 1. | jednostkowy |Dodanie nowego wydatku  do delegacji  poprzez kliknięcie przycisku "Add Expense" |   Istnieje delegacja przypisana do użytkownika, do której można dodać wydatki           |   1. Wpisac treść w pole "Expense name"  2. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  3. Wprowadzić kwotę wydatku w pole "Amout"  4. Wybrac walutę z listy "Currency". 5. Kliknać przycisk "Add Expense" | Wydatek został dodany do listy wydatków. Lista wydatków zwiększyła się o 1.
-|2.| jednostkowy | Dodanie nowego wydatku bez nazwy <br>|     Istnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki           |   1. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  2. Wprowadzić kwotę wydatku w pole "Amout"  3. Wybrac walutę z listy "Currency". 4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu pod polem "Expense name" o treści "Expense name is required."
-|3.| jednostkowy | Dodanie nowego wydatku bez zdjęcia <br>|     Istnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki           |   1. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  2. Wprowadzić kwotę wydatku w pole "Amout"  3. Wybrac walutę z listy "Currency". 4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu pod polem "Reciept photo" o treści "Receipt photo is required."
-|4.| jednostkowy | Dodanie nowego wydatku bez kwoty <br>|     Istnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki           |   1. Wprowadzić nazwę wydatku w pole "Expense name" 2. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"   3. Wybrac walutę z listy "Currency". 4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu pod polem "Amount" o treści "Expense amount is required."
-|5.| jednostkowy | Dodanie nowego wydatku bez waluty <br>|     Istnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki           |   1. Wprowadzić nazwę wydatku w pole "Expense name"  2. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  3. Wprowadzić kwotę wydatku w pole "Amout"  4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu pod polem "Currency" o treści "Choose currency."
-|6.| jednostkowy| Podanie niewłaściwej ścieżki do pliku  <br>|     Isnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki    | 1. Wprowadzić nazwę wydatku w pole "Expense name"  2. Podać ścieżkę do pliku o rozszerzeniu innym niż *.jpg, *.jpeg, *.png, *.bmp"  3. Wprowadzić kwotę wydatku w pole "Amout"  4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu o niewłaściwym formacie pliku.
-|7.| jednostkowy | Podanie pliku o zbyt dużym rozmiarze <br>|     Isnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki    | 1. Wprowadzić nazwę wydatku w pole "Expense name"  2. Podać ścieżkę do pliku ze zdjęciem o [rozmiarze większym niż dopuszczalny] 3. Wprowadzić kwotę wydatku w pole "Amout"  4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu o zbyt dużym rozmiarze pliku.
-|8.| jednostkowy | Próba dodania wydatku bez delegacji | Nie istnieje delegacja przypisana do użytkownika, do której można dodać wydatki |   1. Wpisac treść w pole "Expense name"  2. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  3. Wprowadzić kwotę wydatku w pole "Amount"  4. Wybrac walutę z listy "Currency". 5. Kliknać przycisk "Add Expense" | Wyświetlenie komunikatu o braku odpowiedniej delegacji, do której można przypisac wydatek. 
+| 1. | manual |Dodanie nowego wydatku  do delegacji  poprzez kliknięcie przycisku "Add Expense" |   Istnieje delegacja przypisana do użytkownika, do której można dodać wydatki           |   1. Wpisac treść w pole "Expense name"  2. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  3. Wprowadzić kwotę wydatku w pole "Amout"  4. Wybrac walutę z listy "Currency". 5. Kliknać przycisk "Add Expense" | Wydatek został dodany do listy wydatków. Lista wydatków zwiększyła się o 1.
+|2.| manual | Dodanie nowego wydatku bez nazwy <br>|     Istnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki           |   1. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  2. Wprowadzić kwotę wydatku w pole "Amout"  3. Wybrac walutę z listy "Currency". 4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu pod polem "Expense name" o treści "Expense name is required."
+|3.| manual | Dodanie nowego wydatku bez zdjęcia <br>|     Istnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki           |   1. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  2. Wprowadzić kwotę wydatku w pole "Amout"  3. Wybrac walutę z listy "Currency". 4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu pod polem "Reciept photo" o treści "Receipt photo is required."
+|4.| manual | Dodanie nowego wydatku bez kwoty <br>|     Istnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki           |   1. Wprowadzić nazwę wydatku w pole "Expense name" 2. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"   3. Wybrac walutę z listy "Currency". 4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu pod polem "Amount" o treści "Expense amount is required."
+|5.| manual | Dodanie nowego wydatku bez waluty <br>|     Istnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki           |   1. Wprowadzić nazwę wydatku w pole "Expense name"  2. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  3. Wprowadzić kwotę wydatku w pole "Amout"  4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu pod polem "Currency" o treści "Choose currency."
+|6.| manual | Podanie niewłaściwej ścieżki do pliku  <br>|     Isnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki    | 1. Wprowadzić nazwę wydatku w pole "Expense name"  2. Podać ścieżkę do pliku o rozszerzeniu innym niż *.jpg, *.jpeg, *.png, *.bmp"  3. Wprowadzić kwotę wydatku w pole "Amout"  4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu o niewłaściwym formacie pliku.
+|7.| manual | Podanie pliku o zbyt dużym rozmiarze <br>|     Isnieje delegacja przypisana do użytkownika,<br> do której można dodać wydatki    | 1. Wprowadzić nazwę wydatku w pole "Expense name"  2. Podać ścieżkę do pliku ze zdjęciem o [rozmiarze większym niż dopuszczalny] 3. Wprowadzić kwotę wydatku w pole "Amout"  4. Kliknać przycisk "Add Expense" | Wyświetlenie się komunikatu o zbyt dużym rozmiarze pliku.
+|8.| manual | Próba dodania wydatku bez delegacji | Nie istnieje delegacja przypisana do użytkownika, do której można dodać wydatki |   1. Wpisac treść w pole "Expense name"  2. Podać ścieżkę do pliku ze zdjęciem w pole "Receipt photo"  3. Wprowadzić kwotę wydatku w pole "Amount"  4. Wybrac walutę z listy "Currency". 5. Kliknać przycisk "Add Expense" | Wyświetlenie komunikatu o braku odpowiedniej delegacji, do której można przypisac wydatek. 
 
 `Based on:` [Przypadki testowe. Planowanie przebiegu testów.](https://bulldogjob.pl/articles/244-przypadki-testowe-planowanie-przebiegu-testow) 

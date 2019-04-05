@@ -1,4 +1,4 @@
-package com.idemia.ip.office.backend.delegation.assistant.exceptions;
+package com.idemia.ip.office.backend.delegation.assistant.files.configuration;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +8,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Configuration
-@ConfigurationProperties(prefix = "exception.forbidden")
+@ConfigurationProperties(prefix = "files")
 @Getter
 @Setter
-public class ForbiddenExceptionProperties {
-    String roleHasNoAccessToResource;
-    String notOwnerOfResource;
+public class FileProperties {
+    String basePath;
 }

@@ -2,8 +2,9 @@ package com.idemia.ip.office.backend.delegation.assistant.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,49 +12,45 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
 
-@Entity
+@Data
 @Builder
 @AllArgsConstructor
-@Table(name = "user")
-public class User {
+@NoArgsConstructor
+@Entity
+@Table(name = "file")
+public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
-    @Getter
     private Long id;
 
-    @Column(name = "login", unique = true, nullable = false)
-    @Getter
-    @Setter
-    private String login;
+    @Column(name = "file_path")
+    private String filePath;
 
-
-    public User() {
-    }
-
-    public User(String login) {
-        this.login = login;
-    }
+    @Column(name = "users_filename")
+    private String usersFilename;
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
 
-        if (!(object instanceof User)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
+        File file = (File) o;
 
-        User user = (User) object;
-        return Objects.equals(getLogin(), user.getLogin());
+        return new EqualsBuilder()
+                .append(id, file.id)
+                .append(filePath, file.filePath)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getLogin());
+        return 31;
     }
 }

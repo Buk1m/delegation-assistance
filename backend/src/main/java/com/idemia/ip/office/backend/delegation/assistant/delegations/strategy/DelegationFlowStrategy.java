@@ -6,5 +6,5 @@ import com.idemia.ip.office.backend.delegation.assistant.security.configuration.
 public interface DelegationFlowStrategy {
     Role getRoleValidates();
 
-    boolean validate(Delegation delegation);
+    boolean validate(Delegation newDelegation);
 }

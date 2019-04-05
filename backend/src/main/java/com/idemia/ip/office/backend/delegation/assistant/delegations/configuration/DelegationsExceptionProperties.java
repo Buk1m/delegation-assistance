@@ -14,4 +14,5 @@ import org.springframework.stereotype.Component;
 public class DelegationsExceptionProperties {
     String sinceDateMustBeEarlierThanUntilDate;
     String delegationNotFound;
+    String noExpenses;
 }

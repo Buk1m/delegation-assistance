@@ -59,11 +59,31 @@
       "name": "exception.forbidden.role-has-no-access-to-resource",
       "type": "java.lang.String",
       "description": "Error code for an exception which is thrown if user with role hasn't got access to resource."
-	},
-	{
+    },
+    {
       "name": "exception.checklists.checklist-not-found",
       "type": "java.lang.String",
       "description": "Error code for an exception which is thrown if a checklist doesn't exist."
+    },
+    {
+      "name": "files.base-path",
+      "type": "java.lang.String",
+      "description": "Base path where all uploaded images will be stored."
+    },
+    {
+      "name": "exception.files.could-not-save-file",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if could not save file."
+    },
+    {
+      "name": "exception.forbidden.not-owner-of-resource",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if user is not owner of resource."
+    },
+    {
+      "name": "exception.delegations.no-expenses",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if delegation has no expenses."
     }
   ]
 }

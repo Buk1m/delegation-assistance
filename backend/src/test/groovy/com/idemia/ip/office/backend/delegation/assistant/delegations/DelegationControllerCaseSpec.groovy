@@ -17,6 +17,7 @@ import reactor.core.publisher.Mono
 import spock.lang.Specification
 
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
+import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegation
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegationDTO
 
 class DelegationControllerCaseSpec extends Specification {
@@ -53,22 +54,23 @@ class DelegationControllerCaseSpec extends Specification {
         given: 'User is creating patch'
             Long delegationId = 1
             DelegationStatus preparedDelegationStatus = PREPARED
-            DelegationDto patchDelegationDTO = new DelegationDto(delegationStatus: preparedDelegationStatus)
+            DelegationDto updatedDelegationDto = new DelegationDto(delegationStatus: preparedDelegationStatus)
             Authentication principal = new AuthenticationImpl("", "", login, [])
 
         when: 'User is patching FlowDelegationDto'
-            delegationController.patchDelegation(patchDelegationDTO, delegationId, principal).block()
+            delegationController.patchDelegation(updatedDelegationDto, delegationId, principal).block()
 
         then: 'Delegation is updated'
-            1 * delegationService.validateNewStatus(_ as Delegation, _ as Collection<? extends GrantedAuthority>) >>
-                    { Delegation del, Collection<? extends GrantedAuthority> authorities ->
-                        del.delegationStatus == preparedDelegationStatus
-                        Mono.just(true)
+         1 * delegationService.getDelegation(delegationId) >> Mono.just(anyDelegation())
+            1 * delegationService.validateNewStatus(_ as Delegation, _ as Delegation, _ as Collection<? extends GrantedAuthority>) >>
+                    { Delegation newDel, Delegation existingDel, Collection<? extends GrantedAuthority> authorities ->
+                        newDel.delegationStatus == preparedDelegationStatus
+                        Mono.just(existingDel)
                     }
 
-            1 * delegationService.updateDelegation(delegationId, _ as Delegation) >>
-                    { Long id, Delegation del ->
-                        del.delegationStatus == preparedDelegationStatus
+            1 * delegationService.updateDelegation(_ as Delegation, _ as Delegation) >>
+                    { Delegation newDel, Delegation existingDel ->
+                        newDel.delegationStatus == preparedDelegationStatus
                         Mono.just(Void)
                     }
     }
@@ -82,8 +84,9 @@ class DelegationControllerCaseSpec extends Specification {
             delegationController.patchDelegation(patchDelegationDTO, 1, principal).block()
 
         then: 'Exception is handled'
-            1 * delegationService.validateNewStatus(_ as Delegation, _ as Collection<? extends GrantedAuthority>) >> {
-                Delegation del, Collection<? extends GrantedAuthority> authorities -> Mono.error(new ForbiddenAccessException('errorCode'))
+            1 * delegationService.getDelegation(1) >> Mono.just(anyDelegation())
+            1 * delegationService.validateNewStatus(_ as Delegation, _ as Delegation, _ as Collection<? extends GrantedAuthority>) >> {
+                Delegation newDel, Delegation existingDel, Collection<? extends GrantedAuthority> authorities -> Mono.error(new ForbiddenAccessException('errorCode'))
             }
 
             thrown(ForbiddenAccessException)

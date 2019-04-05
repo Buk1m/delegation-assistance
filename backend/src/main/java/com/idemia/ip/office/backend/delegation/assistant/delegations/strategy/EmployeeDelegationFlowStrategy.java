@@ -24,7 +24,7 @@ public class EmployeeDelegationFlowStrategy implements DelegationFlowStrategy {
     }
 
     @Override
-    public boolean validate(Delegation delegation) {
-        return this.accessibleDelegationStatuses.contains(delegation.getDelegationStatus());
+    public boolean validate(Delegation newDelegation) {
+        return this.accessibleDelegationStatuses.contains(newDelegation.getDelegationStatus());
     }
 }

@@ -93,9 +93,9 @@ public class DelegationController {
                 authentication.getName(),
                 flowDelegationDTO);
         Delegation updateDelegation = modelMapper.map(flowDelegationDTO, Delegation.class);
-        return delegationService
-                .validateNewStatus(updateDelegation, authentication.getAuthorities())
-                .flatMap(b -> delegationService.updateDelegation(delegationId, updateDelegation))
+        return delegationService.getDelegation(delegationId)
+                .flatMap(d -> delegationService.validateNewStatus(updateDelegation, d, authentication.getAuthorities()))
+                .flatMap(d -> delegationService.updateDelegation(updateDelegation, d))
                 .doOnError(ForbiddenAccessException.class,
                         (e) -> LOG.warn("User with login: {}, was trying to set delegation to status: {}",
                                 authentication.getName(),

@@ -4,17 +4,20 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.configurati
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
+import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException;
-import org.modelmapper.ModelMapper;
+import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
@@ -23,8 +26,8 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import static com.idemia.ip.office.backend.delegation.assistant.configuration.ModelMapperConfiguration.getConfiguredModelMapper;
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.CREATED;
-import static org.modelmapper.Conditions.isNotNull;
 
 @Service
 public class DelegationServiceImpl implements DelegationService {
@@ -34,21 +37,23 @@ public class DelegationServiceImpl implements DelegationService {
 
     private final DelegationRepository delegationRepository;
 
+    private final ExpenseService expenseService;
+
     private final DelegationFlowValidator delegationFlowValidator;
-    private final ModelMapper modelMapper;
 
     private final ForbiddenExceptionProperties forbiddenExceptionProperties;
     private final DelegationsExceptionProperties delegationsExceptionProperties;
 
     public DelegationServiceImpl(Scheduler scheduler,
             DelegationRepository delegationRepository,
+            ExpenseService expenseService,
             DelegationFlowValidator delegationFlowValidator,
             ForbiddenExceptionProperties forbiddenExceptionProperties,
             DelegationsExceptionProperties delegationsExceptionProperties) {
         this.scheduler = scheduler;
         this.delegationRepository = delegationRepository;
+        this.expenseService = expenseService;
         this.delegationsExceptionProperties = delegationsExceptionProperties;
-        this.modelMapper = configureModelMapper();
         this.delegationFlowValidator = delegationFlowValidator;
         this.forbiddenExceptionProperties = forbiddenExceptionProperties;
     }
@@ -61,29 +66,48 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    public Mono<Void> updateDelegation(Long delegationId, Delegation patchDelegation) {
+    public Mono<Delegation> getDelegation(Long delegationId) {
         return Mono.fromCallable(() -> delegationRepository.findById(delegationId))
-                .map(d -> d.orElseThrow(() -> delegationNotFoundException(delegationId)))
                 .publishOn(scheduler)
-                .map(d -> updateFields(d, patchDelegation))
+                .map(d -> d.orElseThrow(() -> delegationNotFoundException(delegationId)));
+    }
+
+    @Override
+    public Mono<Void> updateDelegation(Delegation newDelegation, Delegation existingDelegation) {
+        return Mono.fromCallable(() -> updateFields(existingDelegation, newDelegation))
                 .flatMap(this::saveDelegation)
                 .publishOn(scheduler);
     }
 
     @Override
-    public Mono<Boolean> validateNewStatus(Delegation delegationToValidate,
+    public Mono<Delegation> validateNewStatus(Delegation newDelegation,
+            Delegation existingDelegation,
             Collection<? extends GrantedAuthority> authorities) {
-        return Mono.just(delegationFlowValidator.validateDelegationFlow(delegationToValidate, authorities))
+        return Mono.just(delegationFlowValidator.validateDelegationFlow(newDelegation, existingDelegation, authorities))
                 .map(result -> {
                     if (!result) {
-                        throw getForbiddenAccessException(delegationToValidate.getDelegationStatus());
+                        throw getForbiddenRoleAccessException(newDelegation.getDelegationStatus());
                     }
-                    return result;
+                    return existingDelegation;
                 });
     }
 
+    @Override
+    @Transactional
+    public Mono<Void> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments) {
+        return this.getDelegation(delegationId)
+                .doOnSuccess(d -> {
+                    if (!d.getDelegatedEmployee().getId().equals(userId)) {
+                        throw getForbiddenAccessException(delegationId);
+                    }
+                    d.getExpenses().add(newExpense);
+                })
+                .map(delegationRepository::save)
+                .flatMap(d -> expenseService.addFiles(newExpense, userId, delegationId, attachments));
+    }
+
     private Delegation updateFields(Delegation existingDelegation, Delegation newDelegation) {
-        modelMapper.map(newDelegation, existingDelegation);
+        getConfiguredModelMapper().map(newDelegation, existingDelegation);
         return existingDelegation;
     }
 
@@ -109,6 +133,7 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     private InvalidParameterException invalidDatesException() {
+        LOG.trace("Invalid date was provided");
         return new InvalidParameterException(
                 "Invalid since and until parameters! Since date must be earlier than until date!",
                 delegationsExceptionProperties.getSinceDateMustBeEarlierThanUntilDate());
@@ -123,15 +148,15 @@ public class DelegationServiceImpl implements DelegationService {
         );
     }
 
-    private ForbiddenAccessException getForbiddenAccessException(DelegationStatus delegationStatus) {
+    private ForbiddenAccessException getForbiddenRoleAccessException(DelegationStatus delegationStatus) {
         return new ForbiddenAccessException(forbiddenExceptionProperties.getRoleHasNoAccessToResource(),
                 "Your roles don't allow you to set delegation to this status: " + delegationStatus
         );
     }
 
-    private static ModelMapper configureModelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setPropertyCondition(isNotNull());
-        return modelMapper;
+    private ForbiddenAccessException getForbiddenAccessException(Long delegationId) {
+        LOG.info("Uer was trying to access not his delegation by id: {}", delegationId);
+        return new ForbiddenAccessException(forbiddenExceptionProperties.getNotOwnerOfResource(),
+                "You can't add expenses to delegation which is not yours.");
     }
 }

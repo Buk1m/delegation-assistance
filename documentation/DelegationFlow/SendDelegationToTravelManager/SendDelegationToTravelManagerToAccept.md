@@ -45,6 +45,12 @@ DelegationService-->Client:result
 - Status code _401_ jeśli użytkownik jest nie zalogowany
 - Status code _403_ jeśli uzytkownik nie ma uprawnień
 - Status code _400_ jeśli body nie jest poprawne
+- Status code _404_ jesli delegacja nie zostala znaleziona
+
+##### Możliwe kody błędów:
+- delegation-not-found - jeśli delegacja nie istnieje
+- no-expenses - jeśli delegacja nie ma zadnych expensów
+- role-has-no-access-to-resource - jeśli role uzytkownika nie pozwalaja na te akcje we flow
 
 ### 3. Mockups
 

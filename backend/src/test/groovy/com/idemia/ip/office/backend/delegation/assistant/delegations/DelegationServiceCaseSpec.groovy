@@ -6,11 +6,14 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.services.De
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationServiceImpl
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
+import com.idemia.ip.office.backend.delegation.assistant.entities.Expense
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException
+import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService
+import org.springframework.http.codec.multipart.FilePart
+import reactor.core.publisher.Mono
 import reactor.core.scheduler.Scheduler
 import reactor.core.scheduler.Schedulers
 import spock.lang.Specification
@@ -20,8 +23,7 @@ import java.util.concurrent.Executors
 
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.CREATED
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegation
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.getDelegationWithStatus
+import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.*
 import static java.time.LocalDateTime.parse
 
 class DelegationServiceCaseSpec extends Specification {
@@ -30,9 +32,9 @@ class DelegationServiceCaseSpec extends Specification {
     DelegationRepository delegationRepository = Mock(DelegationRepository)
     DelegationsExceptionProperties delegationsExceptionProperties = new DelegationsExceptionProperties()
     ForbiddenExceptionProperties forbiddenExceptionProperties = Mock()
-
+    ExpenseService expenseService = Mock()
     DelegationFlowValidator delegationFlowValidator = Mock()
-    DelegationService delegationService = new DelegationServiceImpl(scheduler, delegationRepository, delegationFlowValidator, forbiddenExceptionProperties, delegationsExceptionProperties)
+    DelegationService delegationService = new DelegationServiceImpl(scheduler, delegationRepository, expenseService, delegationFlowValidator, forbiddenExceptionProperties, delegationsExceptionProperties)
 
     def 'Delegation status and user are correctly assigned'() {
         given: 'User and delegation'
@@ -103,13 +105,11 @@ class DelegationServiceCaseSpec extends Specification {
             Delegation delegationToUpdate = anyDelegation()
             Delegation exampleDelegation = anyDelegation()
             Delegation updateDelegation = getDelegationWithStatus(PREPARED)
-            Long delegationId = 1
 
         when: 'User update delegation'
-            delegationService.updateDelegation(delegationId, updateDelegation).block()
+            delegationService.updateDelegation(updateDelegation, delegationToUpdate).block()
 
         then: 'Delegation is in the system and is updated'
-            1 * delegationRepository.findById(delegationId) >> Optional.of(delegationToUpdate)
             1 * delegationRepository.save(delegationToUpdate) >> delegationToUpdate
 
             delegationToUpdate.delegationStatus == updateDelegation.delegationStatus
@@ -120,45 +120,70 @@ class DelegationServiceCaseSpec extends Specification {
 
     }
 
-    def 'Service throws exception when can not find delegation'() {
-        given: 'Delegation Id no matching any delegation'
-            Long delegationId = 1
-
-        when: 'User trying to patch delegation which dont exist'
-            delegationService.updateDelegation(delegationId, new Delegation()).block()
-
-        then: 'EntityNotFoundException is thrown'
-            delegationRepository.findById(delegationId) >> Optional.empty()
-            delegationsExceptionProperties.getDelegationNotFound() >> 'Test'
-
-            thrown(EntityNotFoundException)
-    }
-
     def 'Service validates properly delegations new status'() {
         given: 'Delegation with status'
-            Delegation delegation = getDelegationWithStatus(PREPARED)
+            Delegation existingDelegation = anyDelegation()
+            Delegation updateDelegation = getDelegationWithStatus(PREPARED)
 
         when: 'Service validates new status'
-            boolean result = delegationService.validateNewStatus(delegation, []).block()
+            delegationService.validateNewStatus(updateDelegation, existingDelegation, []).block()
 
         then: 'Delegation is validated'
-            delegationFlowValidator.validateDelegationFlow(delegation, []) >> true
+            delegationFlowValidator.validateDelegationFlow(existingDelegation, updateDelegation, []) >> true
 
-            result
     }
 
     def 'Service throws exception when status is not validated'() {
         given: 'Delegation with status'
-            Delegation delegation = getDelegationWithStatus(PREPARED)
+            Delegation existingDelegation = anyDelegation()
+            Delegation updateDelegation = getDelegationWithStatus(PREPARED)
 
         when: 'Service validates new status'
-            delegationService.validateNewStatus(delegation, []).block()
+            delegationService.validateNewStatus(updateDelegation, existingDelegation, []).block()
 
         then: 'Delegation is not validated'
-            delegationFlowValidator.validateDelegationFlow(delegation, []) >> false
+            delegationFlowValidator.validateDelegationFlow(updateDelegation, existingDelegation, []) >> false
             forbiddenExceptionProperties.getRoleHasNoAccessToResource() >> 'Test'
 
             thrown(ForbiddenAccessException)
     }
 
+    def 'Service finds delegation, check owner and saves expense'() {
+        given: 'Delegation and user'
+            Expense expense = new Expense()
+            Long delegationId = 1
+            Delegation delegation = new Delegation()
+            delegation.id = delegationId
+            Long userId = 1
+            User user = getUser(userId)
+            delegation.delegatedEmployee = user
+
+        when: 'Service retrieves delegation, checks with user and saves expenses'
+            delegationService.addExpense(expense, userId, delegationId, []).block()
+
+        then: 'Delegation is retrieved checked with user and expenses is saved'
+            1 * delegationRepository.findById(delegationId) >> Optional.of(delegation)
+            1 * delegationRepository.save(delegation) >> { Delegation del ->
+                del.expenses.size() > 0
+                del
+            }
+            1 * expenseService.addFiles(expense, _ as Long, _ as Long, _ as List<FilePart>) >> Mono.just(Void)
+    }
+
+    def 'Service finds delegation but user is not an owner'() {
+        given: 'Delegation and user'
+            Expense expense = new Expense()
+            Delegation delegation = new Delegation()
+            User owner = getUser(1)
+            delegation.delegatedEmployee = owner
+            Long delegationId = 1
+
+        when: 'Service retrieves delegation, checks an owner and save expenses'
+            delegationService.addExpense(expense, 2, delegationId, []).block()
+
+        then: 'Service throws exception'
+            1 * delegationRepository.findById(delegationId) >> Optional.of(delegation)
+
+            thrown(ForbiddenAccessException)
+    }
 }
