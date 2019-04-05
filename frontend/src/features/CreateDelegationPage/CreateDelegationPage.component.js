@@ -6,8 +6,8 @@ import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container
 import Card from "../../components/Card/Card.component";
 import Input from "../../components/Input/Input.component";
 import DateTimePicker from "../../components/DateTimePicker/DateTimePicker.component";
-import { validateRequired } from "../../shared/validators/Validators";
-import startDateEarlierThanEndDate from "../../shared/validators/startDateEarlierThenEndDate";
+import { validateRequired } from "../../validators/Validators";
+import startDateEarlierThanEndDate from "../../validators/startDateEarlierThenEndDate";
 import Typeahead from "../../components/Typeahead/Typeahead.component";
 import Button from "../../components/Button/Button.component";
 

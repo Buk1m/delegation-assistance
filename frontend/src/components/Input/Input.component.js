@@ -42,7 +42,9 @@ const Input = props => {
     validate = null,
     minlength = 0,
     disabled = false,
-    className = ""
+    className = "",
+    component = null,
+    ...options
   } = props;
   return (
     <div className={[styles["field"], styles[className]].join(" ")}>
@@ -62,9 +64,10 @@ const Input = props => {
             value={value}
             validate={validate}
             label={placeholder}
-            component={renderField}
+            component={component === null ? renderField : component}
             minlength={minlength}
             disabled={disabled}
+            {...options}
           />
         </label>
       </div>
@@ -81,7 +84,9 @@ Input.propTypes = {
   validate: oneOfType([func, array]),
   minlength: number,
   disabled: bool,
-  className: string
+  className: string,
+  options: array,
+  component: func
 };
 
 export default Input;

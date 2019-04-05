@@ -2,7 +2,7 @@ import React from "react";
 import { reduxForm, Form } from "redux-form";
 import { func, string } from "prop-types";
 
-import { validateRequired } from "../../shared/validators/Validators";
+import { validateRequired } from "../../validators/Validators";
 import LayoutMain from "../../components/layouts/LayoutMain";
 import Input from "../../components/Input/Input.component";
 import Button from "../../components/Button/Button.component";
