@@ -7,7 +7,8 @@ import HomeScreen from "../features/HomeScreen";
 import ProfileScreen from "../features/ProfileScreen";
 import DelegationsScreen from "../features/DelegationsScreen";
 import CreateDelegationScreen from "../features/CreateDelegationScreen";
-import ExpensesScreen from "../features/ExpensesScreen";
+import ChecklistScreen from "../features/ChecklistScreen";
+import CreateTaskScreen from "../features/CreateTaskScreen";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -29,12 +30,15 @@ DelegationsStack.navigationOptions = {
   )
 };
 
-const ExpensesStack = createStackNavigator({
-  Home: ExpensesScreen
+const ChecklistStack = createStackNavigator({
+  Checklist: ChecklistScreen,
+  CreateTask: CreateTaskScreen
 });
-ExpensesStack.navigationOptions = {
-  tabBarLabel: "Expenses",
-  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={Platform.OS === "ios" ? `ios-card` : "md-card"} />
+ChecklistStack.navigationOptions = {
+  tabBarLabel: "Checklist",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === "ios" ? `ios-checkbox-outline` : "md-checkbox-outline"} />
+  )
 };
 
 const ProfileStack = createStackNavigator({
@@ -50,6 +54,6 @@ ProfileStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   DelegationsStack,
-  ExpensesStack,
+  ChecklistStack,
   ProfileStack
 });

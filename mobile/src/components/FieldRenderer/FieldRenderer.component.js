@@ -7,15 +7,20 @@ const FieldRenderer = ({
   label,
   placeholder,
   isSecure,
+  multiline = false,
+  numberOfLines = 1,
   meta: { touched, error },
   input: { onChange, ...restInput }
 }) => {
+  const inputStyles = multiline ? styles.textarea : styles.input;
   return (
     <View>
       <View>
         <TextInput
           {...restInput}
-          style={styles.input}
+          style={inputStyles}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
           onChangeText={onChange}
           placeholder={placeholder}
           autoCapitalize="none"
