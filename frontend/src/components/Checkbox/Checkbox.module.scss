@@ -1,0 +1,55 @@
+@import "../../static/styles/constants";
+
+.control-checkbox {
+  margin-bottom: 10px;
+}
+
+.input[type="checkbox"] {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin: 0 1rem 0 0;
+  position: relative;
+
+    &:before{
+    border: 2px solid $primary-color;
+    border-radius: 5px;
+    content: "";
+    height: 1.2rem;
+    left: 0;
+    position: absolute;
+    transition: all 0.25s ease-in-out;
+    width: 1.2rem;
+    z-index: 1;
+    background: #fff;
+  }
+
+    &:checked:before {
+    background: #f8f8f8;
+    border-color: $primary-color;
+    border-right-style: none;
+    border-top-style: none;
+    height: 0.5rem;
+    transform: rotate(-45deg);
+    border-radius: 0px;
+  }
+
+  &:checked + label {
+    text-decoration: line-through;
+  }
+
+  &:after {
+    background: #f8f8f8;
+    content: "";
+    cursor: pointer;
+    height: 1.4rem;
+    left: 0;
+    position: absolute;
+    top: -0.125rem;
+    width: 1.2rem;
+  }
+}
+
+input[type="checkbox"] + label {
+  font-weight: 700;
+}
