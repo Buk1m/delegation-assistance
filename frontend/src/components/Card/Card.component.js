@@ -4,14 +4,7 @@ import { string, object, oneOfType, array } from "prop-types";
 import styles from "./Card.module.scss";
 
 const Card = props => {
-  const {
-    number = "0",
-    color = "default",
-    title = "",
-    children = null,
-    href = "",
-    classes = ""
-  } = props;
+  const { number = "0", color = "default", title = "", children = null, href = "", classes = "" } = props;
   let hrefClass = href ? " link" : "";
   return (
     <div

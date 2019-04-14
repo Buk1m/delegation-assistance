@@ -2,17 +2,14 @@ import React from "react";
 import { string, bool, func } from "prop-types";
 
 import styles from "./Button.module.scss";
+import Spinner from "../Spinner/Spinner.component";
 
 const Button = props => {
-  const { text, type = "button", className, disabled = false, onClick } = props;
+  const { text, className, onClick, type = "button", disabled = false, submitting = false } = props;
+  const buttonClass = styles[className] ? styles[className] : styles.primary;
   return (
-    <button
-      className={styles[className] ? styles[className] : styles.primary}
-      type={type}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      <span>{text}</span>
+    <button className={buttonClass} disabled={disabled} onClick={onClick} type={type}>
+      <span>{submitting ? <Spinner className={styles.spinner} /> : text}</span>
     </button>
   );
 };
@@ -22,7 +19,8 @@ Button.propTypes = {
   onClick: func,
   className: string,
   type: string,
-  disabled: bool
+  disabled: bool,
+  submitting: bool
 };
 
 export default Button;

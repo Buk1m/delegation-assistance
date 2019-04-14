@@ -13,6 +13,10 @@
   left: 0;
 }
 
+.active {
+  background: #fff;
+}
+
 .header_items {
   height: 100%;
 }
@@ -27,6 +31,10 @@
 .sitelogo {
   display: block;
   max-width: 100%;
+}
+
+.logout-item {
+  cursor: pointer;
 }
 
 .sidebar-toggle {

@@ -2,15 +2,10 @@
 
 exports[`Delegations Page should render correctly 1`] = `
 <Connect(LayoutMainContainer)
-  title="Delegations"
+  title="Delegations dashboard"
 >
-  <div>
-    Delegations page
-  </div>
-  <a
-    href="/"
-  >
-    Back to home
-  </a>
+  <Card
+    title="Statistics"
+  />
 </Connect(LayoutMainContainer)>
 `;

@@ -125,4 +125,6 @@ yarn.lock
 package-lock.json
 
 # Expo package
-.expo/*
+/mobile/.expo
+/frontend/test-report.json
+/mobile/test-report.json

@@ -34,8 +34,8 @@ class LoginPageContainer extends Component {
   }
 
   handleSubmit = values => {
-    this.setState({ errors: "Loading..." });
-    this.props
+    this.setState({ errors: "" });
+    return this.props
       .loginUser(values.login, values.password)
       .then(response => {
         if (this.props.loggedStatus && this.props.token) {

@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { object, string, bool } from "prop-types";
+import { debounce } from "lodash";
 
 import LayoutMain from "./LayoutMain.component";
 
 class LayoutMainContainer extends Component {
+  static propTypes = {
+    children: object.isRequired,
+    title: string,
+    hideSidebar: bool,
+    addPadding: bool
+  };
+
   constructor(props) {
     super(props);
 
@@ -13,6 +21,10 @@ class LayoutMainContainer extends Component {
       showSidebar: document.documentElement.clientWidth < 992 ? false : true
     };
   }
+
+  _handleResize = debounce(() => {
+    this._updateViewState();
+  }, 50);
 
   _updateViewState() {
     if (!this.state.mobileView && document.documentElement.clientWidth < 992) {
@@ -35,21 +47,16 @@ class LayoutMainContainer extends Component {
   }
 
   componentDidMount() {
-    document.title = this.props.title ? this.props.title + " | Delegation Assistant" : "Delegation Assistant";
+    document.title = this.props.title
+      ? this.props.title + " | Delegation Assistant"
+      : "Delegation Assistant";
     this._updateViewState();
-    window.addEventListener("resize", this._updateViewState.bind(this));
+    window.addEventListener("resize", this._handleResize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this._updateViewState.bind(this));
+    window.removeEventListener("resize", this._handleResize);
   }
-
-  static propTypes = {
-    children: object.isRequired,
-    title: string,
-    hideSidebar: bool,
-    addPadding: bool
-  };
 
   render() {
     return (

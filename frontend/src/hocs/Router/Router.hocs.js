@@ -10,7 +10,11 @@ class Router extends Component {
       <BrowserRouter>
         <Switch>
           {routes.map(elem =>
-            elem.public === true ? <Route key={elem.path} {...elem} /> : <PrivateRoute key={elem.path} {...elem} />
+            elem.public === true ? (
+              <Route key={elem.path} exact={true} {...elem} />
+            ) : (
+              <PrivateRoute key={elem.path} exact={true} {...elem} />
+            )
           )}
         </Switch>
       </BrowserRouter>

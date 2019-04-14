@@ -17,6 +17,7 @@
   max-width: 100%;
   position: relative;
   border: none;
+  min-height: 40px;
 
   &:hover {
     text-decoration: none;
@@ -32,35 +33,41 @@
   border-radius: 3px;
   color: #fff;
 
-  &:before,
-  &:after,
-  & > span:before,
-  & > span:after {
-    content: "";
-    position: absolute;
+  .spinner {
+    color: #fff;
   }
 
-  &:hover {
-    background: #fff;
-    color: $primary-color;
-    text-decoration: none;
-    font-weight: bold;
-
-    &:before {
-      left: 0%;
+  &:not(:disabled) {
+    &:before,
+    &:after,
+    & > span:before,
+    & > span:after {
+      content: "";
+      position: absolute;
     }
 
-    &:after {
-      right: 0%;
-    }
-
-    & > span {
-      &:after {
-        top: 0%;
-      }
+    &:hover {
+      background: #fff;
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: bold;
 
       &:before {
-        bottom: 0%;
+        left: 0%;
+      }
+
+      &:after {
+        right: 0%;
+      }
+
+      & > span {
+        &:after {
+          top: 0%;
+        }
+
+        &:before {
+          bottom: 0%;
+        }
       }
     }
   }
@@ -112,6 +119,10 @@
   color: $secondary-color;
   border-radius: 3px;
 
+  .spinner {
+    color: #fff;
+  }
+
   &:hover {
     background: $secondary-color;
     color: #fff;
@@ -123,10 +134,15 @@
   background: darkred;
   border-radius: 3px;
 
+  .spinner {
+    color: darkred;
+  }
+
   &:hover {
     background: #fff;
     color: darkred;
   }
+
   &:before,
   &:after,
   & > span:before,

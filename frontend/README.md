@@ -78,3 +78,10 @@ export default DelegationListPage;
 ### How to use `react-redux`?
 
 In this topic there are a lot of people smarter than me which will describe `react-redux` better than me so visit eg. this page [typeofweb](https://typeofweb.com/2018/04/06/react-redux-kurs-wprowadzenie-i-podstawy/).
+
+### Routing
+
+Jeżeli w obiekcie ścieżki:
+- podasz mu właściwość: `public: true` - ścieżka jest globalnie publiczna
+- nie podasz mu właściwości: `public: true` - ścieżka ta jest niedostępna publicznie i dostępna dla wszystkich ról
+- nie podasz mu właściwości: `public: true` oraz podasz mu tablicę: `canAccess: [tutajJakieRole]` - to ścieżka ta jest niedostępna publicznie i dostępna jedynie dla ról wymienionych w `canAccess`.

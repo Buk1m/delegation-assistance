@@ -10,7 +10,7 @@ const Header = props => {
   const { loggedStatus, logout, fullname, toggleSidebar } = props;
   return (
     <header className={styles.header}>
-      <div className={styles.header_items + " d-flex no-gutters justify-content-between align-items-center"}>
+      <div className={[styles.header_items, "d-flex no-gutters justify-content-between align-items-center"].join(" ")}>
         <div id="sitelogo" className="col-8 col-sm-6 align-items-center d-flex">
           <button className={styles["sidebar-toggle"]} onClick={toggleSidebar}>
             <span className={styles["st-1"]} />
@@ -25,7 +25,7 @@ const Header = props => {
           {loggedStatus === true ? (
             <div className="dropdown">
               <button
-                className={styles["usernav-toogle"] + " dropdown-toggle"}
+                className={[styles["usernav-toogle"], "dropdown-toggle"].join(" ")}
                 type="button"
                 id="usernavmenu"
                 data-toggle="dropdown"
@@ -41,9 +41,10 @@ const Header = props => {
                 <NavLink to="/delegations" activeClassName={styles.active} className="dropdown-item">
                   Delegations
                 </NavLink>
-                <NavLink to="/login" activeClassName={styles.active} className="dropdown-item" onClick={logout}>
+                <hr />
+                <li className={[styles["logout-item"], "dropdown-item"].join(" ")} onClick={logout}>
                   Logout
-                </NavLink>
+                </li>
               </div>
             </div>
           ) : (

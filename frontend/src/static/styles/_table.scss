@@ -1,0 +1,42 @@
+.prepared .delegation-status {
+  background-color: #00bfff;
+}
+
+.created .delegation-status {
+  background-color: #ffb700;
+}
+
+.ratified .delegation-status {
+  background-color: #4caf50;
+}
+
+.travel_manager_approved .delegation-status {
+  background-color: #ff5722;
+}
+
+.approver_approved .delegation-status {
+  background-color: #673ab7;
+}
+
+.delegation-status {
+  border-radius: 10px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  text-align: center;
+  color: #fff;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 992px) {
+  .react-bootstrap-table table {
+    display: block;
+    overflow: auto;
+  }
+}
