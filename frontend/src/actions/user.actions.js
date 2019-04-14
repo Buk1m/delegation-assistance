@@ -2,7 +2,8 @@ import { APIService } from "../services/data";
 
 export const ACTIONS = {
   LOGIN_USER: "USER_LOGIN_USER",
-  LOGOUT_USER: "USER_LOGOUT_USER"
+  LOGOUT_USER: "USER_LOGOUT_USER",
+  REFRESH_TOKEN: "USER_REFRESH_TOKEN"
 };
 
 const loginUser = (login, password) => dispatch => {
@@ -27,4 +28,19 @@ const logoutUser = () => dispatch => {
   });
 };
 
-export { loginUser, logoutUser };
+const refreshToken = token => dispatch => {
+  return dispatch(
+    APIService.post(ACTIONS.REFRESH_TOKEN, {
+      url: "/refresh",
+      needAuth: true,
+      headers: {
+        "Content-type": "application/json"
+      },
+      data: {
+        token: token
+      }
+    })
+  );
+};
+
+export { loginUser, logoutUser, refreshToken };
