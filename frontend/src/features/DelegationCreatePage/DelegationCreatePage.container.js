@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { func } from "prop-types";
 
-import DelegationCreatePage from "./DelegationCreatePage.component";
+import CreateDelegationPage from "./CreateDelegationPage.component";
 import { addNewDelegation } from "../../actions/delegations.actions";
 import { codes } from "iso-country-codes";
 
-class DelegationCreatePageContainer extends Component {
+class CreateDelegationPageContainer extends Component {
   static propTypes = {
     addNewDelegation: func
   };
@@ -22,14 +22,21 @@ class DelegationCreatePageContainer extends Component {
       startDate: values.startDate.toISOString().split(".")[0],
       endDate: values.endDate.toISOString().split(".")[0]
     };
-    return this.props
+    this.props
       .addNewDelegation(delegation)
-      .then(() => (window.location.href = "/delegations/my"));
+      .then(response => {
+        if (response.status === 201) window.location.href = "/delegations";
+      })
+      .catch(err => {
+        //TODO: handle response error with modal
+        window.alert(err);
+        this.setState({ errors: "Error while adding new delegaion." });
+      });
   };
 
   render() {
     return (
-      <DelegationCreatePage
+      <CreateDelegationPage
         onSubmit={this.handleCreateDelegation}
         countriesISOCodes={this.countriesISOCodes}
       />
@@ -44,4 +51,4 @@ const mapDispatchToProps = {
 export default connect(
   null,
   mapDispatchToProps
-)(DelegationCreatePageContainer);
+)(CreateDelegationPageContainer);

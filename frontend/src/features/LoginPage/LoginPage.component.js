@@ -16,7 +16,12 @@ export const LoginPage = props => {
           <h1 className="title-text">Nice to see you again!</h1>
           <Form onSubmit={handleSubmit} className="form-container">
             <span style={{ color: "red" }}>{errors}</span>
-            <Input name="login" placeholder="Username" validate={validateRequired} className="input-login" />
+            <Input
+              name="login"
+              placeholder="Username"
+              validate={validateRequired}
+              className="input-login"
+            />
             <Input
               name="password"
               placeholder="Password"

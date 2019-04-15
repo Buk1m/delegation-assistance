@@ -17,13 +17,15 @@
     "react/display-name": [0, { "ignoreTranspilerName": false }],
     "max-len": ["error", { "code": 120, "tabWidth": 2 }]
   },
-  "plugins": ["react"],
+  "plugins": ["react", "webdriverio"],
   "globals": {
     "window": true,
     "document": true,
     "Promise": true
   },
   "env": {
-    "jest": true
+    "jest": true,
+    "webdriverio/wdio": true,
+    "mocha": true
   }
 }

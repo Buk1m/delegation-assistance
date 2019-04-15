@@ -51,9 +51,23 @@ Recommended extensions:
 
 ### Tests
 
+#### Unit and Integration Tests
+
 - `yarn test` - to start tests once
 - `yarn test-watch` - to start test in watch mode
 - `yarn test-update` - to re-record every snapshot that fails during tests
+
+#### E2E Tests
+
+##### Chrome
+
+- `yarn test-chrome` - to start e2e tests using Chrome (can run multiple instances simultaneously)
+- `yarn test-chrome-watch` - to start e2e tests with hot-rerun on every change using Chrome
+
+##### Firefox
+
+- `yarn test-firefox` - to start e2e tests once using Firefox (doesn't support multiple instances with current config)
+- `yarn test-firefox-watch` - to start e2e tests with hot-rerun on every change using Firefox
 
 ## Bugs
 
