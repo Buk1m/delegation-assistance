@@ -46,11 +46,15 @@ To zapytanie zawiera plik ("attachment": {file})
 ```
 "expenseName": "Expense Name",
 "expenseValue": "1234.56",
+"expenseDate": "2019-10-22",
+"paymentType": "CREDIT_CARD",
 "expenseCurrency": "dzd",
 "attachments": [{file}, {file}]
 ```
-* `exponseName`: wymagane pole
+* `expenseName`: wymagane pole
 * `expenseValue`: wymagane pole, większe od zera
+* `expenseDate`: wymagane pole, w formacie `yyyy-MM-dd`
+* `paymentType`: wymagane pole, możliwe wartości: `CREDIT_CARD`, `CASH`
 * `expenseCurrency`: wymagane pole
 * `attachments`: wymagany chociaż jeden plik
  
