@@ -1,13 +1,15 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.idemia.ip.office.backend.delegation.assistant.common.BaseDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPatch;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -18,11 +20,12 @@ import java.time.LocalDateTime;
 
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DelegationDto {
+@Getter
+@Setter
+public class DelegationDto extends BaseDto {
     @NotNull(message = "{error.message.not.null}", groups = OnPost.class)
     @DateTimeFormat(iso = DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")

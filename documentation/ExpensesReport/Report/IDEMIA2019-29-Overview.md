@@ -49,12 +49,14 @@ Method: GET
     [
         
         {
+            "version": 4,
             "expenseName": "Expense Name 1",
             "expenseValue": "1234.56",
             "expenseCurrency": "eu",
             "receiptPhoto": {image}
         },
         {
+            "version": 3,
             "expenseName": "Expense Name 2",
             "expenseValue": "420.0",
             "expenseCurrency": "dlr",

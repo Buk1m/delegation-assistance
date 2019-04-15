@@ -84,6 +84,11 @@
       "name": "exception.delegations.no-expenses",
       "type": "java.lang.String",
       "description": "Error code for an exception which is thrown if delegation has no expenses."
+    },
+    {
+      "name": "exception.data.data-has-changed",
+      "type": "java.lang.String",
+      "description": "Error code if Optimistic Lock Exception occurred."
     }
   ]
 }

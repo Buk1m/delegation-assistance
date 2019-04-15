@@ -65,6 +65,7 @@ end
 [
   {
     "id": 1,
+    "version": 2,
     "startDate": "2019-01-01T10:19:19",
     "endDate": "2019-02-01T10:19:19",
     "destinationCountryISO3": "BFA",
@@ -74,6 +75,7 @@ end
   },
   {
     "id": 2,
+    "version": 10,
     "startDate": "2019-01-01T10:19:19",
     "endDate": "2019-02-01T10:19:19",
     "destinationCountryISO3": "BFA",

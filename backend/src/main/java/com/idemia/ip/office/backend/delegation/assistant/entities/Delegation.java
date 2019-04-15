@@ -3,10 +3,9 @@ package com.idemia.ip.office.backend.delegation.assistant.entities;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.OrderBy;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,65 +26,43 @@ import java.util.List;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name = "delegation")
-public class Delegation {
+public class Delegation extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Long id;
 
-    @Column(name = "start_date", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime startDate;
 
-    @Column(name = "end_date", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime endDate;
 
-    @Column(name = "destination_country_iso", nullable = false, length = 3)
+    @Column(nullable = false, length = 3)
     private String destinationCountryISO3;
 
-    @Column(name = "destination_location", nullable = false)
+    @Column(nullable = false)
     private String destinationLocation;
 
-    @Column(name = "objective", nullable = false)
+    @Column(nullable = false)
     private String delegationObjective;
 
-    @Column(name = "status", nullable = false)
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private DelegationStatus delegationStatus;
 
-    @JoinColumn(name = "delegated_employee_id", nullable = false)
+    @JoinColumn(nullable = false)
     @ManyToOne(fetch = LAZY)
     private User delegatedEmployee;
 
     @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "delegation_id")
+    @OrderBy("id")
     private List<Expense> expenses = new ArrayList<>();
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Delegation that = (Delegation) o;
-
-        return new EqualsBuilder()
-                .append(id, that.id)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .toHashCode();
-    }
 }

@@ -1,56 +1,40 @@
 package com.idemia.ip.office.backend.delegation.assistant.entities;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.NaturalId;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "checklist")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Checklist {
+public class Checklist extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Long id;
 
-    @NaturalId
-    @Column(name = "country_iso", nullable = false, length = 3)
+    @Column(nullable = false, length = 3)
     private String countryISO3;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "checklist_id")
+    @OrderBy("id")
     private List<Task> tasks = new ArrayList<>();
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-
-        if (!(object instanceof Checklist)) {
-            return false;
-        }
-        Checklist checklist = (Checklist) object;
-
-        return new EqualsBuilder()
-                .append(getCountryISO3(), checklist.getCountryISO3())
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(getCountryISO3())
-                .toHashCode();
-    }
 }

@@ -1,9 +1,11 @@
 package com.idemia.ip.office.backend.delegation.assistant.expenses.dtos;
 
+import com.idemia.ip.office.backend.delegation.assistant.common.BaseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.http.codec.multipart.FilePart;
 
 import javax.validation.constraints.NotBlank;
@@ -12,14 +14,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExpenseDto {
+public class ExpenseDto extends BaseDto {
     @Positive(message = "{error.message.positive}")
     @NotNull(message = "{error.message.not.null}")
     private BigDecimal expenseValue;

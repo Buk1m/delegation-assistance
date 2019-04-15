@@ -129,7 +129,7 @@ class DelegationServiceCaseSpec extends Specification {
             delegationService.validateNewStatus(updateDelegation, existingDelegation, []).block()
 
         then: 'Delegation is validated'
-            delegationFlowValidator.validateDelegationFlow(existingDelegation, updateDelegation, []) >> true
+            delegationFlowValidator.validateDelegationFlow(updateDelegation, existingDelegation, []) >> true
 
     }
 

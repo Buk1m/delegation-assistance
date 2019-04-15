@@ -68,6 +68,7 @@ end
 ```json
 [
   {
+    "version": 4,
     "startDate": "2019-01-01T10:19:19",
     "endDate": "2019-02-01T10:19:19",
     "destinationCountryISO3": "BFA",
@@ -76,6 +77,7 @@ end
     "status": "CREATED"
   },
   {
+    "version": 4,
     "startDate": "2019-01-01T10:19:19",
     "endDate": "2019-02-01T10:19:19",
     "destinationCountryISO3": "BFA",

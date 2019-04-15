@@ -2,9 +2,9 @@ package com.idemia.ip.office.backend.delegation.assistant.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,54 +15,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.OrderBy;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name = "expenses")
-public class Expense {
+public class Expense extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Long id;
 
-    @Column(name = "expense_value")
+    @Column(nullable = false)
     private BigDecimal expenseValue;
 
-    @Column(name = "expense_name")
+    @Column(nullable = false)
     private String expenseName;
 
-    @Column(name = "expense_currency")
+    @Column(nullable = false)
     private String expenseCurrency;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "expense_id")
+    @OrderBy("id")
     private List<File> files = new ArrayList<>();
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Expense expense = (Expense) o;
-
-        return new EqualsBuilder()
-                .append(id, expense.id)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return 31;
-    }
 }

@@ -30,7 +30,8 @@ class ChecklistControllerCaseSpec extends Specification {
             checklistService.getChecklist() >> Mono.just(checklist)
 
             responseEntity.statusCodeValue == 200
-            responseEntity.body == checklistDto
+            responseEntity.body.id == checklistDto.id
+            responseEntity.body.tasks.size() == checklistDto.tasks.size()
             responseEntity.body.tasks.size() == 2
     }
 
@@ -49,13 +50,12 @@ class ChecklistControllerCaseSpec extends Specification {
     def 'adding task to non existent checklist should return void'() {
         given: 'Task and TaskDto'
             TaskDto taskDto = new TaskDto()
-            Task task = new Task()
 
         when: 'add new task'
             checklistController.addTaskToChecklist(taskDto).block()
 
         then: 'controller should return void'
-            checklistService.addTaskToChecklist(task) >> Mono.empty().then()
+            checklistService.addTaskToChecklist(_ as Task) >> Mono.empty().then()
     }
 
     Checklist anyChecklist() {

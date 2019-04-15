@@ -25,6 +25,7 @@ DelegationService-->Client:result
 (application/json)
 ```json5
 {
+  "version": 2,
   "delegationStatus": "PREPARED"
 }
 ```
@@ -46,11 +47,13 @@ DelegationService-->Client:result
 - Status code _403_ jeśli uzytkownik nie ma uprawnień
 - Status code _400_ jeśli body nie jest poprawne
 - Status code _404_ jesli delegacja nie zostala znaleziona
+- Status code _409_ jesli delegacja uległa zmianie
 
 ##### Możliwe kody błędów:
 - delegation-not-found - jeśli delegacja nie istnieje
 - no-expenses - jeśli delegacja nie ma zadnych expensów
 - role-has-no-access-to-resource - jeśli role uzytkownika nie pozwalaja na te akcje we flow
+- data-has-changed - jeśli delegacja została zaktualizowana przezinnego uzytkownika
 
 ### 3. Mockups
 

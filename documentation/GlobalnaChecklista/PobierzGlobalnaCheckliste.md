@@ -27,11 +27,13 @@
   "tasks": [
     {
       "id": 1,
+      "version":  2,
       "name": "task1",
       "description": "desc1"
     },
     {
       "id": 2,
+      "version": 4,
       "name": "task2",
       "description": "desc2"
     }

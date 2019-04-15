@@ -1,9 +1,11 @@
 package com.idemia.ip.office.backend.delegation.assistant.exceptions;
 
+import com.idemia.ip.office.backend.delegation.assistant.configuration.ExceptionDataProperties;
 import lombok.Getter;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,12 +18,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class ExceptionsHandler {
     private final static String VALIDATION_ERROR_MESSAGE = "There are model's constraint violations";
+    private final ExceptionDataProperties exceptionDataProperties;
+
+    public ExceptionsHandler(ExceptionDataProperties exceptionDataProperties) {this.exceptionDataProperties = exceptionDataProperties;}
 
     @ExceptionHandler(ForbiddenAccessException.class)
     public Mono<ResponseEntity> handleForbiddenAccessException(ForbiddenAccessException e) {
@@ -39,6 +45,12 @@ public class ExceptionsHandler {
     public Mono<ResponseEntity> handleWebExchangeBindException(WebExchangeBindException e) {
         return Mono.just(this.mapWebExchangeBindException(e))
                 .map(apiError -> ResponseEntity.status(BAD_REQUEST).body(apiError));
+    }
+
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    public Mono<ResponseEntity> handleObjectOptimisticLockingFailureException(ObjectOptimisticLockingFailureException e) {
+        return Mono.just(new ExceptionDto(exceptionDataProperties.getDataHasChanged(), "Update your data, because it has been changed."))
+                .map(eDto -> ResponseEntity.status(CONFLICT).body(eDto));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
