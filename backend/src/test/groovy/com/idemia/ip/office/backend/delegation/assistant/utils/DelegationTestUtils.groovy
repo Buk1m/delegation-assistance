@@ -4,6 +4,7 @@ package com.idemia.ip.office.backend.delegation.assistant.utils
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense
+import com.idemia.ip.office.backend.delegation.assistant.entities.File
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
 import com.idemia.ip.office.backend.delegation.assistant.expenses.dtos.ExpenseDto
@@ -42,8 +43,8 @@ class DelegationTestUtils {
 
     static Expense anyExpense() {
         return Expense.builder()
-                .expenseCurrency("EUR")
-                .expenseName("The swabs")
+                .expenseCurrency('EUR')
+                .expenseName('The swabs')
                 .expenseValue(3444.35)
                 .build()
     }
@@ -64,9 +65,16 @@ class DelegationTestUtils {
 
     static ExpenseDto anyExpenseDto() {
         return ExpenseDto.builder()
-                .expenseCurrency("EUR")
-                .expenseName("The swabs")
+                .expenseCurrency('EUR')
+                .expenseName('The swabs')
                 .expenseValue(3444.35)
+                .build()
+    }
+
+    static File anyFile() {
+        return File.builder()
+                .filePath('filePath')
+                .userFilename('userFilename')
                 .build()
     }
 }

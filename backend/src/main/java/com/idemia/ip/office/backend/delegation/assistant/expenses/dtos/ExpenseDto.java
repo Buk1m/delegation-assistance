@@ -48,6 +48,5 @@ public class ExpenseDto extends BaseDto {
     private String expenseCurrency;
 
     @NotEmpty(message = "{error.message.not.empty.files}")
-    @NotNull(message = "{error.message.not.null}")
     private List<FilePart> attachments;
 }

@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 public interface ExpenseService {
-    Mono<Void> addFiles(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
+    Mono<Expense> addFiles(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
 }

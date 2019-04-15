@@ -4,5 +4,5 @@ import org.springframework.http.codec.multipart.FilePart;
 import reactor.core.publisher.Mono;
 
 public interface FileSystemService {
-    Mono<Void> save(FilePart file, String filePath);
+    Mono<String> save(FilePart file, String path);
 }

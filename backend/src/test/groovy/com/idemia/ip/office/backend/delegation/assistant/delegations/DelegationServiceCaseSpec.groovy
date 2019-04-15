@@ -167,7 +167,7 @@ class DelegationServiceCaseSpec extends Specification {
                 del.expenses.size() > 0
                 del
             }
-            1 * expenseService.addFiles(expense, _ as Long, _ as Long, _ as List<FilePart>) >> Mono.just(Void)
+            1 * expenseService.addFiles(expense, _ as Long, _ as Long, _ as List<FilePart>) >> Mono.just(expense)
     }
 
     def 'Service finds delegation but user is not an owner'() {

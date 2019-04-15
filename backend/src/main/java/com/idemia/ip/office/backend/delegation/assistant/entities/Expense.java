@@ -53,7 +53,7 @@ public class Expense extends BaseEntity {
     private String expenseCurrency;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "expense_id")
+    @JoinColumn(name = "expense_id", referencedColumnName = "id", nullable = false)
     @OrderBy("id")
     private List<File> files = new ArrayList<>();
 }

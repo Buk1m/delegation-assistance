@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
@@ -93,17 +92,21 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    @Transactional
     public Mono<Void> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments) {
         return this.getDelegation(delegationId)
                 .doOnSuccess(d -> {
                     if (!d.getDelegatedEmployee().getId().equals(userId)) {
                         throw getForbiddenAccessException(delegationId);
                     }
-                    d.getExpenses().add(newExpense);
                 })
+                .flatMap(d -> expenseService.addFiles(newExpense, userId, delegationId, attachments)
+                        .map(e -> {
+                            d.getExpenses().add(e);
+                            return d;
+                        })
+                )
                 .map(delegationRepository::save)
-                .flatMap(d -> expenseService.addFiles(newExpense, userId, delegationId, attachments));
+                .then();
     }
 
     private Delegation updateFields(Delegation existingDelegation, Delegation newDelegation) {

@@ -29,5 +29,5 @@ public class File extends BaseEntity {
     private String filePath;
 
     @Column(nullable = false)
-    private String usersFilename;
+    private String userFilename;
 }
