@@ -1,20 +1,22 @@
 package com.idemia.ip.office.backend.delegation.assistant.checklists.dtos;
 
+import com.idemia.ip.office.backend.delegation.assistant.common.BaseDto;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 @Getter
 @Setter
-public class TaskDto {
+@EqualsAndHashCode(callSuper = false)
+public class ActivityTemplateDto extends BaseDto {
 
     @Null(message = "{error.id.null}")
     private Long id;
 
     @NotNull(message = "{error.name.not.null}")
-    private String name;
+    private String task;
 
     private String description;
 }

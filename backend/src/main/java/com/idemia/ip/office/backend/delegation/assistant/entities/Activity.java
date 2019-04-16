@@ -1,5 +1,6 @@
 package com.idemia.ip.office.backend.delegation.assistant.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,23 +12,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
-public class Task extends BaseEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Activity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(updatable = false)
+    private String task;
 
+    @Column(updatable = false)
     private String description;
 
-    public Task(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+    @Column(nullable = false)
+    private Boolean isDone = false;
 }

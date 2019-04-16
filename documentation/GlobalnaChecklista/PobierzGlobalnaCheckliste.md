@@ -24,17 +24,17 @@
 
 ```json
 {
-  "tasks": [
+  "activities": [
     {
       "id": 1,
-      "version":  2,
-      "name": "task1",
+      "version":  1,
+      "task": "task1",
       "description": "desc1"
     },
     {
       "id": 2,
-      "version": 4,
-      "name": "task2",
+      "version": 1,
+      "task": "task2",
       "description": "desc2"
     }
   ]

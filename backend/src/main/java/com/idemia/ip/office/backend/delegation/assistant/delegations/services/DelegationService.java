@@ -16,12 +16,12 @@ import java.util.List;
 public interface DelegationService {
     Mono<Void> addDelegation(Delegation delegation, User name);
 
+    Mono<Delegation> getDelegation(Long delegationId);
+
     Flux<Delegation> getDelegations(String userLogin,
             DelegationStatus status,
             LocalDateTime since,
             LocalDateTime until);
-
-    Mono<Delegation> getDelegation(Long delegationId);
 
     Mono<Void> updateDelegation(Delegation updateDelegation, Delegation existingDelegation);
 

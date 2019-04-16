@@ -17,36 +17,36 @@ import org.springframework.security.web.server.context.ServerSecurityContextRepo
 @EnableReactiveMethodSecurity
 public class WebSecurityConfig {
 
-	private final ReactiveAuthenticationManager authenticationManager;
-	private final ServerSecurityContextRepository securityContextRepository;
-	private final ServerAuthenticationEntryPoint authenticationEntryPoint;
-	private final ServerAccessDeniedHandler accessDeniedHandler;
+    private final ReactiveAuthenticationManager authenticationManager;
+    private final ServerSecurityContextRepository securityContextRepository;
+    private final ServerAuthenticationEntryPoint authenticationEntryPoint;
+    private final ServerAccessDeniedHandler accessDeniedHandler;
 
-	public WebSecurityConfig(ReactiveAuthenticationManager authenticationManager,
-							 ServerSecurityContextRepository securityContextRepository,
-							 ServerAuthenticationEntryPoint authenticationEntryPoint,
-							 ServerAccessDeniedHandler accessDeniedHandler) {
-		this.authenticationManager = authenticationManager;
-		this.securityContextRepository = securityContextRepository;
-		this.authenticationEntryPoint = authenticationEntryPoint;
-		this.accessDeniedHandler = accessDeniedHandler;
-	}
+    public WebSecurityConfig(ReactiveAuthenticationManager authenticationManager,
+            ServerSecurityContextRepository securityContextRepository,
+            ServerAuthenticationEntryPoint authenticationEntryPoint,
+            ServerAccessDeniedHandler accessDeniedHandler) {
+        this.authenticationManager = authenticationManager;
+        this.securityContextRepository = securityContextRepository;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.accessDeniedHandler = accessDeniedHandler;
+    }
 
-	@Bean
-	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-		return http.csrf().disable()
-				.cors().and()
-				.formLogin().disable()
-				.httpBasic().disable()
-				.logout().disable()
-				.authenticationManager(authenticationManager)
-				.securityContextRepository(securityContextRepository)
-				.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
-				.exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
-				.authorizeExchange()
-				.pathMatchers(HttpMethod.OPTIONS).permitAll()
-				.pathMatchers(HttpMethod.POST, "/auth").permitAll()
-				.anyExchange().authenticated()
-				.and().build();
-	}
+    @Bean
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        return http.csrf().disable()
+                .cors().and()
+                .formLogin().disable()
+                .httpBasic().disable()
+                .logout().disable()
+                .authenticationManager(authenticationManager)
+                .securityContextRepository(securityContextRepository)
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
+                .authorizeExchange()
+                .pathMatchers(HttpMethod.OPTIONS).permitAll()
+                .pathMatchers(HttpMethod.POST, "/auth").permitAll()
+                .anyExchange().authenticated()
+                .and().build();
+    }
 }

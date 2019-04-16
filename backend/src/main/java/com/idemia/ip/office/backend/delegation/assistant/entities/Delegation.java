@@ -18,21 +18,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
 
+@Entity
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Entity
 public class Delegation extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
@@ -57,12 +57,15 @@ public class Delegation extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private DelegationStatus delegationStatus;
 
-    @JoinColumn(nullable = false)
-    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "delegated_employee_id", nullable = false)
+    @ManyToOne
     private User delegatedEmployee;
 
     @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "delegation_id")
-    @OrderBy("id")
     private List<Expense> expenses = new ArrayList<>();
+
+    @JoinColumn(name = "checklist_id", nullable = false)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH})
+    private Checklist checklist;
 }

@@ -1,8 +1,11 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
+import com.idemia.ip.office.backend.delegation.assistant.checklists.services.ChecklistTemplateService;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.configuration.DelegationsExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator;
+import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
+import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
@@ -12,6 +15,7 @@ import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAcc
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException;
 import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.codec.multipart.FilePart;
@@ -33,42 +37,48 @@ public class DelegationServiceImpl implements DelegationService {
     private static final Logger LOG = LoggerFactory.getLogger(DelegationServiceImpl.class);
 
     private final Scheduler scheduler;
-
     private final DelegationRepository delegationRepository;
-
     private final ExpenseService expenseService;
-
     private final DelegationFlowValidator delegationFlowValidator;
-
     private final ForbiddenExceptionProperties forbiddenExceptionProperties;
     private final DelegationsExceptionProperties delegationsExceptionProperties;
+    private final ChecklistTemplateService checklistTemplateService;
+    private final ModelMapper modelMapper;
 
     public DelegationServiceImpl(Scheduler scheduler,
             DelegationRepository delegationRepository,
             ExpenseService expenseService,
             DelegationFlowValidator delegationFlowValidator,
             ForbiddenExceptionProperties forbiddenExceptionProperties,
-            DelegationsExceptionProperties delegationsExceptionProperties) {
+            DelegationsExceptionProperties delegationsExceptionProperties,
+            ChecklistTemplateService checklistTemplateService,
+            ModelMapper modelMapper) {
         this.scheduler = scheduler;
         this.delegationRepository = delegationRepository;
         this.expenseService = expenseService;
         this.delegationsExceptionProperties = delegationsExceptionProperties;
         this.delegationFlowValidator = delegationFlowValidator;
         this.forbiddenExceptionProperties = forbiddenExceptionProperties;
+        this.checklistTemplateService = checklistTemplateService;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public Mono<Void> addDelegation(Delegation delegation, User user) {
         delegation.setDelegatedEmployee(user);
         delegation.setDelegationStatus(CREATED);
-        return saveDelegation(delegation);
+
+        return prepareChecklistForDelegation().map(preparedChecklist -> {
+            delegation.setChecklist(preparedChecklist);
+            return delegation;
+        }).flatMap(this::saveDelegation);
     }
 
     @Override
     public Mono<Delegation> getDelegation(Long delegationId) {
         return Mono.fromCallable(() -> delegationRepository.findById(delegationId))
-                .publishOn(scheduler)
-                .map(d -> d.orElseThrow(() -> delegationNotFoundException(delegationId)));
+                .map(delegation -> delegation.orElseThrow(() -> delegationNotFoundException(delegationId)))
+                .publishOn(scheduler);
     }
 
     @Override
@@ -127,6 +137,15 @@ public class DelegationServiceImpl implements DelegationService {
                 this.delegationRepository.getDelegations(userLogin, status, since, until)
         ).publishOn(scheduler);
         return delegationList.flatMapMany(Flux::fromIterable);
+    }
+
+    private Mono<Checklist> prepareChecklistForDelegation() {
+        return checklistTemplateService.getChecklistTemplate()
+                .map(checklistTemplate -> {
+                    checklistTemplate.setId(null);
+                    checklistTemplate.getActivities().forEach(activity -> activity.setId(null));
+                    return checklistTemplate;
+                }).map(preparedChecklistTemplate -> modelMapper.map(preparedChecklistTemplate, Checklist.class));
     }
 
     private void validateDates(LocalDateTime since, LocalDateTime until) {

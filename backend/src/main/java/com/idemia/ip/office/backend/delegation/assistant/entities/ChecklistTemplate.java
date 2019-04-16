@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,16 +22,17 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Checklist extends BaseEntity {
+public class ChecklistTemplate extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
     private Long id;
 
-    @JoinColumn(name = "checklist_id", updatable = false)
+    @Column(name = "country_iso3", nullable = false, length = 3)
+    private String countryISO3;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Fetch(FetchMode.SELECT)
-    @BatchSize(size = 10)
-    private List<Activity> activities = new ArrayList<>();
+    @JoinColumn(name = "checklist_template_id")
+    private List<ActivityTemplate> activities = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.controllers;
 
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.ChecklistDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPatch;
@@ -7,6 +8,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.validationg
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException;
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -37,15 +39,19 @@ import java.util.List;
 @Validated
 public class DelegationController {
     private static final Logger LOG = LoggerFactory.getLogger(DelegationController.class);
-
     private DelegationService delegationService;
     private UserService userService;
+    private ForbiddenExceptionProperties forbiddenExceptionProperties;
     private ModelMapper modelMapper;
 
-    public DelegationController(DelegationService delegationService, UserService userService, ModelMapper modelMapper) {
+    public DelegationController(DelegationService delegationService,
+            UserService userService,
+            ModelMapper modelMapper,
+            ForbiddenExceptionProperties forbiddenExceptionProperties) {
         this.delegationService = delegationService;
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.forbiddenExceptionProperties = forbiddenExceptionProperties;
     }
 
     @PostMapping("/delegations")
@@ -69,6 +75,22 @@ public class DelegationController {
         Mono<List<DelegationDto>> delegationsDto = delegations.map(e -> modelMapper.map(e, DelegationDto.class))
                 .collectList();
         return delegationsDto.map(ResponseEntity::ok);
+    }
+
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @GetMapping("/delegations/{delegationId}/checklist")
+    public Mono<ResponseEntity<ChecklistDto>> getChecklist(@PathVariable("delegationId") Long delegationId,
+            Principal principal) {
+        return delegationService.getDelegation(delegationId)
+                .map(delegation -> {
+                    if (!delegation.getDelegatedEmployee().getLogin().equals(principal.getName())) {
+                        throw new ForbiddenAccessException("This checklist is owned by another user!",
+                                forbiddenExceptionProperties.getNotOwnerOfResource());
+                    }
+                    return delegation.getChecklist();
+                })
+                .map(checklist -> modelMapper.map(checklist, ChecklistDto.class))
+                .map(ResponseEntity::ok);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_TRAVEL_MANAGER', 'ROLE_APPROVER', 'ROLE_ACCOUNTANT')")

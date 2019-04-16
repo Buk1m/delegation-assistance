@@ -20,7 +20,7 @@
 
 ```json
 {
-  "name": "task",
+  "task": "task1",
   "description": "desc"
 }
 ```

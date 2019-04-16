@@ -8,6 +8,7 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService
 import org.modelmapper.ModelMapper
@@ -24,7 +25,9 @@ class DelegationControllerCaseSpec extends Specification {
     DelegationService delegationService = Mock()
     ModelMapper modelMapper = new ModelMapper()
     UserService userService = Mock()
-    DelegationController delegationController = new DelegationController(delegationService, userService, modelMapper)
+    ForbiddenExceptionProperties forbiddenExceptionProperties = new ForbiddenExceptionProperties()
+    DelegationController delegationController = new DelegationController(delegationService,
+            userService, modelMapper, forbiddenExceptionProperties)
     String login = 'login'
 
     def 'Delegation is correctly mapped and saved'() {

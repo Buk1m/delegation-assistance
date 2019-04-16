@@ -1,10 +1,12 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations
 
+import com.idemia.ip.office.backend.delegation.assistant.checklists.services.ChecklistTemplateService
 import com.idemia.ip.office.backend.delegation.assistant.delegations.configuration.DelegationsExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationServiceImpl
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator
+import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
@@ -12,9 +14,9 @@ import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAcc
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException
 import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService
+import org.modelmapper.ModelMapper
 import org.springframework.http.codec.multipart.FilePart
 import reactor.core.publisher.Mono
-import reactor.core.scheduler.Scheduler
 import reactor.core.scheduler.Schedulers
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -28,13 +30,18 @@ import static java.time.LocalDateTime.parse
 
 class DelegationServiceCaseSpec extends Specification {
 
-    Scheduler scheduler = Schedulers.fromExecutor(Executors.newSingleThreadScheduledExecutor())
-    DelegationRepository delegationRepository = Mock(DelegationRepository)
-    DelegationsExceptionProperties delegationsExceptionProperties = new DelegationsExceptionProperties()
+    DelegationRepository delegationRepository = Mock()
     ForbiddenExceptionProperties forbiddenExceptionProperties = Mock()
     ExpenseService expenseService = Mock()
     DelegationFlowValidator delegationFlowValidator = Mock()
-    DelegationService delegationService = new DelegationServiceImpl(scheduler, delegationRepository, expenseService, delegationFlowValidator, forbiddenExceptionProperties, delegationsExceptionProperties)
+    ChecklistTemplateService checklistTemplateService = Mock()
+
+    DelegationService delegationService = new DelegationServiceImpl(
+            Schedulers.fromExecutor(Executors.newSingleThreadScheduledExecutor()),
+            delegationRepository, expenseService, delegationFlowValidator,
+            forbiddenExceptionProperties, new DelegationsExceptionProperties(),
+            checklistTemplateService,
+            new ModelMapper())
 
     def 'Delegation status and user are correctly assigned'() {
         given: 'User and delegation'
@@ -46,6 +53,7 @@ class DelegationServiceCaseSpec extends Specification {
             delegationService.addDelegation(delegation, user).block()
 
         then: 'Delegation has correctly assigned properties'
+            1 * checklistTemplateService.getChecklistTemplate() >> Mono.just(new ChecklistTemplate())
             1 * delegationRepository.save(_ as Delegation)
             delegation.delegationStatus == CREATED
             delegation.delegatedEmployee == user
