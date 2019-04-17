@@ -4,7 +4,7 @@ import { object } from "prop-types";
 import style from "../CreateDelegationScreen/CreateDelegationButtonStyles.module.scss";
 
 const DelegationsScreen = props => {
-  const { navigate } = props;
+  const { navigate, delegationId } = props;
 
   return (
     <View>
@@ -13,6 +13,11 @@ const DelegationsScreen = props => {
         onPress={() => navigate.navigate("CreateDelegation")}
       >
         <Text style={style.addDelegationButton}> + </Text>
+      </TouchableOpacity>
+
+      {/* TODO: delete when add delegations PR will me merged, and replace with sth else */}
+      <TouchableOpacity title="[]" onPress={() => navigate.navigate("DelegationChecklist", {delegationId: delegationId})}>
+        <Text style={style.addDelegationButton}> [] </Text>
       </TouchableOpacity>
     </View>
   );

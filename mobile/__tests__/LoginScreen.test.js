@@ -4,7 +4,7 @@ import { render, fireEvent, shallow } from "react-native-testing-library";
 import { Field } from "redux-form";
 import thunk from "redux-thunk";
 
-import { validateRequired } from "../src/shared/Validators/Validators";
+import { validateRequired } from "../src/validators/Validators";
 import LoginScreen from "../src/features/LoginScreen/LoginScreen.component";
 import { LoginScreenContainer } from "../src/features/LoginScreen/LoginScreen.container";
 import {

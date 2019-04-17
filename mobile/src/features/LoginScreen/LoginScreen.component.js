@@ -2,10 +2,10 @@ import React from "react";
 import { View, Text, Button } from "react-native";
 import { Field, reduxForm } from "redux-form";
 
-import { validateRequired } from "../../shared/Validators/Validators";
+import { validateRequired } from "../../validators/Validators";
 import FieldLoginRenderer from "../../components/FieldLoginRenderer/FieldLoginRenderer.component";
 import styles from "./LoginScreen.module.scss";
-import { func, array } from "prop-types";
+import { func, string } from "prop-types";
 
 const LoginScreen = props => {
   const { handleSubmit } = props;
@@ -53,7 +53,7 @@ const LoginScreen = props => {
 
 LoginScreen.propTypes = {
   handleSubmit: func.isRequired,
-  errors: array
+  errors: string
 };
 
 export default reduxForm({

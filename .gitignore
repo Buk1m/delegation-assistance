@@ -32,7 +32,7 @@ target
 .env.production.local
 
 # Expo
-.expo/*
+./*/.expo
 
 # Logs
 logs

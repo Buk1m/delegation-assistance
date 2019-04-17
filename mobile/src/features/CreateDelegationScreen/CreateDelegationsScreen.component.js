@@ -4,10 +4,10 @@ import { reduxForm, reset, Field } from "redux-form";
 import { func } from "prop-types";
 
 import styles from "../../assets/styles/styles.scss";
-import { validateRequired } from "../../shared/Validators/Validators";
+import { validateRequired } from "../../validators/Validators";
 import DatePickerRenderer from "../../components/DatePicker/DatePickerRenderer.component";
 import FieldRenderer from "../../components/FieldRenderer/FieldRenderer.component";
-import startDateEarlierThanEndDate from "../../shared/Validators/startDateEarlierThenEndDate";
+import startDateEarlierThanEndDate from "../../validators/startDateEarlierThenEndDate";
 
 const CreateDelegationsScreen = props => {
   const { handleSubmit } = props;

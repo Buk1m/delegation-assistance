@@ -9,7 +9,10 @@ class DelegationsScreenContainer extends Component {
   };
 
   render() {
-    return <DelegationsScreen navigate={this.props.navigation} />;
+    // TODO: replace 0 with delegationId when delegation screen PR will be approved and merged
+    return (
+      <DelegationsScreen navigate={this.props.navigation} delegationId={0} />
+    );
   }
 }
 

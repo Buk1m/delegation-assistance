@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DelegationChecklist snapshot renders correctly 1`] = `
+<View>
+  <Text
+    style={
+      Array [
+        undefined,
+        undefined,
+      ]
+    }
+  />
+</View>
+`;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { loginUser } from "../../actions/user.actions";
-import { bool, string, func } from "../../actions/user.actions";
+import { bool, string, func } from "prop-types";
 import { getLoggedStatus, getToken } from "../../selectors/user.selectors";
 import LoginScreen from "./LoginScreen.component";
 

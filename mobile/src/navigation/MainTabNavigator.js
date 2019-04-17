@@ -12,6 +12,7 @@ import DelegationsScreen from "../features/DelegationsScreen";
 import CreateDelegationScreen from "../features/CreateDelegationScreen";
 import ChecklistScreen from "../features/ChecklistScreen";
 import CreateTaskScreen from "../features/CreateTaskScreen";
+import DelegationChecklistScreen from "../features/DelegationChecklistScreen";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -29,7 +30,8 @@ HomeStack.navigationOptions = {
 
 const DelegationsStack = createStackNavigator({
   Home: DelegationsScreen,
-  CreateDelegation: CreateDelegationScreen
+  CreateDelegation: CreateDelegationScreen,
+  DelegationChecklist: DelegationChecklistScreen
 });
 DelegationsStack.navigationOptions = {
   tabBarLabel: "Delegations",

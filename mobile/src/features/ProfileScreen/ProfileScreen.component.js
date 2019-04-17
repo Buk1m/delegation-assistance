@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, Button } from "react-native";
-import { func } from "propTypes";
+import { func } from "prop-types";
 
 const ProfileScreen = props => {
   const { logoutUser } = props;

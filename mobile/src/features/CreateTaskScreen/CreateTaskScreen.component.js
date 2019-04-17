@@ -5,7 +5,7 @@ import { View, Text, ScrollView, TouchableOpacity, KeyboardAvoidingView } from "
 
 import styles from "../../assets/styles/styles.scss";
 import FieldRenderer from "../../components/FieldRenderer/FieldRenderer.component";
-import { validateRequired } from "../../shared/Validators/Validators";
+import { validateRequired } from "../../validators/Validators";
 
 const CreateTaskScreen = props => {
   const { handleSubmit } = props;
