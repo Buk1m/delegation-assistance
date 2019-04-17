@@ -1,12 +1,16 @@
 import React from "react";
 import { Text, ScrollView, Switch, View, Button } from "react-native";
 import { reduxForm, Field } from "redux-form";
-import { func, array } from "prop-types";
+import { func, array, object } from "prop-types";
 
 import styles from "./ChecklistScreen.module.scss";
 
 const renderField = ({ input: { onChange, value } }) => {
   return <Switch onValueChange={value => onChange(value)} value={value} />;
+};
+
+renderField.propTypes = {
+  input: object
 };
 
 const ChecklistScreen = props => {
@@ -16,7 +20,12 @@ const ChecklistScreen = props => {
       <View style={styles.list}>
         {tasks.map((task, index) => (
           <View key={task.id} style={styles.listitem}>
-            <Field name={`tasks[${index}]`} title={task.name} value={task.id} component={renderField} />
+            <Field
+              name={`tasks[${index}]`}
+              title={task.name}
+              value={task.id}
+              component={renderField}
+            />
             <Text style={styles.name}>{task.name}</Text>
           </View>
         ))}

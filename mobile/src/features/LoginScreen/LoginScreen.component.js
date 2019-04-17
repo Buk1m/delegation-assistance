@@ -5,6 +5,7 @@ import { Field, reduxForm } from "redux-form";
 import { validateRequired } from "../../shared/Validators/Validators";
 import FieldLoginRenderer from "../../components/FieldLoginRenderer/FieldLoginRenderer.component";
 import styles from "./LoginScreen.module.scss";
+import { func, array } from "prop-types";
 
 const LoginScreen = props => {
   const { handleSubmit } = props;
@@ -48,6 +49,11 @@ const LoginScreen = props => {
       </View>
     </View>
   );
+};
+
+LoginScreen.propTypes = {
+  handleSubmit: func.isRequired,
+  errors: array
 };
 
 export default reduxForm({

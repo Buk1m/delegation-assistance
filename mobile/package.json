@@ -28,8 +28,11 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^24.5.0",
     "babel-preset-expo": "^5.0.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-webdriverio": "^1.0.1",
     "jest-css-modules": "^1.1.0",
     "jest-expo": "^32.0.0",
     "metro-react-native-babel-preset": "^0.53.1",

@@ -19,7 +19,10 @@ export const DelegationCreatePage = props => {
         <Card title="Delegation information" number="1">
           <Form onSubmit={handleSubmit} id="create-delegation">
             <div className="container">
-              <label className="label-delegation-page" htmlFor="destinationCountryISO3">
+              <label
+                className="label-delegation-page"
+                htmlFor="destinationCountryISO3"
+              >
                 Destination Country:
               </label>
               <Field
@@ -46,16 +49,29 @@ export const DelegationCreatePage = props => {
                   <label className="label-delegation-page" htmlFor="startDate">
                     Start date:
                   </label>
-                  <Field name="startDate" component={DateTimePicker} validate={[validateRequired]} />
+                  <Field
+                    name="startDate"
+                    component={DateTimePicker}
+                    validate={[validateRequired]}
+                  />
                 </div>
                 <div className="date-picker">
                   <label className="label-delegation-page" htmlFor="endDate">
                     End date:
                   </label>
-                  <Field name="endDate" component={DateTimePicker} validate={[validateRequired]} />
+                  <Field
+                    name="endDate"
+                    component={DateTimePicker}
+                    validate={[validateRequired]}
+                  />
                 </div>
                 <div className="btn-create-delegation">
-                  <Button type="submit" submitting={submitting} disabled={submitting} text="Create delegation" />
+                  <Button
+                    type="submit"
+                    submitting={submitting}
+                    disabled={submitting}
+                    text="Create delegation"
+                  />
                 </div>
               </div>
             </div>

@@ -1,0 +1,27 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "semi": 2,
+    "eqeqeq": 1,
+    "default-case": 1,
+    "max-classes-per-file": 1,
+    "no-var": "error",
+    "react/display-name": [0, { "ignoreTranspilerName": false }],
+    "max-len": ["error", { "code": 120, "tabWidth": 2 }],
+    "react/prop-types": [2, { "ignore": ["navigation"] }]
+  },
+  "plugins": ["react", "webdriverio"],
+  "env": {
+    "jest": true,
+    "webdriverio/wdio": true,
+    "mocha": true
+  }
+}

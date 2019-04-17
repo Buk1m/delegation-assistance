@@ -6,6 +6,10 @@ import { func } from "prop-types";
 import CreateDelegationsScreen from "./CreateDelegationsScreen.component";
 
 class CreateDelegationsScreenContainer extends Component {
+  static propTypes = {
+    addNewDelegation: func
+  };
+
   static navigationOptions = {
     title: "Create Delegation"
   };

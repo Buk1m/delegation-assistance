@@ -2,10 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { loginUser } from "../../actions/user.actions";
+import { bool, string, func } from "../../actions/user.actions";
 import { getLoggedStatus, getToken } from "../../selectors/user.selectors";
 import LoginScreen from "./LoginScreen.component";
 
 class LoginScreenContainer extends Component {
+  static propTypes = {
+    loggedStatus: bool,
+    myToken: string,
+    loginUser: func
+  };
+
   static navigatonOptions = {
     header: null
   };
@@ -37,7 +44,7 @@ class LoginScreenContainer extends Component {
           this.props.navigation.navigate("Main");
         }
       })
-      .catch(err => {
+      .catch(() => {
         this.setState({ errors: "Invalid Username or Password" });
       });
   };

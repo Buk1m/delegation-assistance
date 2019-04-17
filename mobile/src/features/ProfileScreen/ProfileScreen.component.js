@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, Button } from "react-native";
+import { func } from "propTypes";
 
 const ProfileScreen = props => {
   const { logoutUser } = props;
@@ -9,6 +10,10 @@ const ProfileScreen = props => {
       <Button onPress={() => logoutUser()} title="logout" />
     </View>
   );
+};
+
+ProfileScreen.propTypes = {
+  logoutUser: func
 };
 
 export default ProfileScreen;

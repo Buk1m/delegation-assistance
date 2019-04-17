@@ -15,7 +15,9 @@ class CreateTaskScreenContainer extends Component {
   };
 
   _handleSubmit = values => {
-    this.props.addTask(values.name, values.description).then(s => this.props.navigation.navigate("Checklist"));
+    this.props
+      .addTask(values.name, values.description)
+      .then(() => this.props.navigation.navigate("Checklist"));
   };
 
   render() {

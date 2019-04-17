@@ -13,7 +13,7 @@ const CreateDelegationsScreen = props => {
   const { handleSubmit } = props;
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView> 
         <KeyboardAvoidingView behavior="padding" enable>
           <Text style={styles.subtitle}> Destination Country </Text>
           <Field
