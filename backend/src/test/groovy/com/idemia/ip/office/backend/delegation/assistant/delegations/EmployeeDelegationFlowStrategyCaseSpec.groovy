@@ -17,9 +17,9 @@ class EmployeeDelegationFlowStrategyCaseSpec extends Specification {
             employeeDelegationFlowStrategy.validate(newDelegation) == result
 
         where: 'Delegation parameters cases'
-            newDelegation                              | result
-            getDelegationToValidate(CREATED)           | true
-            getDelegationToValidate(PREPARED)          | true
-            getDelegationToValidate(APPROVER_APPROVED) | false
+            newDelegation                     | result
+            getDelegationToValidate(CREATED)  | true
+            getDelegationToValidate(PREPARED) | true
+            getDelegationToValidate(APPROVED) | false
     }
 }

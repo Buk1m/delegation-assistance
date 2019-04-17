@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { func } from "prop-types";
 
-import CreateDelegationPage from "./CreateDelegationPage.component";
+import DelegationCreatePage from "./DelegationCreatePage.component";
 import { addNewDelegation } from "../../actions/delegations.actions";
 import { codes } from "iso-country-codes";
 
-class CreateDelegationPageContainer extends Component {
+class DelegationCreatePageContainer extends Component {
   static propTypes = {
     addNewDelegation: func
   };
@@ -35,12 +35,7 @@ class CreateDelegationPageContainer extends Component {
   };
 
   render() {
-    return (
-      <CreateDelegationPage
-        onSubmit={this.handleCreateDelegation}
-        countriesISOCodes={this.countriesISOCodes}
-      />
-    );
+    return <DelegationCreatePage onSubmit={this.handleCreateDelegation} countriesISOCodes={this.countriesISOCodes} />;
   }
 }
 
@@ -51,4 +46,4 @@ const mapDispatchToProps = {
 export default connect(
   null,
   mapDispatchToProps
-)(CreateDelegationPageContainer);
+)(DelegationCreatePageContainer);

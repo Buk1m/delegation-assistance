@@ -12,12 +12,6 @@ const userRolesMap = {
   ROLE_ACCOUNTANT: userRoles.accountant
 };
 
-const environments = {
-  NODE_ENV: process.env.NODE_ENV || "development",
-  LOGS: process.env.REACT_APP_LOGS || "none",
-  API_URL: process.env.REACT_APP_API_URL || "http://localhost:8080/api"
-};
-
 const delegationStatuses = {
   CREATED: "Created",
   PREPARED: "Prepared",
@@ -27,4 +21,4 @@ const delegationStatuses = {
   FINALIZED: "Finalized"
 };
 
-export { userRoles, userRolesMap, environments, delegationStatuses };
+export { userRoles, userRolesMap, delegationStatuses };

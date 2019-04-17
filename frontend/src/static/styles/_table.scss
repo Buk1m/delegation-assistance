@@ -3,19 +3,23 @@
 }
 
 .created .delegation-status {
+  background-color: #673ab7;
+}
+
+.needs_work .delegation-status {
   background-color: #ffb700;
 }
 
-.ratified .delegation-status {
+.checked .delegation-status {
+  background-color: #a05722;
+}
+
+.approved .delegation-status {
   background-color: #4caf50;
 }
 
-.travel_manager_approved .delegation-status {
-  background-color: #ff5722;
-}
-
-.approver_approved .delegation-status {
-  background-color: #673ab7;
+.finalized .delegation-status {
+  background-color: #c1c1c1;
 }
 
 .delegation-status {

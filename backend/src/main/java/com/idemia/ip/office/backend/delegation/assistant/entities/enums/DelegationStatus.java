@@ -3,9 +3,10 @@ package com.idemia.ip.office.backend.delegation.assistant.entities.enums;
 public enum DelegationStatus {
     CREATED("CREATED"),
     PREPARED("PREPARED"),
-    TRAVEL_MANGER_APPROVED("TRAVEL_MANGER_APPROVED"),
-    APPROVER_APPROVED("APPROVER_APPROVED"),
-    RATIFIED("RATIFIED");
+    NEEDS_WORK("NEEDS_WORK"),
+    CHECKED("CHECKED"),
+    APPROVED("APPROVED"),
+    FINALIZED("FINALIZED");
 
     private String value;
 
