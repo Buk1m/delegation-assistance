@@ -128,3 +128,4 @@ package-lock.json
 /mobile/.expo
 /frontend/test-report.json
 /mobile/test-report.json
+/frontend/build

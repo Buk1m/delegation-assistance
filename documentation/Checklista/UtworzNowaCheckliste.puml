@@ -1,0 +1,6 @@
+@startuml
+"Client"->"ChecklistController":addChecklist(ChecklistDto checklistDto)
+"ChecklistController"->"ChecklistService":addChecklist(Checklist checklist)
+database DB
+"ChecklistService"->DB:query
+@enduml
