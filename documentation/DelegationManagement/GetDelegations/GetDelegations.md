@@ -1,4 +1,4 @@
-## IDEMIA2019-2 GetMyDelegations
+## IDEMIA2019-26 GetDelegations
 
 ### 1. Diagram Sekwencji
 
@@ -71,7 +71,14 @@ end
     "destinationCountryISO3": "BFA",
     "destinationLocation": "Radom",
     "delegationObjective": "Buy high quality rice",
-    "status": "CREATED"
+    "status": "CREATED",
+    "user": {
+      "id": 1,
+      "login": "amalysz",
+      "firstName": "Adam",
+      "lastName": "Małysz",
+      "avatar": {base64}
+    }
   },
   {
     "id": 2,
@@ -81,7 +88,14 @@ end
     "destinationCountryISO3": "BFA",
     "destinationLocation": "Radom",
     "delegationObjective": "Buy high quality rice",
-    "status": "CREATED"
+    "status": "CREATED",
+    "user": {
+      "id": 1,
+      "login": "amalysz",
+      "firstName": "Adam",
+      "lastName": "Małysz",
+      "avatar": {base64}
+    }
   }
 ]
 ```
@@ -103,6 +117,12 @@ end
 
 ##Systemy mobilne - lista delegacji
 ![Mobile](mockups/allDelegationsMobileList.PNG?raw=true "Mobile List")
+
+###Uwagi
+
+**Kolor zielony** przy zdjęciu oznacza, że delegacja trwa.
+
+**Kolor szary** przyz zdjęciu oznacza, że delegacja została zakończona.
 
 ### 4. Test cases
 

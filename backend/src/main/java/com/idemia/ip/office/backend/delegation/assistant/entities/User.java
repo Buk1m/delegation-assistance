@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 @Builder
@@ -26,6 +27,21 @@ public class User extends BaseEntity {
     @Getter
     @Setter
     private String login;
+
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    private String firstName;
+
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    private String lastName;
+
+    @Lob
+    @Getter
+    @Setter
+    private byte[] avatar;
 
 
     public User() {

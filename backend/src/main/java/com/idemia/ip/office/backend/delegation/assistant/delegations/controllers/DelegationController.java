@@ -35,6 +35,8 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.idemia.ip.office.backend.delegation.assistant.converters.ByteArrayToStringConverter.byteArrayToStringConverter;
+
 @RestController
 @Validated
 public class DelegationController {
@@ -51,6 +53,7 @@ public class DelegationController {
         this.delegationService = delegationService;
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.modelMapper.addConverter(byteArrayToStringConverter);
         this.forbiddenExceptionProperties = forbiddenExceptionProperties;
     }
 

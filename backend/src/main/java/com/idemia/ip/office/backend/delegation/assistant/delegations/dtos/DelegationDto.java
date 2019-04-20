@@ -30,17 +30,22 @@ public class DelegationDto extends BaseDto {
     @DateTimeFormat(iso = DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startDate;
+
     @NotNull(message = "{error.message.not.null}", groups = OnPost.class)
     @DateTimeFormat(iso = DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endDate;
+
     @NotBlank(message = "{error.message.field.not.blank}", groups = OnPost.class)
     @Size(min = 3, max = 3, message = "{error.message.size}")
     private String destinationCountryISO3;
+
     @NotBlank(message = "{error.message.field.not.blank}", groups = OnPost.class)
     private String destinationLocation;
+
     @NotBlank(message = "{error.message.field.not.blank}", groups = OnPost.class)
     private String delegationObjective;
+
     @Null(message = "{error.message.field.blank}", groups = OnPost.class)
     @NotNull(message = "{error.message.not.null}", groups = OnPatch.class)
     private DelegationStatus delegationStatus;
