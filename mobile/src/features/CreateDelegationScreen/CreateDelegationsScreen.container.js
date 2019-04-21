@@ -31,3 +31,4 @@ export default connect(
   null,
   mapDispatchToProps
 )(CreateDelegationsScreenContainer);
+

@@ -15,6 +15,10 @@ const DelegationsScreen = props => {
         <Text style={style.addDelegationButton}> + </Text>
       </TouchableOpacity>
 
+      <TouchableOpacity title="e" onPress={() => navigate.navigate("CreateExpense", {delegationId: delegationId})}>
+         <Text style={style.addDelegationButton}> E </Text>
+      </TouchableOpacity>
+
       {/* TODO: delete when add delegations PR will me merged, and replace with sth else */}
       <TouchableOpacity title="[]" onPress={() => navigate.navigate("DelegationChecklist", {delegationId: delegationId})}>
         <Text style={style.addDelegationButton}> [] </Text>

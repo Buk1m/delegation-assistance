@@ -1,0 +1,84 @@
+@import "../../../assets/styles/constants";
+
+.container {
+  flex-direction: row;
+  margin: auto;
+}
+
+.button {
+  background-color: $primary-color;
+  color: $text-color-button;
+  width: 4.3125rem;
+  height: 3rem;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  margin: 1.25rem 1.25rem 0.9375rem;
+  font-size: 1.25rem;
+  padding: 0.3125rem;
+}
+
+.input {
+  border-color: $primary-color;
+  border-radius: 10px;
+  border-width: 2px;
+  height: 2.3125rem;
+  width: 18.75rem;
+  padding-left: 0.625rem;
+  margin: 6px 1.25rem;
+  position: relative;
+  padding-top: 10px;
+  padding-right: 40px;
+}
+
+.list-container {
+  flex-direction: row;
+}
+
+.trash {
+  margin: 10px -50px;
+  position: relative;
+  text-align: center;
+  color: $primary-color;
+  padding-top: 1px;
+}
+
+.dual-button-container {
+  width: 3.3125rem;
+  height: 2.3125rem;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.left-button-active {
+  background-color: $primary-color;
+  color: $text-color-button;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  @extend .dual-button-container;
+}
+
+.right-button-active {
+  background-color: $primary-color;
+  color: $text-color-button;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  @extend .dual-button-container;
+}
+
+.right-button-inactive {
+  background-color: $inactiveTextColor;
+  color: $text-color-button;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  @extend .dual-button-container;
+}
+
+.left-button-inactive {
+  background-color: $inactiveTextColor;
+  color: $text-color-button;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  @extend .dual-button-container;
+}
