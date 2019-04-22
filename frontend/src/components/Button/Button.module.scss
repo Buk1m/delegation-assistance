@@ -17,7 +17,7 @@
   max-width: 100%;
   position: relative;
   border: none;
-  min-height: 40px;
+  min-height: 35px;
 
   &:hover {
     text-decoration: none;
@@ -32,6 +32,9 @@
   transition-duration: 0.3s;
   border-radius: 3px;
   color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.875em;
 
   .spinner {
     color: #fff;
@@ -46,11 +49,11 @@
       position: absolute;
     }
 
+    &:focus,
     &:hover {
       background: #fff;
       color: $primary-color;
       text-decoration: none;
-      font-weight: bold;
 
       &:before {
         left: 0%;
@@ -130,23 +133,83 @@
 }
 
 .warning {
+  $warning-color: #ffb802;
   @extend .primary;
-  background: darkred;
+
+  background: $warning-color;
   border-radius: 3px;
 
   .spinner {
-    color: darkred;
+    color: $warning-color;
   }
 
-  &:hover {
-    background: #fff;
-    color: darkred;
+  &:not(:disabled) {
+    &:focus,
+    &:hover {
+      background: #fff;
+      color: $warning-color;
+    }
+
+    &:before,
+    &:after,
+    & > span:before,
+    & > span:after {
+      border-color: $warning-color;
+    }
+  }
+}
+
+.add {
+  $add-color: #009e53;
+  @extend .primary;
+
+  background: $add-color;
+  border-radius: 3px;
+
+  .spinner {
+    color: $add-color;
   }
 
-  &:before,
-  &:after,
-  & > span:before,
-  & > span:after {
-    border-color: darkred;
+  &:not(:disabled) {
+    &:focus,
+    &:hover {
+      background: #fff;
+      color: $add-color;
+    }
+
+    &:before,
+    &:after,
+    & > span:before,
+    & > span:after {
+      color: $add-color;
+      border-color: $add-color;
+    }
+  }
+}
+
+.delete {
+  $delete-color: #d23f31;
+  @extend .primary;
+
+  background: $delete-color;
+  border-radius: 3px;
+
+  .spinner {
+    color: $delete-color;
+  }
+  &:not(:disabled) {
+    &:focus,
+    &:hover {
+      background: #fff;
+      color: $delete-color;
+    }
+
+    &:before,
+    &:after,
+    & > span:before,
+    & > span:after {
+      color: $delete-color;
+      border-color: $delete-color;
+    }
   }
 }

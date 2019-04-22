@@ -1,31 +1,23 @@
 import { APIService } from "../services/data";
 
 export const ACTIONS = {
-  ADD_TASK: "CHECKLISTS_ADD_TASK",
+  ADD_CHECKLIST: "CHECKLISTS_ADD_CHECKLIST",
   GET_TASKS: "CHECKLISTS_GET_TASKS",
   DELETE_TASK: "CHECKLISTS_DELETE_TASK"
 };
 
-const addTask = (name, description) => dispatch => {
+const addChecklist = checklists => dispatch => {
   return dispatch(
-    APIService.post(
-      ACTIONS.ADD_TASK,
-      {
-        url: "/checklist/tasks",
-        headers: {
-          "Content-type": "application/json"
-        },
-        needAuth: true,
-        data: {
-          name: name,
-          description: description
-        }
+    APIService.post(ACTIONS.ADD_CHECKLIST, {
+      url: "/checklists",
+      headers: {
+        "Content-type": "application/json"
       },
-      {
-        name: name,
-        description: description
+      needAuth: true,
+      data: {
+        activities: checklists
       }
-    )
+    })
   );
 };
 
@@ -75,4 +67,4 @@ const saveTasks = tasks => dispatch => {
   );
 };
 
-export { addTask, deleteTask, fetchTasks, saveTasks };
+export { addChecklist, deleteTask, fetchTasks, saveTasks };

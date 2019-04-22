@@ -17,12 +17,14 @@ $md-end: 991px;
 $lg-start: 992px;
 $lg-end: 1199px;
 $xl-start: 1200px;
+$xxl-start: 1500px;
 $xsmall: "(max-width: " + $xs-end + ")";
 $small: "(max-width: " + $sm-end + ")";
 $mobile: "(max-width: " + $md-end + ")";
 $mobiletablet: "(max-width: " + $lg-end + ")";
 $tablet: "(min-width: " + $md-start + ") and (max-width: " + $lg-end + ")";
 $desktop: "(min-width: " + $xl-start + ")";
+$fulldesktop: "(min-width: " + $xxl-start + ")";
 
 :export {
   primary: $primary-color;

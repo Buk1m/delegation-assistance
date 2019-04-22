@@ -5,24 +5,14 @@ import { Field } from "redux-form";
 import styles from "./Inputs.module.scss";
 import ValidationError from "../ValidationError/ValidationError.component";
 
-const renderField = ({
-  input,
-  label,
-  type,
-  disabled,
-  className,
-  meta: { touched, error, warning }
-}) => {
+const renderField = ({ input, label, type, disabled, className, meta: { touched, error, warning } }) => {
   return (
     <Fragment>
       <div className={styles["render-field"]}>
         <input
           {...input}
           disabled={disabled}
-          className={[
-            styles[className],
-            [touched && error ? styles["invalid"] : ""]
-          ].join(" ")}
+          className={[styles[className], [touched && error ? styles["invalid"] : ""]].join(" ")}
           placeholder={label}
           type={type}
         />

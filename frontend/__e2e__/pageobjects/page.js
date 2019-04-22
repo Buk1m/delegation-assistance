@@ -4,6 +4,10 @@ export default class Page {
     browser.url(path);
   }
 
+  refresh() {
+    browser.refresh();
+  }
+
   loginAsEmployee() {
     this.open("login");
     browser.$("input[name='login']").setValue("employee");
@@ -42,9 +46,7 @@ export default class Page {
         return browser.getUrl() === baseUrl + "/delegations";
       },
       callTimeout,
-      "Login failed. Expected to navigate to landing page " +
-        baseUrl +
-        "/delegations"
+      "Login failed. Expected to navigate to landing page " + baseUrl + "/delegations"
     );
   }
 }

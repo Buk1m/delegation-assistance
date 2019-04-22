@@ -11,11 +11,13 @@
   flex-direction: column;
 
   &.addPadding {
-    padding: ($header-size + $main-content-padding) $main-content-padding $main-content-padding;
+    padding: ($header-size + $main-content-padding) $main-content-padding
+      $main-content-padding;
   }
 
   & > section {
     flex: 1 0 auto;
+    position: relative;
   }
 
   &.limited {

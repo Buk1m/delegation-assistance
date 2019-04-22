@@ -3,14 +3,16 @@ import { PENDING, FULFILLED, REJECTED } from "../middleware";
 
 const initialState = {
   fetching: false,
-  tasks: []
+  tasks: [],
+  errors: "",
+  subErrors: []
 };
 
 const checklistsReducer = (state = initialState, action) => {
   let result;
 
   switch (action.type) {
-    case `${ACTIONS.ADD_TASK}_${PENDING}`:
+    case `${ACTIONS.ADD_CHECKLIST}_${PENDING}`:
     case `${ACTIONS.DELETE_TASK}_${PENDING}`:
     case `${ACTIONS.GET_TASKS}_${PENDING}`:
       result = {
@@ -19,11 +21,10 @@ const checklistsReducer = (state = initialState, action) => {
       };
       break;
 
-    case `${ACTIONS.ADD_TASK}_${FULFILLED}`:
+    case `${ACTIONS.ADD_CHECKLIST}_${FULFILLED}`:
       result = {
         ...state,
-        fetching: false,
-        tasks: [...state.tasks.concat(action.meta)]
+        fetching: false
       };
       break;
     case `${ACTIONS.DELETE_TASK}_${FULFILLED}`:
@@ -41,12 +42,14 @@ const checklistsReducer = (state = initialState, action) => {
       };
       break;
 
-    case `${ACTIONS.ADD_TASK}_${REJECTED}`:
+    case `${ACTIONS.ADD_CHECKLIST}_${REJECTED}`:
     case `${ACTIONS.DELETE_TASK}_${REJECTED}`:
     case `${ACTIONS.GET_TASKS}_${REJECTED}`:
       result = {
         ...state,
-        fetching: false
+        fetching: false,
+        errors: action.payload.Message,
+        subErrors: action.payload.SubErrors
       };
       break;
     default:

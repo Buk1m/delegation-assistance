@@ -9,7 +9,7 @@ import DelegationCreatePage from "../features/DelegationCreatePage/";
 import DelegationViewPage from "../features/DelegationViewPage/";
 import ProfilePage from "../features/ProfilePage/";
 import ChecklistsPage from "../features/ChecklistsPage/";
-import CreateTaskPage from "../features/CreateTaskPage/";
+import ChecklistCreatePage from "../features/ChecklistCreatePage";
 import AddExpensePage from "../features/AddExpense/";
 
 const { accountant, approver, employee, travelmanager } = userRoles;
@@ -51,7 +51,7 @@ const routes = [
   { path: "/checklist", component: ChecklistsPage },
   {
     path: "/checklist/create",
-    component: CreateTaskPage,
+    component: ChecklistCreatePage,
     canAccess: [travelmanager]
   },
   { path: "/profile", component: ProfilePage }

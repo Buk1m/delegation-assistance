@@ -1,0 +1,41 @@
+@import "../../static/styles/constants";
+
+.card {
+  box-shadow: 0 1px 2px 1px rgba(154, 154, 204, 0.22);
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  position: relative;
+  min-width: 0;
+}
+
+.card-delete {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 1;
+  background: none;
+  border: none;
+
+  &-icon {
+    color: #c62828;
+  }
+}
+
+.card-content {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  outline: none;
+}
+
+@media #{$mobile} {
+  .card-content {
+    padding: 0.75rem;
+  }
+}
