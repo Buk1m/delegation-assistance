@@ -5,14 +5,17 @@
   height: 3.75rem;
   border-radius: 50px;
   line-height: 60px;
-  color: $text-color-button;
   background-color: $primary-color;
-  font-size: 3.125rem;
-  font-weight: normal;
-  text-align: center;
-  position: relative;
-  align-self: flex-end;
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
   justify-content: center;
   align-items: center;
-  margin: 1.25rem 1.25rem 0 0;
+  opacity: 0.9;
+}
+
+.addDelegationButtonText {
+  color: $text-color-button;
+  font-size: 3.125rem;
+  font-weight: normal;
 }

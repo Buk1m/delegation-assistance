@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
+import { string, array, func } from "prop-types";
 
 import ChecklistItem from "../../components/ChecklistItem";
 
@@ -29,6 +30,12 @@ const DelegationChecklistScreen = props => {
       />
     </View>
   );
+};
+
+DelegationChecklistScreen.propTypes = {
+  title: string,
+  checklist: array,
+  changeCheckboxState: func
 };
 
 export default DelegationChecklistScreen;

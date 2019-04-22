@@ -1,5 +1,11 @@
 import React from "react";
-import { View, ScrollView, KeyboardAvoidingView, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import { reduxForm, reset, Field } from "redux-form";
 import { func } from "prop-types";
 
@@ -43,10 +49,20 @@ const CreateDelegationsScreen = props => {
           />
 
           <Text style={styles.subtitle}> Start Date </Text>
-          <Field name="startDate" component={DatePickerRenderer} validate={[validateRequired]} isSecure={false} />
+          <Field
+            name="startDate"
+            component={DatePickerRenderer}
+            validate={[validateRequired]}
+            isSecure={false}
+          />
 
           <Text style={styles.subtitle}> End Date </Text>
-          <Field name="endDate" component={DatePickerRenderer} validate={[validateRequired]} isSecure={false} />
+          <Field
+            name="endDate"
+            component={DatePickerRenderer}
+            validate={[validateRequired]}
+            isSecure={false}
+          />
 
           <TouchableOpacity onPress={handleSubmit}>
             <Text style={styles.button}> Create </Text>

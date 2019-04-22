@@ -1,0 +1,22 @@
+@import "../../assets/styles/colors";
+
+.error {
+  background-color: $validate-text-color;
+  height: 50;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.errorIcon {
+  font-size: 30;
+  margin-right: 10;
+}
+
+.errorText {
+  font-size: 25;
+}
+
+.errorColor {
+  color: $text-color-button;
+}

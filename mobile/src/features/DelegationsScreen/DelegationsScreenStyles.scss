@@ -1,0 +1,68 @@
+@import "../../assets/styles/colors";
+
+.collapseButton {
+  width: 51;
+  height: 51;
+  align-items: center;
+  align-self: center;
+}
+
+.iconStyle {
+  color: $primary-color;
+  font-size: 50;
+}
+
+.container {
+  height: 100%;
+}
+
+.sideMargins {
+  margin-right: 20;
+  margin-left: 20;
+}
+
+.listSideMargins {
+  padding-right: 20;
+  padding-left: 20;
+}
+
+.filters {
+  padding-top: 5;
+  padding-bottom: 10;
+  flex-direction: row;
+  background-color: $text-color-button;
+}
+
+.collapsible {
+  border-bottom-color: $inactiveTextColor;
+  border-bottom-width: 1;
+  margin-left: 20;
+  margin-right: 20;
+}
+
+.column {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.datePicker {
+  align-self: center;
+}
+
+.picker {
+  align-self: center;
+}
+
+.button {
+  height: 35;
+  width: 120;
+  background-color: $primary-color;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20;
+}
+
+.list {
+  margin-top: 5;
+}

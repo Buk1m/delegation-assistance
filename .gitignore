@@ -20,6 +20,9 @@ target
 *.iml
 .idea
 
+# vscode
+.vscode
+
 # config
 **\*-dev.properties
 

@@ -1,0 +1,24 @@
+@import "../../../../assets/styles/colors.scss";
+
+.delegation {
+  border-color: transparent;
+  //TODO: replace with color from color palette when t will be available
+  background-color: #f3f3f3;
+  border-width: 0.05rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 5;
+}
+
+.dataRow {
+  flex-direction: row;
+  flex: 1;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.flex2 {
+  flex: 2;
+}

@@ -16,6 +16,8 @@ const delegationChecklistReducer = (state = initialState, action) => {
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${PENDING}`: {
       result = {
         ...state,
+        checklistName: "",
+        tasks: [],
         fetching: true
       };
       break;
@@ -23,8 +25,8 @@ const delegationChecklistReducer = (state = initialState, action) => {
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${FULFILLED}`: {
       result = {
         ...state,
-        checklistName: action.payload.checklistName,
-        tasks: action.payload.tasks,
+        checklistName: action.payload.data.checklistName,
+        tasks: addKeysToItems(action.payload.data.tasks),
         fetching: false
       };
       break;
@@ -42,6 +44,16 @@ const delegationChecklistReducer = (state = initialState, action) => {
       result = { ...state };
   }
   return result;
+};
+
+const addKeysToItems = items => {
+  if (items === undefined) {
+    return [];
+  }
+  //TODO: replace index with taskId when requirements will change
+  return items.map((item, index) => {
+    return Object.assign(item, { key: `${index}` });
+  });
 };
 
 export default delegationChecklistReducer;

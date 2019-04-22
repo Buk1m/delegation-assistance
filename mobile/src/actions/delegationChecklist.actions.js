@@ -6,7 +6,7 @@ export const ACTIONS = {
 
 const fetchDelegationChecklist = delegationId => dispatch => {
   return dispatch(
-    APIService.get(ACTIONS.FETCH_CHECKLIST, {
+    APIService.get(ACTIONS.FETCH_DELEGATION_CHECKLIST, {
       url: `/delegations/${delegationId}/checklist`,
       headers: {
         "Content-type": "application/json"

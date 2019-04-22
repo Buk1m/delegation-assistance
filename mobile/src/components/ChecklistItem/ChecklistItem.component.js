@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import CheckBox from "react-native-check-box";
+import { object, func } from "prop-types";
 
 import styles from "./ChecklistItemStyles.scss";
 
@@ -18,6 +19,11 @@ const ChecklistItem = props => {
       />
     </View>
   );
+};
+
+ChecklistItem.propTypes = {
+  checkbox: object,
+  onClick: func
 };
 
 export default ChecklistItem;
