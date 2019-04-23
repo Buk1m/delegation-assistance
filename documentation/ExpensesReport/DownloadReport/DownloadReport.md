@@ -21,7 +21,7 @@ DelegationRepository-->"DelegationService":Iterable<Expense> expenses
 
 #### Żądanie:
 
-**Endpoint URL:** GET /delegations/{delegation_id}/report
+**Endpoint URL:** GET /delegations/{delegation_id}/report?reportType={reportType}
 
 - **delegation_id** jako **Long**
 
@@ -29,11 +29,11 @@ DelegationRepository-->"DelegationService":Iterable<Expense> expenses
 
 **Dostępny dla ról:** EMPLOYEE (tylko swoje), TRAVEL_MANAGER, APPROVER, ACCOUNTANT
 
-**Wymagania:** Delegacja musi mieć status **RATIFIED** oraz zostać zrealizowana
+**Wymagania:** Delegacja musi mieć status **Prepared** oraz zostać zrealizowana
 
 **Query:**
 
-- **reportType** - enum (CSV, XLSX, PDF) **domyślna wartość:** PDF
+- **reportType** - enum (CSV, XLSX, PDF)
 
 #### Pozytywna odpowiedź:
 
@@ -51,16 +51,21 @@ DelegationRepository-->"DelegationService":Iterable<Expense> expenses
 - Status code `405` jeśli delegacja nie została jeszcze zrealizowana lub posiada nieodpowiedni status
 
 #### Możliwe kody błędów (errorCode)
+
 - w przypadku błędów 401, 403, 400 zwracany jest tylko status code
 - wrong-delegation-status - kiedy delegacja posiada nieodpowiedni status
 - delegation-did-not-finished - kiedy delegacje się jeszcze nie skończyła
 
 ```json
-"errorCode": "wrong-delegation-status"
+{
+  "errorCode": "wrong-delegation-status"
+}
 ```
 
 ```json
-"errorCode": "delegation-did-not-finished"
+{
+  "errorCode": "delegation-did-not-finished"
+}
 ```
 
 ### 3. Mockupy

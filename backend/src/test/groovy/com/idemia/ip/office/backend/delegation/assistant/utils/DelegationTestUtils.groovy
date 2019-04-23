@@ -56,6 +56,13 @@ class DelegationTestUtils {
                 .build()
     }
 
+    static Delegation getUserDelegation(Long id = null, User user = null) {
+        return Delegation.builder()
+                .id(id)
+                .delegatedEmployee(user)
+                .build()
+    }
+
     static Delegation getDelegationToValidate(DelegationStatus delegationStatus = null, List<Expense> expenses = null) {
         return Delegation.builder()
                 .delegationStatus(delegationStatus)

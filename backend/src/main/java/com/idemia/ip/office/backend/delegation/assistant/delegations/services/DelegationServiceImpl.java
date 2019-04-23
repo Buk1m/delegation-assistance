@@ -5,7 +5,6 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.configurati
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
-import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
@@ -13,7 +12,6 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.enums.Delegati
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties;
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException;
 import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -82,6 +80,14 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
+    public Mono<Delegation> getDelegation(Long delegationId, String delegatedEmployeeLogin) {
+        return Mono.fromCallable(() -> delegationRepository.findByIdAndDelegatedEmployeeLogin(delegationId,
+                delegatedEmployeeLogin))
+                .publishOn(scheduler)
+                .map(d -> d.orElseThrow(() -> userDelegationNotFoundException(delegationId, delegatedEmployeeLogin)));
+    }
+
+    @Override
     public Mono<Void> updateDelegation(Delegation newDelegation, Delegation existingDelegation) {
         return Mono.fromCallable(() -> updateFields(existingDelegation, newDelegation))
                 .flatMap(this::saveDelegation)
@@ -132,7 +138,7 @@ public class DelegationServiceImpl implements DelegationService {
             DelegationStatus status,
             LocalDateTime since,
             LocalDateTime until) {
-        this.validateDates(since, until);
+        this.delegationFlowValidator.validateDates(since, until);
         Mono<List<Delegation>> delegationList = Mono.fromCallable(() ->
                 this.delegationRepository.getDelegations(userLogin, status, since, until)
         ).publishOn(scheduler);
@@ -148,21 +154,17 @@ public class DelegationServiceImpl implements DelegationService {
                 }).map(preparedChecklistTemplate -> modelMapper.map(preparedChecklistTemplate, Checklist.class));
     }
 
-    private void validateDates(LocalDateTime since, LocalDateTime until) {
-        if (since != null && until != null && since.isAfter(until)) {
-            throw invalidDatesException();
-        }
-    }
-
-    private InvalidParameterException invalidDatesException() {
-        LOG.trace("Invalid date was provided");
-        return new InvalidParameterException(
-                "Invalid since and until parameters! Since date must be earlier than until date!",
-                delegationsExceptionProperties.getSinceDateMustBeEarlierThanUntilDate());
-    }
-
     private EntityNotFoundException delegationNotFoundException(Long id) {
         LOG.info("Delegation with id {} hasn't been found.", id);
+        return new EntityNotFoundException(
+                "Delegation not found.",
+                delegationsExceptionProperties.getDelegationNotFound(),
+                Delegation.class
+        );
+    }
+
+    private EntityNotFoundException userDelegationNotFoundException(Long delegationId, String delegatedEmployeeLogin) {
+        LOG.info("Delegation with id {} and user {} hasn't been found.", delegationId, delegatedEmployeeLogin);
         return new EntityNotFoundException(
                 "Delegation not found.",
                 delegationsExceptionProperties.getDelegationNotFound(),
@@ -177,7 +179,7 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     private ForbiddenAccessException getForbiddenAccessException(Long delegationId) {
-        LOG.info("Uer was trying to access not his delegation by id: {}", delegationId);
+        LOG.info("User was trying to access not his delegation by id: {}", delegationId);
         return new ForbiddenAccessException(forbiddenExceptionProperties.getNotOwnerOfResource(),
                 "You can't add expenses to delegation which is not yours.");
     }

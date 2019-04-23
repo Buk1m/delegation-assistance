@@ -25,22 +25,22 @@ public class DelegationQueryBuilder {
     }
 
     public DelegationQueryBuilder withDelegatedEmployeeLogin(String delegatedEmployeeLogin) {
-        this.delegatedEmployeeLogin = Optional.of(delegatedEmployeeLogin);
+        this.delegatedEmployeeLogin = Optional.ofNullable(delegatedEmployeeLogin);
         return this;
     }
 
     public DelegationQueryBuilder withDelegationStatus(DelegationStatus delegationStatus) {
-        this.delegationStatus = Optional.of(delegationStatus);
+        this.delegationStatus = Optional.ofNullable(delegationStatus);
         return this;
     }
 
     public DelegationQueryBuilder withSince(LocalDateTime since) {
-        this.since = Optional.of(since);
+        this.since = Optional.ofNullable(since);
         return this;
     }
 
     public DelegationQueryBuilder withUntil(LocalDateTime until) {
-        this.until = Optional.of(until);
+        this.until = Optional.ofNullable(until);
         return this;
     }
 
@@ -50,16 +50,16 @@ public class DelegationQueryBuilder {
 
         List<Predicate> predicates = new ArrayList<>();
         this.delegatedEmployeeLogin.ifPresent(employee -> {
-            Path<String> delegatedEmployeeLoginPath = delegation.get("delegatedEmployee.login");
-            predicates.add(cb.like(delegatedEmployeeLoginPath, employee));
+            Path<String> delegatedEmployeeLoginPath = delegation.get("delegatedEmployee").get("login");
+            predicates.add(cb.equal(delegatedEmployeeLoginPath, employee));
         });
         this.delegationStatus.ifPresent(status -> {
-            Path<String> delegationStatusPath = delegation.get("delegationStatus");
-            predicates.add(cb.like(delegationStatusPath, status.name()));
+            Path<DelegationStatus> delegationStatusPath = delegation.get("delegationStatus");
+            predicates.add(cb.equal(delegationStatusPath, status));
         });
-        Path<String> startDatePath = delegation.get("startDate");
-        this.since.ifPresent(since -> predicates.add(cb.greaterThanOrEqualTo(startDatePath, since.toString())));
-        this.until.ifPresent(until -> predicates.add(cb.lessThanOrEqualTo(startDatePath, until.toString())));
+        Path<LocalDateTime> startDatePath = delegation.get("startDate");
+        this.since.ifPresent(s -> predicates.add(cb.greaterThanOrEqualTo(startDatePath, s)));
+        this.until.ifPresent(u -> predicates.add(cb.lessThanOrEqualTo(startDatePath, u)));
 
         query.select(delegation);
         if (!predicates.isEmpty()) {

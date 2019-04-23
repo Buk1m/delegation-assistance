@@ -10,6 +10,7 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTempl
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException
@@ -98,6 +99,7 @@ class DelegationServiceCaseSpec extends Specification {
             delegationService.getDelegations(login, status, since, until).collectList().block()
 
         then:
+            delegationFlowValidator.validateDates(since, until) >> { throw new InvalidParameterException("test") }
             thrown InvalidParameterException
 
         where:
@@ -193,5 +195,32 @@ class DelegationServiceCaseSpec extends Specification {
             1 * delegationRepository.findById(delegationId) >> Optional.of(delegation)
 
             thrown(ForbiddenAccessException)
+    }
+
+    def 'Service returns delegation for user which it owns'() {
+        given: 'User delegation'
+            User user = getUser(1, 'mike')
+            Delegation delegation = getUserDelegation(1, user)
+
+        when: 'Get delegation report'
+            Delegation report = delegationService.getDelegation(delegation.getId(), user.getLogin()).block()
+
+        then: 'Returns user delegation report'
+            delegationRepository.findByIdAndDelegatedEmployeeLogin(delegation.getId(), user.getLogin()) >> Optional.of(delegation)
+            report != null
+    }
+
+    def 'Service throws exception when user gets delegation which not owns'() {
+        given: 'User delegation'
+            User user1 = getUser(1, 'mike')
+            User user2 = getUser(2, 'luke')
+            Delegation delegation = getUserDelegation(1, user1)
+
+        when: 'Get delegation report'
+            delegationService.getDelegation(delegation.getId(), user2.getLogin()).block()
+
+        then: 'Returns empty optional'
+            delegationRepository.findByIdAndDelegatedEmployeeLogin(delegation.getId(), user2.getLogin()) >> Optional.empty()
+            thrown(EntityNotFoundException)
     }
 }

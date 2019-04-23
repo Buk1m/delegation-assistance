@@ -26,6 +26,10 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 @Getter
 @Setter
 public class DelegationDto extends BaseDto {
+
+    @Null(message = "{error.message.field.blank}", groups = OnPost.class)
+    private Long id;
+
     @NotNull(message = "{error.message.not.null}", groups = OnPost.class)
     @DateTimeFormat(iso = DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")

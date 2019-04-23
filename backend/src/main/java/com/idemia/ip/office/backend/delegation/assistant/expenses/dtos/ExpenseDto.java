@@ -14,6 +14,7 @@ import org.springframework.http.codec.multipart.FilePart;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -28,6 +29,10 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExpenseDto extends BaseDto {
+
+    @Null(message = "{error.message.field.blank}")
+    private Long id;
+
     @Positive(message = "{error.message.positive}")
     @NotNull(message = "{error.message.not.null}")
     private BigDecimal expenseValue;

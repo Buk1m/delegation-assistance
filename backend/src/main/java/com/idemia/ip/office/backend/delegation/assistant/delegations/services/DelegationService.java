@@ -23,6 +23,8 @@ public interface DelegationService {
             LocalDateTime since,
             LocalDateTime until);
 
+    Mono<Delegation> getDelegation(Long delegationId, String delegatedEmployeeLogin);
+
     Mono<Void> updateDelegation(Delegation updateDelegation, Delegation existingDelegation);
 
     Mono<Delegation> validateNewStatus(Delegation newDelegation,
@@ -30,4 +32,5 @@ public interface DelegationService {
             Collection<? extends GrantedAuthority> authorities);
 
     Mono<Void> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
+
 }

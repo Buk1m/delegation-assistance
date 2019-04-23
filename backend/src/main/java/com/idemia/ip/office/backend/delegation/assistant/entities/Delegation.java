@@ -58,7 +58,7 @@ public class Delegation extends BaseEntity {
     private DelegationStatus delegationStatus;
 
     @JoinColumn(name = "delegated_employee_id", nullable = false)
-    @ManyToOne
+    @ManyToOne(fetch = EAGER)
     private User delegatedEmployee;
 
     @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)

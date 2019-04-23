@@ -2,6 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations.controller
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.ChecklistDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationReportDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPatch;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
@@ -10,6 +11,7 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.enums.Delegati
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService;
+import com.idemia.ip.office.backend.delegation.assistant.utils.RolesService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +76,7 @@ public class DelegationController {
             @RequestParam(required = false) DelegationStatus status,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime since,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime until) {
+        LOG.info("Getting 'my' delegations by user with login:{}", principal.getName());
         Flux<Delegation> delegations = delegationService.getDelegations(principal.getName(), status, since, until);
         Mono<List<DelegationDto>> delegationsDto = delegations.map(e -> modelMapper.map(e, DelegationDto.class))
                 .collectList();
@@ -101,7 +104,9 @@ public class DelegationController {
     public Mono<ResponseEntity<List<DelegationDto>>> getDelegations(@RequestParam(required = false) String login,
             @RequestParam(required = false) DelegationStatus status,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime since,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime until) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime until,
+            Principal principal) {
+        LOG.info("Getting delegations by user with login:{}", principal.getName());
         Flux<Delegation> delegations = delegationService.getDelegations(login, status, since, until);
         Mono<List<DelegationDto>> delegationsDto = delegations.map(e -> modelMapper.map(e, DelegationDto.class))
                 .collectList();
@@ -126,5 +131,20 @@ public class DelegationController {
                                 authentication.getName(),
                                 updateDelegation.getDelegationStatus()
                         ));
+    }
+
+    @GetMapping("/delegations/{delegationId}/report")
+    public Mono<ResponseEntity<DelegationReportDto>> downloadReport(
+            @PathVariable("delegationId") Long delegationId,
+            Authentication authentication) {
+        LOG.info("Getting report of delegation with id {} by user with login {}",
+                delegationId,
+                authentication.getName());
+        Mono<Delegation> delegation = RolesService.hasAnyRole(authentication.getAuthorities(),
+                RolesService.travelManagerApproverAccoutant) ? delegationService.getDelegation(delegationId) :
+                delegationService.getDelegation(delegationId, authentication.getName());
+        Mono<DelegationReportDto> delegationReportDto = delegation.map(e -> modelMapper.map(e,
+                DelegationReportDto.class));
+        return delegationReportDto.map(ResponseEntity::ok);
     }
 }
