@@ -11,23 +11,22 @@ import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAcc
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService
-import org.modelmapper.ModelMapper
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import reactor.core.publisher.Mono
 import spock.lang.Specification
 
+import static com.idemia.ip.office.backend.delegation.assistant.configuration.ModelMapperConfiguration.getModelMapperConverterByteArrayToBase64
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegation
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegationDTO
 
 class DelegationControllerCaseSpec extends Specification {
     DelegationService delegationService = Mock()
-    ModelMapper modelMapper = new ModelMapper()
     UserService userService = Mock()
     ForbiddenExceptionProperties forbiddenExceptionProperties = new ForbiddenExceptionProperties()
     DelegationController delegationController = new DelegationController(delegationService,
-            userService, modelMapper, forbiddenExceptionProperties)
+            userService, getModelMapperConverterByteArrayToBase64(), forbiddenExceptionProperties)
     String login = 'login'
 
     def 'Delegation is correctly mapped and saved'() {

@@ -15,7 +15,6 @@ import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAcc
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException
 import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService
-import org.modelmapper.ModelMapper
 import org.springframework.http.codec.multipart.FilePart
 import reactor.core.publisher.Mono
 import reactor.core.scheduler.Schedulers
@@ -27,6 +26,7 @@ import java.util.concurrent.Executors
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.CREATED
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.*
+import static com.idemia.ip.office.backend.delegation.assistant.configuration.ModelMapperConfiguration.getModelMapperPropertyConditionNotNull
 import static java.time.LocalDateTime.parse
 
 class DelegationServiceCaseSpec extends Specification {
@@ -42,7 +42,7 @@ class DelegationServiceCaseSpec extends Specification {
             delegationRepository, expenseService, delegationFlowValidator,
             forbiddenExceptionProperties, new DelegationsExceptionProperties(),
             checklistTemplateService,
-            new ModelMapper())
+            getModelMapperPropertyConditionNotNull())
 
     def 'Delegation status and user are correctly assigned'() {
         given: 'User and delegation'

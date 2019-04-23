@@ -16,6 +16,7 @@ import com.idemia.ip.office.backend.delegation.assistant.expenses.services.Expen
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-import static com.idemia.ip.office.backend.delegation.assistant.configuration.ModelMapperConfiguration.getConfiguredModelMapper;
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.CREATED;
 
 @Service
@@ -50,7 +50,7 @@ public class DelegationServiceImpl implements DelegationService {
             ForbiddenExceptionProperties forbiddenExceptionProperties,
             DelegationsExceptionProperties delegationsExceptionProperties,
             ChecklistTemplateService checklistTemplateService,
-            ModelMapper modelMapper) {
+            @Qualifier("byteArray2Base64") ModelMapper modelMapper) {
         this.scheduler = scheduler;
         this.delegationRepository = delegationRepository;
         this.expenseService = expenseService;
@@ -126,7 +126,7 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     private Delegation updateFields(Delegation existingDelegation, Delegation newDelegation) {
-        getConfiguredModelMapper().map(newDelegation, existingDelegation);
+        modelMapper.map(newDelegation, existingDelegation);
         return existingDelegation;
     }
 

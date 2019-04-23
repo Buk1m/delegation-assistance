@@ -15,6 +15,7 @@ import com.idemia.ip.office.backend.delegation.assistant.utils.RolesService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,25 +38,22 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.idemia.ip.office.backend.delegation.assistant.converters.ByteArrayToStringConverter.byteArrayToStringConverter;
-
 @RestController
 @Validated
 public class DelegationController {
     private static final Logger LOG = LoggerFactory.getLogger(DelegationController.class);
-    private DelegationService delegationService;
-    private UserService userService;
-    private ForbiddenExceptionProperties forbiddenExceptionProperties;
-    private ModelMapper modelMapper;
+    private final DelegationService delegationService;
+    private final UserService userService;
+    private final ForbiddenExceptionProperties forbiddenExceptionProperties;
+    private final ModelMapper modelMapper;
 
     public DelegationController(DelegationService delegationService,
             UserService userService,
-            ModelMapper modelMapper,
+            @Qualifier("notNullProperty") ModelMapper modelMapper,
             ForbiddenExceptionProperties forbiddenExceptionProperties) {
         this.delegationService = delegationService;
         this.userService = userService;
         this.modelMapper = modelMapper;
-        this.modelMapper.addConverter(byteArrayToStringConverter);
         this.forbiddenExceptionProperties = forbiddenExceptionProperties;
     }
 
@@ -108,7 +106,8 @@ public class DelegationController {
             Principal principal) {
         LOG.info("Getting delegations by user with login:{}", principal.getName());
         Flux<Delegation> delegations = delegationService.getDelegations(login, status, since, until);
-        Mono<List<DelegationDto>> delegationsDto = delegations.map(e -> modelMapper.map(e, DelegationDto.class))
+        Mono<List<DelegationDto>> delegationsDto = delegations.map(e -> modelMapper.map(e,
+                DelegationDto.class))
                 .collectList();
         return delegationsDto.map(ResponseEntity::ok);
     }
