@@ -11,11 +11,12 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties
+
+
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException
 import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService
 import org.springframework.http.codec.multipart.FilePart
+import org.springframework.security.access.AccessDeniedException
 import reactor.core.publisher.Mono
 import reactor.core.scheduler.Schedulers
 import spock.lang.Specification
@@ -32,7 +33,6 @@ import static java.time.LocalDateTime.parse
 class DelegationServiceCaseSpec extends Specification {
 
     DelegationRepository delegationRepository = Mock()
-    ForbiddenExceptionProperties forbiddenExceptionProperties = Mock()
     ExpenseService expenseService = Mock()
     DelegationFlowValidator delegationFlowValidator = Mock()
     ChecklistTemplateService checklistTemplateService = Mock()
@@ -40,7 +40,7 @@ class DelegationServiceCaseSpec extends Specification {
     DelegationService delegationService = new DelegationServiceImpl(
             Schedulers.fromExecutor(Executors.newSingleThreadScheduledExecutor()),
             delegationRepository, expenseService, delegationFlowValidator,
-            forbiddenExceptionProperties, new DelegationsExceptionProperties(),
+            new DelegationsExceptionProperties(),
             checklistTemplateService,
             getModelMapperPropertyConditionNotNull())
 
@@ -153,9 +153,8 @@ class DelegationServiceCaseSpec extends Specification {
 
         then: 'Delegation is not validated'
             delegationFlowValidator.validateDelegationFlow(updateDelegation, existingDelegation, []) >> false
-            forbiddenExceptionProperties.getRoleHasNoAccessToResource() >> 'Test'
 
-            thrown(ForbiddenAccessException)
+            thrown(AccessDeniedException)
     }
 
     def 'Service finds delegation, check owner and saves expense'() {
@@ -194,7 +193,7 @@ class DelegationServiceCaseSpec extends Specification {
         then: 'Service throws exception'
             1 * delegationRepository.findById(delegationId) >> Optional.of(delegation)
 
-            thrown(ForbiddenAccessException)
+            thrown(AccessDeniedException)
     }
 
     def 'Service returns delegation for user which it owns'() {

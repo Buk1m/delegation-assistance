@@ -7,10 +7,12 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.services.De
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties
+
+
 import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService
+import org.modelmapper.ModelMapper
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import reactor.core.publisher.Mono
@@ -24,9 +26,8 @@ import static com.idemia.ip.office.backend.delegation.assistant.utils.Delegation
 class DelegationControllerCaseSpec extends Specification {
     DelegationService delegationService = Mock()
     UserService userService = Mock()
-    ForbiddenExceptionProperties forbiddenExceptionProperties = new ForbiddenExceptionProperties()
-    DelegationController delegationController = new DelegationController(delegationService,
-            userService, getModelMapperConverterByteArrayToBase64(), forbiddenExceptionProperties)
+    ModelMapper modelMapper = new ModelMapper()
+    DelegationController delegationController = new DelegationController(delegationService, userService, modelMapper)
     String login = 'login'
 
     def 'Delegation is correctly mapped and saved'() {
@@ -88,9 +89,9 @@ class DelegationControllerCaseSpec extends Specification {
         then: 'Exception is handled'
             1 * delegationService.getDelegation(1) >> Mono.just(anyDelegation())
             1 * delegationService.validateNewStatus(_ as Delegation, _ as Delegation, _ as Collection<? extends GrantedAuthority>) >> {
-                Delegation newDel, Delegation existingDel, Collection<? extends GrantedAuthority> authorities -> Mono.error(new ForbiddenAccessException('errorCode'))
+                Delegation newDel, Delegation existingDel, Collection<? extends GrantedAuthority> authorities -> Mono.error(new AccessDeniedException('errorCode'))
             }
 
-            thrown(ForbiddenAccessException)
+            thrown(AccessDeniedException)
     }
 }

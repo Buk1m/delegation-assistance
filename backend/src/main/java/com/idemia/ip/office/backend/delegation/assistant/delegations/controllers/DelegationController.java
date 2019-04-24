@@ -8,17 +8,15 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.validationg
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException;
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService;
 import com.idemia.ip.office.backend.delegation.assistant.utils.RolesService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -38,23 +36,24 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.idemia.ip.office.backend.delegation.assistant.converters.ByteArrayToStringConverter.byteArrayToStringConverter;
+
 @RestController
 @Validated
 public class DelegationController {
     private static final Logger LOG = LoggerFactory.getLogger(DelegationController.class);
-    private final DelegationService delegationService;
-    private final UserService userService;
-    private final ForbiddenExceptionProperties forbiddenExceptionProperties;
-    private final ModelMapper modelMapper;
+
+    private DelegationService delegationService;
+    private UserService userService;
+    private ModelMapper modelMapper;
 
     public DelegationController(DelegationService delegationService,
             UserService userService,
-            @Qualifier("notNullProperty") ModelMapper modelMapper,
-            ForbiddenExceptionProperties forbiddenExceptionProperties) {
+            ModelMapper modelMapper) {
         this.delegationService = delegationService;
         this.userService = userService;
         this.modelMapper = modelMapper;
-        this.forbiddenExceptionProperties = forbiddenExceptionProperties;
+        this.modelMapper.addConverter(byteArrayToStringConverter);
     }
 
     @PostMapping("/delegations")
@@ -88,8 +87,7 @@ public class DelegationController {
         return delegationService.getDelegation(delegationId)
                 .map(delegation -> {
                     if (!delegation.getDelegatedEmployee().getLogin().equals(principal.getName())) {
-                        throw new ForbiddenAccessException("This checklist is owned by another user!",
-                                forbiddenExceptionProperties.getNotOwnerOfResource());
+                        throw new AccessDeniedException("This checklist is owned by another user!");
                     }
                     return delegation.getChecklist();
                 })
@@ -125,7 +123,7 @@ public class DelegationController {
         return delegationService.getDelegation(delegationId)
                 .flatMap(d -> delegationService.validateNewStatus(updateDelegation, d, authentication.getAuthorities()))
                 .flatMap(d -> delegationService.updateDelegation(updateDelegation, d))
-                .doOnError(ForbiddenAccessException.class,
+                .doOnError(AccessDeniedException.class,
                         (e) -> LOG.warn("User with login: {}, was trying to set delegation to status: {}",
                                 authentication.getName(),
                                 updateDelegation.getDelegationStatus()

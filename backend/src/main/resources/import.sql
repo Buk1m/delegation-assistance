@@ -1,12 +1,10 @@
-INSERT INTO user(id, login) VALUES (1, 'employee')
-INSERT INTO user(id, login) VALUES (2, 'manager')
-INSERT INTO user(id, login) VALUES (3, 'approver')
-INSERT INTO user(id, login) VALUES (4, 'accountant')
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (1, uuid(), 0, 'employee', 'Jan', 'Kowalski')
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (2, uuid(), 0, 'manager', 'Andrzej', 'Baranowski')
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (3, uuid(), 0, 'approver', 'Wiktoria', 'Chetmańczyk')
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (4, uuid(), 0, 'accountant', 'Monika', 'Piorun')
 
-INSERT INTO checklist_template(id, country_iso3) VALUES (1, 'POL');
+INSERT INTO checklist_template(id, uuid, version, country_iso3) VALUES (1, uuid(), 0, 'GLO');
 
-INSERT INTO activity_template(id, task, description, checklist_template_id) VALUES (1, 'task1', 'desc1', 1);
-INSERT INTO activity_template(id, task, description, checklist_template_id) VALUES (2, 'task2', 'desc2', 1);
-INSERT INTO activity_template(id, task, description, checklist_template_id) VALUES (3, 'task3', 'desc3', 1);
-INSERT INTO activity_template(id, task, description, checklist_template_id) VALUES (4, 'task4', 'desc4', 1);
-INSERT INTO activity_template(id, task, description, checklist_template_id) VALUES (5, 'task5', 'desc5', 1);
+INSERT INTO activity_template(id, uuid, version, task, description, checklist_template_id) VALUES (1, uuid(), 0, 'Influenza vaccine', 'You must have an influenza vaccine.', 1);
+INSERT INTO activity_template(id, uuid, version, task, description, checklist_template_id) VALUES (2, uuid(), 0, 'Visa', 'You must get a visa to the destination country.', 1);
+INSERT INTO activity_template(id, uuid, version, task, description, checklist_template_id) VALUES (3, uuid(), 0, 'Flight booking', 'You must book your flight 7 days in advance.', 1);

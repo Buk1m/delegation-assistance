@@ -5,12 +5,13 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
-@Getter @Setter
+@Getter
+@Setter
 public class AuthData {
 
-	@NotNull
-	private String login;
+    @NotNull(message = "{error.message.not.null}")
+    private String login;
 
-	@NotNull
-	private String password;
+    @NotNull(message = "{error.message.not.null}")
+    private String password;
 }

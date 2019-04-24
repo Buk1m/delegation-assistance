@@ -10,14 +10,13 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException;
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenAccessException;
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.ForbiddenExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.codec.multipart.FilePart;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -38,7 +37,6 @@ public class DelegationServiceImpl implements DelegationService {
     private final DelegationRepository delegationRepository;
     private final ExpenseService expenseService;
     private final DelegationFlowValidator delegationFlowValidator;
-    private final ForbiddenExceptionProperties forbiddenExceptionProperties;
     private final DelegationsExceptionProperties delegationsExceptionProperties;
     private final ChecklistTemplateService checklistTemplateService;
     private final ModelMapper modelMapper;
@@ -47,7 +45,6 @@ public class DelegationServiceImpl implements DelegationService {
             DelegationRepository delegationRepository,
             ExpenseService expenseService,
             DelegationFlowValidator delegationFlowValidator,
-            ForbiddenExceptionProperties forbiddenExceptionProperties,
             DelegationsExceptionProperties delegationsExceptionProperties,
             ChecklistTemplateService checklistTemplateService,
             @Qualifier("byteArray2Base64") ModelMapper modelMapper) {
@@ -56,7 +53,6 @@ public class DelegationServiceImpl implements DelegationService {
         this.expenseService = expenseService;
         this.delegationsExceptionProperties = delegationsExceptionProperties;
         this.delegationFlowValidator = delegationFlowValidator;
-        this.forbiddenExceptionProperties = forbiddenExceptionProperties;
         this.checklistTemplateService = checklistTemplateService;
         this.modelMapper = modelMapper;
     }
@@ -101,7 +97,7 @@ public class DelegationServiceImpl implements DelegationService {
         return Mono.just(delegationFlowValidator.validateDelegationFlow(newDelegation, existingDelegation, authorities))
                 .map(result -> {
                     if (!result) {
-                        throw getForbiddenRoleAccessException(newDelegation.getDelegationStatus());
+                        throw new AccessDeniedException("User was trying to access not his delegation.");
                     }
                     return existingDelegation;
                 });
@@ -112,7 +108,7 @@ public class DelegationServiceImpl implements DelegationService {
         return this.getDelegation(delegationId)
                 .doOnSuccess(d -> {
                     if (!d.getDelegatedEmployee().getId().equals(userId)) {
-                        throw getForbiddenAccessException(delegationId);
+                        throw new AccessDeniedException("User was trying to access not his delegation.");
                     }
                 })
                 .flatMap(d -> expenseService.addFiles(newExpense, userId, delegationId, attachments)
@@ -170,17 +166,5 @@ public class DelegationServiceImpl implements DelegationService {
                 delegationsExceptionProperties.getDelegationNotFound(),
                 Delegation.class
         );
-    }
-
-    private ForbiddenAccessException getForbiddenRoleAccessException(DelegationStatus delegationStatus) {
-        return new ForbiddenAccessException(forbiddenExceptionProperties.getRoleHasNoAccessToResource(),
-                "Your roles don't allow you to set delegation to this status: " + delegationStatus
-        );
-    }
-
-    private ForbiddenAccessException getForbiddenAccessException(Long delegationId) {
-        LOG.info("User was trying to access not his delegation by id: {}", delegationId);
-        return new ForbiddenAccessException(forbiddenExceptionProperties.getNotOwnerOfResource(),
-                "You can't add expenses to delegation which is not yours.");
     }
 }
