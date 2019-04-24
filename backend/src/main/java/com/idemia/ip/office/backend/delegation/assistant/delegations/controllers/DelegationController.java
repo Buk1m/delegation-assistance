@@ -80,6 +80,21 @@ public class DelegationController {
         return delegationsDto.map(ResponseEntity::ok);
     }
 
+    @GetMapping("/delegations/{delegationId}")
+    public Mono<ResponseEntity<DelegationDto>> getDelegation(
+            @PathVariable("delegationId") Long delegationId,
+            Authentication authentication) {
+        LOG.info("Getting delegation with id {} by user with login {}",
+                delegationId,
+                authentication.getName());
+        Mono<Delegation> delegation = RolesService.hasAnyRole(authentication.getAuthorities(),
+                RolesService.travelManagerApproverAccoutant) ? delegationService.getDelegation(delegationId) :
+                delegationService.getDelegation(delegationId, authentication.getName());
+        Mono<DelegationDto> delegationsDto = delegation.map(e -> modelMapper.map(e,
+                DelegationReportDto.class));
+        return delegationsDto.map(ResponseEntity::ok);
+    }
+
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @GetMapping("/delegations/{delegationId}/checklist")
     public Mono<ResponseEntity<ChecklistDto>> getChecklist(@PathVariable("delegationId") Long delegationId,
