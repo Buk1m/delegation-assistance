@@ -1,25 +1,27 @@
+@import "constants";
+
 .prepared .delegation-status {
-  background-color: #00bfff;
+  background-color: $delegation-status-prepared;
 }
 
 .created .delegation-status {
-  background-color: #673ab7;
+  background-color: $delegation-status-created;
 }
 
 .needs_work .delegation-status {
-  background-color: #ffb700;
+  background-color: $delegation-status-needs-work;
 }
 
 .checked .delegation-status {
-  background-color: #a05722;
+  background-color: $delegation-status-checked;
 }
 
 .approved .delegation-status {
-  background-color: #4caf50;
+  background-color: $delegation-status-approved;
 }
 
 .finalized .delegation-status {
-  background-color: #c1c1c1;
+  background-color: $delegation-status-finalized;
 }
 
 .delegation-status {
