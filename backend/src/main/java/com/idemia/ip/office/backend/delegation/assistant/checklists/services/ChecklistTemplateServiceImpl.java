@@ -6,6 +6,8 @@ import com.idemia.ip.office.backend.delegation.assistant.checklists.repositories
 import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate;
 import com.idemia.ip.office.backend.delegation.assistant.entities.ActivityTemplate;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException;
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException;
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.UniqueValueExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,15 @@ public class ChecklistTemplateServiceImpl implements ChecklistTemplateService {
         this.activityTemplateRepository = activityTemplateRepository;
     }
 
+    @Transactional
+    @Override
+    public Mono<Void> addChecklistTemplate(ChecklistTemplate checklistTemplate) {
+        if (checklistTemplateRepository.existsByCountryISO3(checklistTemplate.getCountryISO3())) {
+            throw checklistForCountryAlreadyExistsException(checklistTemplate.getCountryISO3());
+        }
+        return Mono.fromRunnable(() -> checklistTemplateRepository.save(checklistTemplate)).publishOn(scheduler).then();
+    }
+
     @Transactional(readOnly = true)
     @Override
     public Mono<ChecklistTemplate> getChecklistTemplate() {
@@ -60,9 +71,16 @@ public class ChecklistTemplateServiceImpl implements ChecklistTemplateService {
     }
 
     private EntityNotFoundException checklistNotFoundException() {
-        LOG.info("Global checklist template doesn't exists!");
+        LOG.info("Checklist doesn't exist.");
         return new EntityNotFoundException("Checklist not found.",
-                checklistsExceptionProperties.getChecklistTemplateNotFound(),
+                checklistsExceptionProperties.getChecklistNotFound(),
                 ChecklistTemplate.class);
+    }
+
+    private UniqueValueExistsException checklistForCountryAlreadyExistsException(String countryISO3) {
+        LOG.info("Checklist for country {} already exists.", countryISO3);
+        return new UniqueValueExistsException("The checklist for this country is already defined.",
+                checklistsExceptionProperties.getChecklistForCountryAlreadyExists(),
+                countryISO3);
     }
 }

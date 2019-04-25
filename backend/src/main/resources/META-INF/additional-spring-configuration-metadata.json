@@ -61,11 +61,6 @@
       "description": "Error code for an exception which is thrown if user with role hasn't got access to resource."
     },
     {
-      "name": "exception.checklists.checklist-not-found",
-      "type": "java.lang.String",
-      "description": "Error code for an exception which is thrown if a checklist doesn't exist."
-    },
-    {
       "name": "files.base-path",
       "type": "java.lang.String",
       "description": "Base path where all uploaded images will be stored."
@@ -89,6 +84,16 @@
       "name": "exception.data.data-has-changed",
       "type": "java.lang.String",
       "description": "Error code if Optimistic Lock Exception occurred."
+    },
+    {
+      "name": "exception.checklists.checklist-not-found",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if a checklist doesn't exist."
+    },
+    {
+      "name": "exception.checklists.checklist-for-country-already-exists",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if a checklist for country already exists but someone is trying to add it again."
     }
   ]
 }

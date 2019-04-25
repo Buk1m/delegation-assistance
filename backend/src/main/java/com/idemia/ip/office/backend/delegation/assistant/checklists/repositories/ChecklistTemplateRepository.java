@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface ChecklistTemplateRepository extends JpaRepository<ChecklistTemplate, Long> {
 
     Optional<ChecklistTemplate> findFirstBy();
+    boolean existsByCountryISO3(String countryISO3);
 }

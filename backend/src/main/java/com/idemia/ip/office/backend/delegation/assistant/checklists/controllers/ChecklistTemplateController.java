@@ -4,6 +4,7 @@ import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.Checkli
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ActivityTemplateDto;
 import com.idemia.ip.office.backend.delegation.assistant.checklists.services.ChecklistTemplateService;
 import com.idemia.ip.office.backend.delegation.assistant.entities.ActivityTemplate;
+import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +22,13 @@ public class ChecklistTemplateController {
     public ChecklistTemplateController(ModelMapper modelMapper, ChecklistTemplateService checklistTemplateService) {
         this.modelMapper = modelMapper;
         this.checklistTemplateService = checklistTemplateService;
+    }
+
+    @PostMapping("/checklists")
+    @PreAuthorize("hasRole('ROLE_TRAVEL_MANAGER')")
+    public Mono<ResponseEntity<Void>> addChecklist(@RequestBody @Valid ChecklistTemplateDto checklistTemplateDto) {
+        ChecklistTemplate checklistTemplate = modelMapper.map(checklistTemplateDto, ChecklistTemplate.class);
+        return checklistTemplateService.addChecklistTemplate(checklistTemplate).map(ResponseEntity::ok);
     }
 
     @GetMapping("/checklist")

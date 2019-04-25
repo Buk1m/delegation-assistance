@@ -8,6 +8,7 @@ import com.idemia.ip.office.backend.delegation.assistant.checklists.services.Che
 import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.entities.ActivityTemplate
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.UniqueValueExistsException
 import reactor.core.scheduler.Schedulers
 import spock.lang.Specification
 
@@ -21,6 +22,31 @@ class ChecklistTemplateServiceCaseSpec extends Specification {
             new ChecklistsExceptionProperties(),
             checklistRepository,
             Mock(ActivityTemplateRepository))
+
+    def 'adding checklist should add checklist'() {
+        given: 'checklist'
+            ChecklistTemplate checklistTemplate = anyChecklist()
+
+        when: 'add a new checklist'
+            checklistService.addChecklistTemplate(checklistTemplate).block()
+
+        then: 'checklist should be added'
+            1 * checklistRepository.existsByCountryISO3(_ as String) >> false
+            1 * checklistRepository.save(_ as ChecklistTemplate) >> checklistTemplate
+    }
+
+    def 'adding checklist for country which already has defined checklist should throw exception'() {
+        given: 'checklist'
+            ChecklistTemplate checklistTemplate = anyChecklist()
+
+        when: 'add a new checklist'
+            checklistService.addChecklistTemplate(checklistTemplate).block()
+
+        then: 'service should throw exception'
+            1 * checklistRepository.existsByCountryISO3(_ as String) >> true
+
+            thrown UniqueValueExistsException
+    }
 
     def 'getting checklist should return checklist'() {
         given: 'checklists'
@@ -56,5 +82,12 @@ class ChecklistTemplateServiceCaseSpec extends Specification {
             checklistRepository.findFirstBy() >> Optional.empty()
 
             thrown EntityNotFoundException
+    }
+
+    ChecklistTemplate anyChecklist() {
+        List<ActivityTemplate> activities = new ArrayList<>()
+        activities.add(new ActivityTemplate('task1', 'desc1'))
+        activities.add(new ActivityTemplate('task2', 'desc2'))
+        return new ChecklistTemplate(1L, 'POL', activities)
     }
 }

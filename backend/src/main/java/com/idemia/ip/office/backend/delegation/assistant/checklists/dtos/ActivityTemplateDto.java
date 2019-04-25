@@ -12,10 +12,10 @@ import javax.validation.constraints.Null;
 @EqualsAndHashCode(callSuper = false)
 public class ActivityTemplateDto extends BaseDto {
 
-    @Null(message = "{error.id.null}")
+    @Null(message = "{error.message.null}")
     private Long id;
 
-    @NotNull(message = "{error.name.not.null}")
+    @NotNull(message = "{error.message.not.null}")
     private String task;
 
     private String description;

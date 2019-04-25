@@ -12,5 +12,6 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class ChecklistsExceptionProperties {
-    String checklistTemplateNotFound;
+    String checklistNotFound;
+    String checklistForCountryAlreadyExists;
 }

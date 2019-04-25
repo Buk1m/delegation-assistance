@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -14,10 +15,15 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class ChecklistTemplateDto extends BaseDto {
 
-    @Null(message = "{error.id.null}")
+    @Null(message = "{error.message.null}")
     private Long id;
 
+    @NotNull(message = "{error.message.not.null}")
+    @Size(min = 3, max = 3, message = "{error.message.size}")
+    private String countryISO3;
+
     @Valid
-    @NotNull(message = "{error.tasks.not.null}")
+    @NotNull(message = "{error.message.not.null}")
+    @Size(min = 1, message = "{error.message.size}")
     private List<ActivityTemplateDto> activities;
 }

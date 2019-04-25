@@ -20,6 +20,7 @@
 
 ```json
 {
+  "countryISO3": "POL",
   "activities": [
     {
       "task": "task1",

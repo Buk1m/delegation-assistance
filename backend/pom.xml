@@ -29,6 +29,7 @@
 		<commons-lang3.version>3.8.1</commons-lang3.version>
 		<gmavenplus-plugin.version>1.6.2</gmavenplus-plugin.version>
         <javax.el.version>3.0.1-b09</javax.el.version>
+		<mysql-connector-java.version>8.0.15</mysql-connector-java.version>
     </properties>
 
     <dependencies>

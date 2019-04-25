@@ -5,6 +5,9 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.ActivityTempla
 import reactor.core.publisher.Mono;
 
 public interface ChecklistTemplateService {
+
+    Mono<Void> addChecklistTemplate(ChecklistTemplate checklistTemplate);
+
     Mono<ChecklistTemplate> getChecklistTemplate();
 
     Mono<Void> addTaskTemplateToChecklistTemplate(ActivityTemplate activityTemplate);
