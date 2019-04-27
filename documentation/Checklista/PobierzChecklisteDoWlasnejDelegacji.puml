@@ -1,0 +1,9 @@
+@startuml
+"Client"->"DelegationController":getChecklist()
+"DelegationController"->"DelegationService":getDelegation()
+database DB
+"DelegationService"->DB:query
+DB-->"DelegationService":Delegation
+"DelegationService"-->"DelegationController":Delegation
+"DelegationController"-->"Client":ChecklistDto
+@enduml

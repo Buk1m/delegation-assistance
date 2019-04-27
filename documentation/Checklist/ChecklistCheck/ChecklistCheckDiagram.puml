@@ -1,9 +1,0 @@
-@startuml
-Client->ChecklistService:{Get} getChecklist()
-ChecklistService->ChecklistRepository:getChecklistByDelegationId()
-database db
-ChecklistRepository->db:query
-db-->ChecklistRepository:entities
-ChecklistRepository-->ChecklistService:Checklist
-ChecklistService-->Client:ChecklistDTO
-@enduml
