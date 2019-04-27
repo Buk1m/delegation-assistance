@@ -2,26 +2,24 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.controllers.DelegationController
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
-
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
-
-
 import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService
 import org.modelmapper.ModelMapper
+import org.springframework.http.ResponseEntity
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import reactor.core.publisher.Mono
 import spock.lang.Specification
 
-import static com.idemia.ip.office.backend.delegation.assistant.configuration.ModelMapperConfiguration.getModelMapperConverterByteArrayToBase64
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegation
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegationDTO
+import static org.springframework.http.HttpStatus.OK
 
 class DelegationControllerCaseSpec extends Specification {
     DelegationService delegationService = Mock()
@@ -37,19 +35,20 @@ class DelegationControllerCaseSpec extends Specification {
             Authentication principal = new AuthenticationImpl("", "", login, [])
 
         when: 'User is posting DelegationDto'
-            delegationController.postDelegation(delegationDTO, principal).block()
+            ResponseEntity<DelegationDto> response = delegationController.postDelegation(delegationDTO, principal).block()
 
         then: 'User is in the system'
             1 * userService.getUser(login) >> Mono.just(new User(login))
 
         and: 'Delegation is saved'
+            response.statusCode == OK
             1 * delegationService.addDelegation(_ as Delegation, _ as User) >> { Delegation del, User user ->
                 del.destinationLocation == delegationDTO.destinationLocation
                 del.delegationObjective == delegationDTO.delegationObjective
                 del.destinationCountryISO3 == delegationDTO.destinationCountryISO3
                 del.startDate == delegationDTO.startDate
                 del.endDate == delegationDTO.endDate
-                Mono.just(Void)
+                Mono.just(del)
             }
     }
 
@@ -61,10 +60,13 @@ class DelegationControllerCaseSpec extends Specification {
             Authentication principal = new AuthenticationImpl("", "", login, [])
 
         when: 'User is patching FlowDelegationDto'
-            delegationController.patchDelegation(updatedDelegationDto, delegationId, principal).block()
+            ResponseEntity<DelegationDto> response = delegationController.patchDelegation(updatedDelegationDto, delegationId, principal).block()
 
         then: 'Delegation is updated'
-         1 * delegationService.getDelegation(delegationId) >> Mono.just(anyDelegation())
+            response.statusCode == OK
+            response.body.delegationStatus == preparedDelegationStatus
+
+            1 * delegationService.getDelegation(delegationId) >> Mono.just(anyDelegation())
             1 * delegationService.validateNewStatus(_ as Delegation, _ as Delegation, _ as Collection<? extends GrantedAuthority>) >>
                     { Delegation newDel, Delegation existingDel, Collection<? extends GrantedAuthority> authorities ->
                         newDel.delegationStatus == preparedDelegationStatus
@@ -74,7 +76,8 @@ class DelegationControllerCaseSpec extends Specification {
             1 * delegationService.updateDelegation(_ as Delegation, _ as Delegation) >>
                     { Delegation newDel, Delegation existingDel ->
                         newDel.delegationStatus == preparedDelegationStatus
-                        Mono.just(Void)
+                        existingDel.delegationStatus = newDel.delegationStatus
+                        Mono.just(existingDel)
                     }
     }
 

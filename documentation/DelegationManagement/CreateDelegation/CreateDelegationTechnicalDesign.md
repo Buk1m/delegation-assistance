@@ -67,8 +67,26 @@ Delegacja jest tworzona ze statusem `CREATED`
 
 <a name="response"></a>
 ### Odpowiedzi:
-__Http (201)__
-
+__Http (200)__
+```json5
+{
+    "id": 1,
+    "version": 2,
+    "startDate": "2019-01-01T10:19:19",
+    "endDate": "2019-02-01T10:19:19",
+    "destinationCountryISO3": "BFA",
+    "destinationLocation": "Radom",
+    "delegationObjective": "Buy high quality rice",
+    "status": "CREATED",
+    "user": {
+      "id": 1,
+      "login": "amalysz",
+      "firstName": "Adam",
+      "lastName": "Małysz",
+      "avatar": {base64}
+    }
+}
+```
 #### Kody błędów:
 - Status code _401_ jeśli użytkownik jest nie zalogowany
 - Status code _403_ jeśli uzytkownik nie ma uprawnień

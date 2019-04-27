@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface DelegationService {
-    Mono<Void> addDelegation(Delegation delegation, User name);
+    Mono<Delegation> addDelegation(Delegation delegation, User name);
 
     Mono<Delegation> getDelegation(Long delegationId);
 
@@ -25,12 +25,12 @@ public interface DelegationService {
 
     Mono<Delegation> getDelegation(Long delegationId, String delegatedEmployeeLogin);
 
-    Mono<Void> updateDelegation(Delegation updateDelegation, Delegation existingDelegation);
+    Mono<Delegation> updateDelegation(Delegation updateDelegation, Delegation existingDelegation);
 
     Mono<Delegation> validateNewStatus(Delegation newDelegation,
             Delegation existingDelegation,
             Collection<? extends GrantedAuthority> authorities);
 
-    Mono<Void> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
+    Mono<Expense> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
 
 }

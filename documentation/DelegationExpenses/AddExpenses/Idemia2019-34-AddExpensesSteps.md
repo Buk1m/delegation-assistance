@@ -61,8 +61,30 @@ To zapytanie zawiera plik ("attachment": {file})
 <a name="response"></a>
 ### Response:
 
-**Status code:** 201 
+**Status code:** 200
 **Media type:** application/json  
+**Body** 
+```json5
+{
+  "id": 1,
+  "version": 0,
+  "expenseName": "Waciki",
+  "expenseDate": "2019-10-22",
+  "expenseValue": 19.29,
+  "expenseCurrency": "PLN",
+  "paymentType": "Card",
+  "files": [
+    {
+      "id": 1,
+      "filename": "wyciag.pdf"
+    },
+    {
+      "id": 2,
+      "filename": "inny.jpg"
+    }
+  ],
+}
+```
 
 <a name="error-response-codes"></a>
 ### Possible errors:

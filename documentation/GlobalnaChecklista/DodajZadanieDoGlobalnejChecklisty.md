@@ -28,6 +28,16 @@
 #### Prawidłowa odpowiedź:
 
 **Status:** 200
+**Body** 
+
+```json
+{
+  "id": 1,
+  "version": 0,
+  "task": "task1",
+  "description": "desc"
+}
+```
 
 #### Możliwe błędy:
 

@@ -26,9 +26,11 @@ public class ChecklistTemplateController {
 
     @PostMapping("/checklists")
     @PreAuthorize("hasRole('ROLE_TRAVEL_MANAGER')")
-    public Mono<ResponseEntity<Void>> addChecklist(@RequestBody @Valid ChecklistTemplateDto checklistTemplateDto) {
+    public Mono<ResponseEntity<ChecklistTemplateDto>> addChecklist(@RequestBody @Valid ChecklistTemplateDto checklistTemplateDto) {
         ChecklistTemplate checklistTemplate = modelMapper.map(checklistTemplateDto, ChecklistTemplate.class);
-        return checklistTemplateService.addChecklistTemplate(checklistTemplate).map(ResponseEntity::ok);
+        return checklistTemplateService.addChecklistTemplate(checklistTemplate)
+                .map(c -> modelMapper.map(c, ChecklistTemplateDto.class))
+                .map(ResponseEntity::ok);
     }
 
     @GetMapping("/checklist")
@@ -41,9 +43,11 @@ public class ChecklistTemplateController {
 
     @PostMapping("/checklist/tasks")
     @PreAuthorize("hasRole('ROLE_TRAVEL_MANAGER')")
-    public Mono<ResponseEntity<Void>> addTaskToChecklistTemplate(@RequestBody @Valid ActivityTemplateDto activityTemplateDto) {
+    public Mono<ResponseEntity<ActivityTemplateDto>> addTaskToChecklistTemplate(@RequestBody @Valid ActivityTemplateDto activityTemplateDto) {
         ActivityTemplate activityTemplate = modelMapper.map(activityTemplateDto, ActivityTemplate.class);
-        return checklistTemplateService.addTaskTemplateToChecklistTemplate(activityTemplate).map(ResponseEntity::ok);
+        return checklistTemplateService.addTaskTemplateToChecklistTemplate(activityTemplate)
+                .map(a -> modelMapper.map(a, ActivityTemplateDto.class))
+                .map(ResponseEntity::ok);
     }
 
     @DeleteMapping("/checklist/tasks/{id}")

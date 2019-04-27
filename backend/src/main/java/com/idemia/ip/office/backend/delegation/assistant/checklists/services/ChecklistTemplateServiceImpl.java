@@ -39,11 +39,11 @@ public class ChecklistTemplateServiceImpl implements ChecklistTemplateService {
 
     @Transactional
     @Override
-    public Mono<Void> addChecklistTemplate(ChecklistTemplate checklistTemplate) {
+    public Mono<ChecklistTemplate> addChecklistTemplate(ChecklistTemplate checklistTemplate) {
         if (checklistTemplateRepository.existsByCountryISO3(checklistTemplate.getCountryISO3())) {
             throw checklistForCountryAlreadyExistsException(checklistTemplate.getCountryISO3());
         }
-        return Mono.fromRunnable(() -> checklistTemplateRepository.save(checklistTemplate)).publishOn(scheduler).then();
+        return Mono.fromCallable(() -> checklistTemplateRepository.save(checklistTemplate)).publishOn(scheduler);
     }
 
     @Transactional(readOnly = true)
@@ -56,11 +56,12 @@ public class ChecklistTemplateServiceImpl implements ChecklistTemplateService {
 
     @Transactional
     @Override
-    public Mono<Void> addTaskTemplateToChecklistTemplate(ActivityTemplate activityTemplate) {
+    public Mono<ActivityTemplate> addTaskTemplateToChecklistTemplate(ActivityTemplate activityTemplate) {
         Mono<ChecklistTemplate> globalChecklist = getChecklistTemplate();
         return globalChecklist.flatMap(checklist -> {
             checklist.getActivities().add(activityTemplate);
-            return Mono.fromRunnable(() -> checklistTemplateRepository.save(checklist));
+            return Mono.fromCallable(() -> checklistTemplateRepository.save(checklist))
+                    .map(c -> c.getActivities().get(c.getActivities().size() - 1));
         });
     }
 

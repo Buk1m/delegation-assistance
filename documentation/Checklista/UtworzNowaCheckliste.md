@@ -39,9 +39,35 @@
 ```
 
 #### Prawidłowa odpowiedź:
-
 **Status:** 200
-
+**Body** 
+```json
+{
+  "id": 1,
+  "version": 0,
+  "countryISO3": "POL",
+  "activities": [
+    {
+      "id": 1,
+      "version": 0,
+      "task": "task1",
+      "description": "desc1"
+    },
+    {
+      "id": 2,
+      "version": 0,
+      "task": "task2",
+      "description": "desc2"
+    },
+    {
+      "id": 3,
+      "version": 0,
+      "task": "task3",
+      "description": "desc3"
+    }
+  ]
+}
+```
 #### Możliwe błędy:
 
 - Status 500 jeśli wystąpił nieznany błąd po stronie serwera

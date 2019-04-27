@@ -58,7 +58,7 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    public Mono<Void> addDelegation(Delegation delegation, User user) {
+    public Mono<Delegation> addDelegation(Delegation delegation, User user) {
         delegation.setDelegatedEmployee(user);
         delegation.setDelegationStatus(CREATED);
 
@@ -84,7 +84,7 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    public Mono<Void> updateDelegation(Delegation newDelegation, Delegation existingDelegation) {
+    public Mono<Delegation> updateDelegation(Delegation newDelegation, Delegation existingDelegation) {
         return Mono.fromCallable(() -> updateFields(existingDelegation, newDelegation))
                 .flatMap(this::saveDelegation)
                 .publishOn(scheduler);
@@ -104,7 +104,7 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    public Mono<Void> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments) {
+    public Mono<Expense> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments) {
         return this.getDelegation(delegationId)
                 .doOnSuccess(d -> {
                     if (!d.getDelegatedEmployee().getId().equals(userId)) {
@@ -112,13 +112,14 @@ public class DelegationServiceImpl implements DelegationService {
                     }
                 })
                 .flatMap(d -> expenseService.addFiles(newExpense, userId, delegationId, attachments)
-                        .map(e -> {
-                            d.getExpenses().add(e);
-                            return d;
-                        })
-                )
-                .map(delegationRepository::save)
-                .then();
+                        .flatMap(e -> assignExpense(e, d))
+                );
+    }
+
+    private Mono<Expense> assignExpense(Expense expense, Delegation delegation) {
+        delegation.getExpenses().add(expense);
+        return Mono.fromCallable(() -> delegationRepository.save(delegation))
+                .map(d -> expense);
     }
 
     private Delegation updateFields(Delegation existingDelegation, Delegation newDelegation) {
@@ -126,8 +127,8 @@ public class DelegationServiceImpl implements DelegationService {
         return existingDelegation;
     }
 
-    private Mono<Void> saveDelegation(Delegation delegation) {
-        return Mono.fromRunnable(() -> delegationRepository.save(delegation));
+    private Mono<Delegation> saveDelegation(Delegation delegation) {
+        return Mono.fromCallable(() -> delegationRepository.save(delegation));
     }
 
     public Flux<Delegation> getDelegations(String userLogin,

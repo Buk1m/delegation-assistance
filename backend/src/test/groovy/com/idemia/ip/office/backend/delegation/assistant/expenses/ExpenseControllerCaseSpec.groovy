@@ -7,6 +7,7 @@ import com.idemia.ip.office.backend.delegation.assistant.expenses.dtos.ExpenseDt
 import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService
 import org.modelmapper.ModelMapper
+import org.springframework.http.ResponseEntity
 import org.springframework.http.codec.multipart.FilePart
 import reactor.core.publisher.Mono
 import spock.lang.Specification
@@ -15,6 +16,7 @@ import java.security.Principal
 
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyExpenseDto
 import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.getUser
+import static org.springframework.http.HttpStatus.OK
 
 class ExpenseControllerCaseSpec extends Specification {
     ModelMapper modelMapper = new ModelMapper()
@@ -30,16 +32,17 @@ class ExpenseControllerCaseSpec extends Specification {
             Principal principal = new AuthenticationImpl('', '', login, [])
 
         when: 'User is adding expenses'
-            expenseController.addExpense(expenseDto, 1, principal).block()
+            ResponseEntity<ExpenseDto> response = expenseController.addExpense(expenseDto, 1, principal).block()
 
         then: 'Expense is added to delegation'
+            response.statusCode == OK
             1 * userService.getUser(login) >> Mono.just(getUser(1))
             1 * delegationService.addExpense(_ as Expense, _ as Long, _ as Long, _ as List<FilePart>) >>
                     { Expense expense, Long userId, Long delId, List<FilePart> files ->
                         expense.expenseValue == expenseDto.expenseValue
                         expense.expenseName == expenseDto.expenseName
                         expense.expenseCurrency == expenseDto.expenseCurrency
-                        Mono.just(Void)
+                        Mono.just(expense)
                     }
     }
 }

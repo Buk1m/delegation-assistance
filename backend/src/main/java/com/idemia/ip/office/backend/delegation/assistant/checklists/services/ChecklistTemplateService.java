@@ -6,11 +6,11 @@ import reactor.core.publisher.Mono;
 
 public interface ChecklistTemplateService {
 
-    Mono<Void> addChecklistTemplate(ChecklistTemplate checklistTemplate);
+    Mono<ChecklistTemplate> addChecklistTemplate(ChecklistTemplate checklistTemplate);
 
     Mono<ChecklistTemplate> getChecklistTemplate();
 
-    Mono<Void> addTaskTemplateToChecklistTemplate(ActivityTemplate activityTemplate);
+    Mono<ActivityTemplate> addTaskTemplateToChecklistTemplate(ActivityTemplate activityTemplate);
 
     Mono<Void> deleteTaskFromChecklistTemplate(Long taskId);
 }

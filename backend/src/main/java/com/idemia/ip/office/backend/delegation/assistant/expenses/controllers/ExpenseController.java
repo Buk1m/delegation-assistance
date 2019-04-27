@@ -7,6 +7,7 @@ import com.idemia.ip.office.backend.delegation.assistant.users.services.UserServ
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,15 +38,19 @@ public class ExpenseController {
     @PostMapping(value = "/delegations/{delegationId}/expenses",
             consumes = MULTIPART_FORM_DATA_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    public Mono<Void> addExpense(@Valid ExpenseDto expenseDto,
+    public Mono<ResponseEntity<ExpenseDto>> addExpense(@Valid ExpenseDto expenseDto,
             @PathVariable Long delegationId,
             Principal principal) {
         LOG.info("User: {} adds expenses: {}", principal.getName(), expenseDto);
-        Expense newExpense = modelMapper.map(expenseDto, Expense.class);
+        Expense newExpense = modelMapper.createTypeMap(expenseDto, Expense.class)
+                .addMappings(mapper -> mapper.skip(Expense::setFiles))
+                .map(expenseDto);
         return userService.getUser(principal.getName())
                 .flatMap(u -> delegationService.addExpense(newExpense,
                         u.getId(),
                         delegationId,
-                        expenseDto.getAttachments()));
+                        expenseDto.getAttachments()))
+                .map(e -> modelMapper.map(e, ExpenseDto.class))
+                .map(ResponseEntity::ok);
     }
 }
