@@ -1,23 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { func, string, array } from "prop-types";
+import { func, number, array } from "prop-types";
 
 import { fetchDelegationChecklist } from "../../actions/delegationChecklist.actions";
 import {
-  getDelegationChecklistName,
-  getTasks
+  getDelegationId,
+  getActivities
 } from "../../selectors/delegationChecklist.selectors";
 import DelegationChecklistScreen from "./DelegationChecklistScreen.component";
 
 class DelegationChecklistScreenContainer extends Component {
   static propTypes = {
     fetchDelegationChecklist: func,
-    checklistName: string,
-    tasks: array
+    delegationId: number,
+    activities: array
   };
 
   static navigationOptions = {
-    title: "Checklist"
+    title: "Delegation Checklist"
   };
 
   componentDidMount = () => {
@@ -27,15 +27,15 @@ class DelegationChecklistScreenContainer extends Component {
 
   // eslint-disable-next-line no-unused-vars
   changeCheckboxState = id => {
-    //TODO: handle checkbox state change if necessary
+    //TODO: handle checkbox state change -> https://atlas.it.p.lodz.pl/jira/browse/IDEMIA2019-18
   };
 
   render() {
     return (
       <DelegationChecklistScreen
-        title={this.props.checklistName}
+        delegationId={this.props.delegationId}
         changeCheckboxState={this.changeCheckboxState}
-        checklist={this.props.tasks}
+        activities={this.props.activities}
       />
     );
   }
@@ -43,8 +43,8 @@ class DelegationChecklistScreenContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    checklistName: getDelegationChecklistName(state),
-    tasks: getTasks(state)
+    delegationId: getDelegationId(state),
+    activities: getActivities(state)
   };
 };
 

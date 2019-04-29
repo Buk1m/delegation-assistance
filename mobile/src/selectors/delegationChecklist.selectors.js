@@ -1,4 +1,4 @@
-const getDelegationChecklistName = state => state.delegationChecklist.checklistName;
-const getTasks = state => state.delegationChecklist.tasks;
+const getDelegationId = state => state.delegationChecklist.delegationId;
+const getActivities = state => state.delegationChecklist.activities;
 
-export { getDelegationChecklistName, getTasks };
+export { getDelegationId, getActivities };

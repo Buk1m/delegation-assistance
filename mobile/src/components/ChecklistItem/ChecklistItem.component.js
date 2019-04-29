@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import CheckBox from "react-native-check-box";
 import { object, func } from "prop-types";
 
@@ -9,14 +9,19 @@ const ChecklistItem = props => {
   const { checkbox, onClick } = props;
   return (
     <View style={styles.checklistItem}>
-      <CheckBox
-        onClick={onClick}
-        style={styles.checkbox}
-        checkBoxColor={styles.checkBoxColor}
-        checkedCheckBoxColor={styles.checkedCheckBoxColor}
-        isChecked={checkbox.isDone}
-        leftText={checkbox.taskText}
-      />
+      <View style={styles.sideOrnament} />
+      <View style={styles.taskData}>
+        <Text style={styles.task}>{checkbox.task}</Text>
+        <Text style={styles.description}>{checkbox.description}</Text>
+      </View>
+      <View style={styles.checkbox}>
+        <CheckBox
+          onClick={onClick}
+          checkBoxColor={styles.checkBoxColor}
+          checkedCheckBoxColor={styles.checkBoxColor}
+          isChecked={checkbox.isDone}
+        />
+      </View>
     </View>
   );
 };

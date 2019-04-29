@@ -3,8 +3,8 @@
 .title {
   text-align: center;
   font-size: 1.5rem;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
+  padding: 0.5rem;
+  margin: 0rem 1.5rem 0rem 1.5rem;
   box-shadow: -1px 6px 5px;
   border-bottom-color: $inactiveTextColor;
   border-bottom-width: 1;
@@ -16,7 +16,6 @@
 }
 
 .list {
-  margin-top: 5;
-  padding-right: 20;
-  padding-left: 20;
+  margin-top: 0.5rem;
+  margin-bottom: 2.8rem;
 }

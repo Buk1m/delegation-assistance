@@ -1,31 +1,32 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
-import { string, array, func } from "prop-types";
+import { number, array, func } from "prop-types";
 
-import ChecklistItem from "../../components/ChecklistItem";
+import RenderChecklistItem from "../../components/renderers/RenderChecklistItem.renderer";
 
 import styles from "./DelegationChecklistScreenStyles.scss";
 
-const renderChecklistItem = (checkbox, changeCheckboxState) => {
-  return (
-    <ChecklistItem
-      data={checkbox.item}
-      changeCheckboxState={changeCheckboxState}
-    />
-  );
+const isChecklistEmpty = activities => {
+  return activities.length === 0;
+};
+
+const getChecklistHeader = (delegationId, activities) => {
+  return isChecklistEmpty(activities) ? "" : `no. ${delegationId}`;
 };
 
 const DelegationChecklistScreen = props => {
-  const { title, checklist, changeCheckboxState } = props;
+  const { delegationId, activities, changeCheckboxState } = props;
 
   return (
     <View>
-      <Text style={[styles.title, styles.sideMargins]}>{title}</Text>
+      <Text style={styles.title}>
+        {getChecklistHeader(delegationId, activities)}
+      </Text>
       <FlatList
         style={styles.list}
-        data={checklist}
+        data={activities}
         renderItem={checkbox =>
-          renderChecklistItem(checkbox, changeCheckboxState)
+          RenderChecklistItem(checkbox, changeCheckboxState)
         }
       />
     </View>
@@ -33,8 +34,8 @@ const DelegationChecklistScreen = props => {
 };
 
 DelegationChecklistScreen.propTypes = {
-  title: string,
-  checklist: array,
+  delegationId: number,
+  activities: array,
   changeCheckboxState: func
 };
 
