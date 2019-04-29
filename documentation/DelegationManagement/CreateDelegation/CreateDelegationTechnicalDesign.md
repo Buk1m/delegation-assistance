@@ -41,7 +41,11 @@ _(Post)_ `/delegations`
 {
 	"startDate": "1998-02-03T01:01:01",
     "endDate": "1998-03-03T01:01:02",
-    "destinationCountryISO3": "BFA",
+    "countryId": 1,
+    "diet": {
+        "perDiem": 50,
+        "currency": "PLN"
+    },
     "destinationLocation": "Radom",
     "delegationObjective": "Buy high quality rice"
 }
@@ -49,7 +53,10 @@ _(Post)_ `/delegations`
 ```
 * `startDate`: wymagane pole, format: `yyyy-MM-dd'T'HH:mm:ss`
 * `endDate`: wymagane pole, `endDate > startDate`, format `yyyy-MM-dd'T'HH:mm:ss`
-* `destinationCountryISO`: wymagane pole, musi mieć długość 3 znaków
+* `countryId`: wymagane pole
+* `diet`: wymagane pole
+* `diet.perDiem`: wymagane pole
+* `diet.currency`: wymagane pole, musi byc istniejaca waluta
 * `destinationLocation`: wymagane pole
 *  `delegationObjective`: wymagane pole
 
@@ -74,7 +81,11 @@ __Http (200)__
     "version": 2,
     "startDate": "2019-01-01T10:19:19",
     "endDate": "2019-02-01T10:19:19",
-    "destinationCountryISO3": "BFA",
+    "countryId": 1,
+    "diet": {
+        "perDiem": 50,
+        "currency": "PLN"
+    },
     "destinationLocation": "Radom",
     "delegationObjective": "Buy high quality rice",
     "status": "CREATED",
@@ -91,6 +102,8 @@ __Http (200)__
 - Status code _401_ jeśli użytkownik jest nie zalogowany
 - Status code _403_ jeśli uzytkownik nie ma uprawnień
 - Status code _400_ jeśli body nie jest poprawne
+
+
 
 <a name="mockups"></a>
 ##Mockupy
