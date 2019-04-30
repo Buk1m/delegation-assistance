@@ -1,6 +1,0 @@
-@startuml
-"Client"->"ChecklistController":addTaskToChecklist(TaskDto taskDto)
-"ChecklistController"->"ChecklistService":addTaskToChecklist(Task task)
-database DB
-"ChecklistService"->DB:query
-@enduml

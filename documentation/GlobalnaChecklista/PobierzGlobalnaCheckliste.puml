@@ -1,9 +1,0 @@
-@startuml
-"Client"->"ChecklistController":getChecklist()
-"ChecklistController"->"ChecklistService":getChecklist()
-database DB
-"ChecklistService"->DB:query
-DB-->"ChecklistService":Checklist
-"ChecklistService"-->"ChecklistController":Checklist
-"ChecklistController"-->"Client":ChecklistDto
-@enduml

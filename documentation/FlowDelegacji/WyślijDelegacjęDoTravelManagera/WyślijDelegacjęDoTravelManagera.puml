@@ -1,0 +1,8 @@
+@startuml WyślijDelegacjęDoTravelManagera
+Client->DelegationService:{PATCH} patchDelegation()
+DelegationService->DelegationPatchStrategyContext:validateDelegationPatch()
+DelegationPatchStrategyContext->DelegationService:Delegation
+DelegationService->DelegationRepository:save()
+DelegationRepository-->DelegationService:Delegation
+DelegationService-->Client:result
+@enduml

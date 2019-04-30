@@ -1,0 +1,8 @@
+@startuml PobierzPlikWydatku
+Client->ExpenseService:{GET} getFile()
+ExpenseService->ExpenseRepository:getFile()
+ExpenseRepository->ExpenseService
+ExpenseService->FileService:getFile()
+FileService->ExpenseService
+ExpenseService->Client
+@enduml

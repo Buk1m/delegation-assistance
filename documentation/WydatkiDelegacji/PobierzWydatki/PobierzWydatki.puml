@@ -1,0 +1,10 @@
+@startuml PobierzWydatki
+Client->DelegationService:{GET} getExpenses()
+DelegationService->DelegationRepository:getExpenses()
+DelegationRepository->DelegationService
+DelegationService->ExpenseService:getFiles()
+ExpenseService->ExpenseRepository:getFiles()
+ExpenseRepository->ExpenseService
+ExpenseService->DelegationService
+DelegationService->Client
+@enduml

@@ -1,6 +1,0 @@
-@startuml
-"Client"->"AuthController":authenticate(AuthenticationData authData)
-"AuthController"->AuthService:authenticate(String login, String password)
-AuthService-->"AuthController":List<String> roles
-"AuthController"-->Client:AuthenticationToken token
-@enduml

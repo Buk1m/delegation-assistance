@@ -1,0 +1,9 @@
+@startuml UtwórzDelegacje
+Client->DelegationService:{Post} saveDelegation()
+DelegationService->DelegationRepository:saveDelegation()
+database db
+DelegationRepository->db:query
+db-->DelegationRepository:entities
+DelegationRepository-->DelegationService:Delegation
+DelegationService-->Client:DelegationDTO
+@enduml

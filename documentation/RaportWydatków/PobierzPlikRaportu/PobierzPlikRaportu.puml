@@ -1,0 +1,14 @@
+@startuml PobierzPlikRaportu
+"Client"->"DelegationService":downloadReport(ReportType reportType, Long delegationId)
+    "DelegationService"->DelegationRepository:getDelegation(Long delegationId)
+    database DB
+    DelegationRepository->DB:query
+    DB-->DelegationRepository:result
+    DelegationRepository-->"DelegationService":Delegation delegation
+    "DelegationService"->DelegationRepository:getDelegationExpenses(Long delegationId)
+    DelegationRepository->DB:query
+    DB-->DelegationRepository:result
+    DelegationRepository-->"DelegationService":Iterable<Expense> expenses
+    "DelegationService"->DelegationService:generateReportFile(Delegation delegation, Iterable<Expense> expenses, ReportType type)
+"DelegationService"-->Client:File report
+@enduml

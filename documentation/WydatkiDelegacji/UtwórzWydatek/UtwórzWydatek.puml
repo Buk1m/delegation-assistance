@@ -1,0 +1,11 @@
+@startuml UtwórzWydatek
+Client->ExpenseService:{Post} saveExpenses()
+ExpenseService->ExpenseRepository:saveExpenses()
+ExpenseService->FileService:saveFile()
+FileService-->ExpenseService:result
+database db
+ExpenseRepository->db:query
+db-->ExpenseRepository:entities
+ExpenseRepository-->ExpenseService:List<Long>
+ExpenseService-->Client:List<Long>
+@enduml
