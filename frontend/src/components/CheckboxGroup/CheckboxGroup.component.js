@@ -5,7 +5,8 @@ import { string, array } from "prop-types";
 import styles from "./CheckboxGroup.module.scss";
 
 const renderCheckboxGroup = props => {
-  let { required, options, input, path } = props;
+  const { required, options, input } = props;
+  let { path } = props;
   path = path ? path : "name";
   return options.map((option, index) => (
     <div className={styles["control-checkbox"]} key={option.name}>

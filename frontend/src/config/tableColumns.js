@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  dateFilter,
-  selectFilter,
-  textFilter
-} from "react-bootstrap-table2-filter";
+import { dateFilter, selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { Type } from "react-bootstrap-table2-editor";
 
 import { delegationStatuses } from "./index";
@@ -68,9 +64,7 @@ const delegationsMyColumns = [
     classes: (cell, row) => {
       return row.status ? row.status.toLowerCase() : "";
     },
-    formatter: cell => (
-      <span className="delegation-status">{delegationStatuses[cell]}</span>
-    ),
+    formatter: cell => <span className="delegation-status">{delegationStatuses[cell]}</span>,
     filter: selectFilter({
       options: delegationStatuses
     })
@@ -80,15 +74,9 @@ const delegationsMyColumns = [
     text: "Edit/View",
     formatter: (cell, row) => {
       if (row.status === "CREATED") {
-        return <ButtonLink href={"/delegations/edit/" + row.id} text="Edit" />;
+        return <ButtonLink href={`/delegations/${row.id}/edit`} text="Edit" />;
       } else {
-        return (
-          <ButtonLink
-            className="secondary"
-            href={"/delegations/" + row.id}
-            text="View"
-          />
-        );
+        return <ButtonLink className="secondary" href={"/delegations/" + row.id} text="View" />;
       }
     }
   }
@@ -103,9 +91,7 @@ const delegationsManageColumns = [
     classes: (cell, row) => {
       return row.status ? row.status.toLowerCase() : "";
     },
-    formatter: cell => (
-      <span className="delegation-status">{delegationStatuses[cell]}</span>
-    ),
+    formatter: cell => <span className="delegation-status">{delegationStatuses[cell]}</span>,
     filter: selectFilter({
       options: delegationStatuses
     }),

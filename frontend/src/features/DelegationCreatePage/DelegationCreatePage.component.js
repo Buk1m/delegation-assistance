@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, reset, reduxForm, Form } from "redux-form";
+import { Field, reduxForm, Form } from "redux-form";
 import { func, bool, array } from "prop-types";
 
 import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
@@ -14,18 +14,15 @@ import Button from "../../components/Button/Button.component";
 export const DelegationCreatePage = props => {
   const { handleSubmit, countriesISOCodes, submitting } = props;
   return (
-    <LayoutMain title="Create delegation">
+    <LayoutMain title="Create delegation:">
       <div className="create-delegation-card m-auto pb-4">
-        <Card title="Delegation information" number="1">
+        <Card title="Delegation information">
           <Form onSubmit={handleSubmit} id="create-delegation">
             <div className="container">
-              <label
-                className="label-delegation-page"
-                htmlFor="destinationCountryISO3"
-              >
+              <label className="label-delegation-page" htmlFor="destinationCountryISO3">
                 Destination Country:
               </label>
-              <Field
+              <Input
                 name="destinationCountryISO3"
                 component={Typeahead}
                 validate={[validateRequired]}
@@ -49,29 +46,16 @@ export const DelegationCreatePage = props => {
                   <label className="label-delegation-page" htmlFor="startDate">
                     Start date:
                   </label>
-                  <Field
-                    name="startDate"
-                    component={DateTimePicker}
-                    validate={[validateRequired]}
-                  />
+                  <Field name="startDate" component={DateTimePicker} validate={[validateRequired]} />
                 </div>
                 <div className="date-picker">
                   <label className="label-delegation-page" htmlFor="endDate">
                     End date:
                   </label>
-                  <Field
-                    name="endDate"
-                    component={DateTimePicker}
-                    validate={[validateRequired]}
-                  />
+                  <Field name="endDate" component={DateTimePicker} validate={[validateRequired]} />
                 </div>
                 <div className="btn-create-delegation">
-                  <Button
-                    type="submit"
-                    submitting={submitting}
-                    disabled={submitting}
-                    text="Create delegation"
-                  />
+                  <Button type="submit" submitting={submitting} disabled={submitting} text="Create delegation" />
                 </div>
               </div>
             </div>
@@ -90,8 +74,5 @@ DelegationCreatePage.propTypes = {
 
 export default reduxForm({
   form: "createDelegation",
-  ...startDateEarlierThanEndDate,
-  onSubmitSuccess: (result, dispatch) => {
-    dispatch(reset("createDelegation"));
-  }
+  ...startDateEarlierThanEndDate
 })(DelegationCreatePage);

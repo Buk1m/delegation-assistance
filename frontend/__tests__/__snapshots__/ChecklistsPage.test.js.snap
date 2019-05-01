@@ -25,7 +25,8 @@ exports[`Checklists Page should render correctly 1`] = `
       <div
         className="checklist-list"
       >
-        <CheckboxGroupChecklist
+        <Input
+          component={[Function]}
           name="tasks"
           options={
             Array [

@@ -6,7 +6,7 @@ import DelegationsManagePage from "../features/DelegationsManagePage/";
 import DelegationsMyPage from "../features/DelegationsMyPage/";
 import DelegationsPage from "../features/DelegationsPage/";
 import DelegationCreatePage from "../features/DelegationCreatePage/";
-import DelegationViewPage from "../features/DelegationViewPage/";
+import DelegationDetailsPage from "../features/DelegationDetailsPage/";
 import ProfilePage from "../features/ProfilePage/";
 import ChecklistsPage from "../features/ChecklistsPage/";
 import ChecklistCreatePage from "../features/ChecklistCreatePage";
@@ -37,12 +37,8 @@ const routes = [
     canAccess: [employee]
   },
   {
-    path: "/delegations/edit/:delegationId",
-    component: DelegationViewPage
-  },
-  {
     path: "/delegations/:delegationId",
-    component: DelegationViewPage
+    component: DelegationDetailsPage
   },
   {
     path: "/delegations/:delegationId/expense",

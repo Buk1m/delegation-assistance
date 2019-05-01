@@ -23,8 +23,7 @@ const delegationChecklistReducer = (state = initialState, action) => {
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${FULFILLED}`: {
       result = {
         ...state,
-        delegationId: action.payload.delegationId,
-        activities: action.payload.activities,
+        activities: action.payload.data.activities,
         fetching: false
       };
       break;

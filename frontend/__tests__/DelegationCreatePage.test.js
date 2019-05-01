@@ -51,12 +51,12 @@ describe("Create Delegation Page", () => {
     expect(props.handleSubmit).toBeCalledWith(value);
   });
 
-  it("should render 2 Inputs", () => {
-    expect(enzymeWrapper.find("Input").length).toBe(2);
+  it("should render 3 Inputs", () => {
+    expect(enzymeWrapper.find("Input").length).toBe(3);
   });
 
   it("should render destinationCountryISO3 Input", () => {
-    expect(enzymeWrapper.find("Field[name='destinationCountryISO3']").length).toBe(1);
+    expect(enzymeWrapper.find("Input[name='destinationCountryISO3']").length).toBe(1);
   });
 
   it("should render destinationLocation Input", () => {

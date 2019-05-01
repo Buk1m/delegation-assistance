@@ -4,7 +4,6 @@ import axios from "axios";
 import {
   getLoggedStatus,
   getTokenExpDate,
-  getToken
 } from "../../selectors/user.selectors";
 import { logoutUser } from "../../actions/user.actions";
 

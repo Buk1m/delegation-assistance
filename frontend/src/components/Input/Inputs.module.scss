@@ -1,38 +1,6 @@
-@import "../../static/styles/constants";
+@import "../../../src/static/styles/constants";
 
-.render-field {
-  .input[type="text"],
-  .input[type="password"] {
-    display: block;
-    width: 100%;
-    height: calc(2em + 0.75rem + 2px);
-    padding: 0.5rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    outline: none;
-    margin: 5px 0px;
-
-    &.invalid {
-      color: $error-color;
-      border-color: rgba($error-color, 0.5);
-      box-shadow: 0 0 0 0.1rem rgba($error-color, 0.25);
-    }
-
-    &:focus {
-      border-color: rgba($primary-color, 0.5);
-      box-shadow: 0 0 0 0.1rem rgba($primary-color, 0.25);
-    }
-  }
-}
-
-.field{
+.field {
   width: 100%;
 }
 

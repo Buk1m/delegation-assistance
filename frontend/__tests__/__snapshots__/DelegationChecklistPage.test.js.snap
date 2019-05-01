@@ -1,53 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Delegation checklist page should render correctly 1`] = `
-<Connect(LayoutMainContainer)
-  title="Checklist for delegation no.: 1"
->
-  <div>
-    <div
-      key="0"
+Array [
+  <div
+    key="0"
+  >
+    <Checkbox
+      checked={false}
+      name="0"
+      onChange={[MockFunction]}
+    />
+    <label
+      htmlFor="0"
     >
-      <Checkbox
-        checked={false}
-        name="0"
-        onChange={[MockFunction]}
-      />
-      <label
-        htmlFor="0"
-      >
-        Buy bread
-      </label>
-      <p
-        className=""
-      >
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      </p>
-    </div>
-    <div
-      key="1"
+      Buy bread
+    </label>
+    <p
+      className=""
     >
-      <Checkbox
-        checked={true}
-        name="1"
-        onChange={[MockFunction]}
-      />
-      <label
-        htmlFor="1"
-      >
-        Sell PC
-      </label>
-      <p
-        className="strikethrough-text"
-      >
-        desc2
-      </p>
-    </div>
-    <a
-      href="/delegations"
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </p>
+  </div>,
+  <div
+    key="1"
+  >
+    <Checkbox
+      checked={true}
+      name="1"
+      onChange={[MockFunction]}
+    />
+    <label
+      htmlFor="1"
     >
-      Back to delegations
-    </a>
-  </div>
-</Connect(LayoutMainContainer)>
+      Sell PC
+    </label>
+    <p
+      className="strikethrough-text"
+    >
+      desc2
+    </p>
+  </div>,
+]
 `;

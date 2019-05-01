@@ -4,7 +4,7 @@ import { reduxForm, Form, FieldArray } from "redux-form";
 
 import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
 import Button from "../../components/Button/Button.component";
-import RenderTasks from "../../components/renderers/RenderTasks.renderer";
+import RenderTasks from "../../components/renderers/RenderTasks/RenderTasks.renderer";
 
 export const ChecklistsCreatePage = props => {
   const { handleSubmit, submitting, handleAddTask } = props;

@@ -25,6 +25,7 @@ const Typeahead = ({
         isMulti={isMulti}
         onChange={onChange}
         value={value}
+        defaultValue={value}
         placeholder={placeholder}
         theme={theme => ({
           ...theme,

@@ -132,3 +132,9 @@ package-lock.json
 /frontend/test-report.json
 /mobile/test-report.json
 /frontend/build
+
+# Mock data
+/mock/*
+
+# VS Code
+.vscode/

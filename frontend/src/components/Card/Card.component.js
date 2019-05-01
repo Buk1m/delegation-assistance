@@ -20,7 +20,7 @@ const Card = props => {
         styles[classes + hrefClass]
       ].join(" ")}
     >
-      {title ? <h6 className={styles["db-card-header"]}>{title}</h6> : ""}
+      {title ? <h6 className={["db-card-header", styles["db-card-header"]].join(" ")}>{title}</h6> : ""}
       <div className={styles["db-card-content"]}>{children}</div>
     </div>
   );

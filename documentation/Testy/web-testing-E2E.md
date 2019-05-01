@@ -29,7 +29,7 @@
 1. Uruchomić projekt `backend` w trybie `dev`.
 
 ```
-mv backend/src/main/resources/application-dev.properties{.sample,} && mvn clean install spring-boot:run -Dspring-boot.run.profiles=dev`
+mv backend/src/main/resources/application-dev.properties{.sample,} && mvn clean install spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 2. Uruchomić projekt `frontend` za pomoca `yarn dev`.

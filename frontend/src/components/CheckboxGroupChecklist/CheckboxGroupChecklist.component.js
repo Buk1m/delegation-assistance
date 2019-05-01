@@ -1,31 +1,32 @@
 import React from "react";
-import { Field } from "redux-form";
-import { string, array } from "prop-types";
+import { string, array, bool } from "prop-types";
 
 import styles from "./CheckboxGroupChecklist.module.scss";
 
-const renderCheckboxGroupChecklist = props => {
-  let { required, options, input, path } = props;
+const CheckboxGroupChecklist = props => {
+  const { options, input: { name, value = [], onChange } = {}, required, disabled } = props;
+  let { path } = props;
   path = path ? path : "name";
   return options.map((option, index) => (
     <div className={styles["control-checkbox"]} key={option.name}>
       <div className="d-flex justify-content-between align-items-start">
-        <label className={styles["label"]}>
+        <label className={styles["label"]} disabled={disabled}>
           <input
             type="checkbox"
-            name={`${input.name}[${index}]`}
+            name={`${name}[${index}]`}
             value={option[path]}
             className={styles["input"]}
             required={required}
-            checked={input.value.indexOf(option[path]) !== -1}
+            disabled={disabled}
+            checked={value.indexOf(option[path]) !== -1}
             onChange={event => {
-              const newValue = [...input.value];
+              const newValue = [...value];
               if (event.target.checked) {
                 newValue.push(option[path]);
               } else {
                 newValue.splice(newValue.indexOf(option[path]), 1);
               }
-              return input.onChange(newValue);
+              return onChange(newValue);
             }}
           />
           {option.name}
@@ -67,15 +68,11 @@ const renderCheckboxGroupChecklist = props => {
   ));
 };
 
-const CheckboxGroupChecklist = props => {
-  const { name, options, path } = props;
-  return <Field name={name} path={path} component={renderCheckboxGroupChecklist} options={options} />;
-};
-
 CheckboxGroupChecklist.propTypes = {
   name: string,
   options: array,
-  path: string
+  path: string,
+  disabled: bool
 };
 
 export default CheckboxGroupChecklist;

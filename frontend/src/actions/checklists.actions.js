@@ -22,7 +22,7 @@ const addChecklist = checklists => dispatch => {
 };
 
 const deleteTask = id => dispatch => {
-  let url = "/checklist/tasks/" + id;
+  const url = "/checklist/tasks/" + id;
   return dispatch(
     APIService.delete(
       ACTIONS.DELETE_TASK,

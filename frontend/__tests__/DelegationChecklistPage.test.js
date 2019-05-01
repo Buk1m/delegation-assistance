@@ -2,8 +2,8 @@ import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-import DelegationChecklistPage from "../src/features/DelegationChecklistPage/DelegationChecklistPage.component";
-import  mockDelegationChecklist  from "../src/config/delegationChecklist.data";
+import ActivitiesList from "../src/components/ActivitiesList/ActivitiesList.component";
+import mockDelegationChecklist from "../src/config/delegationChecklist.data";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -15,7 +15,7 @@ const setup = () => {
     invalid: false
   };
 
-  const enzymeWrapper = shallow(<DelegationChecklistPage {...props} />);
+  const enzymeWrapper = shallow(<ActivitiesList {...props} />);
 
   return {
     props,
@@ -51,15 +51,14 @@ describe("Delegation checklist page", () => {
   });
 
   it("should call handlecheck", () => {
-    enzymeWrapper.find('Checkbox[name="0"]').simulate('change');
+    enzymeWrapper
+      .find('Checkbox[name="0"]')
+      .dive()
+      .simulate("change");
     expect(props.handleCheck).toBeCalled();
   });
 
   it("should render 2 checkboxes descriptions", () => {
     expect(enzymeWrapper.find("p").length).toBe(2);
-  });
-
-  it("should render path to delegations", () => {
-    expect(enzymeWrapper.find('a[href="/delegations"]').text()).toBe("Back to delegations");
   });
 });

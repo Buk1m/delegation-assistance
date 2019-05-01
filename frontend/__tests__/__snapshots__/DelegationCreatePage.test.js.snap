@@ -2,13 +2,12 @@
 
 exports[`Create Delegation Page should render correctly 1`] = `
 <Connect(LayoutMainContainer)
-  title="Create delegation"
+  title="Create delegation:"
 >
   <div
     className="create-delegation-card m-auto pb-4"
   >
     <Card
-      number="1"
       title="Delegation information"
     >
       <Form
@@ -24,7 +23,7 @@ exports[`Create Delegation Page should render correctly 1`] = `
           >
             Destination Country:
           </label>
-          <Field
+          <Input
             component={[Function]}
             isSearchable={true}
             name="destinationCountryISO3"

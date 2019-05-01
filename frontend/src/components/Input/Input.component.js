@@ -1,26 +1,10 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { string, bool, array, func, number, oneOfType } from "prop-types";
 import { Field } from "redux-form";
 
-import styles from "./Inputs.module.scss";
-import ValidationError from "../ValidationError/ValidationError.component";
+import RenderInput from "../renderers/RenderInput/RenderInput.renderer";
 
-const renderField = ({ input, label, type, disabled, className, meta: { touched, error, warning } }) => {
-  return (
-    <Fragment>
-      <div className={styles["render-field"]}>
-        <input
-          {...input}
-          disabled={disabled}
-          className={[styles[className], [touched && error ? styles["invalid"] : ""]].join(" ")}
-          placeholder={label}
-          type={type}
-        />
-        <ValidationError touched={touched} error={error} warning={warning} />
-      </div>
-    </Fragment>
-  );
-};
+import styles from "./Inputs.module.scss";
 
 const Input = props => {
   const {
@@ -54,7 +38,7 @@ const Input = props => {
             value={value}
             validate={validate}
             label={placeholder}
-            component={component === null ? renderField : component}
+            component={component === null ? RenderInput : component}
             minlength={minlength}
             disabled={disabled}
             {...options}

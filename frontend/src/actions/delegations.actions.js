@@ -2,8 +2,10 @@ import { APIService } from "../services/data";
 
 export const ACTIONS = {
   ADD_DELEGATION: "DELEGATIONS_ADD_DELEGATION",
+  DELETE_DELEGATION: "DELEGATIONS_DELETE_DELEGATION",
   GET_DELEGATIONS: "DELEGATIONS_GET_DELEGATIONS",
-  GET_DELEGATION: "DELEGATIONS_GET_DELEGATION"
+  GET_DELEGATION: "DELEGATIONS_GET_DELEGATION",
+  UPDATE_DELEGATION: "DELEGATIONS_UPDATE_DELEGATION"
 };
 
 const addNewDelegation = delegation => dispatch => {
@@ -25,6 +27,25 @@ const addNewDelegation = delegation => dispatch => {
   );
 };
 
+const deleteDelegation = delegationId => dispatch => {
+  return dispatch(
+    APIService.delete(
+      ACTIONS.DELETE_DELEGATION,
+      {
+        url: `/delegations/${delegationId}`,
+        needAuth: true,
+        headers: {
+          "Content-type": "application/json"
+        },
+        data: delegationId
+      },
+      {
+        delegationId
+      }
+    )
+  );
+};
+
 const fetchDelegations = () => dispatch => {
   return dispatch(
     APIService.get(ACTIONS.GET_DELEGATIONS, {
@@ -36,6 +57,7 @@ const fetchDelegations = () => dispatch => {
     })
   );
 };
+
 const fetchDelegation = delegationId => dispatch => {
   return dispatch(
     APIService.get(ACTIONS.GET_DELEGATION, {
@@ -60,9 +82,23 @@ const fetchMyDelegations = () => dispatch => {
   );
 };
 
-export {
-  addNewDelegation,
-  fetchDelegations,
-  fetchDelegation,
-  fetchMyDelegations
+const updateDelegation = delegation => dispatch => {
+  return dispatch(
+    APIService.patch(
+      ACTIONS.UPDATE_DELEGATION,
+      {
+        url: `/delegations/${delegation.id}`,
+        needAuth: true,
+        headers: {
+          "Content-type": "application/json"
+        },
+        data: delegation
+      },
+      {
+        delegation
+      }
+    )
+  );
 };
+
+export { addNewDelegation, deleteDelegation, fetchDelegations, fetchDelegation, fetchMyDelegations, updateDelegation };

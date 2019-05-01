@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import { array, object, oneOfType } from "prop-types";
 
-import CardTask from "../CardTask/CardTask.component";
-import Input from "../Input/Input.component";
-import Textarea from "../Textarea/Textarea.component";
-import { validateRequired } from "../../validators/Validators";
+import CardTask from "../../CardTask/CardTask.component";
+import Input from "../../Input/Input.component";
+import Textarea from "../../Textarea/Textarea.component";
+import { validateRequired } from "../../../validators/Validators";
 
 const RenderTasks = ({ fields }) => (
   <Fragment>

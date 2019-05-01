@@ -1,0 +1,72 @@
+@import "../constants.scss";
+
+#delegation-details {
+  .edit-btn {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+  }
+
+  .display-container {
+    .row {
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .db-card-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .tabs {
+    margin-top: 20px;
+  }
+
+  .react-tabs__tab--selected {
+    background: $primary-color;
+    color: white;
+    font-weight: 500;
+  }
+
+  .react-tabs__tab-panel--selected {
+    padding: 20px;
+    transition: 1s linear opacity;
+  }
+}
+
+@media screen and (min-width: $lg-start) {
+  .preview-btn {
+    position: absolute;
+    right: 363px;
+    top: -76px;
+  }
+  .send-btn {
+    position: absolute;
+    right: 140px;
+    top: -76px;
+  }
+  .delete-btn {
+    position: absolute;
+    right: 32px;
+    top: -76px;
+  }
+}
+
+@media screen and (max-width: $lg-end) {
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .preview-btn {
+    margin-right: 15px;
+  }
+  .send-btn {
+    margin-right: 15px;
+  }
+  .delete-btn {
+    margin-right: 15px;
+  }
+}

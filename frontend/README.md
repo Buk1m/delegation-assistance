@@ -41,6 +41,7 @@ Recommended extensions:
 ### Running the app
 
 - `yarn dev` - for live building and starting the app on localhost
+- `yarn dev:mock` - for live building and starting the app on localhost with backend port 9999 for easymock
 - `yarn dev:all-logs` - for live building and starting the app on localhost with all logs
 - `yarn dev:req-logs` - for live building and starting the app on localhost with important logs
 - `yarn dev-production` - for live building and starting the app on production
@@ -96,6 +97,7 @@ In this topic there are a lot of people smarter than me which will describe `rea
 ### Routing
 
 Jeżeli w obiekcie ścieżki:
+
 - podasz mu właściwość: `public: true` - ścieżka jest globalnie publiczna
 - nie podasz mu właściwości: `public: true` - ścieżka ta jest niedostępna publicznie i dostępna dla wszystkich ról
 - nie podasz mu właściwości: `public: true` oraz podasz mu tablicę: `canAccess: [tutajJakieRole]` - to ścieżka ta jest niedostępna publicznie i dostępna jedynie dla ról wymienionych w `canAccess`.

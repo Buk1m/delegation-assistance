@@ -40,6 +40,13 @@
     top: -0.125rem;
     width: 1.2rem;
   }
+
+  &[disabled] {
+    cursor: not-allowed;
+    &:after {
+      cursor: not-allowed;
+    }
+  }
 }
 
 .label {
@@ -50,6 +57,10 @@
   margin-bottom: 0;
   padding-bottom: 0;
   cursor: pointer;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
 }
 
 .configurate {

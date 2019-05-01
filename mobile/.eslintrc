@@ -16,7 +16,11 @@
     "no-var": "error",
     "react/display-name": [0, { "ignoreTranspilerName": false }],
     "max-len": ["error", { "code": 120, "tabWidth": 2 }],
-    "react/prop-types": [2, { "ignore": ["navigation"] }]
+    "react/prop-types": [2, { "ignore": ["navigation"] }],
+    "prefer-const": ["error", {
+      "destructuring": "any",
+      "ignoreReadBeforeAssign": false
+    }]
   },
   "plugins": ["react", "webdriverio"],
   "env": {
