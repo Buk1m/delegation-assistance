@@ -1,0 +1,9 @@
+@startuml DodajLotDoDelegacji
+Client->DelegationService:{Post} postDelegationFlight(FlightDto flightDto, Long delegationId)
+DelegationService->DelegationRepository:addFlight(Flight flight,String delegatedEmployeeLogin, Long delegationId)
+database db
+DelegationRepository->db:query
+db-->DelegationRepository:entities
+DelegationRepository-->DelegationService:Flight
+DelegationService-->Client:FlightDto
+@enduml
