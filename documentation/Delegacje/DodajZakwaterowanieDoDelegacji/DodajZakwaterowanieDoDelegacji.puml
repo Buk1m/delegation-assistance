@@ -1,0 +1,9 @@
+@startuml DodajZakwaterowanieDoDelegacji
+Client->DelegationService:{Post} postDelegationAccommodation(AccomodationDto accomodationDto, Long delegationId)
+DelegationService->DelegationRepository:addAccommodation(Accommodation accommodation,String delegatedEmployeeLogin, Long delegationId)
+database db
+DelegationRepository->db:query
+db-->DelegationRepository:entities
+DelegationRepository-->DelegationService:Accommodation
+DelegationService-->Client:AccomodationDto
+@enduml
