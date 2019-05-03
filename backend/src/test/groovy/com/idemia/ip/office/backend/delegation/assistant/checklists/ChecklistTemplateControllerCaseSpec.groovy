@@ -4,13 +4,14 @@ import com.idemia.ip.office.backend.delegation.assistant.checklists.controllers.
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ChecklistTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.checklists.services.ChecklistTemplateService
 import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
-import com.idemia.ip.office.backend.delegation.assistant.entities.ActivityTemplate
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.UniqueValueExistsException
 import org.modelmapper.ModelMapper
 import org.springframework.http.ResponseEntity
 import reactor.core.publisher.Mono
 import spock.lang.Specification
+
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyChecklistTemplate
 
 class ChecklistTemplateControllerCaseSpec extends Specification {
 
@@ -20,7 +21,7 @@ class ChecklistTemplateControllerCaseSpec extends Specification {
 
     def 'adding checklist should add checklist'() {
         given: 'checklist'
-            ChecklistTemplate checklistTemplate = anyChecklist()
+            ChecklistTemplate checklistTemplate = anyChecklistTemplate()
             ChecklistTemplateDto checklistTemplateDto = modelMapper.map(checklistTemplate, ChecklistTemplateDto.class)
 
         when: 'add a new checklist'
@@ -32,7 +33,7 @@ class ChecklistTemplateControllerCaseSpec extends Specification {
 
     def 'adding checklist for country which already has defined checklist should throw exception'() {
         given: 'checklist'
-            ChecklistTemplate checklistTemplate = anyChecklist()
+            ChecklistTemplate checklistTemplate = anyChecklistTemplate()
             ChecklistTemplateDto checklistTemplateDto = modelMapper.map(checklistTemplate, ChecklistTemplateDto.class)
 
         when: 'add a new checklist'
@@ -47,7 +48,7 @@ class ChecklistTemplateControllerCaseSpec extends Specification {
 
     def 'getting checklist should return checklist'() {
         given: 'Checklist and ChecklistDto returned by service'
-            ChecklistTemplate checklist = anyChecklist()
+            ChecklistTemplate checklist = anyChecklistTemplate()
             ChecklistTemplateDto checklistDto = modelMapper.map(checklist, ChecklistTemplateDto.class)
 
         when: 'get checklist'
@@ -71,12 +72,5 @@ class ChecklistTemplateControllerCaseSpec extends Specification {
             }
 
             thrown EntityNotFoundException
-    }
-
-    ChecklistTemplate anyChecklist() {
-        List<ActivityTemplate> activities = new ArrayList<>()
-        activities.add(new ActivityTemplate('task1', 'desc1'))
-        activities.add(new ActivityTemplate('task2', 'desc2'))
-        return new ChecklistTemplate(1L, 'POL', activities)
     }
 }

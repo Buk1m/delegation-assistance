@@ -17,8 +17,8 @@ import reactor.core.publisher.Mono
 import spock.lang.Specification
 
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegation
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegationDTO
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegation
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDTO
 import static org.springframework.http.HttpStatus.OK
 
 class DelegationControllerCaseSpec extends Specification {
@@ -64,7 +64,6 @@ class DelegationControllerCaseSpec extends Specification {
 
         then: 'Delegation is updated'
             response.statusCode == OK
-            response.body.delegationStatus == preparedDelegationStatus
 
             1 * delegationService.getDelegation(delegationId) >> Mono.just(anyDelegation())
             1 * delegationService.validateNewStatus(_ as Delegation, _ as Delegation, _ as Collection<? extends GrantedAuthority>) >>
@@ -76,7 +75,6 @@ class DelegationControllerCaseSpec extends Specification {
             1 * delegationService.updateDelegation(_ as Delegation, _ as Delegation) >>
                     { Delegation newDel, Delegation existingDel ->
                         newDel.delegationStatus == preparedDelegationStatus
-                        existingDel.delegationStatus = newDel.delegationStatus
                         Mono.just(existingDel)
                     }
     }

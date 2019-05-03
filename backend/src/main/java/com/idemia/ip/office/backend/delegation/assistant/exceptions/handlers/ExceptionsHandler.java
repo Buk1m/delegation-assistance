@@ -10,6 +10,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -44,6 +46,11 @@ public class ExceptionsHandler {
     @ExceptionHandler(ResponseStatusException.class)
     public Mono<ResponseEntity> handleResponseStatusException(ResponseStatusException e) {
         return Mono.just(ResponseEntity.status(e.getStatus()).build());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public Mono<ResponseEntity> handleApplicationException(AccessDeniedException e) {
+        return Mono.just(ResponseEntity.status(FORBIDDEN).build());
     }
 
     @ExceptionHandler(ApplicationException.class)

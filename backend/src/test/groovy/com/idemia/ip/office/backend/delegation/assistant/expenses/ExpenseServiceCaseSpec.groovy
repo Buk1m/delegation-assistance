@@ -9,8 +9,8 @@ import org.springframework.http.codec.multipart.FilePart
 import reactor.core.publisher.Flux
 import spock.lang.Specification
 
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyExpense
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyFile
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyExpense
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyFile
 
 class ExpenseServiceCaseSpec extends Specification {
     ExpenseRepository expenseRepository = Mock()

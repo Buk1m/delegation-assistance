@@ -11,8 +11,6 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
-
-
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException
 import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService
 import org.springframework.http.codec.multipart.FilePart
@@ -24,10 +22,10 @@ import spock.lang.Unroll
 
 import java.util.concurrent.Executors
 
+import static com.idemia.ip.office.backend.delegation.assistant.configuration.ModelMapperConfiguration.getModelMapperPropertyConditionNotNull
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.CREATED
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.*
-import static com.idemia.ip.office.backend.delegation.assistant.configuration.ModelMapperConfiguration.getModelMapperPropertyConditionNotNull
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.*
 import static java.time.LocalDateTime.parse
 
 class DelegationServiceCaseSpec extends Specification {

@@ -11,9 +11,7 @@ import spock.lang.Specification
 
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
 import static com.idemia.ip.office.backend.delegation.assistant.security.configuration.Role.*
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyDelegation
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyExpense
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.getDelegationWithStatus
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.*
 
 class DelegationFlowValidatorCaseSpec extends Specification {
     DelegationFlowStrategy delegationPatchStrategyApprover = Mock()
@@ -87,7 +85,7 @@ class DelegationFlowValidatorCaseSpec extends Specification {
             delegationFlowStrategyContext.validateDelegationFlow(newDelegation, delegation, authorities)
 
         then: 'Exception is thrown'
-        delegationsExceptionProperties.getNoExpenses() >> 'Test'
-        thrown(ApplicationException)
+            delegationsExceptionProperties.getNoExpenses() >> 'Test'
+            thrown(ApplicationException)
     }
 }

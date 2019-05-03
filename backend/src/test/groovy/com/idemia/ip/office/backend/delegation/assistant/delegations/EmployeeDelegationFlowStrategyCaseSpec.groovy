@@ -6,7 +6,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.*
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.getDelegationToValidate
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getDelegationToValidate
 
 class EmployeeDelegationFlowStrategyCaseSpec extends Specification {
     EmployeeDelegationFlowStrategy employeeDelegationFlowStrategy = new EmployeeDelegationFlowStrategy()

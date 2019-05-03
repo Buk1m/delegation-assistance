@@ -14,8 +14,8 @@ import spock.lang.Specification
 
 import java.security.Principal
 
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.anyExpenseDto
-import static com.idemia.ip.office.backend.delegation.assistant.utils.DelegationTestUtils.getUser
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyExpenseDto
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getUser
 import static org.springframework.http.HttpStatus.OK
 
 class ExpenseControllerCaseSpec extends Specification {

@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -56,4 +58,33 @@ public class DelegationDto extends BaseDto {
 
     @Null(message = "{error.message.field.blank}", groups = OnPost.class)
     private DelegationUserDto delegatedEmployee;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DelegationDto that = (DelegationDto) o;
+
+        return new EqualsBuilder()
+                .append(id, that.id)
+                .append(startDate, that.startDate)
+                .append(endDate, that.endDate)
+                .append(destinationCountryISO3, that.destinationCountryISO3)
+                .append(destinationLocation, that.destinationLocation)
+                .append(delegationObjective, that.delegationObjective)
+                .append(delegationStatus, that.delegationStatus)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .toHashCode();
+    }
 }
