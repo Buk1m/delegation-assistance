@@ -3,7 +3,7 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 import com.idemia.ip.office.backend.delegation.assistant.checklists.services.ChecklistTemplateService;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.configuration.DelegationsExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
-import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationValidator;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
@@ -11,12 +11,16 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException;
 import com.idemia.ip.office.backend.delegation.assistant.expenses.services.ExpenseService;
+import com.idemia.ip.office.backend.delegation.assistant.files.dtos.UserFile;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -36,7 +40,7 @@ public class DelegationServiceImpl implements DelegationService {
     private final Scheduler scheduler;
     private final DelegationRepository delegationRepository;
     private final ExpenseService expenseService;
-    private final DelegationFlowValidator delegationFlowValidator;
+    private final DelegationValidator delegationValidator;
     private final DelegationsExceptionProperties delegationsExceptionProperties;
     private final ChecklistTemplateService checklistTemplateService;
     private final ModelMapper modelMapper;
@@ -44,7 +48,7 @@ public class DelegationServiceImpl implements DelegationService {
     public DelegationServiceImpl(Scheduler scheduler,
             DelegationRepository delegationRepository,
             ExpenseService expenseService,
-            DelegationFlowValidator delegationFlowValidator,
+            DelegationValidator delegationValidator,
             DelegationsExceptionProperties delegationsExceptionProperties,
             ChecklistTemplateService checklistTemplateService,
             @Qualifier("byteArray2Base64") ModelMapper modelMapper) {
@@ -52,7 +56,7 @@ public class DelegationServiceImpl implements DelegationService {
         this.delegationRepository = delegationRepository;
         this.expenseService = expenseService;
         this.delegationsExceptionProperties = delegationsExceptionProperties;
-        this.delegationFlowValidator = delegationFlowValidator;
+        this.delegationValidator = delegationValidator;
         this.checklistTemplateService = checklistTemplateService;
         this.modelMapper = modelMapper;
     }
@@ -94,7 +98,7 @@ public class DelegationServiceImpl implements DelegationService {
     public Mono<Delegation> validateNewStatus(Delegation newDelegation,
             Delegation existingDelegation,
             Collection<? extends GrantedAuthority> authorities) {
-        return Mono.just(delegationFlowValidator.validateDelegationFlow(newDelegation, existingDelegation, authorities))
+        return Mono.just(delegationValidator.validateDelegationFlow(newDelegation, existingDelegation, authorities))
                 .map(result -> {
                     if (!result) {
                         throw new AccessDeniedException("User was trying to access not his delegation.");
@@ -122,6 +126,30 @@ public class DelegationServiceImpl implements DelegationService {
                 .map(d -> expense);
     }
 
+    @Override
+    public Mono<Page<Expense>> getExpenses(Long delegationId,
+            Integer pageNumber,
+            Integer pageSize,
+            List<Sort.Order> sortCriteria, Authentication authentication) {
+        return this.getDelegation(delegationId)
+                .map(d -> checkUserAccess(d, authentication))
+                .flatMap(d -> expenseService.getExpenses(d, pageNumber, pageSize, sortCriteria));
+    }
+
+    @Override
+    public Mono<UserFile> getFile(Long delegationId, Long expenseId, Long fileId, Authentication authentication) {
+        return getDelegation(delegationId)
+                .map(d -> checkUserAccess(d, authentication))
+                .flatMap(d -> expenseService.getFile(expenseId, fileId));
+    }
+
+    private Delegation checkUserAccess(Delegation delegation, Authentication authentication) {
+        if (!delegationValidator.validateUserAccess(delegation, authentication)) {
+            throw new AccessDeniedException("User was trying to access not his delegation.");
+        }
+        return delegation;
+    }
+
     private Delegation updateFields(Delegation existingDelegation, Delegation newDelegation) {
         modelMapper.map(newDelegation, existingDelegation);
         return existingDelegation;
@@ -135,7 +163,7 @@ public class DelegationServiceImpl implements DelegationService {
             DelegationStatus status,
             LocalDateTime since,
             LocalDateTime until) {
-        this.delegationFlowValidator.validateDates(since, until);
+        this.delegationValidator.validateDates(since, until);
         Mono<List<Delegation>> delegationList = Mono.fromCallable(() ->
                 this.delegationRepository.getDelegations(userLogin, status, since, until)
         ).publishOn(scheduler);

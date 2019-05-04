@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.files.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.entities.File;
+import com.idemia.ip.office.backend.delegation.assistant.files.dtos.UserFile;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,26 @@ import java.util.UUID;
 @Service
 public class FileServiceImpl implements FileService {
     private final FileSystemService fileSystemService;
+    private final FileDbService fileDbService;
 
-    public FileServiceImpl(FileSystemService fileSystemService) {
+    public FileServiceImpl(FileSystemService fileSystemService,
+            FileDbService fileDbService) {
         this.fileSystemService = fileSystemService;
+        this.fileDbService = fileDbService;
     }
 
     @Override
     public Flux<File> addFiles(List<FilePart> attachments, Long userId, Long delegationId) {
         return Flux.fromIterable(attachments)
                 .flatMap(a -> createFile(a, userId, delegationId));
+    }
+
+    @Override
+    public Mono<UserFile> getFile(Long fileId) {
+        return fileDbService.getFile(fileId)
+                .flatMap(dbFile -> fileSystemService.getFile(dbFile)
+                        .map(r -> new UserFile(r, dbFile.getUserFilename()))
+                );
     }
 
     private Mono<File> createFile(FilePart attachment, Long userId, Long delegationId) {

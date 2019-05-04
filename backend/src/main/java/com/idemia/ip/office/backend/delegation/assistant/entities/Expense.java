@@ -49,6 +49,9 @@ public class Expense extends BaseEntity {
     @Column(nullable = false)
     private String expenseName;
 
+    @Column
+    private BigDecimal exchangeRate;
+
     @Column(nullable = false)
     private String expenseCurrency;
 

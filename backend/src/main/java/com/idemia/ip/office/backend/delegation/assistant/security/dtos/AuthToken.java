@@ -6,11 +6,14 @@ import lombok.Getter;
 
 public class AuthToken {
 
-	@Getter
-	private String token;
+    @Getter
+    private String token;
 
 	@JsonCreator
 	public AuthToken(@JsonProperty("token") String token) {
 		this.token = token;
 	}
+    private void setToken(String token) {
+        this.token = token;
+    }
 }

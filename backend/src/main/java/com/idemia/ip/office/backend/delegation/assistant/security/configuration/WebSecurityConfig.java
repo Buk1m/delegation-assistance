@@ -2,6 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.security.configuration
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
@@ -33,6 +34,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    @Profile("!test")
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http.csrf().disable()
                 .cors().and()

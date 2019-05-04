@@ -24,15 +24,14 @@
 
 **Przykładowe dane:**
 
-```json
-{
+```
   "expenseName": "Expense Name",
   "expenseValue": "1234.56",
   "expenseDate": "2019-10-22",
+  "exchangeRate": 2.55  
   "paymentType": "CREDIT_CARD",
   "expenseCurrency": "dzd",
   "attachments": [{ file }, { file }]
-}
 ```
 
 - `expenseName`: wymagane pole
@@ -41,6 +40,7 @@
 - `paymentType`: wymagane pole, możliwe wartości: `CREDIT_CARD`, `CASH`
 - `expenseCurrency`: wymagane pole
 - `attachments`: wymagany chociaż jeden plik
+- `exchangeRate` opcjonalne pole
 
 #### Dodatkowe informacje
 

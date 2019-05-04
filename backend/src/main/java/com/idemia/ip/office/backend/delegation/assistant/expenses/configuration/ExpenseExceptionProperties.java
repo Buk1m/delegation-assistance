@@ -1,4 +1,4 @@
-package com.idemia.ip.office.backend.delegation.assistant.files.configuration;
+package com.idemia.ip.office.backend.delegation.assistant.expenses.configuration;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +8,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Configuration
-@ConfigurationProperties(prefix = "exception.files")
+@ConfigurationProperties(prefix = "exception.expenses")
 @Getter
 @Setter
-public class FileExceptionProperties {
-    String couldNotSaveFile;
-    String fileNotFound;
+public class ExpenseExceptionProperties {
+    String expenseNotFound;
 }

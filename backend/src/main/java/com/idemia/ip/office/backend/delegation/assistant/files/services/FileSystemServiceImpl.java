@@ -1,10 +1,13 @@
 package com.idemia.ip.office.backend.delegation.assistant.files.services;
 
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException;
 import com.idemia.ip.office.backend.delegation.assistant.files.configuration.FileExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.files.configuration.FileProperties;
 import com.idemia.ip.office.backend.delegation.assistant.files.exceptions.FileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -45,8 +48,21 @@ public class FileSystemServiceImpl implements FileSystemService {
                 .thenReturn(filePath);
     }
 
+    @Override
+    public Mono<Resource> getFile(com.idemia.ip.office.backend.delegation.assistant.entities.File dbFile) {
+        File file = Path.of(fileProperties.getBasePath(), dbFile.getFilePath()).toFile();
+
+        if (!file.exists()) {
+            throw fileNotFoundException(dbFile.getFilePath());
+        }
+
+        return Mono.just(new FileSystemResource(file));
+    }
+
     private RuntimeException getFileAlreadyExistsException(String filePath, String filename) {
-        FileAlreadyExistsException exception = new FileAlreadyExistsException(filePath, filename, "File with provided field already exists");
+        FileAlreadyExistsException exception = new FileAlreadyExistsException(filePath,
+                filename,
+                "File with provided field already exists");
         return new RuntimeException(exception);
     }
 
@@ -55,5 +71,14 @@ public class FileSystemServiceImpl implements FileSystemService {
                 .toAbsolutePath()
                 .toFile()
                 .mkdirs();
+    }
+
+    private EntityNotFoundException fileNotFoundException(String path) {
+        LOG.error("Couldn't find file in filesystem on path: {}", path);
+        return new EntityNotFoundException(
+                "File not found.",
+                fileExceptionProperties.getFileNotFound(),
+                File.class
+        );
     }
 }

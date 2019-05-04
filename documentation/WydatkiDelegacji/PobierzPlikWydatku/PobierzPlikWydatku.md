@@ -28,13 +28,15 @@
 
 #### Dodatkowe informacje
 
--
 
 #### Prawidłowa odpowiedź:
 
 **Status:** 200
 
-**Typ nośnika:** multipart/form-data
+**Typ nośnika:** application/octet-stream
+
+**Nagłówek**
+- `Content-Disposition` - `attachment; filename= <nazwa_pliku_uzytkownika>`
 
 **Typ danych:** plik binarny
 

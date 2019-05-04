@@ -2,7 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.configuration.DelegationsExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowStrategy
-import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator
+import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationValidator
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ApplicationException
 import org.springframework.security.core.GrantedAuthority
@@ -13,12 +13,12 @@ import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.D
 import static com.idemia.ip.office.backend.delegation.assistant.security.configuration.Role.*
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.*
 
-class DelegationFlowValidatorCaseSpec extends Specification {
+class DelegationValidatorCaseSpec extends Specification {
     DelegationFlowStrategy delegationPatchStrategyApprover = Mock()
     DelegationFlowStrategy delegationPatchStrategyEmployee = Mock()
     DelegationFlowStrategy delegationPatchStrategyTravelManager = Mock()
     DelegationsExceptionProperties delegationsExceptionProperties = Mock()
-    DelegationFlowValidator delegationFlowStrategyContext
+    DelegationValidator delegationFlowStrategyContext
     String employeeRole = EMPLOYEE.name()
     String approverRole = APPROVER.name()
     String accountantRole = ACCOUNTANT.name()
@@ -35,7 +35,7 @@ class DelegationFlowValidatorCaseSpec extends Specification {
         delegationPatchStrategyEmployee.getRoleValidates() >> EMPLOYEE
         delegationPatchStrategyTravelManager.getRoleValidates() >> TRAVEL_MANAGER
 
-        delegationFlowStrategyContext = new DelegationFlowValidator(patchStrategies, delegationsExceptionProperties)
+        delegationFlowStrategyContext = new DelegationValidator(patchStrategies, delegationsExceptionProperties)
         authorities = [
                 new SimpleGrantedAuthority(employeeRole),
                 new SimpleGrantedAuthority(approverRole),

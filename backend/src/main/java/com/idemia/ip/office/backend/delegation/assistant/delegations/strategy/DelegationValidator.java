@@ -7,6 +7,7 @@ import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParam
 import com.idemia.ip.office.backend.delegation.assistant.security.configuration.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
@@ -18,17 +19,19 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.idemia.ip.office.backend.delegation.assistant.security.configuration.Role.ACCOUNTANT;
+import static com.idemia.ip.office.backend.delegation.assistant.security.configuration.Role.APPROVER;
+import static com.idemia.ip.office.backend.delegation.assistant.security.configuration.Role.TRAVEL_MANAGER;
 import static com.idemia.ip.office.backend.delegation.assistant.utils.AuthoritiesToRolesMapper.mapAuthoritiesToRoles;
 
 @Component
-public class DelegationFlowValidator {
-    private static final Logger LOG = LoggerFactory.getLogger(DelegationFlowValidator.class);
-
+public class DelegationValidator {
+    private static final Logger LOG = LoggerFactory.getLogger(DelegationValidator.class);
     private final Map<Role, DelegationFlowStrategy> delegationPatchStrategies;
 
     private final DelegationsExceptionProperties delegationsExceptionProperties;
 
-    public DelegationFlowValidator(List<DelegationFlowStrategy> delegationPatchStrategies,
+    public DelegationValidator(List<DelegationFlowStrategy> delegationPatchStrategies,
             DelegationsExceptionProperties delegationsExceptionProperties) {
         this.delegationPatchStrategies = delegationPatchStrategies.stream()
                 .collect(Collectors.toMap(DelegationFlowStrategy::getRoleValidates, Function.identity()));
@@ -47,10 +50,21 @@ public class DelegationFlowValidator {
                 .anyMatch(dps -> dps.validate(newDelegation));
     }
 
+    public boolean validateUserAccess(Delegation existingDelegation, Authentication authentication) {
+        List<Role> roles = mapAuthoritiesToRoles(authentication.getAuthorities());
+        return hasPrivilegedRole(roles) || existingDelegation.getDelegatedEmployee().getLogin().equals(authentication.getName());
+    }
+
     public void validateDates(LocalDateTime since, LocalDateTime until) {
         if (since != null && until != null && since.isAfter(until)) {
             throw invalidDatesException();
         }
+    }
+
+    private boolean hasPrivilegedRole(List<Role> roles) {
+        return roles.contains(TRAVEL_MANAGER) ||
+                roles.contains(APPROVER) ||
+                roles.contains(ACCOUNTANT);
     }
 
     private ApplicationException getEmptyDelegationException(Long id) {

@@ -1,23 +1,22 @@
 package com.idemia.ip.office.backend.delegation.assistant.files
 
 import com.idemia.ip.office.backend.delegation.assistant.entities.File
+import com.idemia.ip.office.backend.delegation.assistant.files.services.FileDbService
 import com.idemia.ip.office.backend.delegation.assistant.files.services.FileService
 import com.idemia.ip.office.backend.delegation.assistant.files.services.FileServiceImpl
 import com.idemia.ip.office.backend.delegation.assistant.files.services.FileSystemService
 import org.apache.commons.io.FilenameUtils
 import org.springframework.http.codec.multipart.FilePart
 import reactor.core.publisher.Mono
-import reactor.core.scheduler.Scheduler
-import reactor.core.scheduler.Schedulers
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import java.util.concurrent.Executors
 import java.util.stream.Collectors
 
 class FileServiceSpecCase extends Specification {
     FileSystemService fileSystemService = Mock()
-    FileService fileService = new FileServiceImpl(fileSystemService)
+    FileDbService fileDbService = Mock()
+    FileService fileService = new FileServiceImpl(fileSystemService, fileDbService)
 
     def 'Created files have unique paths'() {
         given: 'FileParts'
@@ -48,15 +47,15 @@ class FileServiceSpecCase extends Specification {
             FilenameUtils.getExtension(files.get(0).filePath) == ext
 
         where: 'File has files'
-            filename                                | ext
-            ''                                      | ''
-            'test'                                  | ''
-            'file.with.dots'                        | 'dots'
-            'file with  blank\rspaces'              | ''
-            'file   with    blank spaces\rand.pdf'  | 'pdf'
-            '.hiddenFile'                           | 'hiddenFile'
-            'many..pdf'                             | 'pdf'
-            'file   . dots and\r blank\tspaces.jpg' | 'jpg'
+            filename                                || ext
+            ''                                      || ''
+            'test'                                  || ''
+            'file.with.dots'                        || 'dots'
+            'file with  blank\rspaces'              || ''
+            'file   with    blank spaces\rand.pdf'  || 'pdf'
+            '.hiddenFile'                           || 'hiddenFile'
+            'many..pdf'                             || 'pdf'
+            'file   . dots and\r blank\tspaces.jpg' || 'jpg'
     }
 
     List<FilePart> getListOfFileParts(int n) {

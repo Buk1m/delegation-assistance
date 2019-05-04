@@ -5,6 +5,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Delega
 import com.idemia.ip.office.backend.delegation.assistant.entities.*
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
 import com.idemia.ip.office.backend.delegation.assistant.expenses.dtos.ExpenseDto
+import org.springframework.data.domain.Sort
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -55,7 +56,12 @@ class TestDataProvider {
                 .destinationCountryISO3('iso')
                 .startDate(getLocalDateTime(getDateTimeFormatter()))
                 .endDate(getLocalDateTime(getDateTimeFormatter()))
+                .checklist(anyChecklist())
                 .build()
+    }
+
+    static Checklist anyChecklist() {
+        return new Checklist()
     }
 
     static Expense anyExpense() {
@@ -104,5 +110,13 @@ class TestDataProvider {
                 .delegationStatus(delegationStatus)
                 .expenses(expenses)
                 .build()
+    }
+
+    static Sort.Order anySortOrder() {
+        return new Sort.Order(Sort.Direction.ASC, 'test')
+    }
+
+    static List<Expense> getListOfExpenses(int n) {
+        return (0..n - 1).collect{anyExpense()}
     }
 }

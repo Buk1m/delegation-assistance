@@ -5,7 +5,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.configurati
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationServiceImpl
-import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationFlowValidator
+import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationValidator
 import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense
@@ -32,7 +32,7 @@ class DelegationServiceCaseSpec extends Specification {
 
     DelegationRepository delegationRepository = Mock()
     ExpenseService expenseService = Mock()
-    DelegationFlowValidator delegationFlowValidator = Mock()
+    DelegationValidator delegationFlowValidator = Mock()
     ChecklistTemplateService checklistTemplateService = Mock()
 
     DelegationService delegationService = new DelegationServiceImpl(

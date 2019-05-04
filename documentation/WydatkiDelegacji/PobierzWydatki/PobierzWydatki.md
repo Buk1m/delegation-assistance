@@ -20,9 +20,8 @@
 
 - **page** która strona jest pobierana **domyślna wartość** 1
 - **size** rozmiar strony **domyślna wartość** 10
-- **sort** pola, po których mają odbywać się sortowania `.asc` po nazwie pola oznacza sortowanie rosnąco, `.desc` po nazwie pola oznacza sortowanie malejąco **domyślna wartość** expenseDate.desc **dostępne wartości** expenseId, expenseDate
-
-**Typ nośnika:** -
+- **sort** pola, po których mają odbywać się sortowania **`.asc`** po nazwie pola oznacza sortowanie rosnąco, **`.desc`** po nazwie pola oznacza sortowanie malejąco. 
+Jeśli podana wartość jest niepoprawna, wykorzystywana jest z domyślnej wartosci (domyślna wartość **`id.desc`**) **dostępne wartości** expenseId, expenseDate
 
 **Typ danych:** -
 
@@ -33,7 +32,7 @@
 - Przykład URL:
 
 ```
-/delegations/1/expense?page=2&size=8&expenseName=wa&sort=expenseName.desc
+/delegations/1/expense?page=2&size=8&sort=expenseDate.desc
 ```
 
 -`epxenseDate` będzie w formacie: `yyyy-MM-dd`
@@ -58,6 +57,7 @@
       "expenseDate": "2019-10-22",
       "expenseValue": 19.29,
       "expenseCurrency": "PLN",
+      "exchangeRate": 2.55,
       "paymentType": "Card",
       "files": [
         {
@@ -76,6 +76,7 @@
       "expenseDate": "2019-10-22",
       "expenseValue": 28.29,
       "expenseCurrency": "PLN",
+      "exchangeRate": null,
       "paymentType": "Cash",
       "files": [
         {

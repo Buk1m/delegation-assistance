@@ -51,6 +51,8 @@ public class ExpenseDto extends BaseDto {
     @NotNull(message = "{error.message.not.null}")
     private PaymentType paymentType;
 
+    private BigDecimal exchangeRate;
+
     @NotBlank(message = "{error.message.field.not.blank}")
     @Size(min = 3, max = 3, message = "{error.message.size}")
     private String expenseCurrency;
