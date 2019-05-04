@@ -1,0 +1,9 @@
+@startuml
+"Client"->"ChecklistTemplateController":updateChecklistTemplate(updatedChecklistTemplateDto : ChecklistTemplateDto)
+"ChecklistTemplateController"->"ChecklistTemplateService":updateChecklistTemplate(updatedChecklistTemplate : ChecklistTemplate)
+database DB
+"ChecklistTemplateService"->DB:query
+DB-->"ChecklistTemplateService":ChecklistTemplate
+"ChecklistTemplateService"-->"ChecklistTemplateController":ChecklistTemplate
+"ChecklistTemplateController"-->"Client":ChecklistTemplateDto
+@enduml
