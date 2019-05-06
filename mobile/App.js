@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AppNavigator from "./src/navigation/AppNavigator";
+import FlashMessage from "react-native-flash-message";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -12,6 +13,7 @@ class App extends Component {
         <PersistGate persistor={persistor}>
           <AppNavigator />
         </PersistGate>
+        <FlashMessage position="top" />
       </Provider>
     );
   }

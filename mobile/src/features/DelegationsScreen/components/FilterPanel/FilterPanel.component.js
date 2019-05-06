@@ -8,16 +8,16 @@ import Button from "../../../../components/Button/Button.component";
 import LabeledPicker from "../../../../components/LabeledPicker/LabeledPicker.component";
 import statuses from "../../../../config/delegationStatuses";
 
-import styles from "../../DelegationsScreenStyles.scss";
+import styles from "../../DelegationsScreen.module.scss";
 
 const addEmptyOption = options => {
-  let optionsWithEmptyValue = [...options];
+  const optionsWithEmptyValue = [...options];
   optionsWithEmptyValue.unshift({ label: "NONE", value: "" });
   return optionsWithEmptyValue;
 };
 
 const addKeysToItems = items => {
-  return items.map( (item, index) => {
+  return items.map((item, index) => {
     return Object.assign(item, { key: `${index}` });
   });
 };
@@ -28,18 +28,8 @@ const FilterPanel = props => {
 
   return (
     <View style={[styles.column, styles.sideMargins]}>
-      <Field
-        name="startDate"
-        component={DatePicker}
-        style={styles.datePicker}
-        title="Date from"
-      />
-      <Field
-        name="endDate"
-        component={DatePicker}
-        style={styles.datePicker}
-        title="Date to"
-      />
+      <Field name="startDate" component={DatePicker} style={styles.datePicker} title="Date from" />
+      <Field name="endDate" component={DatePicker} style={styles.datePicker} title="Date to" />
 
       <Field
         name="delegationStatus"

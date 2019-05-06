@@ -1,17 +1,11 @@
 import React from "react";
 import { func } from "prop-types";
 import { reduxForm, Field } from "redux-form";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  KeyboardAvoidingView
-} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 
-import styles from "../../assets/styles/styles.scss";
 import FieldRenderer from "../../components/FieldRenderer/FieldRenderer.component";
 import { validateRequired } from "../../validators/Validators";
+import styles from "../../assets/styles/styles.scss";
 
 const CreateTaskScreen = props => {
   const { handleSubmit } = props;
@@ -20,11 +14,7 @@ const CreateTaskScreen = props => {
       <ScrollView>
         <KeyboardAvoidingView behavior="padding" enable>
           <Text style={styles.subtitle}>Task name</Text>
-          <Field
-            name="name"
-            component={FieldRenderer}
-            validate={[validateRequired]}
-          />
+          <Field name="name" component={FieldRenderer} validate={[validateRequired]} />
           <Text style={styles.subtitle}>Task description</Text>
           <Field
             name="description"

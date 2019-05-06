@@ -8,7 +8,7 @@ import Button from "../../../../components/Button/Button.component";
 import { validateRequired } from "../../../../validators/Validators";
 import sortBys from "../../../../config/delegationSortBys";
 
-import styles from "../../DelegationsScreenStyles.scss";
+import styles from "../../DelegationsScreen.module.scss";
 
 const addKeysToItems = items => {
   return items.map((item, index) => {

@@ -15,7 +15,9 @@ class CreateDelegationsScreenContainer extends Component {
   };
 
   handleSubmit = values => {
-    this.props.addNewDelegation(values);
+    return this.props.addNewDelegation(values).then(() => {
+      this.props.navigation.navigate("Home");
+    });
   };
 
   render() {
@@ -31,4 +33,3 @@ export default connect(
   null,
   mapDispatchToProps
 )(CreateDelegationsScreenContainer);
-

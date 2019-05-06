@@ -13,22 +13,16 @@
 }
 
 .subtitle {
-  margin: 0.625rem 1.25rem 0.3125rem ;
+  margin: 0.625rem 1.25rem 0.3125rem;
   color: $text-color;
 }
 
 .button {
   background-color: $primary-color;
-  color: $text-color-button;
   min-width: 15.625rem;
   max-width: 18.75rem;
   height: 2.3125rem;
-  border-radius: 10px;
-  font-weight: bold;
-  text-align: center;
   margin: 1.25rem 1.25rem 0.9375rem;
   font-size: 1.25rem;
   padding: 0.3125rem;
 }
-
-

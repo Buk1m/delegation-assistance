@@ -1,13 +1,18 @@
 import React from "react";
-import { Text, View, Button } from "react-native";
+import { Text, View } from "react-native";
+
+import Button from "../../components/Button/Button.component";
 import { func } from "prop-types";
+import styles from "./ProfileScreen.module.scss";
 
 const ProfileScreen = props => {
   const { logoutUser } = props;
   return (
     <View>
       <Text>Profile Screen</Text>
-      <Button onPress={() => logoutUser()} title="logout" />
+      <View style={styles["logout-btn"]}>
+        <Button onPress={() => logoutUser()} title="Logout" />
+      </View>
     </View>
   );
 };

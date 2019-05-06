@@ -12,6 +12,11 @@
   justify-content: center;
   align-items: center;
   opacity: 0.9;
+  shadow-color: #000;
+  shadow-offset: 0 5px;
+  shadow-opacity: 1;
+  shadow-radius: 6;
+  elevation: 10;
 }
 
 .addDelegationButtonText {

@@ -9,8 +9,8 @@ import LoginScreen from "./LoginScreen.component";
 class LoginScreenContainer extends Component {
   static propTypes = {
     loggedStatus: bool,
-    myToken: string,
-    loginUser: func
+    loginUser: func,
+    myToken: string
   };
 
   static navigatonOptions = {
@@ -37,7 +37,7 @@ class LoginScreenContainer extends Component {
 
   handleSubmit = values => {
     this.setState({ errors: "Loading..." });
-    this.props
+    return this.props
       .loginUser(values.login, values.password)
       .then(response => {
         if (response.status === 200) {
@@ -50,9 +50,7 @@ class LoginScreenContainer extends Component {
   };
 
   render() {
-    return (
-      <LoginScreen onSubmit={this.handleSubmit} errors={this.state.errors} />
-    );
+    return <LoginScreen onSubmit={this.handleSubmit} errors={this.state.errors} />;
   }
 }
 

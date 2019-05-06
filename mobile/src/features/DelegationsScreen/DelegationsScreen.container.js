@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { func, bool, array } from "prop-types";
+import { Icon } from "expo";
 
 import {
   fetchMyDelegations,
@@ -11,11 +13,13 @@ import {
 } from "../../actions/delegations.actions";
 import {
   getDelegations,
+  getDelegationsFetching,
   getTempDelegations,
   getDatesAreValid,
   getIsSortFilterPanelCollapsed
 } from "../../selectors/delegations.selectors";
 import DelegationsScreen from "./DelegationsScreen.component";
+import styles from "./DelegationsScreen.module.scss";
 
 const sorters = {
   DateFrom: function(a, b) {
@@ -28,11 +32,7 @@ const sorters = {
     return a.country < b.country ? -1 : a.country > b.country ? 1 : 0;
   },
   City: function(a, b) {
-    return a.destinationLocation < b.destinationLocation
-      ? -1
-      : a.destinationLocation > b.destinationLocation
-      ? 1
-      : 0;
+    return a.destinationLocation < b.destinationLocation ? -1 : a.destinationLocation > b.destinationLocation ? 1 : 0;
   },
   Status: function(a, b) {
     return a.status < b.status ? -1 : a.status > b.status ? 1 : 0;
@@ -41,22 +41,43 @@ const sorters = {
 
 class DelegationsScreenContainer extends Component {
   static propTypes = {
-    fetchMyDelegations: func,
-    setDatesAreValid: func,
-    setTempDelegations: func,
-    setIsSortFilterPanelCollapsed: func,
-    delegations: array,
-    tempDelegations: array,
     datesAreValid: bool,
-    isSortFilterPanelCollapsed: bool
+    delegations: array,
+    fetchMyDelegations: func,
+    fetching: bool,
+    isSortFilterPanelCollapsed: bool,
+    setDatesAreValid: func,
+    setIsSortFilterPanelCollapsed: func,
+    setTempDelegations: func,
+    tempDelegations: array
   };
 
-  static navigationOptions = {
-    title: "Delegations"
+  iconName = "md-arrow-drop";
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Delegations",
+      headerTintColor: styles.primary,
+      headerRight: (
+        <TouchableOpacity
+          style={styles.collapseButtonHeader}
+          onPress={navigation.getParam("changeIsSortFilterPanelCollapsed")}
+        >
+          <Icon.MaterialCommunityIcons name={`filter-outline`} style={styles.iconStyle} />
+        </TouchableOpacity>
+      )
+    };
+  };
+
+  _changeIsSortFilterPanelCollapsed = () => {
+    this.props.setIsSortFilterPanelCollapsed(!this.props.isSortFilterPanelCollapsed);
   };
 
   componentDidMount() {
     this.props.fetchMyDelegations();
+    this.props.navigation.setParams({
+      changeIsSortFilterPanelCollapsed: this._changeIsSortFilterPanelCollapsed
+    });
   }
 
   filter = values => {
@@ -89,12 +110,6 @@ class DelegationsScreenContainer extends Component {
     this.props.setTempDelegations(sortedDelegations);
   };
 
-  changeIsSortFilterPanelCollapsed = () => {
-    this.props.setIsSortFilterPanelCollapsed(
-      !this.props.isSortFilterPanelCollapsed
-    );
-  };
-
   _getTime = date => {
     const dateOnly = new Date(date);
     dateOnly.setHours(0, 0, 0, 0);
@@ -111,10 +126,12 @@ class DelegationsScreenContainer extends Component {
         delegations={this.props.tempDelegations}
         datesAreValid={this.props.datesAreValid}
         isSortFilterPanelCollapsed={this.props.isSortFilterPanelCollapsed}
-        changeIsSortFilterPanelCollapsed={this.changeIsSortFilterPanelCollapsed}
+        changeIsSortFilterPanelCollapsed={this._changeIsSortFilterPanelCollapsed}
         filter={this.filter}
         sortItems={this.sortItems}
         navigate={this.props.navigation}
+        fetching={this.props.fetching}
+        handleRefresh={this.props.fetchMyDelegations}
       />
     );
   }
@@ -123,6 +140,7 @@ class DelegationsScreenContainer extends Component {
 const mapStateToProps = state => {
   return {
     delegations: getDelegations(state),
+    fetching: getDelegationsFetching(state),
     tempDelegations: getTempDelegations(state),
     datesAreValid: getDatesAreValid(state),
     isSortFilterPanelCollapsed: getIsSortFilterPanelCollapsed(state)

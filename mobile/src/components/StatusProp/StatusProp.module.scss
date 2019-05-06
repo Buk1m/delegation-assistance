@@ -1,0 +1,74 @@
+@import "../../assets/styles/_constants";
+
+.status {
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+%delegation {
+  border-left-width: 4px;
+}
+
+.CREATED {
+  @extend %delegation;
+  border-left-color: $delegation-status-created;
+  font-weight: bold;
+  .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: #000;
+  }
+}
+
+.PREPARED {
+  @extend %delegation;
+  border-left-color: $delegation-status-prepared;
+}
+
+.NEEDS_WORK {
+  @extend %delegation;
+  border-left-color: $delegation-status-needs-work;
+}
+
+.CHECKED {
+  @extend %delegation;
+  border-left-color: $delegation-status-checked;
+}
+
+.APPROVED {
+  @extend %delegation;
+  border-left-color: $delegation-status-approved;
+}
+
+.FINALIZED {
+  @extend %delegation;
+  border-left-color: $delegation-status-finalized;
+}
+
+.content-CREATED {
+  color: $delegation-status-created;
+}
+.content-PREPARED {
+  color: $delegation-status-prepared;
+}
+
+.content-NEEDS_WORK {
+  color: $delegation-status-needs-work;
+}
+
+.content-CHECKED {
+  color: $delegation-status-checked;
+}
+
+.content-APPROVED {
+  color: $delegation-status-approved;
+}
+
+.content-FINALIZED {
+  color: $delegation-status-finalized;
+}

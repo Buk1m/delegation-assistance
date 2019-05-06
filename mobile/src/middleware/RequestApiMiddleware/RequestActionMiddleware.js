@@ -55,7 +55,8 @@ const RequestActionMiddleware = store => next => action => {
           method,
           data,
           headers,
-          baseURL
+          baseURL,
+          timeout: 10000
         });
         dispatch({
           type: `${type}_${PENDING}`,

@@ -1,5 +1,6 @@
 import { ACTIONS } from "../actions/delegationChecklist.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
+import { showMessage } from "react-native-flash-message";
 
 const initialState = {
   delegationId: 0,
@@ -26,6 +27,7 @@ const delegationChecklistReducer = (state = initialState, action) => {
         fetching: false
       };
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${REJECTED}`:
+      showMessage({ message: "Error while fetching delegation checklist: " + action.payload.Message, type: "danger" });
       return {
         ...state,
         fetching: false,

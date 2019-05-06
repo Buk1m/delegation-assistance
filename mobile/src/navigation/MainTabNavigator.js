@@ -1,9 +1,6 @@
 import React from "react";
 import { Platform } from "react-native";
-import {
-  createStackNavigator,
-  createBottomTabNavigator
-} from "react-navigation";
+import { createStackNavigator, createBottomTabNavigator } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon/TabBarIcon.component";
 import HomeScreen from "../features/HomeScreen";
@@ -12,8 +9,8 @@ import DelegationsScreen from "../features/DelegationsScreen";
 import CreateDelegationScreen from "../features/CreateDelegationScreen";
 import ChecklistScreen from "../features/ChecklistScreen";
 import CreateTaskScreen from "../features/CreateTaskScreen";
-import DelegationChecklistScreen from "../features/DelegationChecklistScreen";
 import ExpensesScreen from "../features/ExpensesScreen";
+import DelegationDetailsScreen from "../features/DelegationDetailsScreen";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -21,27 +18,19 @@ const HomeStack = createStackNavigator({
 
 HomeStack.navigationOptions = {
   tabBarLabel: "Home",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? `ios-home` : "md-home"}
-    />
-  )
+  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={Platform.OS === "ios" ? `ios-home` : "md-home"} />
 };
 
 const DelegationsStack = createStackNavigator({
   Home: DelegationsScreen,
   CreateDelegation: CreateDelegationScreen,
-  DelegationChecklist: DelegationChecklistScreen,
+  DelegationDetails: DelegationDetailsScreen,
   CreateExpense: ExpensesScreen
 });
 DelegationsStack.navigationOptions = {
   tabBarLabel: "Delegations",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? `ios-briefcase` : "md-briefcase"}
-    />
+    <TabBarIcon focused={focused} name={Platform.OS === "ios" ? `ios-briefcase` : "md-briefcase"} />
   )
 };
 
@@ -49,15 +38,11 @@ const ChecklistStack = createStackNavigator({
   Checklist: ChecklistScreen,
   CreateTask: CreateTaskScreen
 });
+
 ChecklistStack.navigationOptions = {
   tabBarLabel: "Checklist",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === "ios" ? `ios-checkbox-outline` : "md-checkbox-outline"
-      }
-    />
+    <TabBarIcon focused={focused} name={Platform.OS === "ios" ? `ios-checkbox-outline` : "md-checkbox-outline"} />
   )
 };
 
@@ -67,10 +52,7 @@ const ProfileStack = createStackNavigator({
 ProfileStack.navigationOptions = {
   tabBarLabel: "Profile",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? `ios-person` : "md-person"}
-    />
+    <TabBarIcon focused={focused} name={Platform.OS === "ios" ? `ios-person` : "md-person"} />
   )
 };
 

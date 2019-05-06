@@ -1,18 +1,27 @@
-@import "../../../../assets/styles/colors.scss";
+@import "../../../../assets/styles/_constants";
 
 .delegation {
-  border-color: transparent;
   //TODO: replace with color from color palette when t will be available
-  background-color: #f3f3f3;
-  border-width: 0.05rem;
-  border-radius: 1rem;
-  padding: 1rem;
-  margin-bottom: 5;
+  background-color: #fff;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 2px;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84;
+  elevation: 5;
+}
+
+.header {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: $primary-color;
 }
 
 .dataRow {
+  margin-bottom: 0.3rem;
   flex-direction: row;
-  flex: 1;
 }
 
 .flex1 {
@@ -21,4 +30,65 @@
 
 .flex2 {
   flex: 2;
+}
+
+.dates {
+  margin-left: -3px;
+}
+
+.location-content {
+  font-size: 1.05rem;
+}
+
+.pin-icon {
+  top: 3px;
+  margin-right: 9px;
+}
+
+.date-icon {
+  margin-right: 5px;
+}
+
+.dates-content {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.objective {
+  margin-top: 4px;
+}
+
+.status {
+  position: absolute;
+  right: 8px;
+  top: 10px;
+}
+
+.CREATED {
+  border-left-width: 4px;
+  border-left-color: $delegation-status-created;
+}
+
+.PREPARED {
+  border-left-width: 4px;
+  border-left-color: $delegation-status-prepared;
+}
+
+.NEEDS_WORK {
+  border-left-width: 4px;
+  border-left-color: $delegation-status-needs-work;
+}
+
+.CHECKED {
+  border-left-width: 4px;
+  border-left-color: $delegation-status-checked;
+}
+
+.APPROVED {
+  border-left-width: 4px;
+  border-left-color: $delegation-status-approved;
+}
+
+.FINALIZED {
+  border-left-width: 4px;
+  border-left-color: $delegation-status-finalized;
 }

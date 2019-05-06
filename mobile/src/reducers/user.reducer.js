@@ -13,33 +13,28 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  let result;
-
   switch (action.type) {
     case `${ACTIONS.LOGIN_USER}_${PENDING}`:
-      result = { ...state, fetchingUser: true };
-      break;
+      return { ...state, fetchingUser: true };
     case `${ACTIONS.LOGIN_USER}_${FULFILLED}`:
-      result = {
+      return {
         ...state,
         fetchingUser: false,
         logged: true,
         token: action.payload.data.token
       };
-      break;
     case `${ACTIONS.LOGIN_USER}_${REJECTED}`:
-      result = {
+      return {
         ...state,
         fetchingUser: false,
         logged: false,
         token: null
       };
-      break;
+    case ACTIONS.LOGOUT_USER:
+      return initialState;
     default:
-      result = state;
+      return state;
   }
-
-  return result;
 };
 
 export default userReducer;

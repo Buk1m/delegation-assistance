@@ -6,11 +6,10 @@ import { array, bool, func, object } from "prop-types";
 
 import Delegation from "./components/Delegation/Delegation.component";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.component";
-import IconButton from "../../components/IconButton/IconButton.component";
 import FilterPanel from "./components/FilterPanel/FilterPanel.component";
 import SortPanel from "./components/SortPanel/SortPanel.component";
-
-import styles from "./DelegationsScreenStyles.scss";
+import IconButton from "../../components/IconButton/IconButton.component";
+import styles from "./DelegationsScreen.module.scss";
 import style from "../CreateDelegationScreen/CreateDelegationButtonStyles.module.scss";
 
 const renderItem = (delegation, navigate) => {
@@ -31,8 +30,8 @@ const showOptions = (delegationId, navigate) => {
         style: "cancel"
       },
       {
-        text: "Show Checklist",
-        onPress: () => navigate.navigate("DelegationChecklist", { delegationId: delegationId })
+        text: "Show Details",
+        onPress: () => navigate.navigate("DelegationDetails", { delegationId: delegationId })
       },
       {
         text: "Add Expense",
@@ -51,29 +50,25 @@ const DelegationsScreen = props => {
     changeIsSortFilterPanelCollapsed,
     filter,
     sortItems,
-    navigate
+    navigate,
+    fetching,
+    handleRefresh
   } = props;
-
-  const iconName = "md-arrow-drop";
 
   return (
     <View style={styles.container}>
-      <Collapsible
-        style={styles.collapsible}
-        collapsed={isSortFilterPanelCollapsed}
-      >
+      <Collapsible style={styles.collapsible} collapsed={isSortFilterPanelCollapsed}>
         <View style={styles.filters}>
           <FilterPanel onSubmit={filter} />
           <SortPanel onSubmit={sortItems} />
         </View>
+        <IconButton
+          style={styles.collapseButton}
+          iconStyle={styles.iconStyle}
+          iconName={"md-arrow-dropup-circle"}
+          onPress={changeIsSortFilterPanelCollapsed}
+        />
       </Collapsible>
-
-      <IconButton
-        style={styles.collapseButton}
-        iconStyle={styles.iconStyle}
-        iconName={`${iconName}${isSortFilterPanelCollapsed ? "down" : "up"}`}
-        onPress={changeIsSortFilterPanelCollapsed}
-      />
 
       <Collapsible collapsed={datesAreValid}>
         <ErrorMessage message="Dates are invalid!" />
@@ -82,7 +77,11 @@ const DelegationsScreen = props => {
       <FlatList
         style={[styles.list, styles.listSideMargins]}
         data={delegations}
+        keyExtractor={item => item.id.toString()}
         renderItem={delegation => renderItem(delegation, navigate)}
+        refreshing={fetching}
+        onRefresh={handleRefresh}
+        contentContainerStyle={styles["content-container"]}
       />
 
       <TouchableOpacity
@@ -97,13 +96,15 @@ const DelegationsScreen = props => {
 };
 
 DelegationsScreen.propTypes = {
-  delegations: array,
-  datesAreValid: bool,
-  isSortFilterPanelCollapsed: bool,
   changeIsSortFilterPanelCollapsed: func,
+  datesAreValid: bool,
+  delegations: array,
+  fetching: bool,
   filter: func,
-  sortItems: func,
-  navigate: object
+  handleRefresh: func,
+  isSortFilterPanelCollapsed: bool,
+  navigate: object,
+  sortItems: func
 };
 
 export default DelegationsScreen;

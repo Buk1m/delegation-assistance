@@ -1,14 +1,15 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text } from "react-native";
 import { Field, reduxForm } from "redux-form";
+import { bool, func, string } from "prop-types";
 
 import { validateRequired } from "../../validators/Validators";
 import FieldLoginRenderer from "../../components/FieldLoginRenderer/FieldLoginRenderer.component";
+import Button from "../../components/Button/Button.component";
 import styles from "./LoginScreen.module.scss";
-import { func, string } from "prop-types";
 
 const LoginScreen = props => {
-  const { handleSubmit } = props;
+  const { handleSubmit, submitting } = props;
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
@@ -33,18 +34,7 @@ const LoginScreen = props => {
             validate={[validateRequired]}
             isSecure={true}
           />
-          <Button
-            title="Sign in"
-            onPress={handleSubmit}
-            // TODO: export color scss variables from _constants
-            // and import primary color here. (Example -> frontend/src/features/CreateDelegationPage/component)
-            // The assignment below breaks tests because `styles` is mocked and
-            // any atempts to access `styles` properties will
-            // throw an exception. Any suggestions on how to resolve this problem
-            // differently are welcome.
-            // color={styles["button-login"].color}
-            data-test="login-button"
-          />
+          <Button title="Sign in" onPress={handleSubmit} submitting={submitting} data-test="login-button" />
         </View>
       </View>
     </View>
@@ -52,8 +42,9 @@ const LoginScreen = props => {
 };
 
 LoginScreen.propTypes = {
+  errors: string,
   handleSubmit: func.isRequired,
-  errors: string
+  submitting: bool
 };
 
 export default reduxForm({

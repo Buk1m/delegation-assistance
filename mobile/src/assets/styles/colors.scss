@@ -1,6 +1,10 @@
-$primary-color: #1E006B;
+$primary-color: #1e006b;
 $secondary-color: #5900b3;
 $text-color: #000000;
-$text-color-button: #FFFFFF;
-$validate-text-color: #CF0000;
+$text-color-button: #ffffff;
+$validate-text-color: #cf0000;
 $inactiveTextColor: #bdbdbd;
+
+:export {
+  primary: $primary-color;
+}

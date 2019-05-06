@@ -1,4 +1,4 @@
-@import "../../assets/styles/constants";
+@import "../../../assets/styles/constants";
 
 .title {
   text-align: center;
@@ -18,4 +18,8 @@
 .list {
   margin-top: 0.5rem;
   margin-bottom: 2.8rem;
+}
+
+.spinner {
+  margin-top: 20px;
 }

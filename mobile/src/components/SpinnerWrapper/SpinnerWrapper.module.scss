@@ -1,0 +1,10 @@
+@import "../../assets/styles/colorPalette";
+
+.container {
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-msg {
+  color: $primaryLightColor;
+}

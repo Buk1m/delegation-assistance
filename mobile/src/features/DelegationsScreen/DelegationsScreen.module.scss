@@ -1,36 +1,33 @@
 @import "../../assets/styles/colors";
 
 .collapseButton {
-  width: 51;
-  height: 51;
   align-items: center;
-  align-self: center;
+  padding: 5px;
+}
+.collapseButtonHeader {
+  margin-right: 10px;
 }
 
 .iconStyle {
   color: $primary-color;
-  font-size: 50;
+  font-size: 40;
 }
 
 .container {
   height: 100%;
+  width: 100%;
+  background: #f2f2f2;
 }
 
 .sideMargins {
-  margin-right: 20;
-  margin-left: 20;
-}
-
-.listSideMargins {
-  padding-right: 20;
-  padding-left: 20;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .filters {
   padding-top: 5;
   padding-bottom: 10;
   flex-direction: row;
-  background-color: $text-color-button;
 }
 
 .collapsible {
@@ -38,6 +35,7 @@
   border-bottom-width: 1;
   margin-left: 20;
   margin-right: 20;
+  background-color: $text-color-button;
 }
 
 .column {
@@ -64,5 +62,12 @@
 }
 
 .list {
-  margin-top: 5;
+  padding-top: 15px;
+}
+
+.content-container {
+  padding: 10px;
+  padding-top: 15px;
+  min-height: 100%;
+  width: 100%;
 }

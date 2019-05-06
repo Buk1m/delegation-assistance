@@ -1,5 +1,6 @@
 import { ACTIONS } from "../actions/expenses.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
+import { showMessage } from "react-native-flash-message";
 
 const initialState = {
   expenseName: "",
@@ -9,7 +10,6 @@ const initialState = {
 };
 
 const expensesReducer = (state = initialState, action) => {
-
   switch (action.type) {
     case `${ACTIONS.ADD_EXPENSE}_${PENDING}`: {
       return {
@@ -18,12 +18,14 @@ const expensesReducer = (state = initialState, action) => {
       };
     }
     case `${ACTIONS.ADD_EXPENSE}_${FULFILLED}`: {
+      showMessage({ message: "Added new expense.", type: "success" });
       return {
         ...state,
         fetching: false
       };
     }
     case `${ACTIONS.ADD_EXPENSE}_${REJECTED}`: {
+      showMessage({ message: `Error occured while adding expense: ${action.payload.Message}`, type: "danger" });
       return {
         ...state,
         fetching: false,

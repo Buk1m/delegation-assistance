@@ -1,6 +1,6 @@
 import { ACTIONS } from "../actions/delegations.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
-import countries from "get-countries-info";
+import { showMessage } from "react-native-flash-message";
 
 const initialState = {
   startDate: Date.now(),
@@ -9,6 +9,7 @@ const initialState = {
   destinationCountryISO3: "",
   destinationLocation: "",
   delegations: [],
+  delegation: { diet: {} },
   tempDelegations: [],
   datesAreValid: true,
   isSortFilterPanelCollapsed: true,
@@ -18,86 +19,58 @@ const initialState = {
 };
 
 const delegationsReducer = (state = initialState, action) => {
-  let result;
-
   switch (action.type) {
-    case `${ACTIONS.ADD_DELEGATION}_${PENDING}`: {
-      result = {
-        ...state,
-        fetching: true
-      };
-      break;
-    }
+    case `${ACTIONS.ADD_DELEGATION}_${PENDING}`:
+      return { ...state, fetching: false };
     case `${ACTIONS.ADD_DELEGATION}_${FULFILLED}`: {
-      result = {
-        ...state,
-        fetching: false
-      };
-      break;
+      showMessage({ message: "Delegation created.", type: "success" });
+      return { ...state, fetching: false };
     }
     case `${ACTIONS.ADD_DELEGATION}_${REJECTED}`: {
-      result = {
+      showMessage({ message: `Cannot create delegation. ${action.payload.Message}`, type: "danger" });
+      return { ...state, fetching: false, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+    }
+
+    case `${ACTIONS.FETCH_DELEGATION}_${PENDING}`:
+      return { ...state, delegationFetching: true };
+    case `${ACTIONS.FETCH_MY_DELEGATIONS}_${PENDING}`:
+      return { ...state, fetching: true };
+
+    case `${ACTIONS.FETCH_MY_DELEGATIONS}_${FULFILLED}`: {
+      const delegations = prepareDelegations(action.payload.data);
+      return { ...state, fetching: false, delegations: delegations, tempDelegations: delegations };
+    }
+    case `${ACTIONS.FETCH_DELEGATION}_${FULFILLED}`: {
+      return { ...state, delegationFetching: false, delegation: action.payload.data };
+    }
+
+    case `${ACTIONS.FETCH_MY_DELEGATIONS}_${REJECTED}`:
+      showMessage({ message: `Error occured while fetching delegations: ${action.payload.Message}`, type: "danger" });
+      return { ...state, fetching: false, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+    case `${ACTIONS.FETCH_DELEGATION}_${REJECTED}`:
+      showMessage({ message: `Error occured while fetching details: ${action.payload.Message}`, type: "danger" });
+      return {
         ...state,
-        fetching: false,
+        delegationFetching: false,
         errors: action.payload.Message,
         subErrors: action.payload.SubErrors
       };
-      break;
-    }
-    case `${ACTIONS.FETCH_MY_DELEGATIONS}_${PENDING}`:
-      result = { ...state, fetching: true };
-      break;
-    case `${ACTIONS.FETCH_MY_DELEGATIONS}_${FULFILLED}`: {
-      const delegations = prepareDelegations(action.payload.data);
 
-      result = {
-        ...state,
-        fetching: false,
-        delegations: delegations,
-        tempDelegations: delegations
-      };
-      break;
-    }
-    case `${ACTIONS.FETCH_MY_DELEGATIONS}_${REJECTED}`:
-      result = { ...state, fetching: false };
-      break;
     case ACTIONS.SET_DELEGATIONS:
-      result = { ...state, delegations: action.payload };
-      break;
+      return { ...state, delegations: action.payload };
     case ACTIONS.SET_TEMP_DELEGATIONS:
-      result = { ...state, tempDelegations: action.payload };
-      break;
+      return { ...state, tempDelegations: action.payload };
     case ACTIONS.SET_DATES_ARE_VALID:
-      result = { ...state, datesAreValid: action.payload };
-      break;
+      return { ...state, datesAreValid: action.payload };
     case ACTIONS.SET_IS_SORT_FILTER_PANEL_COLLAPSED:
-      result = { ...state, isSortFilterPanelCollapsed: action.payload };
-      break;
+      return { ...state, isSortFilterPanelCollapsed: action.payload };
     default:
-      result = { ...state };
+      return state;
   }
-  return result;
 };
 
 const prepareDelegations = delegations => {
-  return mapDateTimeToDateOnly(mapIso3ToCountry(addKeysToItems(delegations)));
-};
-
-const addKeysToItems = items => {
-  return items.map(item => {
-    return Object.assign(item, { key: `${item.id}` });
-  });
-};
-
-const mapIso3ToCountry = delegations => {
-  return delegations.map(delegation => {
-    const query = {
-      ISO: delegation.destinationCountryISO3
-    };
-    return Object.assign(delegation, {
-      country: countries(query, "name")[0]
-    });
-  });
+  return mapDateTimeToDateOnly(delegations);
 };
 
 const mapDateTimeToDateOnly = delegations => {

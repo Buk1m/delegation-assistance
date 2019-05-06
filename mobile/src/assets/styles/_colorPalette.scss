@@ -36,3 +36,8 @@ $primaryTextColor: #ffffff;
 $secondaryTextColor: #ffffff;
 $textColor: #000000;
 $validateColor: #cf0000;
+
+:export {
+  primary: $primaryColor;
+  secondary: $secondaryColor;
+}

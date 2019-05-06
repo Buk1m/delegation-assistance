@@ -3,10 +3,11 @@ import { APIService } from "../services/data";
 export const ACTIONS = {
   ADD_DELEGATION: "DELEGATIONS_ADD_DELEGATION",
   FETCH_MY_DELEGATIONS: "DELEGATIONS_FETCH_MY_DELEGATIONS",
-  SET_DELEGATIONS: "DELEGATIONS_SET_DELEGATIONS",
-  SET_TEMP_DELEGATIONS: "DELEGATIONS_SET_TEMP_DELEGATIONS",
+  FETCH_DELEGATION: "DELEGATIONS_FETCH_DELEGATION",
   SET_DATES_ARE_VALID: "DELEGATIONS_SET_DATES_ARE_VALID",
-  SET_IS_SORT_FILTER_PANEL_COLLAPSED: "DELEGATIONS_SET_IS_SORT_FILTER_PANEL_COLLAPSED"
+  SET_DELEGATIONS: "DELEGATIONS_SET_DELEGATIONS",
+  SET_IS_SORT_FILTER_PANEL_COLLAPSED: "DELEGATIONS_SET_IS_SORT_FILTER_PANEL_COLLAPSED",
+  SET_TEMP_DELEGATIONS: "DELEGATIONS_SET_TEMP_DELEGATIONS"
 };
 
 const addNewDelegation = delegation => dispatch => {
@@ -34,24 +35,29 @@ const fetchMyDelegations = () => dispatch => {
   );
 };
 
-const setDelegations = delegations => dispatch => {
-  return dispatch({
-    type: ACTIONS.SET_DELEGATIONS,
-    payload: delegations
-  });
-};
-
-const setTempDelegations = tempDelegations => dispatch => {
-  return dispatch({
-    type: ACTIONS.SET_TEMP_DELEGATIONS,
-    payload: tempDelegations
-  });
+const fetchDelegation = delegationId => dispatch => {
+  return dispatch(
+    APIService.get(ACTIONS.FETCH_DELEGATION, {
+      url: `/delegations/${delegationId}`,
+      needAuth: true,
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+  );
 };
 
 const setDatesAreValid = datesAreValid => dispatch => {
   return dispatch({
     type: ACTIONS.SET_DATES_ARE_VALID,
     payload: datesAreValid
+  });
+};
+
+const setDelegations = delegations => dispatch => {
+  return dispatch({
+    type: ACTIONS.SET_DELEGATIONS,
+    payload: delegations
   });
 };
 
@@ -62,11 +68,19 @@ const setIsSortFilterPanelCollapsed = isSortFilterPanelCollapsed => dispatch => 
   });
 };
 
+const setTempDelegations = tempDelegations => dispatch => {
+  return dispatch({
+    type: ACTIONS.SET_TEMP_DELEGATIONS,
+    payload: tempDelegations
+  });
+};
+
 export {
   addNewDelegation,
   fetchMyDelegations,
-  setDelegations,
-  setTempDelegations,
+  fetchDelegation,
   setDatesAreValid,
-  setIsSortFilterPanelCollapsed
+  setDelegations,
+  setIsSortFilterPanelCollapsed,
+  setTempDelegations
 };

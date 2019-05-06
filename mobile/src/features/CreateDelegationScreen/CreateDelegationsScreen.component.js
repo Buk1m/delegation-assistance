@@ -1,25 +1,20 @@
 import React from "react";
-import {
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  Text,
-  TouchableOpacity
-} from "react-native";
+import { View, ScrollView, KeyboardAvoidingView, Text } from "react-native";
 import { reduxForm, reset, Field } from "redux-form";
-import { func } from "prop-types";
+import { bool, func } from "prop-types";
 
-import styles from "../../assets/styles/styles.scss";
+import Button from "../../components/Button/Button.component";
 import { validateRequired } from "../../validators/Validators";
 import DatePickerRenderer from "../../components/DatePicker/DatePickerRenderer.component";
 import FieldRenderer from "../../components/FieldRenderer/FieldRenderer.component";
 import startDateEarlierThanEndDate from "../../validators/startDateEarlierThenEndDate";
+import styles from "../../assets/styles/styles.scss";
 
 const CreateDelegationsScreen = props => {
-  const { handleSubmit } = props;
+  const { handleSubmit, submitting } = props;
   return (
     <View style={styles.container}>
-      <ScrollView> 
+      <ScrollView>
         <KeyboardAvoidingView behavior="padding" enable>
           <Text style={styles.subtitle}> Destination Country </Text>
           <Field
@@ -29,7 +24,6 @@ const CreateDelegationsScreen = props => {
             validate={[validateRequired]}
             isSecure={false}
           />
-
           <Text style={styles.subtitle}> Destination Location </Text>
           <Field
             name="destinationLocation"
@@ -38,7 +32,6 @@ const CreateDelegationsScreen = props => {
             validate={[validateRequired]}
             isSecure={false}
           />
-
           <Text style={styles.subtitle}> Delegation Objective</Text>
           <Field
             name="delegationObjective"
@@ -47,26 +40,11 @@ const CreateDelegationsScreen = props => {
             validate={[validateRequired]}
             isSecure={false}
           />
-
           <Text style={styles.subtitle}> Start Date </Text>
-          <Field
-            name="startDate"
-            component={DatePickerRenderer}
-            validate={[validateRequired]}
-            isSecure={false}
-          />
-
+          <Field name="startDate" component={DatePickerRenderer} validate={[validateRequired]} isSecure={false} />
           <Text style={styles.subtitle}> End Date </Text>
-          <Field
-            name="endDate"
-            component={DatePickerRenderer}
-            validate={[validateRequired]}
-            isSecure={false}
-          />
-
-          <TouchableOpacity onPress={handleSubmit}>
-            <Text style={styles.button}> Create </Text>
-          </TouchableOpacity>
+          <Field name="endDate" component={DatePickerRenderer} validate={[validateRequired]} isSecure={false} />
+          <Button style={styles.button} onPress={handleSubmit} submitting={submitting} title="Create" />
         </KeyboardAvoidingView>
       </ScrollView>
     </View>
@@ -74,7 +52,8 @@ const CreateDelegationsScreen = props => {
 };
 
 CreateDelegationsScreen.propTypes = {
-  handleSubmit: func
+  handleSubmit: func,
+  submitting: bool
 };
 
 export default reduxForm({
