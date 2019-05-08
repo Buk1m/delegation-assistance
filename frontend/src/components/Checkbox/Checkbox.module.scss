@@ -1,4 +1,4 @@
-@import "../../static/styles/constants";
+@import "../../assets/styles/constants";
 
 .control-checkbox {
   margin-bottom: 10px;
@@ -11,7 +11,7 @@
   margin: 0 1rem 0 0;
   position: relative;
 
-    &:before{
+  &:before {
     border: 2px solid $primary-color;
     border-radius: 5px;
     content: "";
@@ -24,14 +24,14 @@
     background: #fff;
   }
 
-    &:checked:before {
+  &:checked:before {
     background: #f8f8f8;
     border-color: $primary-color;
     border-right-style: none;
     border-top-style: none;
     height: 0.5rem;
     transform: rotate(-45deg);
-    border-radius: 0px;
+    border-radius: 0;
   }
 
   &:checked + label {

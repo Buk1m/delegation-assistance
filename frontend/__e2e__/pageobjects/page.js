@@ -43,10 +43,10 @@ export default class Page {
   _checkIfLoggedIn() {
     browser.waitUntil(
       () => {
-        return browser.getUrl() === baseUrl + "/delegations";
+        return browser.getUrl() === baseUrl + "/";
       },
       callTimeout,
-      "Login failed. Expected to navigate to landing page " + baseUrl + "/delegations"
+      "Login failed. Expected to navigate to landing page " + baseUrl + "/"
     );
   }
 }

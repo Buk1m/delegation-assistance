@@ -1,0 +1,50 @@
+@import "../../../../../../assets/styles/constants";
+
+.logout-item {
+  cursor: pointer;
+}
+
+.usernav-toogle {
+  font-weight: 400;
+  background: #fff;
+  padding: 0;
+  border: none;
+  white-space: nowrap;
+
+  &:after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.2em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+  }
+}
+
+$size: 30px;
+.profile-img {
+  width: $size;
+  height: $size;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-right: $size/3;
+}
+
+.navaccount {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media #{$mobile} {
+  .usernav-toogle > span {
+    display: none;
+  }
+}
+
+@media #{$small} {
+  .navaccount {
+    display: none;
+  }
+}

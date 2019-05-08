@@ -28,9 +28,7 @@ const Input = props => {
             <span className={styles["label-bold"]} data-test="label-value">
               {label}
             </span>
-          ) : (
-            ""
-          )}
+          ) : null}
           <Field
             className={"input"}
             name={name}
@@ -38,7 +36,7 @@ const Input = props => {
             value={value}
             validate={validate}
             label={placeholder}
-            component={component === null ? RenderInput : component}
+            component={component || RenderInput}
             minlength={minlength}
             disabled={disabled}
             {...options}

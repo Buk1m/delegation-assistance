@@ -1,17 +1,18 @@
 import { get } from "lodash";
-import { userRoles } from "../config/index";
+import { userRoles } from "../config";
 
-const getLoggedStatus = state => state.user.logged;
-const getId = state => state.user.id;
-const getToken = state => state.user.token;
-const getTokenExpDate = state => state.user.tokenExpDate;
-const getRoles = state => state.user.roles;
-const getLogin = state => state.user.login;
-const getFirstname = state => state.user.firstname;
-const getLastname = state => state.user.lastname;
-const getAccountBlocked = state => state.user.accountBlocked;
-const getFetchingUser = state => state.user.fetchingUser;
-const getRoleActive = state => state.user.roleActive;
+const getLoggedStatus = state => get(state, "user.logged", false);
+const getId = state => get(state, "user.id");
+const getToken = state => get(state, "user.token");
+const getTokenExpDate = state => get(state, "user.tokenExpDate");
+const getRoles = state => get(state, "user.roles");
+const getActiveRole = state => get(state, "user.roleActive");
+const getLogin = state => get(state, "user.login");
+const getFirstname = state => get(state, "user.firstname");
+const getLastname = state => get(state, "user.lastname");
+const getAccountBlocked = state => get(state, "user.accountBlocked");
+const getFetchingUser = state => get(state, "user.fetchingUser");
+const getRoleActive = state => get(state, "user.roleActive");
 const getFullName = state => {
   if (!(getFirstname(state) && getLastname(state))) {
     return getLogin(state);
@@ -19,16 +20,10 @@ const getFullName = state => {
     return get(state, getFirstname(state), "unknown") + " " + get(state, getFirstname(state), "unknown");
   }
 };
-const isUser = (roles, role) => {
-  if (roles.includes(role)) {
-    return true;
-  }
-  return false;
-};
-const isUserEmployee = state => isUser(getRoles(state), userRoles.employee);
-const isUserTravelmanager = state => isUser(getRoles(state), userRoles.travelmanager);
-const isUserApprover = state => isUser(getRoles(state), userRoles.approver);
-const isUserAccountant = state => isUser(getRoles(state), userRoles.accountant);
+const isUserEmployee = state => getActiveRole(state) === userRoles.employee;
+const isUserTravelmanager = state => getActiveRole(state) === userRoles.travelmanager;
+const isUserApprover = state => getActiveRole(state) === userRoles.approver;
+const isUserAccountant = state => getActiveRole(state) === userRoles.accountant;
 
 export {
   getLoggedStatus,
@@ -36,6 +31,7 @@ export {
   getToken,
   getTokenExpDate,
   getRoles,
+  getActiveRole,
   getLogin,
   getFirstname,
   getLastname,

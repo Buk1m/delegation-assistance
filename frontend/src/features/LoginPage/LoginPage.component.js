@@ -7,11 +7,13 @@ import LayoutMain from "../../components/layouts/LayoutMain";
 import Input from "../../components/Input/Input.component";
 import Button from "../../components/Button/Button.component";
 
+import login from "../../assets/images/login.jpg";
+
 export const LoginPage = props => {
   const { handleSubmit, errors, submitting } = props;
   return (
-    <LayoutMain hideSidebar={true} addPadding={false}>
-      <div id="login-screen">
+    <LayoutMain title="Sign in" hideTitle fullContent>
+      <div id="login-screen" style={{ backgroundImage: `url(${login})` }}>
         <div className="login-container">
           <h1 className="title-text">Nice to see you again!</h1>
           <Form onSubmit={handleSubmit} className="form-container">
@@ -19,12 +21,14 @@ export const LoginPage = props => {
             <Input
               name="login"
               placeholder="Username"
+              label="Login *"
               validate={validateRequired}
               className="input-login"
             />
             <Input
               name="password"
               placeholder="Password"
+              label="Password *"
               validate={validateRequired}
               type="password"
               className="input-login"

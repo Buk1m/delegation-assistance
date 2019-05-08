@@ -1,4 +1,4 @@
-@import "../../../static/styles/constants";
+@import "../../../assets/styles/constants";
 
 .render-field {
   .input[type="text"],
@@ -17,7 +17,7 @@
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     outline: none;
-    margin: 5px 0px;
+    margin: 5px 0;
 
     &.invalid {
       color: $error-color;

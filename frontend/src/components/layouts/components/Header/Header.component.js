@@ -1,56 +1,39 @@
 import React from "react";
-import { bool, func, string } from "prop-types";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { array, bool, func, string } from "prop-types";
 
+import ProfileDropdown from "./components/ProfileDropdown/ProfileDropdown.component";
+import MobileMenuNavigation from "./components/MobileMenuNavigation/MobileMenuNavigation.component";
+import MenuNavigation from "./components/MenuNavigation/MenuNavigation.component";
+
+import sitelogo from "../../../../assets/images/sitelogo.png";
 import styles from "./Header.module.scss";
-import sitelogo from "../../../../static/assets/images/sitelogo.png";
-import ButtonLink from "../../../ButtonLink/ButtonLink.component";
 
-const Header = props => {
-  const { loggedStatus, logout, fullname, toggleSidebar } = props;
+const Header = ({ loggedStatus, logout, fullname, roles, roleActive, changeRole }) => {
   return (
     <header className={styles.header}>
-      <div className={[styles.header_items, "d-flex no-gutters justify-content-between align-items-center"].join(" ")}>
-        <div id="sitelogo" className="col-8 col-sm-6 align-items-center d-flex">
-          <button className={styles["sidebar-toggle"]} onClick={toggleSidebar}>
-            <span className={styles["st-1"]} />
-            <span className={styles["st-2"]} />
-            <span className={styles["st-3"]} />
-          </button>
-          <NavLink to="/" title="Delegation Assistant">
-            <img src={sitelogo} className={styles.sitelogo} alt="Delegation Assistant" />
-          </NavLink>
+      <div className="h-100 d-flex no-gutters justify-content-between align-items-center">
+        <div className="mr-5 align-items-center d-flex">
+          <Link to="/" title="Delegation Assistant">
+            <img src={sitelogo} className="d-block mh-100 mw-100" alt="Delegation Assistant" />
+          </Link>
         </div>
-        <div className="navaccount d-flex justify-content-end col-4 col-sm-6">
-          {loggedStatus === true ? (
-            <div className="dropdown">
-              <button
-                className={[styles["usernav-toogle"], "dropdown-toggle"].join(" ")}
-                type="button"
-                id="usernavmenu"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                {fullname}
-              </button>
-              <div className="dropdown-menu" aria-labelledby="usernavmenu">
-                <NavLink to="/profile" activeClassName={styles.active} className="dropdown-item">
-                  Profile
-                </NavLink>
-                <NavLink to="/delegations" activeClassName={styles.active} className="dropdown-item">
-                  Delegations
-                </NavLink>
-                <hr />
-                <li className={[styles["logout-item"], "dropdown-item"].join(" ")} onClick={logout}>
-                  Logout
-                </li>
-              </div>
-            </div>
-          ) : (
-            <ButtonLink href="/login" text="sign in" />
-          )}
-        </div>
+        <MenuNavigation loggedStatus={loggedStatus} roleActive={roleActive} />
+        <ProfileDropdown
+          loggedStatus={loggedStatus}
+          logout={logout}
+          fullname={fullname}
+          roles={roles}
+          changeRole={changeRole}
+        />
+        <MobileMenuNavigation
+          loggedStatus={loggedStatus}
+          roleActive={roleActive}
+          logout={logout}
+          fullname={fullname}
+          roles={roles}
+          changeRole={changeRole}
+        />
       </div>
     </header>
   );
@@ -58,9 +41,11 @@ const Header = props => {
 
 Header.propTypes = {
   loggedStatus: bool,
-  fullname: string,
   logout: func,
-  toggleSidebar: func
+  fullname: string,
+  roles: array,
+  roleActive: string,
+  changeRole: func
 };
 
 export default Header;

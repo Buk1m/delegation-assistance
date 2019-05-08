@@ -2,7 +2,7 @@ import React from "react";
 import { Field, reduxForm, Form } from "redux-form";
 import { func, bool, array } from "prop-types";
 
-import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
+import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Input from "../../components/Input/Input.component";
 import DateTimePicker from "../../components/DateTimePicker/DateTimePicker.component";

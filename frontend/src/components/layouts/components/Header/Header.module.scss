@@ -1,4 +1,4 @@
-@import "../../../../static/styles/constants";
+@import "../../../../assets/styles/constants";
 
 .header {
   color: $primary-color;
@@ -13,70 +13,8 @@
   left: 0;
 }
 
-.active {
-  background: #fff;
-}
-
-.header_items {
-  height: 100%;
-}
-
-.usernav-toogle {
-  font-weight: bold;
-  background: #fff;
-  padding: 0;
-  border: none;
-}
-
-.sitelogo {
-  display: block;
-  max-width: 100%;
-}
-
-.logout-item {
-  cursor: pointer;
-}
-
-.sidebar-toggle {
-  border: none;
-  display: inline-block;
-  background: #fff;
-  color: $primary-color;
-  margin-right: 25px;
-
-  .line {
-    width: $sidebar-line-width;
-    height: 3px;
-    display: block;
-    background: $primary-color;
-    margin-bottom: 5px;
-    transition: 0.2s ease-in-out;
-  }
-
-  .st-1 {
-    @extend .line;
-    width: $sidebar-line-width - $sidebar-line-space;
-    margin-left: $sidebar-line-space;
-  }
-
-  .st-2 {
-    @extend .line;
-  }
-
-  .st-3 {
-    @extend .line;
-    width: $sidebar-line-width - $sidebar-line-space;
-    margin-bottom: 0;
-  }
-
-  &:hover {
-    .st-1 {
-      width: $sidebar-line-width;
-      margin-left: 0;
-    }
-
-    .st-3 {
-      width: $sidebar-line-width;
-    }
+@media #{$small} {
+  .header {
+    padding: 0.3125rem;
   }
 }

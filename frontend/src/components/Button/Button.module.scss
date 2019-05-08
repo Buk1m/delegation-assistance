@@ -1,4 +1,4 @@
-@import "../../static/styles/constants";
+@import "../../assets/styles/constants";
 
 .btn {
   display: inline-block;
@@ -126,6 +126,7 @@
     color: #fff;
   }
 
+  &:focus,
   &:hover {
     background: $secondary-color;
     color: #fff;
@@ -183,6 +184,28 @@
     & > span:after {
       color: $add-color;
       border-color: $add-color;
+    }
+  }
+}
+
+$cancel-color: #6c757d;
+.cancel {
+  @extend .btn;
+  color: #fff;
+  background-color: $cancel-color;
+  padding: 0.375rem 1.125rem;
+  border: 2px solid transparent;
+
+  .spinner {
+    color: $cancel-color;
+  }
+
+  &:not(:disabled) {
+    &:focus,
+    &:hover {
+      background: #fff;
+      color: $cancel-color;
+      border-color: $cancel-color;
     }
   }
 }

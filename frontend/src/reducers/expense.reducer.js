@@ -1,40 +1,36 @@
 import { ACTIONS } from "../actions/expense.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
 
-const initialState = {
-};
+const initialState = {};
 
 const expenseReducer = (state = initialState, action) => {
-  let result;
-
   switch (action.type) {
     case `${ACTIONS.ADD_EXPENSE}_${PENDING}`: {
-      result = {
+      return {
         ...state,
         fetching: true
       };
-      break;
     }
+
     case `${ACTIONS.ADD_EXPENSE}_${FULFILLED}`: {
-      result = {
+      return {
         ...state,
         fetching: false
       };
-      break;
     }
+
     case `${ACTIONS.ADD_EXPENSE}_${REJECTED}`: {
-      result = {
+      return {
         ...state,
         fetching: false,
         errors: action.payload.Message,
         subErrors: action.payload.SubErrors
       };
-      break;
     }
+
     default:
-      result = state;
+      return state;
   }
-  return result;
 };
 
 export default expenseReducer;

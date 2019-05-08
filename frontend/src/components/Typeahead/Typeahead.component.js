@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 import { bool, array, object, string } from "prop-types";
 
-import colors from "../../static/styles/_constants.scss";
+import colors from "../../assets/styles/_constants.scss";
 import ValidationError from "../ValidationError/ValidationError.component";
 
 // React Select component - https://react-select.com/home

@@ -2,32 +2,22 @@ import { userRoles } from "./index";
 
 const { accountant, approver, employee, travelmanager } = userRoles;
 
-const sidebarNavigation = [
+const navigationItems = [
   {
-    to: "/checklist",
-    text: "Checklist",
-    subitems: [
-      {
-        to: "/checklist/create",
-        text: "Create",
-        canAccess: [travelmanager]
-      }
+    text: "checklist",
+    subItems: [
+      { to: "/checklist/global-template", text: "global template", canAccess: [travelmanager] },
+      { to: "/checklist", text: "all checklists", canAccess: [accountant, approver, employee, travelmanager] }
     ]
   },
   {
-    to: "/delegations",
-    text: "Delegations",
-    subitems: [
-      { to: "/delegations/create", text: "Create", canAccess: [employee] },
-      { to: "/delegations/my", text: "My delegations", canAccess: [employee] },
-      {
-        to: "/delegations/manage",
-        text: "Manage delegations",
-        canAccess: [accountant, approver, travelmanager]
-      }
+    text: "delegations",
+    subItems: [
+      { to: "/delegations/create", text: "create", canAccess: [employee] },
+      { to: "/delegations/my", text: "my delegations", canAccess: [employee] },
+      { to: "/delegations/manage", text: "manage delegations", canAccess: [accountant, approver, travelmanager] }
     ]
-  },
-  { to: "/profile", text: "Profile" }
+  }
 ];
 
-export { sidebarNavigation };
+export default navigationItems;

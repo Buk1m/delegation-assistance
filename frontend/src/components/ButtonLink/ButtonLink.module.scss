@@ -1,4 +1,4 @@
-@import "../../static/styles/constants";
+@import "../../assets/styles/constants";
 
 .btn {
   display: inline-block;
@@ -31,6 +31,9 @@
   transition-duration: 0.3s;
   border-radius: 3px;
   color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.875em;
 
   &:not([href]):not([tabindex]) {
     color: #fff;
@@ -44,11 +47,11 @@
     position: absolute;
   }
 
+  &:focus,
   &:hover {
     background: #fff;
     color: $primary-color;
     text-decoration: none;
-    font-weight: bold;
 
     &:before {
       left: 0%;
@@ -116,6 +119,7 @@
   color: $secondary-color;
   border-radius: 3px;
 
+  &:focus,
   &:hover {
     background: $secondary-color;
     color: #fff;

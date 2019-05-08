@@ -3,7 +3,7 @@ import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 import ActivitiesList from "../src/components/ActivitiesList/ActivitiesList.component";
-import mockDelegationChecklist from "../src/config/delegationChecklist.data";
+import mockDelegationChecklist from "../__mocks__/delegationChecklist.mock";
 
 Enzyme.configure({ adapter: new Adapter() });
 

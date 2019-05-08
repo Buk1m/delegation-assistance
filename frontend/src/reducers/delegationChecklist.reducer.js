@@ -10,37 +10,34 @@ const initialState = {
 };
 
 const delegationChecklistReducer = (state = initialState, action) => {
-  let result;
-
   switch (action.type) {
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${PENDING}`: {
-      result = {
+      return {
         ...state,
         fetching: true
       };
-      break;
     }
+
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${FULFILLED}`: {
-      result = {
+      return {
         ...state,
         activities: action.payload.data.activities,
         fetching: false
       };
-      break;
     }
+
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${REJECTED}`: {
-      result = {
+      return {
         ...state,
         fetching: false,
         errors: action.payload.Message,
         subErrors: action.payload.SubErrors
       };
-      break;
     }
+
     default:
-      result = { ...state };
+      return { ...state };
   }
-  return result;
 };
 
 export default delegationChecklistReducer;

@@ -6,10 +6,10 @@ import { plane } from "react-icons-kit/fa/plane";
 import { check } from "react-icons-kit/fa/check";
 import { ic_payment } from "react-icons-kit/md/ic_payment";
 
-import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
+import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Button from "../../components/Button/Button.component";
-import DelegationDetails from "../../components/DelegationDetails/DelegationDetails.container";
+import DelegationDetails from "./components/DelegationDetails/DelegationDetails.container";
 import ActivitiesList from "../../components/ActivitiesList/ActivitiesList.container";
 import RenderTab from "../../components/renderers/RenderTab/RenderTab.renderer";
 

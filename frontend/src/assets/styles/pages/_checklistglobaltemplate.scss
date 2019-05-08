@@ -1,0 +1,51 @@
+@import "../constants";
+
+.chgt-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chgt-list-item {
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
+  margin: 12px 0;
+  padding: 12px;
+  list-style-type: none;
+}
+
+$icon-size: 30px;
+.chgt-title {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 22px;
+  text-align: left;
+  color: #000;
+  flex: 1 1 auto;
+  //max-width: calc(100% - 3 * #{$icon-size});
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.chgt-icon {
+  flex: 0 0 $icon-size;
+  padding-right: 5px;
+  display: block;
+}
+.chgt-drag-handle {
+  cursor: row-resize;
+  @extend .chgt-icon;
+}
+
+.chgt-delete {
+  @extend .chgt-icon;
+  color: #db343f;
+  cursor: pointer;
+}
+
+.chgt-edit {
+  @extend .chgt-icon;
+  color: $primary-color;
+  cursor: pointer;
+}

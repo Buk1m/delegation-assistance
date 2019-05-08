@@ -1,22 +1,31 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import routes from "../../config/routes";
-import PrivateRoute from "../PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 
 class Router extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          {routes.map(elem =>
-            elem.public === true ? (
-              <Route key={elem.path} exact={true} {...elem} />
-            ) : (
-              <PrivateRoute key={elem.path} exact={true} {...elem} />
-            )
+        <Route
+          render={({ location }) => (
+            <TransitionGroup>
+              <CSSTransition key={location.key} timeout={300} classNames="fade">
+                <Switch location={location}>
+                  {routes.map(elem =>
+                    elem.public === true ? (
+                      <Route key={elem.path} exact {...elem} />
+                    ) : (
+                      <PrivateRoute key={elem.path} exact {...elem} />
+                    )
+                  )}
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
           )}
-        </Switch>
+        />
       </BrowserRouter>
     );
   }

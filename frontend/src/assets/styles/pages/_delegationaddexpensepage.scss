@@ -1,0 +1,18 @@
+@import "../constants";
+
+#add-expense {
+  .btn-add-expense {
+    display: flex;
+    margin-top: 1rem;
+    justify-content: center;
+  }
+
+  .value-container {
+    display: flex;
+  }
+
+  .select-control {
+    margin: 5px 0;
+    width: 160px;
+  }
+}

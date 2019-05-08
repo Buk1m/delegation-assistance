@@ -1,8 +1,8 @@
 const userRoles = {
-  employee: "employee",
-  travelmanager: "travelmanager",
-  approver: "approver",
-  accountant: "accountant"
+  employee: "Employee",
+  travelmanager: "Manager",
+  approver: "Approver",
+  accountant: "Accountant"
 };
 
 const userRolesMap = {

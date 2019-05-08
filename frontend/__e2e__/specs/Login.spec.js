@@ -28,7 +28,7 @@ describe("login form", () => {
 
     browser.waitUntil(
       () => {
-        return browser.getUrl() === baseUrl + "/delegations";
+        return browser.getUrl() === baseUrl + "/";
       },
       callTimeout,
       "expected to navigate to landing page"
@@ -39,17 +39,13 @@ describe("login form", () => {
     LoginPage.password.setValue("pass1");
     LoginPage.submit();
 
-    expect(LoginPage.loginRequired.getText()).to.contain(
-      "This field is required."
-    );
+    expect(LoginPage.loginRequired.getText()).to.contain("This field is required.");
   });
 
   it("should render required message if password is empty on submit", () => {
     LoginPage.username.setValue("employee");
     LoginPage.submit();
 
-    expect(LoginPage.passwordRequired.getText()).to.contain(
-      "This field is required."
-    );
+    expect(LoginPage.passwordRequired.getText()).to.contain("This field is required.");
   });
 });

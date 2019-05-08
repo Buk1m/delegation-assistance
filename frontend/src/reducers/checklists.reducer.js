@@ -3,59 +3,37 @@ import { PENDING, FULFILLED, REJECTED } from "../middleware";
 
 const initialState = {
   fetching: false,
-  tasks: [],
+  activites: [],
   errors: "",
   subErrors: []
 };
 
 const checklistsReducer = (state = initialState, action) => {
-  let result;
-
   switch (action.type) {
-    case `${ACTIONS.ADD_CHECKLIST}_${PENDING}`:
-    case `${ACTIONS.DELETE_TASK}_${PENDING}`:
-    case `${ACTIONS.GET_TASKS}_${PENDING}`:
-      result = {
+    case `${ACTIONS.SAVE_CHECKLIST}_${PENDING}`:
+      return {
         ...state,
         fetching: true
       };
-      break;
 
-    case `${ACTIONS.ADD_CHECKLIST}_${FULFILLED}`:
-      result = {
-        ...state,
-        fetching: false
-      };
-      break;
-    case `${ACTIONS.DELETE_TASK}_${FULFILLED}`:
-      result = {
+    case `${ACTIONS.SAVE_CHECKLIST}_${FULFILLED}`:
+      return {
         ...state,
         fetching: false,
-        tasks: [...state.tasks.filter(task => task.id !== action.meta.id)]
+        activites: action.payload.data.activites
       };
-      break;
-    case `${ACTIONS.GET_TASKS}_${FULFILLED}`:
-      result = {
-        ...state,
-        fetching: false,
-        tasks: action.payload.data.tasks
-      };
-      break;
 
-    case `${ACTIONS.ADD_CHECKLIST}_${REJECTED}`:
-    case `${ACTIONS.DELETE_TASK}_${REJECTED}`:
-    case `${ACTIONS.GET_TASKS}_${REJECTED}`:
-      result = {
+    case `${ACTIONS.SAVE_CHECKLIST}_${REJECTED}`:
+      return {
         ...state,
         fetching: false,
         errors: action.payload.Message,
         subErrors: action.payload.SubErrors
       };
-      break;
+
     default:
-      result = state;
+      return state;
   }
-  return result;
 };
 
 export default checklistsReducer;

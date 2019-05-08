@@ -1,54 +1,36 @@
-import React, { Fragment } from "react";
-import { bool, func, object, string } from "prop-types";
+import React from "react";
+import { array, bool, object, oneOfType, string } from "prop-types";
 
-import Header from "../components/Header/Header.container";
+import Header from "../components/Header";
 import Footer from "../components/Footer/Footer.component";
-import Sidebar from "../components/Sidebar/Sidebar.container";
+
 import styles from "./LayoutMain.module.scss";
 
 const LayoutMain = props => {
-  const {
-    children,
-    showSidebar,
-    toggleSidebar,
-    mobileView,
-    title = "",
-    forceHideSidebar = false,
-    addPadding = true
-  } = props;
+  const { children, title = "", fullContent = false, hideTitle = false, buttons = null } = props;
   return (
-    <Fragment>
-      <Header toggleSidebar={toggleSidebar} />
-      <Sidebar className={showSidebar && !forceHideSidebar ? "show" : "hide"} />
-      <main
-        className={
-          styles["main-content"] +
-          " " +
-          (showSidebar && !mobileView && !forceHideSidebar ? styles["limited"] : "") +
-          " " +
-          (addPadding ? styles["addPadding"] : "")
-        }
-      >
-        {title ? (
+    <div>
+      <Header />
+      <main className={[styles["main-content"], fullContent ? styles["full-content"] : ""].join(" ")}>
+        {title && !hideTitle ? (
           <div className={styles["page-header"]}>
             <h2>{title}</h2>
+            {buttons ? <div className={styles["buttons"]}>{buttons}</div> : null}
           </div>
         ) : null}
         <section>{children}</section>
-        <Footer />
       </main>
-    </Fragment>
+      <Footer />
+    </div>
   );
 };
 
 LayoutMain.propTypes = {
   children: object.isRequired,
-  showSidebar: bool,
-  toggleSidebar: func,
-  mobileView: bool,
+  hideTitle: bool,
+  fullContent: bool,
   title: string,
-  forceHideSidebar: bool,
-  addPadding: bool
+  buttons: oneOfType([array, object])
 };
 
 export default LayoutMain;

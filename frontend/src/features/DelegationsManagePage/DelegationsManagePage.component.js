@@ -5,7 +5,7 @@ import filterFactory from "react-bootstrap-table2-filter";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { array } from "prop-types";
 
-import LayoutMain from "../../components/layouts/LayoutMain/LayoutMain.container";
+import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Spinner from "../../components/Spinner/Spinner.component";
 

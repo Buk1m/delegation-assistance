@@ -11,25 +11,15 @@ describe("create delegation form", () => {
     CreateDelegationPage.open();
     CreateDelegationPage.submit();
 
-    expect(CreateDelegationPage.destinationCountyErrorMsg.getText()).to.equal(
-      "This field is required."
-    );
+    expect(CreateDelegationPage.destinationCountyErrorMsg.getText()).to.equal("This field is required.");
 
-    expect(CreateDelegationPage.destinationLocationErrorMsg.getText()).to.equal(
-      "This field is required."
-    );
+    expect(CreateDelegationPage.destinationLocationErrorMsg.getText()).to.equal("This field is required.");
 
-    expect(CreateDelegationPage.delegationObjectiveErrorMsg.getText()).to.equal(
-      "This field is required."
-    );
+    expect(CreateDelegationPage.delegationObjectiveErrorMsg.getText()).to.equal("This field is required.");
 
-    expect(CreateDelegationPage.startDateErrorMsg.getText()).to.equal(
-      "This field is required."
-    );
+    expect(CreateDelegationPage.startDateErrorMsg.getText()).to.equal("This field is required.");
 
-    expect(CreateDelegationPage.endDateErrorMsg.getText()).to.equal(
-      "This field is required."
-    );
+    expect(CreateDelegationPage.endDateErrorMsg.getText()).to.equal("This field is required.");
 
     expect(CreateDelegationPage.getAllRequiredMsg.length).to.equal(5);
   });
@@ -38,9 +28,7 @@ describe("create delegation form", () => {
     CreateDelegationPage.selectStartPickerDay(15);
     CreateDelegationPage.selectEndPickerDay(5);
 
-    expect(CreateDelegationPage.endDateErrorMsg.getText()).to.equal(
-      "End date must be later than start date!"
-    );
+    expect(CreateDelegationPage.endDateErrorMsg.getText()).to.equal("End date must be later than start date!");
   });
 
   it("should create delegation", () => {
@@ -49,9 +37,7 @@ describe("create delegation form", () => {
     CreateDelegationPage.destinationCounty.setValue("Poland");
     browser.keys("Enter");
     CreateDelegationPage.destinationLocation.setValue("Lodz");
-    CreateDelegationPage.delegationObjective.setValue(
-      "Push all changes before delegation."
-    );
+    CreateDelegationPage.delegationObjective.setValue("Push all changes before delegation.");
 
     CreateDelegationPage.submit();
 
@@ -60,9 +46,7 @@ describe("create delegation form", () => {
         return browser.getUrl() === baseUrl + "/delegations";
       },
       callTimeout,
-      "Create delegation failed. Expected to navigate to page " +
-        baseUrl +
-        "/delegations"
+      "Create delegation failed. Expected to navigate to page " + baseUrl + "/delegations"
     );
   });
 });

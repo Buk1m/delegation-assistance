@@ -1,13 +1,13 @@
 import { userRolesMap } from "../config";
 
 const prepareToken = token => {
-  let base64Url = token.split(".")[1];
-  let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   return JSON.parse(window.atob(base64));
 };
 
 const mapRoles = roles => {
-  let userRoles = [];
+  const userRoles = [];
   roles.forEach(role => {
     userRoles.push(userRolesMap[role]);
   });
@@ -16,7 +16,7 @@ const mapRoles = roles => {
 };
 
 const formatISODate = date => {
-  let formatter = new Intl.DateTimeFormat("en-GB", {
+  const formatter = new Intl.DateTimeFormat("en-GB", {
     hour: "numeric",
     minute: "numeric",
     second: "numeric",

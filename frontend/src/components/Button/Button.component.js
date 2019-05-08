@@ -1,14 +1,15 @@
 import React from "react";
-import { string, bool, func } from "prop-types";
+import { bool, func, string } from "prop-types";
 
-import styles from "./Button.module.scss";
 import Spinner from "../Spinner/Spinner.component";
 
+import styles from "./Button.module.scss";
+
 const Button = props => {
-  const { text, className, onClick, type = "button", disabled = false, submitting = false } = props;
+  const { text, className, onClick, type = "button", disabled = false, submitting = false, ...otherOptions } = props;
   const buttonClass = styles[className] ? styles[className] : styles.primary;
   return (
-    <button className={buttonClass} disabled={disabled} onClick={onClick} type={type}>
+    <button className={buttonClass} disabled={disabled} onClick={onClick} type={type} {...otherOptions}>
       <span>{submitting ? <Spinner className={styles.spinner} /> : text}</span>
     </button>
   );

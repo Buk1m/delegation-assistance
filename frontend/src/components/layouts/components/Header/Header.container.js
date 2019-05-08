@@ -1,45 +1,53 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bool, string, func } from "prop-types";
+import { array, bool, func, string } from "prop-types";
 
 import Header from "./Header.component";
-import { getLoggedStatus, getFullName } from "../../../../selectors/user.selectors";
-import { logoutUser } from "../../../../actions/user.actions";
+import { logoutUser, changeRole } from "../../../../actions/user.actions";
+import { getLoggedStatus, getFullName, getRoleActive, getRoles } from "../../../../selectors/user.selectors";
 
-class HeaderContainer extends Component {
+export class HeaderContainer extends Component {
   static propTypes = {
     loggedStatus: bool,
-    fullname: string,
     logoutUser: func,
-    toggleSidebar: func
+    changeRole: func,
+    fullname: string,
+    roles: array,
+    roleActive: string
   };
 
-  _handleLogoutUser = () => {
+  _handleLogout = () => {
     this.props.logoutUser();
-    window.location.href = "/login";
+  };
+
+  _changeRole = role => {
+    this.props.changeRole(role);
   };
 
   render() {
     return (
       <Header
         loggedStatus={this.props.loggedStatus}
-        toggleSidebar={this.props.toggleSidebar}
         fullname={this.props.fullname}
-        logout={this._handleLogoutUser}
+        logout={this._handleLogout}
+        roles={this.props.roles}
+        roleActive={this.props.roleActive}
+        changeRole={this._changeRole}
       />
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    loggedStatus: getLoggedStatus(state),
-    fullname: getFullName(state)
-  };
-};
+const mapStateToProps = state => ({
+  loggedStatus: getLoggedStatus(state),
+  fullname: getFullName(state),
+  roleActive: getRoleActive(state),
+  roles: getRoles(state)
+});
 
 const mapDispatchToProps = {
-  logoutUser
+  logoutUser,
+  changeRole
 };
 
 export default connect(

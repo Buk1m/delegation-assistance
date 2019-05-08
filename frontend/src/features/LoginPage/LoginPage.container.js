@@ -8,7 +8,6 @@ import { getLoggedStatus, getToken } from "../../selectors/user.selectors";
 import LoginPage from "./LoginPage.component";
 class LoginPageContainer extends Component {
   static propTypes = {
-    navigation: object,
     loginUser: func,
     loggedStatus: bool,
     token: string,
@@ -22,19 +21,13 @@ class LoginPageContainer extends Component {
     };
   }
 
-  static navigatonOptions = {
-    header: null
-  };
-
   componentDidMount() {
-    this.setState(() => {
-      return {
-        errors: ""
-      };
+    this.setState({
+      errors: ""
     });
   }
 
-  _redirectToDelegationsPage = () => this.props.history.push("/delegations");
+  _redirectToDelegationsPage = () => this.props.history.push("/");
 
   handleSubmit = values => {
     this.setState({ errors: "" });
