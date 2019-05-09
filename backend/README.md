@@ -30,5 +30,8 @@ To create Docker image you should run the following command: `mvn dockerfile:bui
 Please remember to build the project first using `mvn clean install`.
 
 After building the image it's name will be outputted, for example: `delegation-assistant:0.0.1`. \
-Container can be run using following command `docker run -p 8080:8080 delegation-assistant:0.0.1`. \
+Container can be run using following command `docker run -v "path/uploads:/opt/app/uploads" -p 8080:8080 delegation-assistant:0.0.1`. 
+Where `path` means full path to `backend` directory.
+1. When you are using **windows** you can use this command `docker run -v "%cd%/uploads:/opt/app/uploads" -p 8080:8080 delegation-assistant:0.0.1`
+2. When you are using **mac** or **linux** `docker run -v "$(pwd)/uploads:/opt/app/uploads" -p 8080:8080 delegation-assistant:0.0.1`
 Application will be available on your localhost's port 8080.
