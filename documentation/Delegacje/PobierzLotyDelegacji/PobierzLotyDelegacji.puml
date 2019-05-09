@@ -1,0 +1,9 @@
+@startuml PobierzLotyDelegacji
+Client->DelegationService:{Get} getDelegationFlight(Long delegationId)
+DelegationService->DelegationRepository:getFlights(Long delegationId)
+database db
+DelegationRepository->db:query
+db-->DelegationRepository:entities
+DelegationRepository-->DelegationService:Flights
+DelegationService-->Client:FlightDtos
+@enduml

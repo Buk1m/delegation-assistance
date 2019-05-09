@@ -27,7 +27,7 @@
   "from": "Warsaw",
   "to": "Paris",
   "departureDate": "2019-01-01T10:00:00",
-  "arrivalDate": "2019-01-12:00:00"
+  "arrivalDate": "2019-01-01T12:00:00"
 }
 ```
 
@@ -48,7 +48,7 @@
   "from": "Warsaw",
   "to": "Paris",
   "departureDate": "2019-01-01T10:00:00",
-  "arrivalDate": "2019-01-12:00:00"
+  "arrivalDate": "2019-01-01T12:00:00"
 }
 ```
 
@@ -70,7 +70,9 @@
 
 ### 3. Mockupy
 
--
+![Browser mockup](./mockupy/Web.png?raw=true "Browser mockup")
+
+![Mobile mockup](./mockupy/Mobile.png?raw=true "Mobile mockup")
 
 ### 4. Test cases
 
