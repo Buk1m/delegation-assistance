@@ -90,7 +90,7 @@ public class DelegationController {
                 RolesService.travelManagerApproverAccoutant) ? delegationService.getDelegation(delegationId) :
                 delegationService.getDelegation(delegationId, authentication.getName());
         Mono<DelegationDto> delegationsDto = delegation.map(e -> modelMapper.map(e,
-                DelegationReportDto.class));
+                DelegationDto.class));
         return delegationsDto.map(ResponseEntity::ok);
     }
 
