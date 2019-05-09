@@ -68,7 +68,9 @@
 
 ### 3. Mockupy
 
--
+![Browser mockup](./mockupy/Web.png?raw=true "Browser mockup")
+
+![Mobile mockup](./mockupy/Mobile.png?raw=true "Mobile mockup")
 
 ### 4. Test cases
 

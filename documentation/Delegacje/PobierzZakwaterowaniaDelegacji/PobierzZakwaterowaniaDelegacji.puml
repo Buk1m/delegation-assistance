@@ -1,0 +1,9 @@
+@startuml PobierzZakwaterowaniaDelegacji
+Client->DelegationService:{Get} getDelegationAccommodations(Long delegationId)
+DelegationService->DelegationRepository:getAccommodations(Long delegationId)
+database db
+DelegationRepository->db:query
+db-->DelegationRepository:entities
+DelegationRepository-->DelegationService:Accommodations
+DelegationService-->Client:AccommodationDtos
+@enduml
