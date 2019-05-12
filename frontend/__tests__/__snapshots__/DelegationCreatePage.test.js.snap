@@ -2,10 +2,10 @@
 
 exports[`Create Delegation Page should render correctly 1`] = `
 <Connect(LayoutMainContainer)
-  title="Create delegation:"
+  title="Create delegation"
 >
   <div
-    className="create-delegation-card m-auto pb-4"
+    className="container create-delegation-card m-auto pb-4"
   >
     <Card
       title="Delegation information"
@@ -14,19 +14,39 @@ exports[`Create Delegation Page should render correctly 1`] = `
         id="create-delegation"
         onSubmit={[MockFunction]}
       >
+        <Input
+          component="typeahead"
+          isSearchable={true}
+          label="Destination Country"
+          name="destinationCountryISO3"
+          validate={
+            Array [
+              [Function],
+            ]
+          }
+        />
+        <Input
+          component="input"
+          label="Destination Location"
+          name="destinationLocation"
+          placeholder="I'm going to..."
+          validate={[Function]}
+        />
+        <Input
+          component="input"
+          label="Delegation Objective"
+          name="delegationObjective"
+          placeholder="I want to..."
+          validate={[Function]}
+        />
         <div
-          className="container"
+          className="d-flex justify-content-around flex-wrap"
         >
-          <label
-            className="label-delegation-page"
-            htmlFor="destinationCountryISO3"
-          >
-            Destination Country:
-          </label>
           <Input
-            component={[Function]}
-            isSearchable={true}
-            name="destinationCountryISO3"
+            classes="w-auto"
+            component="datepicker"
+            label="Start date"
+            name="startDate"
             validate={
               Array [
                 [Function],
@@ -34,67 +54,25 @@ exports[`Create Delegation Page should render correctly 1`] = `
             }
           />
           <Input
-            label="Destination Location"
-            name="destinationLocation"
-            placeholder="Destination Location"
-            validate={[Function]}
+            classes="w-auto"
+            component="datepicker"
+            label="End date"
+            name="endDate"
+            validate={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
           />
-          <Input
-            label="Delegation Objective"
-            name="delegationObjective"
-            placeholder="Delegation Objective"
-            validate={[Function]}
+        </div>
+        <div
+          className="d-flex justify-content-center btn-create-delegation"
+        >
+          <Button
+            text="Create delegation"
+            type="submit"
           />
-          <div
-            className="date-pickers-container"
-          >
-            <div
-              className="date-picker"
-            >
-              <label
-                className="label-delegation-page"
-                htmlFor="startDate"
-              >
-                Start date:
-              </label>
-              <Field
-                component={[Function]}
-                name="startDate"
-                validate={
-                  Array [
-                    [Function],
-                  ]
-                }
-              />
-            </div>
-            <div
-              className="date-picker"
-            >
-              <label
-                className="label-delegation-page"
-                htmlFor="endDate"
-              >
-                End date:
-              </label>
-              <Field
-                component={[Function]}
-                name="endDate"
-                validate={
-                  Array [
-                    [Function],
-                  ]
-                }
-              />
-            </div>
-            <div
-              className="btn-create-delegation"
-            >
-              <Button
-                text="Create delegation"
-                type="submit"
-              />
-            </div>
-          </div>
         </div>
       </Form>
     </Card>

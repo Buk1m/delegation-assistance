@@ -15,8 +15,11 @@ const userRolesMap = {
 const environments = {
   NODE_ENV: process.env.NODE_ENV || "development",
   LOGS: process.env.REACT_APP_LOGS || "none",
-  API_URL: process.env.REACT_APP_API_URL || "http://localhost:8080/api"
+  API_URL: process.env.REACT_APP_API_URL || "http://localhost:8080/api",
+  DEFAULT_THEME: "idemia"
 };
+
+const themes = ["Dark", "Idemia", "Contrast"];
 
 const delegationStatuses = {
   CREATED: "Created",
@@ -27,4 +30,4 @@ const delegationStatuses = {
   FINALIZED: "Finalized"
 };
 
-export { userRoles, userRolesMap, environments, delegationStatuses };
+export { userRoles, userRolesMap, environments, themes, delegationStatuses };

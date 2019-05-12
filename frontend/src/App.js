@@ -4,7 +4,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { toast } from "react-toastify";
 
 import { store, persistor } from "./store";
-import Router from "./hocs/Router/Router.hocs";
+import Router from "./hocs/Router/Router.hoc";
+import ThemeProvider from "./hocs/ThemeProvider/ThemeProvider.hoc";
 
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -20,7 +21,9 @@ class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <Router />
+          <ThemeProvider>
+            <Router />
+          </ThemeProvider>
         </PersistGate>
       </Provider>
     );

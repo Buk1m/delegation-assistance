@@ -8,7 +8,8 @@
 
 .chgt-list-item {
   border-radius: 5px;
-  background: #fff;
+  background-color: var(--card-bg);
+  color: var(--card-c);
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
   margin: 12px 0;
   padding: 12px;
@@ -21,9 +22,8 @@ $icon-size: 30px;
   font-size: 22px;
   line-height: 22px;
   text-align: left;
-  color: #000;
+  color: var(--card-header-c);
   flex: 1 1 auto;
-  //max-width: calc(100% - 3 * #{$icon-size});
   word-break: break-word;
   word-wrap: break-word;
 }

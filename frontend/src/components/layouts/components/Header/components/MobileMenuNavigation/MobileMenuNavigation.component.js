@@ -15,13 +15,13 @@ const MobileMenuNavigation = ({ loggedStatus, roleActive, logout, fullname, role
     <div className={styles["menu-nav"]}>
       <button
         type="button"
-        className={styles["navbar-toggler"]}
+        className={styles["navbar-toggle"]}
         data-toggle="collapse"
         data-target="#header-nav"
         aria-expanded="false"
         aria-controls="header-nav"
       >
-        <Icon icon={ic_menu} size={24} />
+        <Icon icon={ic_menu} size={24} className={styles["navbar-toggle-icon"]} />
       </button>
       <div className="collapse" id="header-nav">
         <div className={styles["nav-items"]}>

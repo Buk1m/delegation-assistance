@@ -76,6 +76,26 @@ Recommended extensions:
 
 ## FAQ
 
+### CSS `var`
+
+W naszym systemie utworzone zostały 3 różne motywy:
+
+- [Idemia](./src/assets/styles/themes/_idemia.theme.scss),
+- [Dark](./src/assets/styles/themes/_dark.theme.scss),
+- [Contrast](./src/assets/styles/themes/_contrast.theme.scss),
+
+Aby korzystać ze zmiennych tam zdefiniowanych (`var` - doszły w CSS3 i wspiera je [92% przeglądarek na świecie](https://caniuse.com/#feat=css-variables)), należy użyć konstrukcji: `var(tutajNazwaTejZmiennej)`. Zostały tam wprowadzone pewne uproszczenia odnośnie nazewnictwa. Ciężko znaleźć jakiekolwiek nazewnictwo do zmiennych css więc zostało zdefiniowane nasze własne:
+
+- `c` => `color`
+- `bg` => `background-color`
+- `brdc` => `border-color`
+- `bsh` => `box-shadow` (color)
+- `hf` => `hover`, `focus`
+
+Zmienne zaczynamy od dwóch myślników: `--`. W zmiennej `var` drugim atrybutem jest styl domyślny, gdy przegladarka nie wspiera `var`, bądź nie ma takiej zmiennej jak `--c`, przykład: `color: var(--c, red);` - wtedy gdy nie będzie takiej zmiennej jak `--c`, tekst będzie koloru czerwonego. Jest to piękne w swojej prostocie, bo style scss trzeba rekompilować jeżeli chcemy zmienić kolor czy cokolwiek innego.
+
+W pliku [`ThemeProvider.hoc.js`](./src/hocs/ThemeProvider/ThemeProvider.hoc.js) znajduje się cała logika motywu. Motyw opiera się standardowo o `redux` wraz z "persistowaniem" tj. zachowaniem na trwałe stanu aplikacji w `local-storage`. Dzięki temu, motyw jest zapisany nawet po wyjściu użytkownika z systemu.
+
 ### How to add new page to app?
 
 Assuming that you want to create a page that would show list of user delegations. Add new directory to `src/features`, named `DelegationListPage` (camel case required). In that directory create (according to methodology _dumb & smart components_ ) two files:

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { func, object } from "prop-types";
 
 import TaskModalForm from "./TaskModalForm.component";
-import { addTask, editTask } from "../../actions/checklistTemplate.action";
+import { addTask, editTask } from "../../../../actions/checklistTemplate.action";
 
 export class TaskModalFormContainer extends Component {
   static propTypes = {

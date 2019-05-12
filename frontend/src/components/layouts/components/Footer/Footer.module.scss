@@ -2,7 +2,7 @@
 
 .footer {
   width: 100%;
-  background: #ffffff;
+  background: var(--footer-bg);
   height: $footer-size;
   flex: 0 0 $footer-size;
   display: flex;
@@ -10,5 +10,6 @@
   align-items: center;
   z-index: 10;
   position: relative;
-  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 -5px 10px var(--footer-bsh);
+  transition: $theme-change-transition;
 }

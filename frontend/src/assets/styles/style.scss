@@ -1,7 +1,8 @@
 @import "constants";
-@import "pages/index";
 @import "table";
-@import "notifications";
+@import "bootstrapOverride";
+@import "pages/index";
+@import "themes/index";
 
 *,
 *:after,
@@ -15,20 +16,27 @@ body > #root {
   padding: 0;
   margin: 0;
   min-height: 100%;
-  background: #fff;
+  background-color: var(--bg);
+  color: var(--c);
   position: relative;
   font-size: 100%;
+  font-weight: 400;
 }
 
-.fade-appear > main,
-.fade-enter > main {
-  opacity: 0;
-  z-index: 1;
+.fade-appear,
+.fade-enter {
+  & > main {
+    opacity: 0;
+    z-index: 1;
+  }
 }
-.fade-appear-active > main,
-.fade-enter.fade-enter-active > main {
-  opacity: 1;
-  transition: 200ms linear 100ms;
+
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+  & > main {
+    opacity: 1;
+    transition: 200ms linear 100ms;
+  }
 }
 
 .fade-exit {
@@ -36,23 +44,31 @@ body > #root {
   top: 0;
   left: 0;
   width: 100%;
-}
-.fade-exit > main {
-  opacity: 1;
-  transform: translateY(0);
-}
-.fade-exit.fade-exit-active > main {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: 100ms linear;
+
+  & > main {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.fade-exit-active {
+    & > main {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: 100ms linear;
+    }
+
+    & > footer,
+    & > header {
+      display: none;
+    }
+  }
+
+  & > footer,
+  & > header {
+    display: none;
+  }
 }
 
-.fade-exit > footer,
-.fade-exit > header {
-  display: none;
-}
-
-.fade-exit.fade-exit-active > footer,
-.fade-exit.fade-exit-active > header {
-  display: none;
+.toast-progress-bar {
+  background: $primary-color;
 }

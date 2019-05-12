@@ -51,8 +51,8 @@
 
     &:focus,
     &:hover {
-      background: #fff;
-      color: $primary-color;
+      background: var(--btn-primary-bg-hf);
+      color: var(--btn-primary-bg-hf-c);
       text-decoration: none;
 
       &:before {

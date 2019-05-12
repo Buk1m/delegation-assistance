@@ -6,25 +6,19 @@ exports[`Input Component should render Input correctly 1`] = `
 >
   <div>
     <label
-      className=" "
+      htmlFor="input_testName"
     >
-      <span
-        data-test="label-value"
-      >
-        testLabel
-      </span>
-      <Field
-        className="input"
-        component={[Function]}
-        disabled={false}
-        label=""
-        minlength={0}
-        name="testName"
-        type="text"
-        validate={null}
-        value=""
-      />
+      testLabel
     </label>
+    <Field
+      className="input"
+      component={[Function]}
+      id="input_testName"
+      label=""
+      name="testName"
+      type="text"
+      validate={null}
+    />
   </div>
 </div>
 `;

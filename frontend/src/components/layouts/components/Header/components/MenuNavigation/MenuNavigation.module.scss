@@ -1,9 +1,10 @@
 @import "../../../../../../assets/styles/constants";
 
 .usernav-toogle {
-  font-weight: bold;
-  background: #fff;
+  font-weight: 400;
+  background: transparent;
   padding: 0;
+  color: var(--header-c);
   border: none;
   white-space: nowrap;
   display: block;

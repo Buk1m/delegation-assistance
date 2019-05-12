@@ -51,8 +51,8 @@ describe("Create Delegation Page", () => {
     expect(props.handleSubmit).toBeCalledWith(value);
   });
 
-  it("should render 3 Inputs", () => {
-    expect(enzymeWrapper.find("Input").length).toBe(3);
+  it("should render 5 Inputs", () => {
+    expect(enzymeWrapper.find("Input").length).toBe(5);
   });
 
   it("should render destinationCountryISO3 Input", () => {
@@ -68,11 +68,11 @@ describe("Create Delegation Page", () => {
   });
 
   it("should render startDate DatePicker", () => {
-    expect(enzymeWrapper.find("Field[name='startDate']").length).toBe(1);
+    expect(enzymeWrapper.find("Input[name='startDate']").length).toBe(1);
   });
 
   it("should render endDate DatePicker", () => {
-    expect(enzymeWrapper.find("Field[name='endDate']").length).toBe(1);
+    expect(enzymeWrapper.find("Input[name='endDate']").length).toBe(1);
   });
 
   it("should dispatch action", () => {

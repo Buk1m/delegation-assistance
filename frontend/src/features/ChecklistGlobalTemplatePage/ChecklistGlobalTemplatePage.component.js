@@ -3,7 +3,7 @@ import { array, bool, func, object } from "prop-types";
 
 import LayoutMain from "../../components/layouts/LayoutMain";
 import Button from "../../components/Button/Button.component";
-import TaskModalForm from "../../components/TaskModalForm";
+import TaskModalForm from "./components/TaskModalForm";
 import SortableContainer from "./components/SortableContainer/SortableContainer.component";
 import SortableItem from "./components/SortableItem/SortableItem.component";
 
@@ -62,7 +62,7 @@ const ChecklistGlobalTemplatePage = props => {
 };
 
 ChecklistGlobalTemplatePage.propTypes = {
-  onSortEnd: func,
+  onSortEnd: func.isRequired,
   changeMode: func,
   handleUpdateModal: func,
   handleDeleteTask: func,

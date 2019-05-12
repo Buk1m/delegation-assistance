@@ -2,7 +2,7 @@
 
 .label-bold {
   font-weight: bold;
-  color: $primary-color;
+  color: var(--input-label-c);
   margin: 0;
   padding: 0;
 }
@@ -29,11 +29,9 @@
   position: relative;
 }
 
-// Page Elements
 .image {
   height: 60px;
   width: 60px;
-  //  background: #F6F6F6;
   @extend .animated-background;
 }
 
@@ -44,7 +42,6 @@
 .text-line {
   height: 1.1rem;
   width: 80%;
-  //  background: #F6F6F6;
   margin: 4px 0;
   @extend .animated-background;
 }

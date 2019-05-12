@@ -1,47 +1,52 @@
 import React from "react";
-import { string, bool, array, func, number, oneOfType } from "prop-types";
+import { array, func, string, oneOfType } from "prop-types";
 import { Field } from "redux-form";
 
 import RenderInput from "../renderers/RenderInput/RenderInput.renderer";
+import RenderTextarea from "../renderers/RenderTextarea/RenderTextarea.renderer";
+import RenderSelect from "../renderers/RenderSelect/RenderSelect.renderer";
+import RenderDateTimePicker from "../renderers/RenderDateTimePicker/RenderDateTimePicker.renderer";
+import RenderTypeahead from "../renderers/RenderTypeahead/RenderTypeahead.renderer";
 
 import styles from "./Inputs.module.scss";
+
+const components = {
+  input: RenderInput,
+  textarea: RenderTextarea,
+  select: RenderSelect,
+  datepicker: RenderDateTimePicker,
+  typeahead: RenderTypeahead
+};
 
 const Input = props => {
   const {
     name,
-    label = "",
-    value = "",
     type = "text",
+    component = "input",
+    label = "",
     placeholder = "",
     validate = null,
-    minlength = 0,
-    disabled = false,
-    className = "",
-    component = null,
-    ...options
+    classes = "",
+    ...rest
   } = props;
   return (
-    <div className={[styles["field"], styles[className]].join(" ")}>
-      <div className={styles["control " + type]}>
-        <label className={[styles["label"], styles["label-fluid"]].join(" ")}>
-          {label ? (
-            <span className={styles["label-bold"]} data-test="label-value">
-              {label}
-            </span>
-          ) : null}
-          <Field
-            className={"input"}
-            name={name}
-            type={type}
-            value={value}
-            validate={validate}
-            label={placeholder}
-            component={component || RenderInput}
-            minlength={minlength}
-            disabled={disabled}
-            {...options}
-          />
-        </label>
+    <div className={[styles.field, classes].join(" ")}>
+      <div className={styles.label}>
+        {label ? (
+          <label className={styles["label-bold"]} htmlFor={"input_" + name}>
+            {label}
+          </label>
+        ) : null}
+        <Field
+          {...rest}
+          id={"input_" + name}
+          className={"input"}
+          name={name}
+          type={type}
+          validate={validate}
+          label={placeholder}
+          component={components[component] || RenderInput}
+        />
       </div>
     </div>
   );
@@ -50,15 +55,12 @@ const Input = props => {
 Input.propTypes = {
   label: string,
   name: string.isRequired,
-  value: oneOfType([number, string]),
   type: string,
+  component: string.isRequired,
   placeholder: string,
   validate: oneOfType([func, array]),
-  minlength: number,
-  disabled: bool,
-  className: string,
-  options: array,
-  component: func
+  classes: string,
+  options: array
 };
 
 export default Input;

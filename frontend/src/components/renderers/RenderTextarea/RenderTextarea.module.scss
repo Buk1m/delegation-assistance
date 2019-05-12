@@ -1,0 +1,27 @@
+@import "../../../assets/styles/constants";
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: calc(2em + 0.75rem + 2px);
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--input-c);
+  background-color: var(--input-bg);
+  background-clip: padding-box;
+  border: 1px solid var(--input-brdc);
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: none;
+
+  &.invalid {
+    color: var(--input-error-c);
+    border-color: rgba(var(--input-error-c), 0.5);
+  }
+
+  &:focus {
+    border-color: var(--input-hf-brdc);
+  }
+}

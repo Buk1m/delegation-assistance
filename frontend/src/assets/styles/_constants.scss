@@ -1,20 +1,10 @@
 $primary-color: #430099;
 $secondary-color: #f3e035;
-$error-color: #dc3545;
-
-$delegation-status-created: #3fa7d6;
-$delegation-status-needs-work: #ee6352;
-$delegation-status-prepared: #fac05e;
-$delegation-status-checked: #f7e94c;
-$delegation-status-approved: #2ecc78;
-$delegation-status-finalized: #ababab;
 
 $header-size: 60px;
 $footer-size: 60px;
-$sidebar-size: 265px;
-$sidebar-line-width: 27px;
-$sidebar-line-space: 12px;
 $main-content-padding: 20px;
+$theme-change-transition: 0.5s ease-out;
 
 $xs-end: 575px;
 $sm-start: 576px;
@@ -32,7 +22,3 @@ $mobiletablet: "(max-width: " + $lg-end + ")";
 $tablet: "(min-width: " + $md-start + ") and (max-width: " + $lg-end + ")";
 $desktop: "(min-width: " + $xl-start + ")";
 $fulldesktop: "(min-width: " + $xxl-start + ")";
-
-:export {
-  primary: $primary-color;
-}

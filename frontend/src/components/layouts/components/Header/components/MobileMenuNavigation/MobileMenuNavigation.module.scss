@@ -24,24 +24,7 @@
     max-height: calc(100vh - #{$header-size});
   }
 
-  .menu-item-title {
-    font-weight: bold;
-    color: #000;
-    font-size: 16px;
-  }
-
-  .menu-item-paths {
-    margin-left: 20px;
-  }
-
-  .menu-item-link {
-    color: #000;
-    display: block;
-    margin: 5px 0;
-    cursor: pointer;
-  }
-
-  .navbar-toggler {
+  .navbar-toggle {
     display: inline-block;
     padding: 0.25rem 0.625rem;
     font-size: 1.25rem;
@@ -54,6 +37,10 @@
     right: 0;
     height: $header-size;
     width: 45px;
+
+    &-icon {
+      color: var(--header-c);
+    }
   }
 
   .menu-item {
@@ -67,11 +54,29 @@
       margin-bottom: 0;
       padding-top: 0;
     }
+
+    &-title {
+      font-weight: bold;
+      color: #000;
+      font-size: 16px;
+    }
+
+    &-paths {
+      margin-left: 20px;
+    }
+
+    &-link {
+      color: #000;
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
   }
 
   .menu-user {
     @extend .menu-item;
     $size: 30px;
+
     .profile-img {
       width: $size;
       height: $size;

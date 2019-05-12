@@ -34,14 +34,14 @@ exports[`Create Login Page should render correctly 1`] = `
           }
         />
         <Input
-          className="input-login"
+          component="input"
           label="Login *"
           name="login"
           placeholder="Username"
           validate={[Function]}
         />
         <Input
-          className="input-login"
+          component="input"
           label="Password *"
           name="password"
           placeholder="Password"

@@ -8,7 +8,8 @@ Enzyme.configure({ adapter: new Adapter() });
 const setup = () => {
   const props = {
     name: "testName",
-    label: "testLabel"
+    label: "testLabel",
+    component: "input"
   };
 
   const enzymeWrapper = shallow(<Input {...props} />);
@@ -27,9 +28,7 @@ describe("Input Component", () => {
 
   it("should render provided label correctly", () => {
     const { enzymeWrapper } = setup();
-    expect(
-      enzymeWrapper.find("[data-test='label-value']").props().children
-    ).toEqual("testLabel");
+    expect(enzymeWrapper.find("label").props().children).toEqual("testLabel");
   });
 
   it("should change disabled state", () => {

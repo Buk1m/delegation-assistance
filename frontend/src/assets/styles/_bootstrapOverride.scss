@@ -1,0 +1,11 @@
+.modal-content {
+  background-color: var(--card-bg);
+}
+
+.table {
+  color: var(--c);
+}
+.table-hover tbody tr:hover {
+  color: var(--c);
+  opacity: 0.9;
+}

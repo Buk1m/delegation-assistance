@@ -1,0 +1,49 @@
+@import "../constants";
+
+body[data-theme="idemia"] {
+  --bg: #fff;
+  --c: #000;
+
+  --header-bg: #fff;
+  --header-toggle-brdc: #000;
+  --header-c: #000;
+
+  --main-bg: #fff;
+  --main-page-header-brdc: #ddd;
+  --main-page-header-c: #000;
+
+  --footer-bg: #fff;
+  --footer-bsh: rgba(0, 0, 0, 0.07);
+
+  --card-bg: #fff;
+  --card-c: #000;
+  --card-bsh: rgba(154, 154, 204, 0.22);
+  --card-brdc: rgba(0, 0, 0, 0.125);
+  --card-header-bg: #fff;
+  --card-header-c: #000;
+  --card-header-brdc: rgba(0, 0, 0, 0.125);
+
+  --btn-primary-bg-hf: #fff;
+  --btn-primary-bg-hf-c: #{$primary-color};
+
+  --input-c: #495057;
+  --input-bg: #fff;
+  --input-brdc: #ced4da;
+  --input-hf-brdc: rgba(#{$primary-color}, 0.2);
+  --input-label-c: #{$primary-color};
+  --input-error-c: #dc3545;
+
+  --input-select-bg: #{$primary-color};
+  --input-select-hf: #f2f2f2;
+
+  --login-box-bg: #fff;
+  --login-box-c: #{$primary-color};
+  --login-box-bsh: rgba(255, 255, 255, 0.4);
+
+  --dlg-s-prepared: #3fa7d6;
+  --dlg-s-created: #ee6352;
+  --dlg-s-needs-work: #fac05e;
+  --dlg-s-checked: #f7e94c;
+  --dlg-s-approved: #2ecc78;
+  --dlg-s-finalized: #ababab;
+}

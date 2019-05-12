@@ -1,0 +1,51 @@
+body[data-theme="contrast"] {
+  --bg: #000;
+  --c: #ff0;
+
+  --header-bg: #282c35;
+  --header-toggle-brdc: #ff0;
+  --header-c: #ff0;
+
+  --main-bg: #212121;
+  --main-page-header-brdc: #333;
+  --main-page-header-c: #ff0;
+
+  --footer-bg: #121212;
+  --footer-bsh: rgba(0, 0, 0, 0.07);
+
+  --card-bg: #111;
+  --card-c: #ff0;
+  --card-bsh: rgba(154, 154, 204, 0.22);
+  --card-brdc: rgba(0, 0, 0, 0.125);
+  --card-header-bg: #1c1c1c;
+  --card-header-c: #ff0;
+  --card-header-brdc: rgba(0, 0, 0, 0.125);
+
+  --btn-primary-bg-hf: #000;
+  --btn-primary-bg-hf-c: #ff0;
+
+  --input-c: #ff0;
+  --input-bg: #000;
+  --input-brdc: #000;
+  --input-hf-brdc: #fff;
+  --input-label-c: #ff0;
+  --input-error-c: #dc3545;
+
+  --input-select-bg: #000;
+  --input-select-hf: #444;
+
+  --login-box-bg: #121212;
+  --login-box-c: #ff0;
+  --login-box-bsh: rgba(0, 0, 0, 0.4);
+
+  --dlg-s-prepared: #3fa7d6;
+  --dlg-s-created: #ee6352;
+  --dlg-s-needs-work: #fac05e;
+  --dlg-s-checked: #f7e94c;
+  --dlg-s-approved: #2ecc78;
+  --dlg-s-finalized: #ababab;
+
+  & header .site-logo {
+    filter: brightness(0) invert(1);
+  }
+}

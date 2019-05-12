@@ -19,7 +19,7 @@
   margin-bottom: 30px;
   font-weight: bold;
   text-align: center;
-  color: $primary-color;
+  color: var(--login-box-c);
 }
 
 .form-container {
@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $primary-color;
+  background-color: $primary-color;
   background-image: linear-gradient(
     to left top,
     $primary-color,
@@ -57,12 +57,12 @@
 
 .login-container {
   width: 400px;
-  box-shadow: 0 2px 12px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 12px 0 var(--login-box-bsh);
   padding: 1.5em 2em;
   border-radius: 5px;
-  background: #fff;
+  background: var(--login-box-bg);
   transition: 0.2s ease;
   &:hover {
-    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 15px var(--login-box-bsh);
   }
 }

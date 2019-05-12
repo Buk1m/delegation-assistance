@@ -3,11 +3,12 @@
 .main-content {
   position: relative;
   padding: ($header-size + 20px) 20px 40px;
-  background: #fff;
+  background-color: var(--main-bg);
   min-height: calc(100vh - #{$footer-size});
   width: 100%;
   display: flex;
   flex-direction: column;
+  transition: $theme-change-transition;
 
   & > section {
     flex: 1 0 auto;
@@ -18,13 +19,16 @@
     padding: $header-size 0 0;
   }
 }
+
 .page-header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--main-page-header-brdc);
+  color: var(--main-page-header-c);
   margin-bottom: 20px;
   padding-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: $theme-change-transition;
 }
 
 .buttons {

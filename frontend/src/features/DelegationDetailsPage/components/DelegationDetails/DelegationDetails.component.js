@@ -14,17 +14,27 @@ const DelegationDetails = props => {
         </div>
       ) : null}
       <div className="display-container pl-2 pr-2">
-        <Row loading={fetching} label="Country:" content={delegation.destinationCountry} />
-        <Row loading={fetching} label="Location:" content={delegation.destinationLocation} />
-        <Row loading={fetching} label="Status:" content={delegation.status} />
-        <Row loading={fetching} label="Date from:" content={delegation.startDate} />
-        <Row loading={fetching} label="Date to:" content={delegation.endDate} />
-        <Row loading={fetching} label="Objective:" content={delegation.delegationObjective} />
-        <Row
-          loading={fetching}
-          label="Diet:"
-          content={delegation.diet && delegation.diet.perDiem + " " + delegation.diet.currency}
-        />
+        <Row loading={fetching} label="Country:">
+          {delegation.destinationCountry}
+        </Row>
+        <Row loading={fetching} label="Location:">
+          {delegation.destinationLocation}
+        </Row>
+        <Row loading={fetching} label="Status:">
+          {delegation.status}
+        </Row>
+        <Row loading={fetching} label="Date from:">
+          {delegation.startDate}
+        </Row>
+        <Row loading={fetching} label="Date to:">
+          {delegation.endDate}
+        </Row>
+        <Row loading={fetching} label="Objective:">
+          {delegation.delegationObjective}
+        </Row>
+        <Row loading={fetching} label="Diet:">
+          {delegation.diet && delegation.diet.perDiem + " " + delegation.diet.currency}
+        </Row>
       </div>
     </Fragment>
   );

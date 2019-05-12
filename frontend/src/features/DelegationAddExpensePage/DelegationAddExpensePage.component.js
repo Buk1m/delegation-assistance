@@ -9,7 +9,6 @@ import Currencies from "./Currencies";
 import Button from "../../components/Button/Button.component";
 import Input from "../../components/Input/Input.component";
 import LayoutMain from "../../components/layouts/LayoutMain";
-import Typeahead from "../../components/Typeahead/Typeahead.component";
 import { validateRequired } from "../../validators/Validators";
 
 import "filepond/dist/filepond.min.css";
@@ -46,7 +45,7 @@ export const DelegationAddExpensePage = props => {
             <Input
               name="expenseCurrency"
               placeholder="Currency"
-              component={Typeahead}
+              component="typeahead"
               validate={validateRequired}
               options={currencies}
               isSearchable={true}

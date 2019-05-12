@@ -1,20 +1,10 @@
-@import "../../../src/assets/styles/constants";
-
-.field {
-  width: 100%;
-}
-
+.field,
 .label {
-  &.label-fluid {
-    width: 100%;
-  }
+  width: 100%;
 }
 
 .label-bold {
   font-weight: bold;
-  color: $primary-color;
-}
-
-form {
-  margin: 10px;
+  color: var(--input-label-c);
+  margin: 0.5rem 0 0;
 }

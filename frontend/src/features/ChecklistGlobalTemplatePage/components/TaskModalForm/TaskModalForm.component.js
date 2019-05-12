@@ -2,10 +2,9 @@ import React from "react";
 import { func } from "prop-types";
 import { Form, reduxForm, reset } from "redux-form";
 
-import Input from "../Input/Input.component";
-import Textarea from "../Textarea/Textarea.component";
-import Button from "../Button/Button.component";
-import { validateRequired } from "../../validators/Validators";
+import Input from "../../../../components/Input/Input.component";
+import Button from "../../../../components/Button/Button.component";
+import { validateRequired } from "../../../../validators/Validators";
 
 const TaskModalForm = props => {
   const { handleSubmit } = props;
@@ -22,8 +21,8 @@ const TaskModalForm = props => {
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-body">
-              <Input name="task" label="Task name *" validate={[validateRequired]} />
-              <Textarea name="description" label="Task name *" validate={[validateRequired]} />
+              <Input name="task" label="Task name *" validate={[validateRequired]} component="input" />
+              <Input name="description" label="Task name *" validate={[validateRequired]} component="textarea" />
             </div>
             <div className="modal-footer">
               <Button type="submit" className="cancel" data-dismiss="modal" text="Cancel" />

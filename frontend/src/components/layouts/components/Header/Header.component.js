@@ -13,9 +13,9 @@ const Header = ({ loggedStatus, logout, fullname, roles, roleActive, changeRole 
   return (
     <header className={styles.header}>
       <div className="h-100 d-flex no-gutters justify-content-between align-items-center">
-        <div className="mr-5 align-items-center d-flex">
+        <div className="mr-5 mr-md-0 align-items-center d-flex">
           <Link to="/" title="Delegation Assistant">
-            <img src={sitelogo} className="d-block mh-100 mw-100" alt="Delegation Assistant" />
+            <img src={sitelogo} className="d-block mh-100 mw-100 site-logo" alt="Delegation Assistant" />
           </Link>
         </div>
         <MenuNavigation loggedStatus={loggedStatus} roleActive={roleActive} />

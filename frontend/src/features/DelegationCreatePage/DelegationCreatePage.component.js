@@ -1,63 +1,60 @@
 import React from "react";
-import { Field, reduxForm, Form } from "redux-form";
+import { reduxForm, Form } from "redux-form";
 import { func, bool, array } from "prop-types";
 
 import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Input from "../../components/Input/Input.component";
-import DateTimePicker from "../../components/DateTimePicker/DateTimePicker.component";
-import { validateRequired } from "../../validators/Validators";
-import startDateEarlierThanEndDate from "../../validators/startDateEarlierThenEndDate";
-import Typeahead from "../../components/Typeahead/Typeahead.component";
 import Button from "../../components/Button/Button.component";
+import { validateRequired, validateStartEndDate } from "../../validators/Validators";
 
 export const DelegationCreatePage = props => {
   const { handleSubmit, countriesISOCodes, submitting } = props;
   return (
-    <LayoutMain title="Create delegation:">
-      <div className="create-delegation-card m-auto pb-4">
+    <LayoutMain title="Create delegation">
+      <div className="container create-delegation-card m-auto pb-4">
         <Card title="Delegation information">
           <Form onSubmit={handleSubmit} id="create-delegation">
-            <div className="container">
-              <label className="label-delegation-page" htmlFor="destinationCountryISO3">
-                Destination Country:
-              </label>
+            <Input
+              name="destinationCountryISO3"
+              component="typeahead"
+              label="Destination Country"
+              validate={[validateRequired]}
+              options={countriesISOCodes}
+              isSearchable={true}
+            />
+            <Input
+              label="Destination Location"
+              name="destinationLocation"
+              placeholder="I'm going to..."
+              validate={validateRequired}
+              component="input"
+            />
+            <Input
+              label="Delegation Objective"
+              name="delegationObjective"
+              placeholder="I want to..."
+              validate={validateRequired}
+              component="input"
+            />
+            <div className="d-flex justify-content-around flex-wrap">
               <Input
-                name="destinationCountryISO3"
-                component={Typeahead}
+                name="startDate"
+                label="Start date"
+                component="datepicker"
                 validate={[validateRequired]}
-                options={countriesISOCodes}
-                isSearchable={true}
+                classes="w-auto"
               />
               <Input
-                label="Destination Location"
-                name="destinationLocation"
-                placeholder="Destination Location"
-                validate={validateRequired}
+                name="endDate"
+                label="End date"
+                component="datepicker"
+                validate={[validateRequired, validateStartEndDate]}
+                classes="w-auto"
               />
-              <Input
-                label="Delegation Objective"
-                name="delegationObjective"
-                placeholder="Delegation Objective"
-                validate={validateRequired}
-              />
-              <div className="date-pickers-container">
-                <div className="date-picker">
-                  <label className="label-delegation-page" htmlFor="startDate">
-                    Start date:
-                  </label>
-                  <Field name="startDate" component={DateTimePicker} validate={[validateRequired]} />
-                </div>
-                <div className="date-picker">
-                  <label className="label-delegation-page" htmlFor="endDate">
-                    End date:
-                  </label>
-                  <Field name="endDate" component={DateTimePicker} validate={[validateRequired]} />
-                </div>
-                <div className="btn-create-delegation">
-                  <Button type="submit" submitting={submitting} disabled={submitting} text="Create delegation" />
-                </div>
-              </div>
+            </div>
+            <div className="d-flex justify-content-center btn-create-delegation">
+              <Button type="submit" submitting={submitting} disabled={submitting} text="Create delegation" />
             </div>
           </Form>
         </Card>
@@ -73,6 +70,5 @@ DelegationCreatePage.propTypes = {
 };
 
 export default reduxForm({
-  form: "createDelegation",
-  ...startDateEarlierThanEndDate
+  form: "createDelegation"
 })(DelegationCreatePage);
