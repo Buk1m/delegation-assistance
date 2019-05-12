@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
+import javax.persistence.OrderBy;
 import java.util.List;
 
 @Entity
@@ -29,10 +29,8 @@ public class ChecklistTemplate extends BaseEntity {
     @Column(updatable = false)
     private Long id;
 
-    @Column(name = "country_iso3", nullable = false, length = 3)
-    private String countryISO3;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "checklist_template_id")
-    private List<ActivityTemplate> activities = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("priority")
+    private List<ActivityTemplate> activities;
 }

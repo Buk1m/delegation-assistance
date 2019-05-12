@@ -60,6 +60,16 @@ class WebTestClientWrapper {
         sendRequest(POST, uri, auth, body, contentType)
     }
 
+    def <T> T put(String uri, AuthToken auth, Object body, HttpStatus expectedStatus, Class<T> responseClazz, MediaType contentType = APPLICATION_JSON) {
+        WebTestClient.ResponseSpec response = sendPutRequest(uri, contentType, auth, body, expectedStatus)
+
+        getResponseBody(response, responseClazz)
+    }
+
+    WebTestClient.ResponseSpec put(String uri, AuthToken auth, Object body, MediaType contentType = APPLICATION_JSON) {
+        sendRequest(PUT, uri, auth, body, contentType)
+    }
+
     AuthToken signIn(String login, String password) {
         AuthData authData = new AuthData()
         authData.login = login
@@ -80,6 +90,10 @@ class WebTestClientWrapper {
 
     private WebTestClient.ResponseSpec sendPostRequest(String uri, MediaType contentType, AuthToken auth, Object body, HttpStatus expectedStatus) {
         sendRequest(POST, uri, auth, expectedStatus, body, contentType)
+    }
+
+    private WebTestClient.ResponseSpec sendPutRequest(String uri, MediaType contentType, AuthToken auth, Object body, HttpStatus expectedStatus) {
+        sendRequest(PUT, uri, auth, expectedStatus, body, contentType)
     }
 
     private WebTestClient.ResponseSpec sendDeleteRequest(String uri, MediaType contentType, AuthToken auth, HttpStatus expectedStatus) {

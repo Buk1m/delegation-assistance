@@ -1,12 +1,10 @@
 package com.idemia.ip.office.backend.delegation.assistant.integrations.base
 
-import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ActivityTemplateDto
+import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ChecklistTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.configuration.PasswordProperties
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
-import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.test.web.reactive.server.WebTestClient
 
@@ -14,22 +12,34 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
-import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.*
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyChecklistTemplateDto
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDTO
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getDateTimeFormatter
 import static org.springframework.http.HttpStatus.OK
 
 @Component
 class BusinessLogicProvider {
+
     @Autowired
     private WebTestClientWrapper webTestClientWrapper
+
     @Autowired
     private PasswordProperties passwordProperties
 
-    ActivityTemplateDto createActivityTemplate(AuthToken authToken, ActivityTemplateDto activityTemplateDto = anyActivityTemplateDto()) {
-        webTestClientWrapper.post('/checklist/tasks', authToken, activityTemplateDto, OK, ActivityTemplateDto.class)
+    ChecklistTemplateDto getChecklistTemplate(AuthToken authToken) {
+        webTestClientWrapper.get('/checklist', authToken, OK, ChecklistTemplateDto.class)
     }
 
-    WebTestClient.ResponseSpec tryCreateActivityTemplate(AuthToken authToken) {
-        webTestClientWrapper.post('/checklist/tasks', authToken, anyActivityTemplateDto())
+    WebTestClient.ResponseSpec tryGetChecklistTemplate(AuthToken authToken) {
+        webTestClientWrapper.get('/checklist', authToken)
+    }
+
+    ChecklistTemplateDto updateChecklistTemplate(AuthToken authToken, ChecklistTemplateDto updatedChecklistTemplateDto) {
+        webTestClientWrapper.put('/checklist', authToken, updatedChecklistTemplateDto, OK, ChecklistTemplateDto.class)
+    }
+
+    WebTestClient.ResponseSpec tryUpdateChecklistTemplate(AuthToken authToken, ChecklistTemplateDto updatedChecklistTemplateDto = anyChecklistTemplateDto()) {
+        webTestClientWrapper.put('/checklist', authToken, updatedChecklistTemplateDto)
     }
 
     DelegationDto createDelegation(AuthToken authToken, DelegationDto delegationDto = anyDelegationDTO()) {
@@ -40,14 +50,6 @@ class BusinessLogicProvider {
         delegationDtos.stream()
                 .map { d -> createDelegation(authToken, d) }
                 .collect(Collectors.toList())
-    }
-
-    void deleteActivity(AuthToken authToken, Long activityId, HttpStatus expectedStatus = OK) {
-        webTestClientWrapper.delete("/checklist/tasks/${activityId}", authToken, expectedStatus)
-    }
-
-    WebTestClient.ResponseSpec tryDeleteActivity(AuthToken authToken) {
-        webTestClientWrapper.delete('/checklist/tasks/1', authToken)
     }
 
     DelegationDto getDelegation(AuthToken authToken, Long delegationId) {
@@ -82,10 +84,6 @@ class BusinessLogicProvider {
                 OK,
                 DelegationDto.class,
                 ArrayList.class) as List<DelegationDto>
-    }
-
-    ChecklistTemplate getGlobalChecklist(AuthToken authToken) {
-        webTestClientWrapper.get('/checklist', authToken, OK, ChecklistTemplate.class)
     }
 
     AuthToken accountantToken() {

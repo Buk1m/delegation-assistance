@@ -32,9 +32,8 @@ public class Checklist extends BaseEntity {
     @Column(updatable = false)
     private Long id;
 
-    @JoinColumn(name = "checklist_id", updatable = false)
+    @JoinColumn(name = "checklist_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Fetch(FetchMode.SELECT)
-    @BatchSize(size = 10)
     private List<Activity> activities = new ArrayList<>();
 }

@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
@@ -14,6 +15,8 @@ import java.util.UUID;
 @Setter
 @MappedSuperclass
 abstract public class BaseEntity {
+
+    @Column(unique = true, updatable = false)
     private final String uuid = UUID.randomUUID().toString();
 
     @Version

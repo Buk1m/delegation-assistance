@@ -1,5 +1,6 @@
 package com.idemia.ip.office.backend.delegation.assistant.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ActivityTemplate extends BaseEntity {
 
     @Id
@@ -24,8 +26,8 @@ public class ActivityTemplate extends BaseEntity {
     private String task;
     private String description;
 
-    public ActivityTemplate(String task, String description) {
-        this.task = task;
-        this.description = description;
-    }
+    /**
+     * Priority should have a unique and greater than zero value.
+     */
+    private Integer priority;
 }

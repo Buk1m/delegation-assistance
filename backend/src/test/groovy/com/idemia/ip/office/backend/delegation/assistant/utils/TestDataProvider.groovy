@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.utils
 
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ActivityTemplateDto
+import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ChecklistTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.entities.*
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
@@ -18,18 +19,22 @@ class TestDataProvider {
         DateTimeFormatter.ofPattern('yyyy-MM-dd\'T\'HH:mm:ss')
     }
 
-    static ActivityTemplateDto anyActivityTemplateDto() {
-        new ActivityTemplateDto([task: 'task', description: 'description'])
+    static ChecklistTemplate anyChecklistTemplate() {
+        new ChecklistTemplate(activities: [
+                new ActivityTemplate(1L, 'task1', 'desc1', 0),
+                new ActivityTemplate(2L, 'task2', 'desc2', 1),
+                new ActivityTemplate(3L, 'task3', 'desc3', 2),
+                new ActivityTemplate(4L, 'task4', 'desc4', 3)
+        ])
     }
 
-    static ChecklistTemplate anyChecklistTemplate() {
-        ChecklistTemplate checklist = new ChecklistTemplate()
-        checklist.setId(1L)
-        ActivityTemplate task1 = new ActivityTemplate('task1', 'desc1')
-        ActivityTemplate task2 = new ActivityTemplate('task2', 'desc2')
-        checklist.getActivities().add(task1)
-        checklist.getActivities().add(task2)
-        return checklist
+    static ChecklistTemplateDto anyChecklistTemplateDto() {
+        new ChecklistTemplateDto(activities: [
+                new ActivityTemplateDto(1l, "task1", "desc1", 0),
+                new ActivityTemplateDto(2l, "task2", "desc2", 1),
+                new ActivityTemplateDto(3l, "task3", "desc3", 2),
+                new ActivityTemplateDto(4l, "task4", "desc4", 3),
+        ])
     }
 
     static DelegationDto anyDelegationDTO() {
@@ -117,6 +122,7 @@ class TestDataProvider {
     }
 
     static List<Expense> getListOfExpenses(int n) {
-        return (0..n - 1).collect{anyExpense()}
+        return (0..n - 1).collect { anyExpense() }
     }
+
 }

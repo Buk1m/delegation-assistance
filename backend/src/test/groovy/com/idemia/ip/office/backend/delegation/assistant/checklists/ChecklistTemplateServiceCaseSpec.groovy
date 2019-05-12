@@ -2,13 +2,12 @@ package com.idemia.ip.office.backend.delegation.assistant.checklists
 
 import com.idemia.ip.office.backend.delegation.assistant.checklists.configuration.ChecklistsExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.checklists.repositories.ChecklistTemplateRepository
-import com.idemia.ip.office.backend.delegation.assistant.checklists.repositories.ActivityTemplateRepository
 import com.idemia.ip.office.backend.delegation.assistant.checklists.services.ChecklistTemplateService
 import com.idemia.ip.office.backend.delegation.assistant.checklists.services.ChecklistTemplateServiceImpl
-import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.entities.ActivityTemplate
+import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.UniqueValueExistsException
+import com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider
 import reactor.core.scheduler.Schedulers
 import spock.lang.Specification
 
@@ -20,74 +19,43 @@ class ChecklistTemplateServiceCaseSpec extends Specification {
     ChecklistTemplateService checklistService = new ChecklistTemplateServiceImpl(
             Schedulers.fromExecutor(Executors.newSingleThreadScheduledExecutor()),
             new ChecklistsExceptionProperties(),
-            checklistRepository,
-            Mock(ActivityTemplateRepository))
+            checklistRepository)
 
-    def 'adding checklist should add checklist'() {
-        given: 'checklist'
-            ChecklistTemplate checklistTemplate = anyChecklist()
+    def 'should get checklist template'() {
+        given: 'checklist template'
+            ChecklistTemplate checklistTemplate = TestDataProvider.anyChecklistTemplate()
 
-        when: 'add a new checklist'
-            checklistService.addChecklistTemplate(checklistTemplate).block()
-
-        then: 'checklist should be added'
-            1 * checklistRepository.existsByCountryISO3(_ as String) >> false
-            1 * checklistRepository.save(_ as ChecklistTemplate) >> checklistTemplate
-    }
-
-    def 'adding checklist for country which already has defined checklist should throw exception'() {
-        given: 'checklist'
-            ChecklistTemplate checklistTemplate = anyChecklist()
-
-        when: 'add a new checklist'
-            checklistService.addChecklistTemplate(checklistTemplate).block()
-
-        then: 'service should throw exception'
-            1 * checklistRepository.existsByCountryISO3(_ as String) >> true
-
-            thrown UniqueValueExistsException
-    }
-
-    def 'getting checklist should return checklist'() {
-        given: 'checklists'
-            ChecklistTemplate checklistTemplate = new ChecklistTemplate(1L, "cr1", new ArrayList<ActivityTemplate>())
-
-        when: 'get checklist'
+        when: 'get checklist template'
             ChecklistTemplate returnedChecklist = checklistService.getChecklistTemplate().block()
 
-        then: 'service should return the first checklist'
-            checklistRepository.findFirstBy() >> Optional.ofNullable(checklistTemplate)
+        then: 'service should return checklist template'
+            1 * checklistRepository.findFirstBy() >> Optional.ofNullable(checklistTemplate)
 
             returnedChecklist == checklistTemplate
     }
 
-    def 'getting non existent checklist should throw an exception'() {
-        when: 'get checklist'
+    def 'should throw EntityNotFound with ChecklistTemplate.class'() {
+        when: 'get checklist template'
             checklistService.getChecklistTemplate().block()
 
-        then: 'service should throw EntityNotFoundException'
-            checklistRepository.findFirstBy() >> Optional.empty()
+        then: 'service should return checklist template'
+            1 * checklistRepository.findFirstBy() >> Optional.ofNullable(null)
 
-            thrown EntityNotFoundException
+            def e = thrown(EntityNotFoundException)
+            e.getEntityClass() == ChecklistTemplate.class
     }
 
-    def 'adding task to non existent checklist should throw an exception'() {
-        given: 'new task'
-            ActivityTemplate task = new ActivityTemplate('task', 'desc')
+    def 'should update checklist template'() {
+        given: 'checklist template'
+            ChecklistTemplate checklistTemplate = TestDataProvider.anyChecklistTemplate()
 
-        when: 'add task'
-            checklistService.addTaskTemplateToChecklistTemplate(task).block()
+        when: 'update checklist template'
+            ChecklistTemplate updatedChecklistTemplate = checklistService.updateChecklistTemplate(checklistTemplate).block()
 
-        then: 'service should throw EntityNotFoundException'
-            checklistRepository.findFirstBy() >> Optional.empty()
+        then: 'service should return updated checklist template'
+            1 * checklistRepository.findFirstBy() >> Optional.ofNullable(checklistTemplate)
+            1 * checklistRepository.save(checklistTemplate) >> checklistTemplate
 
-            thrown EntityNotFoundException
-    }
-
-    ChecklistTemplate anyChecklist() {
-        List<ActivityTemplate> activities = new ArrayList<>()
-        activities.add(new ActivityTemplate('task1', 'desc1'))
-        activities.add(new ActivityTemplate('task2', 'desc2'))
-        return new ChecklistTemplate(1L, 'POL', activities)
+            updatedChecklistTemplate == checklistTemplate
     }
 }

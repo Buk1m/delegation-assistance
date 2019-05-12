@@ -6,6 +6,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.repositorie
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationServiceImpl
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationValidator
+import com.idemia.ip.office.backend.delegation.assistant.entities.ActivityTemplate
 import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense
@@ -52,7 +53,7 @@ class DelegationServiceCaseSpec extends Specification {
             delegationService.addDelegation(delegation, user).block()
 
         then: 'Delegation has correctly assigned properties'
-            1 * checklistTemplateService.getChecklistTemplate() >> Mono.just(new ChecklistTemplate())
+            1 * checklistTemplateService.getChecklistTemplate() >> Mono.just(new ChecklistTemplate(activities: []))
             1 * delegationRepository.save(_ as Delegation)
             delegation.delegationStatus == CREATED
             delegation.delegatedEmployee == user

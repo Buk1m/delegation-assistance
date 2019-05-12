@@ -1,74 +1,62 @@
 package com.idemia.ip.office.backend.delegation.assistant.checklists
 
 import com.idemia.ip.office.backend.delegation.assistant.checklists.controllers.ChecklistTemplateController
+import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ActivityTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ChecklistTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.checklists.services.ChecklistTemplateService
 import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
+
+import com.idemia.ip.office.backend.delegation.assistant.entities.ActivityTemplate
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.UniqueValueExistsException
+import com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider
 import org.modelmapper.ModelMapper
 import org.springframework.http.ResponseEntity
 import reactor.core.publisher.Mono
 import spock.lang.Specification
 
-import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyChecklistTemplate
-
 class ChecklistTemplateControllerCaseSpec extends Specification {
 
     ModelMapper modelMapper = new ModelMapper()
-    ChecklistTemplateService checklistService = Mock(ChecklistTemplateService)
-    ChecklistTemplateController checklistController = new ChecklistTemplateController(modelMapper, checklistService)
+    ChecklistTemplateService checklistTemplateService = Mock(ChecklistTemplateService)
+    ChecklistTemplateController checklistTemplateController = new ChecklistTemplateController(modelMapper, checklistTemplateService)
 
-    def 'adding checklist should add checklist'() {
-        given: 'checklist'
-            ChecklistTemplate checklistTemplate = anyChecklistTemplate()
-            ChecklistTemplateDto checklistTemplateDto = modelMapper.map(checklistTemplate, ChecklistTemplateDto.class)
+    def 'should return checklist template'() {
+        given: 'ChecklistTemplate returned by service'
+            ChecklistTemplate checklistTemplate = TestDataProvider.anyChecklistTemplate()
 
-        when: 'add a new checklist'
-            checklistController.addChecklist(checklistTemplateDto).block()
+        when: 'get checklist template'
+            ResponseEntity<ChecklistTemplateDto> responseEntity = checklistTemplateController.getChecklistTemplate().block()
 
-        then: 'service should throw exception'
-            1 * checklistService.addChecklistTemplate(_ as ChecklistTemplate) >> Mono.empty().then()
-    }
-
-    def 'adding checklist for country which already has defined checklist should throw exception'() {
-        given: 'checklist'
-            ChecklistTemplate checklistTemplate = anyChecklistTemplate()
-            ChecklistTemplateDto checklistTemplateDto = modelMapper.map(checklistTemplate, ChecklistTemplateDto.class)
-
-        when: 'add a new checklist'
-            checklistController.addChecklist(checklistTemplateDto).block()
-
-        then: 'service should throw exception'
-            1 * checklistService.addChecklistTemplate(_ as ChecklistTemplate) >> Mono.error(
-                    new UniqueValueExistsException("error-code", "countryISO3"))
-
-            thrown UniqueValueExistsException
-    }
-
-    def 'getting checklist should return checklist'() {
-        given: 'Checklist and ChecklistDto returned by service'
-            ChecklistTemplate checklist = anyChecklistTemplate()
-            ChecklistTemplateDto checklistDto = modelMapper.map(checklist, ChecklistTemplateDto.class)
-
-        when: 'get checklist'
-            ResponseEntity<ChecklistTemplateDto> responseEntity = checklistController.getChecklistTemplate().block()
-
-        then: 'controller should return 200 with ChecklistDto in response body'
-            checklistService.getChecklistTemplate() >> Mono.just(checklist)
+        then: 'controller should return 200 with ChecklistTemplateDto in response body'
+            1 * checklistTemplateService.getChecklistTemplate() >> Mono.just(checklistTemplate)
 
             responseEntity.statusCodeValue == 200
-            responseEntity.body == checklistDto
-            responseEntity.body.activities.size() == 2
+            responseEntity.body == modelMapper.map(checklistTemplate, ChecklistTemplateDto.class)
     }
 
-    def 'getting non existent checklist should throw an exception'() {
-        when: 'get checklist'
-            checklistController.getChecklistTemplate().block()
+    def 'should update checklist template'() {
+        given: 'ChecklistTemplateDto'
+            ChecklistTemplateDto checklistTemplateDto = TestDataProvider.anyChecklistTemplateDto()
+
+        when: 'update checklist template'
+            ResponseEntity<ChecklistTemplateDto> responseEntity = checklistTemplateController.updateChecklistTemplate(checklistTemplateDto).block()
+
+        then: 'service should return updated checklist template'
+            1 * checklistTemplateService.updateChecklistTemplate(_ as ChecklistTemplate) >> {
+                Mono.just(modelMapper.map(checklistTemplateDto, ChecklistTemplate.class))
+            }
+
+            responseEntity.statusCodeValue == 200
+            responseEntity.body == checklistTemplateDto
+    }
+
+    def 'should throw EntityNotFound with ChecklistTemplate.class'() {
+        when: 'get checklist template'
+            checklistTemplateController.getChecklistTemplate().block()
 
         then: 'service throw exception'
-            checklistService.getChecklistTemplate() >> {
-                throw new EntityNotFoundException("Checklist not found", "checklist-not-found", ChecklistTemplate.class)
+            1 * checklistTemplateService.getChecklistTemplate() >> {
+                throw new EntityNotFoundException("Checklist template not found", "checklist-not-found", ChecklistTemplate.class)
             }
 
             thrown EntityNotFoundException
