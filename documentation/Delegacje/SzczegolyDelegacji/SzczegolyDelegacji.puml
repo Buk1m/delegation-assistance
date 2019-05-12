@@ -1,0 +1,9 @@
+@startuml
+Client->DelegationService:delegationId
+DelegationService->DelegationRepository:delegationId
+DelegationRepository->DelegationService:delegation
+DelegationService-> CountryService:countryId
+CountryService->CountryRepository:countryId
+CountryRepository->CountryService:country
+DelegationService->Client:delegationDetailsDto
+@enduml

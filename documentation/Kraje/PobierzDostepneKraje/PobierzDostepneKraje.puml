@@ -1,0 +1,6 @@
+@startuml
+Client->CountryService
+CountryService->CountryRepository
+CountryRepository->CountryService:List<Country>
+CountryService->Client:List<CountryDto>
+@enduml

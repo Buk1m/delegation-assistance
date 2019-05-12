@@ -26,7 +26,12 @@
 {
   "startDate": "1998-02-03T01:01:01",
   "endDate": "1998-03-03T01:01:02",
-  "destinationCountry": "BFA",
+  "advancePayment": 200,
+  "destinationCountryId": 1,
+  "diet": {
+    "perDiem": 50,
+    "currency": "PLN"
+  },
   "destinationLocation": "Radom",
   "delegationObjective": "Buy high quality rice"
 }
@@ -59,7 +64,8 @@ Delegacja jest tworzona ze statusem `CREATED`
   "startDate": "2019-01-01T10:19:19",
   "endDate": "2019-02-01T10:19:19",
   "destinationCountryISO3": "BFA",
-  "destinationLocation": "Radom",
+  "destinationLocation": "Radom",  
+  "advancePayment": 200,
   "delegationObjective": "Buy high quality rice",
   "status": "CREATED",
   "user": {
