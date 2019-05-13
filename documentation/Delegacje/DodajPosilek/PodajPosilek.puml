@@ -1,0 +1,8 @@
+@startuml
+Client->DelegationService:{PATCH} updateMeal()
+DelegationService->DelegationRepository:getDelegation()
+DelegationRepository->DelegationService:Delegation
+DelegationService->DelegationRepository:save()
+DelegationRepository->DelegationService:Delegation
+DelegationService-->Client:MealDto
+@enduml

@@ -40,6 +40,12 @@
     "perDiem": "50",
     "currency": "PLN"
   },
+  "meals": {
+    "version": "1",
+    "breakfasts": "10",
+    "lunches": "31",
+    "dinners": "0"
+  },
   "destinationLocation": "Radom",
   "delegationObjective": "Buy high quality rice",
   "status": "CREATED"

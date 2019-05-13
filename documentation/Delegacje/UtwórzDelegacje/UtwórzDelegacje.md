@@ -24,13 +24,18 @@
 
 ```json
 {
-  "startDate": "1998-02-03T01:01:01",
-  "endDate": "1998-03-03T01:01:02",
+  "startDate": "2019-01-01T10:19:19",
+  "endDate": "2019-02-01T10:19:19",
   "advancePayment": 200,
   "destinationCountryId": 1,
   "diet": {
     "perDiem": 50,
     "currency": "PLN"
+  },
+  "meal": {
+    "breakfasts": 10,
+    "lunches": 31,
+    "dinners": 0
   },
   "destinationLocation": "Radom",
   "delegationObjective": "Buy high quality rice"
@@ -42,7 +47,9 @@
 `destinationCountry`: wymagane pole, musi mieć długość 3 znaków
 `destinationLocation`: wymagane pole
 `delegationObjective`: wymagane pole
-
+`breakfasts`: opcjonalne pole(domyślna wartość: tyle ile dni trwa delegacja), wartość musi należeć do przedziału `<0, {ilosc_dni_delegacji}>` jeśli nie należy do niego brana jest najbliższa prawidłowa wartość z tego przedziału
+`lunches`: opcjonalne pole(domyślna wartość: tyle ile dni trwa delegacja), wartość musi należeć do przedziału `<0, {ilosc_dni_delegacji}>` jeśli nie należy do niego brana jest najbliższa prawidłowa wartość z tego przedziału
+`dinners`: opcjonalne pole(domyślna wartość: tyle ile dni trwa delegacja), wartość musi należeć do przedziału `<0, {ilosc_dni_delegacji}>` jeśli nie należy do niego brana jest najbliższa prawidłowa wartość z tego przedziału
 #### Dodatkowe informacje
 
 Delegacja jest tworzona ze statusem `CREATED`
@@ -63,11 +70,21 @@ Delegacja jest tworzona ze statusem `CREATED`
   "version": 2,
   "startDate": "2019-01-01T10:19:19",
   "endDate": "2019-02-01T10:19:19",
-  "destinationCountryISO3": "BFA",
+  "destinationCountry": "BFA",
   "destinationLocation": "Radom",  
   "advancePayment": 200,
   "delegationObjective": "Buy high quality rice",
   "status": "CREATED",
+  "diet": {
+    "perDiem": 50,
+    "currency": "PLN"
+  },
+  "meals": {
+    "version": "1",
+    "breakfasts": "10",
+    "lunches": "31",
+    "dinners": "0"
+  },
   "user": {
     "id": 1,
     "login": "amalysz",
@@ -89,6 +106,67 @@ Delegacja jest tworzona ze statusem `CREATED`
 
 -
 
+### Przyklad gdy wartosci przekraczaja zbiór
+
+- Gdy wartość jest za duża
+#### Zapytanie
+```json
+{
+  "startDate": "2019-01-01T10:19:19",
+  "endDate": "2019-02-01T10:19:19",
+  ...
+  "meal": {
+    "breakfasts": 10,
+    "lunches": 61,
+    "dinners": 0
+  },
+  ...
+}
+```
+#### Odpowiedz 
+```json
+{
+  "startDate": "2019-01-01T10:19:19",
+  "endDate": "2019-02-01T10:19:19",
+  ...
+  "meal": {
+    "breakfasts": 10,
+    "lunches": 31,
+    "dinners": 0
+  },
+  ...
+}
+```
+
+- Gdy wartosc jest za mala
+#### Zapytanie
+```json
+{
+  "startDate": "2019-01-01T10:19:19",
+  "endDate": "2019-02-01T10:19:19",
+  ...
+  "meal": {
+    "breakfasts": 10,
+    "lunches": -10,
+    "dinners": 0
+  },
+  ...
+}
+```
+#### Odpowiedz 
+```json
+{
+  "startDate": "2019-01-01T10:19:19",
+  "endDate": "2019-02-01T10:19:19",
+  ...
+  "meal": {
+    "breakfasts": 10,
+    "lunches": 0,
+    "dinners": 0
+  },
+  ...
+}
+```
 ### 3. Mockupy
 
 #### Wyszukiwarka
@@ -97,7 +175,7 @@ Delegacja jest tworzona ze statusem `CREATED`
 
 #### Lista krajów przy wybieraniu kraju delegacji
 
-![Browser error](mockupy/webCountries.png?raw=true "Browser Error")
+![Browser error](mockupy/webries.png?raw=true "Browser Error")
 
 #### Wyszukiwarka - błędy
 
