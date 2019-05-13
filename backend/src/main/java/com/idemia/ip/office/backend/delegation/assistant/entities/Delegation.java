@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -68,4 +71,16 @@ public class Delegation extends BaseEntity {
     @JoinColumn(name = "checklist_id", nullable = false)
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH})
     private Checklist checklist;
+
+    @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "flight_id")
+    @Fetch(FetchMode.SELECT)
+    @BatchSize(size = 10)
+    private List<Flight> flights = new ArrayList<>();
+
+    @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "accommodation_id")
+    @Fetch(FetchMode.SELECT)
+    @BatchSize(size = 10)
+    private List<Accommodation> accommodations = new ArrayList<>();
 }

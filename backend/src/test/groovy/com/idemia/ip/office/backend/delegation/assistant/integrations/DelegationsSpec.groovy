@@ -1,13 +1,17 @@
 package com.idemia.ip.office.backend.delegation.assistant.integrations
 
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.AccommodationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
 import com.idemia.ip.office.backend.delegation.assistant.integrations.base.BaseIntegrationSpec
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.test.web.reactive.server.WebTestClient
 
 import java.time.LocalDateTime
 
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyAccommodationDto
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDTO
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyFlightDto
 
 class DelegationsSpec extends BaseIntegrationSpec {
 
@@ -112,6 +116,41 @@ class DelegationsSpec extends BaseIntegrationSpec {
 
         where:
             tokenOwner << ['travelManager', 'accountant', 'approver']
+    }
+
+    def 'Should add flight to delegations'() {
+        given: 'Employee with delegation and flight'
+            DelegationDto delegationDto = anyDelegationDTO()
+            AuthToken employeeToken = businessLogicProvider.employeeToken()
+            DelegationDto delegation = businessLogicProvider.createDelegation(employeeToken, delegationDto)
+            FlightDto flightDto = anyFlightDto()
+
+        when: 'Employee adds flight'
+            FlightDto flight = businessLogicProvider.createDelegationFlight(employeeToken, flightDto, delegation.getId())
+
+        then: 'Got returned flight'
+            flight.getId() != null
+            flightDto.getDeparturePlace() == flight.getDeparturePlace()
+            flightDto.getArrivalPlace() == flight.getArrivalPlace()
+            flightDto.getDepartureDate().toString() == flight.getDepartureDate().toString()
+            flightDto.getArrivalDate().toString() == flight.getArrivalDate().toString()
+    }
+
+    def 'Should add accommodation to delegations'() {
+        given: 'Employee with delegation and accommodation'
+            DelegationDto delegationDto = anyDelegationDTO()
+            AuthToken employeeToken = businessLogicProvider.employeeToken()
+            DelegationDto delegation = businessLogicProvider.createDelegation(employeeToken, delegationDto)
+            AccommodationDto accommodationDto = anyAccommodationDto()
+
+        when: 'Employee adds flight'
+            AccommodationDto accommodation = businessLogicProvider.createDelegationAccommodation(employeeToken, accommodationDto, delegation.getId())
+
+        then: 'Got returned flight'
+            accommodation.getId() != null
+            accommodationDto.getHotelName() == accommodation.getHotelName()
+            accommodationDto.getCheckInDate().toString() == accommodation.getCheckInDate().toString()
+            accommodationDto.getCheckOutDate().toString() == accommodation.getCheckOutDate().toString()
     }
 
     List<DelegationDto> createDelegationsToFilter(int delegationsCount) {

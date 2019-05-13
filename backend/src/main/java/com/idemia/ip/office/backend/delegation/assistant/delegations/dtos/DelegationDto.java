@@ -5,6 +5,7 @@ import com.idemia.ip.office.backend.delegation.assistant.common.BaseDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPatch;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
+import com.idemia.ip.office.backend.delegation.assistant.utils.ValidateDates;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,6 +28,7 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 @NoArgsConstructor
 @Getter
 @Setter
+@ValidateDates(start = "startDate", end = "endDate", groups = OnPost.class)
 public class DelegationDto extends BaseDto {
 
     @Null(message = "{error.message.field.blank}", groups = OnPost.class)

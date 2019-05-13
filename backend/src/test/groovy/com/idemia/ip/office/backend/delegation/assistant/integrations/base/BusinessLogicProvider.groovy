@@ -2,7 +2,10 @@ package com.idemia.ip.office.backend.delegation.assistant.integrations.base
 
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ChecklistTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.configuration.PasswordProperties
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.AccommodationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
+import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -44,6 +47,14 @@ class BusinessLogicProvider {
 
     DelegationDto createDelegation(AuthToken authToken, DelegationDto delegationDto = anyDelegationDTO()) {
         webTestClientWrapper.post('/delegations', authToken, delegationDto, OK, DelegationDto.class)
+    }
+
+    FlightDto createDelegationFlight(AuthToken authToken, FlightDto flightDto, Long delegationId) {
+        webTestClientWrapper.post("/delegations/${delegationId}/flights", authToken, flightDto, OK, FlightDto.class)
+    }
+
+    AccommodationDto createDelegationAccommodation(AuthToken authToken, AccommodationDto accommodationDto, Long delegationId) {
+        webTestClientWrapper.post("/delegations/${delegationId}/accommodations", authToken, accommodationDto, OK, AccommodationDto.class)
     }
 
     List<DelegationDto> createDelegations(AuthToken authToken, List<DelegationDto> delegationDtos) {

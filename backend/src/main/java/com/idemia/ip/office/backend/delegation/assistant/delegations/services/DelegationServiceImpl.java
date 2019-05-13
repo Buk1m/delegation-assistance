@@ -29,6 +29,7 @@ import reactor.core.scheduler.Scheduler;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.CREATED;
@@ -123,7 +124,17 @@ public class DelegationServiceImpl implements DelegationService {
     private Mono<Expense> assignExpense(Expense expense, Delegation delegation) {
         delegation.getExpenses().add(expense);
         return Mono.fromCallable(() -> delegationRepository.save(delegation))
-                .map(d -> expense);
+                .map(d -> getLastSavedExpense(d));
+    }
+
+    private Expense getLastSavedExpense(Delegation d) {
+        List<Expense> expenses = d.getExpenses();
+        if (expenses.isEmpty()) {
+            throw new IllegalStateException("should not be null");
+        }
+        return expenses.stream()
+                .max(Comparator.comparingInt(a -> a.getId().intValue()))
+                .orElseGet(() -> expenses.get(expenses.size() - 1));
     }
 
     @Override

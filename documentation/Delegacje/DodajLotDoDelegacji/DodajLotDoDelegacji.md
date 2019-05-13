@@ -24,8 +24,8 @@
 
 ```json
 {
-  "from": "Warsaw",
-  "to": "Paris",
+  "departurePlace": "Warsaw",
+  "arrivalPlace": "Paris",
   "departureDate": "2019-01-01T10:00:00",
   "arrivalDate": "2019-01-01T12:00:00"
 }
@@ -45,8 +45,8 @@
 {
   "id": 1,
   "version": 0,
-  "from": "Warsaw",
-  "to": "Paris",
+  "departurePlace": "Warsaw",
+  "arrivalPlace": "Paris",
   "departureDate": "2019-01-01T10:00:00",
   "arrivalDate": "2019-01-01T12:00:00"
 }
