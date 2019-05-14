@@ -5,7 +5,7 @@ import styles from "./Card.module.scss";
 
 const Card = props => {
   const { number = "0", color = "default", title = "", children = null, href = "", classes = "" } = props;
-  let hrefClass = href ? " link" : "";
+  const hrefClass = href ? " link" : "";
   return (
     <div
       onClick={() => {
@@ -21,18 +21,18 @@ const Card = props => {
       ].join(" ")}
     >
       {title ? <h6 className={["db-card-header", styles["db-card-header"]].join(" ")}>{title}</h6> : ""}
-      <div className={styles["db-card-content"]}>{children}</div>
+      <div className={[styles["db-card-content"], "db-card-content"].join(" ")}>{children}</div>
     </div>
   );
 };
 
 Card.propTypes = {
-  title: string,
   children: oneOfType([object, array]),
-  number: string,
+  classes: string,
   color: string,
   href: string,
-  classes: string
+  number: string,
+  title: string
 };
 
 export default Card;

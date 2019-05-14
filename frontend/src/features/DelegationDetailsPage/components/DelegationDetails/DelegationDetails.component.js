@@ -42,8 +42,8 @@ const DelegationDetails = props => {
 
 DelegationDetails.propTypes = {
   delegation: object,
-  fetching: bool,
-  edit: bool
+  edit: bool,
+  fetching: bool
 };
 
 export default DelegationDetails;

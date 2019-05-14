@@ -9,6 +9,7 @@ import { plane } from "react-icons-kit/fa/plane";
 import ActivitiesList from "../../components/ActivitiesList/ActivitiesList.container";
 import Button from "../../components/Button/Button.component";
 import Card from "../../components/Card/Card.component";
+import DelegationAccommodations from "./components/DelegationAccommodations";
 import DelegationDetails from "./components/DelegationDetails/DelegationDetails.container";
 import DelegationFlights from "./components/DelegationFlights/DelegationFlights.container";
 import LayoutMain from "../../components/layouts/LayoutMain";
@@ -68,9 +69,7 @@ const DelegationDetailsPage = props => {
                 </div>
               </TabPanel>
               <TabPanel>
-                <div className="accommodation">
-                  <h1>TODO: IDEMIA2019-198 Jako pracownik mogę dodać zakwaterowanie do mojej delegacji</h1>
-                </div>
+                <DelegationAccommodations delegationId={delegationId} />
               </TabPanel>
             </Tabs>
           </Card>

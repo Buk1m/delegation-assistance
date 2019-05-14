@@ -48,57 +48,68 @@
     flex-wrap: wrap;
   }
 
-  .flight:nth-child(even) {
+  .flight:nth-child(even),
+  .accommodation:nth-child(even) {
     background: var(--table-even-rows-bg);
   }
-}
 
-@media screen and (min-width: $lg-start) {
-  .preview-btn {
-    position: absolute;
-    right: 363px;
-    top: -76px;
-  }
-  .send-btn {
-    position: absolute;
-    right: 140px;
-    top: -76px;
-  }
-  .delete-btn {
-    position: absolute;
-    right: 32px;
-    top: -76px;
-  }
-}
-
-@media screen and (max-width: $lg-end) {
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-  .preview-btn {
-    margin-right: 15px;
-  }
-  .send-btn {
-    margin-right: 15px;
-  }
-  .delete-btn {
-    margin-right: 15px;
-  }
-}
-
-@media screen and (max-width: $xs-end) {
-  .flights-table {
-    overflow-x: scroll;
+  @media screen and (min-width: $lg-start) {
+    .preview-btn {
+      position: absolute;
+      right: 363px;
+      top: -76px;
+    }
+    .send-btn {
+      position: absolute;
+      right: 140px;
+      top: -76px;
+    }
+    .delete-btn {
+      position: absolute;
+      right: 32px;
+      top: -76px;
+    }
   }
 
-  .mobile-table {
-    min-width: $mobile-table;
+  @media screen and (max-width: $lg-end) {
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .preview-btn {
+      margin-right: 15px;
+    }
+    .send-btn {
+      margin-right: 15px;
+    }
+    .delete-btn {
+      margin-right: 15px;
+    }
   }
 
-  .flight {
-    min-width: $mobile-table;
+  @media screen and (max-width: $xs-end) {
+    .db-card-content {
+      padding: 0.25rem;
+    }
+
+    #delegation-details .react-tabs__tab-panel--selected {
+      padding: 5px;
+    }
+
+    .flights-table,
+    .accommodation-table {
+      overflow-x: scroll;
+    }
+
+    .mobile-table {
+      min-width: $mobile-table;
+    }
+
+    .flight,
+    .accommodation {
+      min-width: $mobile-table;
+    }
   }
 }

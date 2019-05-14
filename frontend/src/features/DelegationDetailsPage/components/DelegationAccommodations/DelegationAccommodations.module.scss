@@ -1,0 +1,25 @@
+.accommodations-headers {
+  padding: 8px;
+  font-weight: bold;
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.add-accommodation-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.sort-btn {
+  color: var(--c);
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sorting-header {
+  margin-right: 10px;
+}
