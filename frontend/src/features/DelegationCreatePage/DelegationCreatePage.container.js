@@ -17,7 +17,7 @@ class DelegationCreatePageContainer extends Component {
     return { label: code.name, value: code.alpha3 };
   });
 
-  _redirectToDelegationsPage = () => this.props.history.push("/delegations");
+  _redirectToDelegationsPage = () => this.props.history.push("/delegations/my");
 
   handleCreateDelegation = values => {
     const delegation = {
@@ -26,10 +26,8 @@ class DelegationCreatePageContainer extends Component {
       startDate: values.startDate.toISOString().split(".")[0],
       endDate: values.endDate.toISOString().split(".")[0]
     };
-    return this.props.addNewDelegation(delegation).then(response => {
-      if (response.status === 201) {
-        this._redirectToDelegationsPage();
-      }
+    return this.props.addNewDelegation(delegation).then(() => {
+      this._redirectToDelegationsPage();
     });
   };
 

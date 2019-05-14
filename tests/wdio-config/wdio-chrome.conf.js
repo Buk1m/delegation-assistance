@@ -4,8 +4,10 @@ exports.config = {
   path: "/",
   port: 9515,
   runner: "local",
-  specs: ["../frontend/__e2e__/specs/**/*.spec.js"],
+  //plugin to intercept http requests - next level!
+  services: ["intercept"],
 
+  specs: ["../frontend/__e2e__/specs/**/*.spec.js"],
   exclude: [
     // 'path/to/excluded/files'
   ],

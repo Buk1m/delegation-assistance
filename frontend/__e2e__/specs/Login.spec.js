@@ -17,7 +17,7 @@ describe("login form", () => {
         return LoginPage.status.getText() === "Invalid Username or Password";
       },
       8000,
-      "expected text to be different after 5s"
+      "expected error message 'Invalid Username or Password' to show after unsuccesful authentication"
     );
   });
 

@@ -1,8 +1,13 @@
 import { expect } from "chai";
-import CreateDelegationPage from "../pageobjects/createdelegation.page";
-import { baseUrl, callTimeout } from "../constants";
+import CreateDelegationPage from "../pageobjects/createDelegation.page";
+import { baseUrl, callTimeout, displayTimeout } from "../constants";
 
 describe("create delegation form", () => {
+  const COUNTRY = "Poland";
+  const LOCATION = "Lodz";
+  const OBJECTIVE = "Push all changes before delegation.";
+  const DIET = "123 EUR";
+
   before(() => {
     CreateDelegationPage.loginAsEmployee();
   });
@@ -34,19 +39,23 @@ describe("create delegation form", () => {
   it("should create delegation", () => {
     CreateDelegationPage.selectStartPickerDay(5);
     CreateDelegationPage.selectEndPickerDay(15);
-    CreateDelegationPage.destinationCounty.setValue("Poland");
+    CreateDelegationPage.destinationCounty.setValue(COUNTRY);
     browser.keys("Enter");
-    CreateDelegationPage.destinationLocation.setValue("Lodz");
-    CreateDelegationPage.delegationObjective.setValue("Push all changes before delegation.");
+    CreateDelegationPage.destinationLocation.setValue(LOCATION);
+    CreateDelegationPage.delegationObjective.setValue(OBJECTIVE);
 
     CreateDelegationPage.submit();
 
     browser.waitUntil(
       () => {
-        return browser.getUrl() === baseUrl + "/delegations";
+        return browser.getUrl() === baseUrl + "/delegations/my";
       },
       callTimeout,
-      "Create delegation failed. Expected to navigate to page " + baseUrl + "/delegations"
+      "Create delegation failed. Expected to navigate to page " + baseUrl + "/delegations/my"
     );
+    const notification = CreateDelegationPage.createdNotification;
+
+    notification.waitForDisplayed(displayTimeout, "Create delegation didn't display success notification.");
+    expect(notification.getText()).to.include(LOCATION);
   });
 });

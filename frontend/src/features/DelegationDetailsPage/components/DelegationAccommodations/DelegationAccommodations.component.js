@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Icon } from "react-icons-kit";
 import { sortAmountAsc } from "react-icons-kit/fa/sortAmountAsc";
 import { sortAmountDesc } from "react-icons-kit/fa/sortAmountDesc";

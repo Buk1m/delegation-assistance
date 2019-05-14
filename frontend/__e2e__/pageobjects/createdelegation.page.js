@@ -14,11 +14,15 @@ class CreateDelegationPage extends Page {
   }
 
   get destinationLocation() {
-    return $("input[placeholder='Destination Location']");
+    return $("#input_destinationLocation");
   }
 
   get delegationObjective() {
-    return $("input[placeholder='Delegation Objective']");
+    return $("#input_delegationObjective");
+  }
+
+  get createdNotification() {
+    return $(".Toastify__toast--success > .Toastify__toast-body");
   }
 
   submit() {
@@ -26,17 +30,15 @@ class CreateDelegationPage extends Page {
   }
 
   selectStartPickerDay(day) {
-    let date = "day-" + day;
+    const date = "day-" + day;
     $(
-      `label[for='startDate'] + div div[aria-label='${date}']:not(.react-datepicker__day--outside-month)`
+      `label[for='input_startDate'] + div div[aria-label='${date}']:not(.react-datepicker__day--outside-month)`
     ).click();
   }
 
   selectEndPickerDay(day) {
-    let date = "day-" + day;
-    $(
-      `label[for='endDate'] + div div[aria-label='${date}']:not(.react-datepicker__day--outside-month)`
-    ).click();
+    const date = "day-" + day;
+    $(`label[for='input_endDate'] + div div[aria-label='${date}']:not(.react-datepicker__day--outside-month)`).click();
   }
 
   //getters for error messages
@@ -44,11 +46,11 @@ class CreateDelegationPage extends Page {
     return $("div.select-control > span");
   }
   get destinationLocationErrorMsg() {
-    return $("input[placeholder='Destination Location'] + span");
+    return $("#input_destinationLocation + span");
   }
 
   get delegationObjectiveErrorMsg() {
-    return $("input[placeholder='Delegation Objective'] + span");
+    return $("#input_delegationObjective + span");
   }
 
   get getAllRequiredMsg() {
@@ -56,11 +58,11 @@ class CreateDelegationPage extends Page {
   }
 
   get startDateErrorMsg() {
-    return $("label[for='startDate'] + div > span");
+    return $("label[for='input_startDate'] + div > span");
   }
 
   get endDateErrorMsg() {
-    return $("label[for='endDate'] + div > span");
+    return $("label[for='input_endDate'] + div > span");
   }
 }
 
