@@ -45,14 +45,17 @@ describe("Create Delegation Page", () => {
       endDate: "02-03-2004",
       delegationObjective: "testObjective",
       destinationCountryISO3: "testCountry",
-      destinationLocation: "testLocation"
+      destinationLocation: "testLocation",
+      perDiem: 1.0,
+      currency: "PLN",
+      advancePayment: 200
     };
     enzymeWrapper.find("Form").simulate("submit", value);
     expect(props.handleSubmit).toBeCalledWith(value);
   });
 
-  it("should render 5 Inputs", () => {
-    expect(enzymeWrapper.find("Input").length).toBe(5);
+  it("should render 8 Inputs", () => {
+    expect(enzymeWrapper.find("Input").length).toBe(8);
   });
 
   it("should render destinationCountryISO3 Input", () => {
@@ -73,6 +76,18 @@ describe("Create Delegation Page", () => {
 
   it("should render endDate DatePicker", () => {
     expect(enzymeWrapper.find("Input[name='endDate']").length).toBe(1);
+  });
+
+  it("should render currencyPicker", () => {
+    expect(enzymeWrapper.find("Input[name='diet.currency']").length).toBe(1);
+  });
+
+  it("should render diet.perDiem input", () => {
+    expect(enzymeWrapper.find("Input[name='diet.perDiem']").length).toBe(1);
+  });
+
+  it("should render advancePayment input", () => {
+    expect(enzymeWrapper.find("Input[name='advancePayment']").length).toBe(1);
   });
 
   it("should dispatch action", () => {

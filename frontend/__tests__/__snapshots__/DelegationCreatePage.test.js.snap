@@ -40,7 +40,7 @@ exports[`Create Delegation Page should render correctly 1`] = `
           validate={[Function]}
         />
         <div
-          className="d-flex justify-content-around flex-wrap"
+          className="d-flex justify-content-between flex-wrap"
         >
           <Input
             classes="w-auto"
@@ -65,6 +65,744 @@ exports[`Create Delegation Page should render correctly 1`] = `
               ]
             }
           />
+        </div>
+        <div
+          className="form-row"
+        >
+          <div
+            className="form-group col-md-3"
+          >
+            <Input
+              autoComplete="off"
+              component="input"
+              format={[Function]}
+              label="Diem"
+              name="diet.perDiem"
+              normalize={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="0.00"
+              type="text"
+              validate={[Function]}
+            />
+          </div>
+          <div
+            className="form-group col-md-3 pt-md-1 pl-md-2"
+          >
+            <Input
+              component="typeahead"
+              label="Currency"
+              name="diet.currency"
+              options={
+                Array [
+                  Object {
+                    "label": "AED",
+                    "value": "AED",
+                  },
+                  Object {
+                    "label": "AFN",
+                    "value": "AFN",
+                  },
+                  Object {
+                    "label": "ALL",
+                    "value": "ALL",
+                  },
+                  Object {
+                    "label": "AMD",
+                    "value": "AMD",
+                  },
+                  Object {
+                    "label": "ANG",
+                    "value": "ANG",
+                  },
+                  Object {
+                    "label": "AOA",
+                    "value": "AOA",
+                  },
+                  Object {
+                    "label": "ARS",
+                    "value": "ARS",
+                  },
+                  Object {
+                    "label": "AUD",
+                    "value": "AUD",
+                  },
+                  Object {
+                    "label": "AWG",
+                    "value": "AWG",
+                  },
+                  Object {
+                    "label": "AZN",
+                    "value": "AZN",
+                  },
+                  Object {
+                    "label": "BAM",
+                    "value": "BAM",
+                  },
+                  Object {
+                    "label": "BBD",
+                    "value": "BBD",
+                  },
+                  Object {
+                    "label": "BDT",
+                    "value": "BDT",
+                  },
+                  Object {
+                    "label": "BGN",
+                    "value": "BGN",
+                  },
+                  Object {
+                    "label": "BHD",
+                    "value": "BHD",
+                  },
+                  Object {
+                    "label": "BIF",
+                    "value": "BIF",
+                  },
+                  Object {
+                    "label": "BMD",
+                    "value": "BMD",
+                  },
+                  Object {
+                    "label": "BND",
+                    "value": "BND",
+                  },
+                  Object {
+                    "label": "BOB",
+                    "value": "BOB",
+                  },
+                  Object {
+                    "label": "BRL",
+                    "value": "BRL",
+                  },
+                  Object {
+                    "label": "BSD",
+                    "value": "BSD",
+                  },
+                  Object {
+                    "label": "BTC",
+                    "value": "BTC",
+                  },
+                  Object {
+                    "label": "BTN",
+                    "value": "BTN",
+                  },
+                  Object {
+                    "label": "BWP",
+                    "value": "BWP",
+                  },
+                  Object {
+                    "label": "BYN",
+                    "value": "BYN",
+                  },
+                  Object {
+                    "label": "BZD",
+                    "value": "BZD",
+                  },
+                  Object {
+                    "label": "CAD",
+                    "value": "CAD",
+                  },
+                  Object {
+                    "label": "CDF",
+                    "value": "CDF",
+                  },
+                  Object {
+                    "label": "CHF",
+                    "value": "CHF",
+                  },
+                  Object {
+                    "label": "CLF",
+                    "value": "CLF",
+                  },
+                  Object {
+                    "label": "CLP",
+                    "value": "CLP",
+                  },
+                  Object {
+                    "label": "CNH",
+                    "value": "CNH",
+                  },
+                  Object {
+                    "label": "CNY",
+                    "value": "CNY",
+                  },
+                  Object {
+                    "label": "COP",
+                    "value": "COP",
+                  },
+                  Object {
+                    "label": "CRC",
+                    "value": "CRC",
+                  },
+                  Object {
+                    "label": "CUC",
+                    "value": "CUC",
+                  },
+                  Object {
+                    "label": "CUP",
+                    "value": "CUP",
+                  },
+                  Object {
+                    "label": "CVE",
+                    "value": "CVE",
+                  },
+                  Object {
+                    "label": "CZK",
+                    "value": "CZK",
+                  },
+                  Object {
+                    "label": "DJF",
+                    "value": "DJF",
+                  },
+                  Object {
+                    "label": "DKK",
+                    "value": "DKK",
+                  },
+                  Object {
+                    "label": "DOP",
+                    "value": "DOP",
+                  },
+                  Object {
+                    "label": "DZD",
+                    "value": "DZD",
+                  },
+                  Object {
+                    "label": "EGP",
+                    "value": "EGP",
+                  },
+                  Object {
+                    "label": "ERN",
+                    "value": "ERN",
+                  },
+                  Object {
+                    "label": "ETB",
+                    "value": "ETB",
+                  },
+                  Object {
+                    "label": "EUR",
+                    "value": "EUR",
+                  },
+                  Object {
+                    "label": "FJD",
+                    "value": "FJD",
+                  },
+                  Object {
+                    "label": "FKP",
+                    "value": "FKP",
+                  },
+                  Object {
+                    "label": "GBP",
+                    "value": "GBP",
+                  },
+                  Object {
+                    "label": "GEL",
+                    "value": "GEL",
+                  },
+                  Object {
+                    "label": "GGP",
+                    "value": "GGP",
+                  },
+                  Object {
+                    "label": "GHS",
+                    "value": "GHS",
+                  },
+                  Object {
+                    "label": "GIP",
+                    "value": "GIP",
+                  },
+                  Object {
+                    "label": "GMD",
+                    "value": "GMD",
+                  },
+                  Object {
+                    "label": "GNF",
+                    "value": "GNF",
+                  },
+                  Object {
+                    "label": "GTQ",
+                    "value": "GTQ",
+                  },
+                  Object {
+                    "label": "GYD",
+                    "value": "GYD",
+                  },
+                  Object {
+                    "label": "HKD",
+                    "value": "HKD",
+                  },
+                  Object {
+                    "label": "HNL",
+                    "value": "HNL",
+                  },
+                  Object {
+                    "label": "HRK",
+                    "value": "HRK",
+                  },
+                  Object {
+                    "label": "HTG",
+                    "value": "HTG",
+                  },
+                  Object {
+                    "label": "HUF",
+                    "value": "HUF",
+                  },
+                  Object {
+                    "label": "IDR",
+                    "value": "IDR",
+                  },
+                  Object {
+                    "label": "ILS",
+                    "value": "ILS",
+                  },
+                  Object {
+                    "label": "IMP",
+                    "value": "IMP",
+                  },
+                  Object {
+                    "label": "INR",
+                    "value": "INR",
+                  },
+                  Object {
+                    "label": "IQD",
+                    "value": "IQD",
+                  },
+                  Object {
+                    "label": "IRR",
+                    "value": "IRR",
+                  },
+                  Object {
+                    "label": "ISK",
+                    "value": "ISK",
+                  },
+                  Object {
+                    "label": "JEP",
+                    "value": "JEP",
+                  },
+                  Object {
+                    "label": "JMD",
+                    "value": "JMD",
+                  },
+                  Object {
+                    "label": "JOD",
+                    "value": "JOD",
+                  },
+                  Object {
+                    "label": "JPY",
+                    "value": "JPY",
+                  },
+                  Object {
+                    "label": "KES",
+                    "value": "KES",
+                  },
+                  Object {
+                    "label": "KGS",
+                    "value": "KGS",
+                  },
+                  Object {
+                    "label": "KHR",
+                    "value": "KHR",
+                  },
+                  Object {
+                    "label": "KMF",
+                    "value": "KMF",
+                  },
+                  Object {
+                    "label": "KPW",
+                    "value": "KPW",
+                  },
+                  Object {
+                    "label": "KRW",
+                    "value": "KRW",
+                  },
+                  Object {
+                    "label": "KWD",
+                    "value": "KWD",
+                  },
+                  Object {
+                    "label": "KYD",
+                    "value": "KYD",
+                  },
+                  Object {
+                    "label": "KZT",
+                    "value": "KZT",
+                  },
+                  Object {
+                    "label": "LAK",
+                    "value": "LAK",
+                  },
+                  Object {
+                    "label": "LBP",
+                    "value": "LBP",
+                  },
+                  Object {
+                    "label": "LKR",
+                    "value": "LKR",
+                  },
+                  Object {
+                    "label": "LRD",
+                    "value": "LRD",
+                  },
+                  Object {
+                    "label": "LSL",
+                    "value": "LSL",
+                  },
+                  Object {
+                    "label": "LYD",
+                    "value": "LYD",
+                  },
+                  Object {
+                    "label": "MAD",
+                    "value": "MAD",
+                  },
+                  Object {
+                    "label": "MDL",
+                    "value": "MDL",
+                  },
+                  Object {
+                    "label": "MGA",
+                    "value": "MGA",
+                  },
+                  Object {
+                    "label": "MKD",
+                    "value": "MKD",
+                  },
+                  Object {
+                    "label": "MMK",
+                    "value": "MMK",
+                  },
+                  Object {
+                    "label": "MNT",
+                    "value": "MNT",
+                  },
+                  Object {
+                    "label": "MOP",
+                    "value": "MOP",
+                  },
+                  Object {
+                    "label": "MRO",
+                    "value": "MRO",
+                  },
+                  Object {
+                    "label": "MRU",
+                    "value": "MRU",
+                  },
+                  Object {
+                    "label": "MUR",
+                    "value": "MUR",
+                  },
+                  Object {
+                    "label": "MVR",
+                    "value": "MVR",
+                  },
+                  Object {
+                    "label": "MWK",
+                    "value": "MWK",
+                  },
+                  Object {
+                    "label": "MXN",
+                    "value": "MXN",
+                  },
+                  Object {
+                    "label": "MYR",
+                    "value": "MYR",
+                  },
+                  Object {
+                    "label": "MZN",
+                    "value": "MZN",
+                  },
+                  Object {
+                    "label": "NAD",
+                    "value": "NAD",
+                  },
+                  Object {
+                    "label": "NGN",
+                    "value": "NGN",
+                  },
+                  Object {
+                    "label": "NIO",
+                    "value": "NIO",
+                  },
+                  Object {
+                    "label": "NOK",
+                    "value": "NOK",
+                  },
+                  Object {
+                    "label": "NPR",
+                    "value": "NPR",
+                  },
+                  Object {
+                    "label": "NZD",
+                    "value": "NZD",
+                  },
+                  Object {
+                    "label": "OMR",
+                    "value": "OMR",
+                  },
+                  Object {
+                    "label": "PAB",
+                    "value": "PAB",
+                  },
+                  Object {
+                    "label": "PEN",
+                    "value": "PEN",
+                  },
+                  Object {
+                    "label": "PGK",
+                    "value": "PGK",
+                  },
+                  Object {
+                    "label": "PHP",
+                    "value": "PHP",
+                  },
+                  Object {
+                    "label": "PKR",
+                    "value": "PKR",
+                  },
+                  Object {
+                    "label": "PLN",
+                    "value": "PLN",
+                  },
+                  Object {
+                    "label": "PYG",
+                    "value": "PYG",
+                  },
+                  Object {
+                    "label": "QAR",
+                    "value": "QAR",
+                  },
+                  Object {
+                    "label": "RON",
+                    "value": "RON",
+                  },
+                  Object {
+                    "label": "RSD",
+                    "value": "RSD",
+                  },
+                  Object {
+                    "label": "RUB",
+                    "value": "RUB",
+                  },
+                  Object {
+                    "label": "RWF",
+                    "value": "RWF",
+                  },
+                  Object {
+                    "label": "SAR",
+                    "value": "SAR",
+                  },
+                  Object {
+                    "label": "SBD",
+                    "value": "SBD",
+                  },
+                  Object {
+                    "label": "SCR",
+                    "value": "SCR",
+                  },
+                  Object {
+                    "label": "SDG",
+                    "value": "SDG",
+                  },
+                  Object {
+                    "label": "SEK",
+                    "value": "SEK",
+                  },
+                  Object {
+                    "label": "SGD",
+                    "value": "SGD",
+                  },
+                  Object {
+                    "label": "SHP",
+                    "value": "SHP",
+                  },
+                  Object {
+                    "label": "SLL",
+                    "value": "SLL",
+                  },
+                  Object {
+                    "label": "SOS",
+                    "value": "SOS",
+                  },
+                  Object {
+                    "label": "SRD",
+                    "value": "SRD",
+                  },
+                  Object {
+                    "label": "SSP",
+                    "value": "SSP",
+                  },
+                  Object {
+                    "label": "STD",
+                    "value": "STD",
+                  },
+                  Object {
+                    "label": "STN",
+                    "value": "STN",
+                  },
+                  Object {
+                    "label": "SVC",
+                    "value": "SVC",
+                  },
+                  Object {
+                    "label": "SYP",
+                    "value": "SYP",
+                  },
+                  Object {
+                    "label": "SZL",
+                    "value": "SZL",
+                  },
+                  Object {
+                    "label": "THB",
+                    "value": "THB",
+                  },
+                  Object {
+                    "label": "TJS",
+                    "value": "TJS",
+                  },
+                  Object {
+                    "label": "TMT",
+                    "value": "TMT",
+                  },
+                  Object {
+                    "label": "TND",
+                    "value": "TND",
+                  },
+                  Object {
+                    "label": "TOP",
+                    "value": "TOP",
+                  },
+                  Object {
+                    "label": "TRY",
+                    "value": "TRY",
+                  },
+                  Object {
+                    "label": "TTD",
+                    "value": "TTD",
+                  },
+                  Object {
+                    "label": "TWD",
+                    "value": "TWD",
+                  },
+                  Object {
+                    "label": "TZS",
+                    "value": "TZS",
+                  },
+                  Object {
+                    "label": "UAH",
+                    "value": "UAH",
+                  },
+                  Object {
+                    "label": "UGX",
+                    "value": "UGX",
+                  },
+                  Object {
+                    "label": "USD",
+                    "value": "USD",
+                  },
+                  Object {
+                    "label": "UYU",
+                    "value": "UYU",
+                  },
+                  Object {
+                    "label": "UZS",
+                    "value": "UZS",
+                  },
+                  Object {
+                    "label": "VEF",
+                    "value": "VEF",
+                  },
+                  Object {
+                    "label": "VES",
+                    "value": "VES",
+                  },
+                  Object {
+                    "label": "VND",
+                    "value": "VND",
+                  },
+                  Object {
+                    "label": "VUV",
+                    "value": "VUV",
+                  },
+                  Object {
+                    "label": "WST",
+                    "value": "WST",
+                  },
+                  Object {
+                    "label": "XAF",
+                    "value": "XAF",
+                  },
+                  Object {
+                    "label": "XAG",
+                    "value": "XAG",
+                  },
+                  Object {
+                    "label": "XAU",
+                    "value": "XAU",
+                  },
+                  Object {
+                    "label": "XCD",
+                    "value": "XCD",
+                  },
+                  Object {
+                    "label": "XDR",
+                    "value": "XDR",
+                  },
+                  Object {
+                    "label": "XOF",
+                    "value": "XOF",
+                  },
+                  Object {
+                    "label": "XPD",
+                    "value": "XPD",
+                  },
+                  Object {
+                    "label": "XPF",
+                    "value": "XPF",
+                  },
+                  Object {
+                    "label": "XPT",
+                    "value": "XPT",
+                  },
+                  Object {
+                    "label": "YER",
+                    "value": "YER",
+                  },
+                  Object {
+                    "label": "ZAR",
+                    "value": "ZAR",
+                  },
+                  Object {
+                    "label": "ZMW",
+                    "value": "ZMW",
+                  },
+                  Object {
+                    "label": "ZWL",
+                    "value": "ZWL",
+                  },
+                ]
+              }
+            />
+          </div>
+          <div
+            className="form-group col-md-3"
+          />
+          <div
+            className="form-group col-md-3"
+          >
+            <Input
+              autoComplete="off"
+              component="input"
+              format={[Function]}
+              label="Advance Payment"
+              name="advancePayment"
+              normalize={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="0.00"
+              type="text"
+              validate={[Function]}
+            />
+          </div>
         </div>
         <div
           className="d-flex justify-content-center btn-create-delegation"

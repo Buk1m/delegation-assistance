@@ -13,7 +13,9 @@ describe("display delegation details", () => {
   const LOCATION = "Lodz";
   const STATUS = "CREATED";
   const OBJECTIVE = "Push all changes before delegation.";
-  const DIET = "123 EUR";
+  const CURRENCY = "EUR";
+  const DIET = "123";
+  const ADVANCE ="123.45";
 
   before(() => {
     DelegationDetails.loginAsEmployee();
@@ -29,6 +31,10 @@ describe("display delegation details", () => {
     browser.keys("Enter");
     CreateDelegationPage.destinationLocation.setValue(LOCATION);
     CreateDelegationPage.delegationObjective.setValue(OBJECTIVE);
+    CreateDelegationPage.currency.setValue(CURRENCY);
+    browser.keys("Enter");
+    CreateDelegationPage.diet.setValue(DIET);
+    CreateDelegationPage.advancement.setValue(ADVANCE);
 
     browser.setupInterceptor();
     browser.expectRequest("POST", `${apiUrl}/delegations`, successCode);

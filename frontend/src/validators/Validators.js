@@ -12,6 +12,9 @@ const validateDepartureArrivalDate = (arrivalDate, allValues) => {
   return null;
 };
 
+const validateNumber = value =>
+  value && isNaN(Number(value)) ? "Must be a number" : undefined;
+
 const validateRequired = value => (value ? undefined : "This field is required.");
 
 const validateStartEndDate = (endDate, allValues) => {
@@ -21,4 +24,4 @@ const validateStartEndDate = (endDate, allValues) => {
   return null;
 };
 
-export { validateCheckInOutDate, validateDepartureArrivalDate, validateRequired, validateStartEndDate };
+export { validateCheckInOutDate, validateDepartureArrivalDate, validateRequired, validateStartEndDate, validateNumber };

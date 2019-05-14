@@ -6,7 +6,9 @@ describe("create delegation form", () => {
   const COUNTRY = "Poland";
   const LOCATION = "Lodz";
   const OBJECTIVE = "Push all changes before delegation.";
-  const DIET = "123 EUR";
+  const CURRENCY = "EUR";
+  const DIET = "123";
+  const ADVANCE ="123.45";
 
   before(() => {
     CreateDelegationPage.loginAsEmployee();
@@ -14,6 +16,7 @@ describe("create delegation form", () => {
 
   it("should display required validation errors", () => {
     CreateDelegationPage.open();
+
     CreateDelegationPage.submit();
 
     expect(CreateDelegationPage.destinationCountyErrorMsg.getText()).to.equal("This field is required.");
@@ -43,6 +46,10 @@ describe("create delegation form", () => {
     browser.keys("Enter");
     CreateDelegationPage.destinationLocation.setValue(LOCATION);
     CreateDelegationPage.delegationObjective.setValue(OBJECTIVE);
+    CreateDelegationPage.currency.setValue(CURRENCY);
+    browser.keys("Enter");
+    CreateDelegationPage.diet.setValue(DIET);
+    CreateDelegationPage.advancement.setValue(ADVANCE);
 
     CreateDelegationPage.submit();
 

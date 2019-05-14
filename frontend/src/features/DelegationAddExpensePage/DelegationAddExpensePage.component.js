@@ -3,19 +3,13 @@ import { reduxForm, Form } from "redux-form";
 import { func, bool, array } from "prop-types";
 import { FilePond } from "react-filepond";
 
-//TODO: replace with data fetched from backend
-import Currencies from "./Currencies";
-
+import currencies from "../../components/Currencies/CurrenciesMap";
 import Button from "../../components/Button/Button.component";
 import Input from "../../components/Input/Input.component";
 import LayoutMain from "../../components/layouts/LayoutMain";
 import { validateRequired } from "../../validators/Validators";
 
 import "filepond/dist/filepond.min.css";
-
-const currencies = Currencies.map(currency => {
-  return { label: currency, value: currency };
-});
 
 export const DelegationAddExpensePage = props => {
   const { handleSubmit, setFiles, files, submitting } = props;

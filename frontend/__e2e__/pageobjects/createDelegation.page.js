@@ -13,6 +13,18 @@ class CreateDelegationPage extends Page {
     return $("#react-select-2-input");
   }
 
+  get currency() {
+    return $("#react-select-3-input");
+  }
+
+  get diet() {
+    return $("#input_diet\\2e perDiem");
+  }
+
+  get advancement() {
+    return $("#input_advancePayment");
+  }
+
   get destinationLocation() {
     return $("#input_destinationLocation");
   }

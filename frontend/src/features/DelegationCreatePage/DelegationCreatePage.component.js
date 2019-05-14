@@ -1,12 +1,19 @@
 import React from "react";
 import { reduxForm, Form } from "redux-form";
 import { func, bool, array } from "prop-types";
+import { createNumberMask } from "redux-form-input-masks";
 
 import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Input from "../../components/Input/Input.component";
 import Button from "../../components/Button/Button.component";
-import { validateRequired, validateStartEndDate } from "../../validators/Validators";
+import { validateRequired, validateStartEndDate, validateNumber } from "../../validators/Validators";
+import currencies from "../../components/Currencies/CurrenciesMap";
+
+const currencyMask = createNumberMask({
+  decimalPlaces: 2,
+  locale: "en-US"
+});
 
 export const DelegationCreatePage = props => {
   const { handleSubmit, countriesISOCodes, submitting } = props;
@@ -37,7 +44,7 @@ export const DelegationCreatePage = props => {
               validate={validateRequired}
               component="input"
             />
-            <div className="d-flex justify-content-around flex-wrap">
+            <div className="d-flex justify-content-between flex-wrap">
               <Input
                 name="startDate"
                 label="Start date"
@@ -52,6 +59,34 @@ export const DelegationCreatePage = props => {
                 validate={[validateRequired, validateStartEndDate]}
                 classes="w-auto"
               />
+            </div>
+            <div className="form-row">
+              <div className="form-group col-md-3">
+                <Input
+                  label="Diem"
+                  name="diet.perDiem"
+                  placeholder="0.00"
+                  validate={validateNumber}
+                  type="text"
+                  component="input"
+                  {...currencyMask}
+                />
+              </div>
+              <div className="form-group col-md-3 pt-md-1 pl-md-2">
+                <Input label="Currency" component="typeahead" name="diet.currency" options={currencies} />
+              </div>
+              <div className="form-group col-md-3" />
+              <div className="form-group col-md-3">
+                <Input
+                  label="Advance Payment"
+                  name="advancePayment"
+                  placeholder="0.00"
+                  validate={validateNumber}
+                  type="text"
+                  component="input"
+                  {...currencyMask}
+                />
+              </div>
             </div>
             <div className="d-flex justify-content-center btn-create-delegation">
               <Button type="submit" submitting={submitting} disabled={submitting} text="Create delegation" />
