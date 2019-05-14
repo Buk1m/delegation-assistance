@@ -1,9 +1,11 @@
 package com.idemia.ip.office.backend.delegation.assistant.utils
 
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ActivityTemplateDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDetailsDto
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ChecklistTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.AccommodationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DietDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
 import com.idemia.ip.office.backend.delegation.assistant.entities.*
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
@@ -19,6 +21,10 @@ class TestDataProvider {
 
     static DateTimeFormatter getDateTimeFormatter() {
         DateTimeFormatter.ofPattern('yyyy-MM-dd\'T\'HH:mm:ss')
+    }
+
+    static ActivityTemplateDto anyActivityTemplateDto() {
+        new ActivityTemplateDto(task: 'task', description: 'description')
     }
 
     static ChecklistTemplate anyChecklistTemplate() {
@@ -39,13 +45,28 @@ class TestDataProvider {
         ])
     }
 
+    static Country anyCountry() {
+        new Country(countryName: 'Poland')
+    }
+
     static DelegationDto anyDelegationDTO() {
         DelegationDto.builder()
                 .delegationObjective('Objective')
                 .destinationLocation('Radom')
-                .destinationCountryISO3('tst')
+                .countryName('Poland')
                 .startDate(getLocalDateTime(getDateTimeFormatter()))
-                .endDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1))
+                .endDate(getLocalDateTime(getDateTimeFormatter()).plusDays(2))
+                .build()
+    }
+
+    static DelegationDetailsDto anyDelegationDetailsDto() {
+        DelegationDetailsDto.builder()
+                .delegationObjective('Objective')
+                .destinationLocation('Radom')
+                .destinationCountryId(1)
+                .diet(anyDietDto())
+                .startDate(getLocalDateTime(getDateTimeFormatter()))
+                .endDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1).plusDays(2))
                 .build()
     }
 
@@ -60,11 +81,21 @@ class TestDataProvider {
                 .delegationStatus(CREATED)
                 .delegationObjective('Test')
                 .destinationLocation('Radom')
-                .destinationCountryISO3('iso')
+                .advancePayment(new BigDecimal(500))
+                .destinationCountry(anyCountry())
+                .diet(anyDiet())
                 .startDate(getLocalDateTime(getDateTimeFormatter()))
                 .endDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1))
                 .checklist(anyChecklist())
                 .build()
+    }
+
+    static Diet anyDiet() {
+        new Diet(currency: 'PLN', perDiem: 50)
+    }
+
+    static DietDto anyDietDto() {
+        new DietDto(currency: 'PLN', perDiem: 50)
     }
 
     static Checklist anyChecklist() {

@@ -2,6 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.integrations.base
 
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ChecklistTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.configuration.PasswordProperties
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDetailsDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.AccommodationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
@@ -16,7 +17,7 @@ import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyChecklistTemplateDto
-import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDTO
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDetailsDto
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getDateTimeFormatter
 import static org.springframework.http.HttpStatus.OK
 
@@ -45,8 +46,8 @@ class BusinessLogicProvider {
         webTestClientWrapper.put('/checklist', authToken, updatedChecklistTemplateDto)
     }
 
-    DelegationDto createDelegation(AuthToken authToken, DelegationDto delegationDto = anyDelegationDTO()) {
-        webTestClientWrapper.post('/delegations', authToken, delegationDto, OK, DelegationDto.class)
+    DelegationDetailsDto createDelegation(AuthToken authToken, DelegationDetailsDto delegationDto = anyDelegationDetailsDto()) {
+        webTestClientWrapper.post('/delegations', authToken, delegationDto, OK, DelegationDetailsDto.class)
     }
 
     FlightDto createDelegationFlight(AuthToken authToken, FlightDto flightDto, Long delegationId) {
@@ -57,14 +58,14 @@ class BusinessLogicProvider {
         webTestClientWrapper.post("/delegations/${delegationId}/accommodations", authToken, accommodationDto, OK, AccommodationDto.class)
     }
 
-    List<DelegationDto> createDelegations(AuthToken authToken, List<DelegationDto> delegationDtos) {
+    List<DelegationDetailsDto> createDelegations(AuthToken authToken, List<DelegationDetailsDto> delegationDtos) {
         delegationDtos.stream()
                 .map { d -> createDelegation(authToken, d) }
                 .collect(Collectors.toList())
     }
 
-    DelegationDto getDelegation(AuthToken authToken, Long delegationId) {
-        webTestClientWrapper.get("/delegations/${delegationId}", authToken, OK, DelegationDto.class) as DelegationDto
+    DelegationDetailsDto getDelegation(AuthToken authToken, Long delegationId) {
+        webTestClientWrapper.get("/delegations/${delegationId}", authToken, OK, DelegationDetailsDto.class) as DelegationDetailsDto
     }
 
     List<DelegationDto> getUserDelegations(AuthToken authToken) {

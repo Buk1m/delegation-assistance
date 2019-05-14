@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.controllers;
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.ChecklistDto;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDetailsDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationReportDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService;
@@ -39,6 +40,7 @@ import static com.idemia.ip.office.backend.delegation.assistant.converters.ByteA
 @RestController
 @Validated
 public class DelegationController {
+
     private static final Logger LOG = LoggerFactory.getLogger(DelegationController.class);
 
     private DelegationService delegationService;
@@ -56,13 +58,15 @@ public class DelegationController {
 
     @PostMapping("/delegations")
     @Validated(OnPost.class)
-    public Mono<ResponseEntity<DelegationDto>> postDelegation(@Valid @RequestBody DelegationDto delegationDTO,
+    public Mono<ResponseEntity<DelegationDetailsDto>> postDelegation(@Valid @RequestBody
+            DelegationDetailsDto delegationDTO,
             Principal principal) {
         LOG.info("Creating delegation for user with login: {} {}", principal.getName(), delegationDTO);
         Delegation delegation = modelMapper.map(delegationDTO, Delegation.class);
+
         return userService.getUser(principal.getName())
-                .flatMap(u -> delegationService.addDelegation(delegation, u))
-                .map(d -> modelMapper.map(d, DelegationDto.class))
+                .flatMap(u -> delegationService.addDelegation(delegation, u, delegationDTO.getDestinationCountryId()))
+                .map(this::mapToDelegationDetails)
                 .map(ResponseEntity::ok);
     }
 
@@ -80,18 +84,16 @@ public class DelegationController {
     }
 
     @GetMapping("/delegations/{delegationId}")
-    public Mono<ResponseEntity<DelegationDto>> getDelegation(
+    public Mono<ResponseEntity<DelegationDetailsDto>> getDelegation(
             @PathVariable("delegationId") Long delegationId,
             Authentication authentication) {
         LOG.info("Getting delegation with id {} by user with login {}",
                 delegationId,
                 authentication.getName());
-        Mono<Delegation> delegation = RolesService.hasAnyRole(authentication.getAuthorities(),
-                RolesService.travelManagerApproverAccoutant) ? delegationService.getDelegation(delegationId) :
-                delegationService.getDelegation(delegationId, authentication.getName());
-        Mono<DelegationDto> delegationsDto = delegation.map(e -> modelMapper.map(e,
-                DelegationDto.class));
-        return delegationsDto.map(ResponseEntity::ok);
+
+        return delegationService.getDelegationDetails(delegationId, authentication)
+                .map(this::mapToDelegationDetails)
+                .map(ResponseEntity::ok);
     }
 
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
@@ -158,5 +160,11 @@ public class DelegationController {
         Mono<DelegationReportDto> delegationReportDto = delegation.map(e -> modelMapper.map(e,
                 DelegationReportDto.class));
         return delegationReportDto.map(ResponseEntity::ok);
+    }
+
+    private DelegationDetailsDto mapToDelegationDetails(Delegation delegation) {
+        DelegationDetailsDto delegationDetailsDto = modelMapper.map(delegation, DelegationDetailsDto.class);
+        delegationDetailsDto.setDestinationCountryId(null);
+        return delegationDetailsDto;
     }
 }

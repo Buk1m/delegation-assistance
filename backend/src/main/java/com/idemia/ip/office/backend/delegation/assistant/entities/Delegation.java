@@ -10,7 +10,6 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,10 +21,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.DETACH;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REFRESH;
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.EAGER;
 
 @Entity
@@ -47,40 +52,48 @@ public class Delegation extends BaseEntity {
     @Column(nullable = false)
     private LocalDateTime endDate;
 
-    @Column(nullable = false, length = 3)
-    private String destinationCountryISO3;
-
     @Column(nullable = false)
     private String destinationLocation;
 
     @Column(nullable = false)
     private String delegationObjective;
 
+    @Column
+    private BigDecimal advancePayment;
+
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private DelegationStatus delegationStatus;
 
+    @JoinColumn(name = "destination_country_id", nullable = false)
+    @ManyToOne
+    private Country destinationCountry;
+
     @JoinColumn(name = "delegated_employee_id", nullable = false)
-    @ManyToOne(fetch = EAGER)
+    @ManyToOne
     private User delegatedEmployee;
 
-    @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = EAGER, cascade = ALL)
     @JoinColumn(name = "delegation_id")
     private List<Expense> expenses = new ArrayList<>();
 
-    @JoinColumn(name = "checklist_id", nullable = false)
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH})
-    private Checklist checklist;
-
-    @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = EAGER, cascade = ALL)
     @JoinColumn(name = "flight_id")
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 10)
     private List<Flight> flights = new ArrayList<>();
 
-    @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = EAGER, cascade = ALL)
     @JoinColumn(name = "accommodation_id")
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 10)
     private List<Accommodation> accommodations = new ArrayList<>();
+
+    @JoinColumn(name = "checklist_id", nullable = false)
+    @OneToOne(cascade = {PERSIST, REMOVE, REFRESH, DETACH})
+    private Checklist checklist;
+
+    @OneToOne(mappedBy = "delegation", cascade = {PERSIST, REFRESH, DETACH})
+    private Diet diet;
+
 }

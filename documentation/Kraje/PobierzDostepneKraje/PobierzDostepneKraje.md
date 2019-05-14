@@ -14,10 +14,12 @@
 [
   {
     "id": 1,
+    "countryCode": "POL",
     "countryName": "Poland"
   },
   {
     "id": 2,
+    "countryCode": "NOR",
     "countryName": "Norway"
   },
   ...

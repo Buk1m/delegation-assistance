@@ -1,12 +1,11 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.idemia.ip.office.backend.delegation.assistant.common.BaseDto;
-import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPatch;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
-import com.idemia.ip.office.backend.delegation.assistant.utils.ValidateDates;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,9 +15,14 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
 @Builder
@@ -26,30 +30,44 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 @NoArgsConstructor
 @Getter
 @Setter
-@ValidateDates(start = "startDate", end = "endDate", groups = OnPost.class)
-public class DelegationDto extends BaseDto {
+public class DelegationDetailsDto extends BaseDto {
 
+    @Null(message = "{error.message.field.blank}", groups = OnPost.class)
     private Long id;
 
+    @NotNull(message = "{error.message.not.null}", groups = OnPost.class)
     @DateTimeFormat(iso = DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startDate;
 
+    @NotNull(message = "{error.message.not.null}", groups = OnPost.class)
     @DateTimeFormat(iso = DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endDate;
 
+    @NotNull(message = "{error.message.field.not.null}", groups = OnPost.class)
+    @JsonInclude(NON_NULL)
+    private Long destinationCountryId;
+
+    @Null(message = "{error.message.field.blank}", groups = OnPost.class)
     @JsonProperty("destinationCountry")
     private String countryName;
 
-    private String destinationLocation;
-
-    private String delegationObjective;
-
-    @NotNull(message = "{error.message.not.null}", groups = OnPatch.class)
+    @Null(message = "{error.message.field.blank}", groups = OnPost.class)
+    @JsonProperty("status")
     private DelegationStatus delegationStatus;
 
-    private DelegationUserDto delegatedEmployee;
+    private BigDecimal advancePayment;
+
+    @NotBlank(message = "{error.message.field.not.blank}", groups = OnPost.class)
+    private String destinationLocation;
+
+    @NotBlank(message = "{error.message.field.not.blank}", groups = OnPost.class)
+    private String delegationObjective;
+
+    @Valid
+    @NotNull(message = "{error.message.field.not.null}", groups = OnPost.class)
+    private DietDto diet;
 
     @Override
     public boolean equals(Object o) {
@@ -60,7 +78,7 @@ public class DelegationDto extends BaseDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DelegationDto that = (DelegationDto) o;
+        DelegationDetailsDto that = (DelegationDetailsDto) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
@@ -69,7 +87,6 @@ public class DelegationDto extends BaseDto {
                 .append(countryName, that.countryName)
                 .append(destinationLocation, that.destinationLocation)
                 .append(delegationObjective, that.delegationObjective)
-                .append(delegationStatus, that.delegationStatus)
                 .isEquals();
     }
 

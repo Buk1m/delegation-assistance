@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.integrations
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.AccommodationDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDetailsDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
 import com.idemia.ip.office.backend.delegation.assistant.integrations.base.BaseIntegrationSpec
@@ -9,8 +10,8 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 import java.time.LocalDateTime
 
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDetailsDto
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyAccommodationDto
-import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDTO
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyFlightDto
 
 class DelegationsSpec extends BaseIntegrationSpec {
@@ -18,24 +19,22 @@ class DelegationsSpec extends BaseIntegrationSpec {
     def 'Should add delegation'() {
         given: 'Employee with given delegation'
             AuthToken employeeToken = businessLogicProvider.employeeToken()
-            DelegationDto delegationDto = anyDelegationDTO()
 
         when: 'Adds delegation'
-            DelegationDto postedDelegation = businessLogicProvider.createDelegation(employeeToken, delegationDto)
+            DelegationDetailsDto postedDelegation = businessLogicProvider.createDelegation(employeeToken)
 
         then: 'Delegation is saved to db'
-            DelegationDto existingDelegation = businessLogicProvider.getDelegation(employeeToken, postedDelegation.id)
+            DelegationDetailsDto existingDelegation = businessLogicProvider.getDelegation(employeeToken, postedDelegation.id)
             existingDelegation == postedDelegation
     }
 
     def 'Should return delegation for all privileged user'(String tokenOwner) {
         given: 'User and employee delegation'
             def token = businessLogicProvider."${tokenOwner}Token"() as AuthToken
-            DelegationDto delegationDto = anyDelegationDTO()
-            DelegationDto createdDelegation = businessLogicProvider.createDelegation(businessLogicProvider.employeeToken(), delegationDto)
+            DelegationDetailsDto createdDelegation = businessLogicProvider.createDelegation(businessLogicProvider.employeeToken())
 
         when: 'User tries to get delegation'
-            DelegationDto responseDelegation = businessLogicProvider.getDelegation(token, createdDelegation.id)
+            DelegationDetailsDto responseDelegation = businessLogicProvider.getDelegation(token, createdDelegation.id)
 
         then: 'Retrieved delegation match to created'
             responseDelegation == createdDelegation
@@ -48,7 +47,7 @@ class DelegationsSpec extends BaseIntegrationSpec {
         given: 'Employee with existing delegations'
             AuthToken employeeToken = businessLogicProvider.employeeToken()
             int allDelegationsCount = 3
-            List<DelegationDto> createdDelegations = businessLogicProvider.createDelegations(employeeToken, createDelegationsToFilter(allDelegationsCount))
+            List<DelegationDetailsDto> createdDelegations = businessLogicProvider.createDelegations(employeeToken, createDelegationsToFilter(allDelegationsCount))
             int filterCount = 2
             LocalDateTime sinceFilterDate = createdDelegations.get(0).startDate.minusDays(1)
             LocalDateTime untilFilterDate = createdDelegations.get(filterCount - 1).startDate.plusDays(1)
@@ -103,7 +102,7 @@ class DelegationsSpec extends BaseIntegrationSpec {
             def token = businessLogicProvider."${tokenOwner}Token"() as AuthToken
             int allDelegationsCount = 3
             int filterCount = 2
-            List<DelegationDto> createdDelegations = businessLogicProvider.createDelegations(token, createDelegationsToFilter(allDelegationsCount))
+            List<DelegationDetailsDto> createdDelegations = businessLogicProvider.createDelegations(token, createDelegationsToFilter(allDelegationsCount))
             LocalDateTime sinceFilterDate = createdDelegations.get(0).startDate.minusDays(1)
             LocalDateTime untilFilterDate = createdDelegations.get(filterCount - 1).startDate.plusDays(1)
 
@@ -120,9 +119,8 @@ class DelegationsSpec extends BaseIntegrationSpec {
 
     def 'Should add flight to delegations'() {
         given: 'Employee with delegation and flight'
-            DelegationDto delegationDto = anyDelegationDTO()
             AuthToken employeeToken = businessLogicProvider.employeeToken()
-            DelegationDto delegation = businessLogicProvider.createDelegation(employeeToken, delegationDto)
+            DelegationDetailsDto delegation = businessLogicProvider.createDelegation(employeeToken)
             FlightDto flightDto = anyFlightDto()
 
         when: 'Employee adds flight'
@@ -138,9 +136,8 @@ class DelegationsSpec extends BaseIntegrationSpec {
 
     def 'Should add accommodation to delegations'() {
         given: 'Employee with delegation and accommodation'
-            DelegationDto delegationDto = anyDelegationDTO()
             AuthToken employeeToken = businessLogicProvider.employeeToken()
-            DelegationDto delegation = businessLogicProvider.createDelegation(employeeToken, delegationDto)
+            DelegationDetailsDto delegation = businessLogicProvider.createDelegation(employeeToken)
             AccommodationDto accommodationDto = anyAccommodationDto()
 
         when: 'Employee adds flight'
@@ -153,15 +150,14 @@ class DelegationsSpec extends BaseIntegrationSpec {
             accommodationDto.getCheckOutDate().toString() == accommodation.getCheckOutDate().toString()
     }
 
-    List<DelegationDto> createDelegationsToFilter(int delegationsCount) {
-        List<DelegationDto> delegations = []
+    List<DelegationDetailsDto> createDelegationsToFilter(int delegationsCount) {
+        List<DelegationDetailsDto> delegations = []
         for (int i = 0; i < delegationsCount; i++) {
-            DelegationDto delegation = anyDelegationDTO()
+            DelegationDetailsDto delegation = anyDelegationDetailsDto()
             delegation.startDate = delegation.startDate.plusDays(2 * i)
             delegation.endDate = delegation.endDate.plusDays(2 * i)
             delegations.add(delegation)
         }
         delegations
     }
-
 }

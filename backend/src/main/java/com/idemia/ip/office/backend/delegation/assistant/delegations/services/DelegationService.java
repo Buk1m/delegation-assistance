@@ -18,16 +18,19 @@ import java.util.Collection;
 import java.util.List;
 
 public interface DelegationService {
-    Mono<Delegation> addDelegation(Delegation delegation, User name);
+
+    Mono<Delegation> addDelegation(Delegation delegation, User name, Long countryId);
 
     Mono<Delegation> getDelegation(Long delegationId);
+
+    Mono<Delegation> getDelegation(Long delegationId, String delegateEmployeeName);
+
+    Mono<Delegation> getDelegationDetails(Long delegationId, Authentication authentication);
 
     Flux<Delegation> getDelegations(String userLogin,
             DelegationStatus status,
             LocalDateTime since,
             LocalDateTime until);
-
-    Mono<Delegation> getDelegation(Long delegationId, String delegatedEmployeeLogin);
 
     Mono<Delegation> updateDelegation(Delegation updateDelegation, Delegation existingDelegation);
 

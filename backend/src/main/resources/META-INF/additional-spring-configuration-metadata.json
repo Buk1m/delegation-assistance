@@ -99,6 +99,11 @@
       "name": "exception.files.file-not-found",
       "type": "java.lang.String",
       "description": "Error code if file was not found."
+    },
+    {
+      "name": "exception.countries.country-not-found",
+      "type": "java.lang.String",
+      "description": "Error code if country was not found."
     }
   ]
 }

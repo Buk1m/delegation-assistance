@@ -1,7 +1,5 @@
 package com.idemia.ip.office.backend.delegation.assistant.security.configuration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +12,6 @@ import java.util.Arrays;
 
 @Configuration
 public class CorsWebFilter {
-    private static final Logger LOG = LoggerFactory.getLogger(CorsWebFilter.class);
-
     @Bean
     @Profile("dev")
     CorsConfigurationSource corsDevConfigurationSource() {
