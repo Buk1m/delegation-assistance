@@ -20,10 +20,10 @@ public class ExpensePageServiceImpl implements ExpensePageService {
             AVAILABLE_SORT_FIELDS.get(0)));
 
     @Override
-    public Pageable getPageable(Integer page, Integer size, List<Sort.Order> sortCriteria, String entityAlias) {
+    public Pageable getPageable(Integer pageNo, Integer pageSize, List<Sort.Order> sortCriteria, String entityAlias) {
         List<Sort.Order> validSortOrders = getValidSortOrders(sortCriteria);
         Sort sort = Sort.by(mapSortOrders(validSortOrders, entityAlias));
-        return PageRequest.of(page, size, sort);
+        return PageRequest.of(pageNo, pageSize, sort);
     }
 
     @Override

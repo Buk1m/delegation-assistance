@@ -32,6 +32,9 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 public class ExpenseController {
     private static final Logger LOG = LoggerFactory.getLogger(ExpenseController.class);
 
+    private static final Integer DEFAULT_PAGE_NUMBER = 0;
+    private static final Integer DEFAULT_PAGE_SIZE = 10;
+
     private final ModelMapper modelMapper;
     private final ModelMapper modelMapperSkipNulls;
     private final DelegationService delegationService;
@@ -70,13 +73,23 @@ public class ExpenseController {
 
     @GetMapping(value = "/delegations/{delegationId}/expenses")
     public Mono<ResponseEntity<PageDto<ExpenseDto>>> getExpenses(@PathVariable Long delegationId,
-            @RequestParam(value = "page", defaultValue = "0") Integer pageNumber,
+            @RequestParam(value = "page", defaultValue = "1") Integer pageNumber,
             @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
             @RequestParam(value = "sort", defaultValue = "id.desc", required = false) String sort,
             Authentication authentication) {
+        pageNumber = getValidPageNumber(pageNumber);
+        pageSize = getValidPageSize(pageSize);
         List<Sort.Order> sortingOrders = QueryParamParser.getSortOrders(sort);
         return delegationService.getExpenses(delegationId, pageNumber, pageSize, sortingOrders, authentication)
                 .map(p -> pageMapper.mapPageToDto(p, ExpenseDto.class))
                 .map(ResponseEntity::ok);
+    }
+
+    private Integer getValidPageSize(Integer pageSize) {
+        return pageSize < 1 ? DEFAULT_PAGE_SIZE : pageSize;
+    }
+
+    private Integer getValidPageNumber(Integer pageNumber) {
+        return pageNumber < 1 ? DEFAULT_PAGE_NUMBER : pageNumber - 1;
     }
 }
