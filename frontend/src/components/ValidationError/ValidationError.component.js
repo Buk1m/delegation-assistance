@@ -6,20 +6,14 @@ const ValidationError = ({ touched, error, warning }) => {
   return (
     <Fragment>
       {touched &&
-        ((error && (
-          <span
-            className={[["text-danger"], styles["error-message"]].join(" ")}
-          >
-            {error}
-          </span>
-        )) ||
+        ((error && <span className={[["text-danger"], styles["error-message"]].join(" ")}>{error}</span>) ||
           (warning && <span className="error-message">{warning}</span>))}
     </Fragment>
   );
 };
 ValidationError.propTypes = {
-  touched: bool,
   error: string,
+  touched: bool,
   warning: string
 };
 

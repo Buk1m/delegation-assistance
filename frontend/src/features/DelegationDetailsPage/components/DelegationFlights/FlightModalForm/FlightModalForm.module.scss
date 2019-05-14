@@ -1,0 +1,11 @@
+@import "../../../../../assets/styles/_constants";
+
+@media screen and (max-width: $xs-end) {
+  .modal-responsive {
+    min-width: 360px;
+  }
+
+  .modal-overflow-scroll {
+    overflow-x: scroll;
+  }
+}

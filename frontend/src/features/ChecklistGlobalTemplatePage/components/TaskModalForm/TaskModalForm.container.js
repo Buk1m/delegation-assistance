@@ -7,9 +7,9 @@ import { addTask, editTask } from "../../../../actions/checklistTemplate.action"
 
 export class TaskModalFormContainer extends Component {
   static propTypes = {
-    initialValues: object,
     addTask: func,
-    editTask: func
+    editTask: func,
+    initialValues: object
   };
 
   _handleSubmit = values => {

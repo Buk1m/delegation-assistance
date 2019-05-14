@@ -26,6 +26,8 @@ body[data-theme="idemia"] {
   --btn-primary-bg-hf: #fff;
   --btn-primary-bg-hf-c: #{$primary-color};
 
+  --checkbox-bg: #fff;
+
   --input-c: #495057;
   --input-bg: #fff;
   --input-brdc: #ced4da;
@@ -36,9 +38,14 @@ body[data-theme="idemia"] {
   --input-select-bg: #{$primary-color};
   --input-select-hf: #f2f2f2;
 
+  --table-even-rows-bg: #f2f2f2;
+
   --login-box-bg: #fff;
   --login-box-c: #{$primary-color};
   --login-box-bsh: rgba(255, 255, 255, 0.4);
+
+  --row-loading-bg-primary: #f0f0f0;
+  --row-loading-bg-secondary: #f6f6f6;
 
   --dlg-s-prepared: #3fa7d6;
   --dlg-s-created: #ee6352;

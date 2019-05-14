@@ -24,6 +24,8 @@ body[data-theme="dark"] {
   --btn-primary-bg-hf: #212121;
   --btn-primary-bg-hf-c: #fff;
 
+  --checkbox-bg: #444;
+
   --input-c: #fff;
   --input-bg: #353535;
   --input-brdc: #777;
@@ -34,9 +36,14 @@ body[data-theme="dark"] {
   --input-select-bg: #565656;
   --input-select-hf: #444;
 
+  --table-even-rows-bg: #333;
+
   --login-box-bg: #121212;
   --login-box-c: #fff;
   --login-box-bsh: rgba(0, 0, 0, 0.4);
+
+  --row-loading-bg-primary: #000;
+  --row-loading-bg-secondary: #222;
 
   --dlg-s-prepared: #3fa7d6;
   --dlg-s-created: #ee6352;

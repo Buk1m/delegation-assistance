@@ -5,5 +5,11 @@ const validateStartEndDate = (endDate, allValues) => {
   }
   return null;
 };
+const validateDepartureArrivalDate = (arrivalDate, allValues) => {
+  if (arrivalDate <= allValues.departureDate) {
+    return "Arrival date must be later than departure date!";
+  }
+  return null;
+};
 
-export { validateRequired, validateStartEndDate };
+export { validateRequired, validateStartEndDate, validateDepartureArrivalDate };

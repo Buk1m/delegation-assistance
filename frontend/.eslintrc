@@ -37,7 +37,8 @@
         "destructuring": "any",
         "ignoreReadBeforeAssign": false
       }
-    ]
+    ],
+    "react/sort-prop-types": 1
   },
   "plugins": [
     "react",

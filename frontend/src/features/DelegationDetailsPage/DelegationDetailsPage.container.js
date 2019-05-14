@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { string, object, func, bool } from "prop-types";
+import { string, object, func } from "prop-types";
 import { toast } from "react-toastify";
 
 import DelegationDetailsPage from "./DelegationDetailsPage.component";
-import { getActivities, getActivitiesFetching } from "../../selectors/delegationChecklist.selectors";
-import { fetchChecklist } from "../../actions/delegationChecklist.action";
 import { deleteDelegation } from "../../actions/delegations.actions";
 import { confirmationModal } from "../../helpers/confirmationModal";
 
@@ -13,7 +11,6 @@ class DelegationDetailsPageContainer extends Component {
   static propTypes = {
     delegationId: string,
     deleteDelegation: func,
-    fetchingActivities: bool,
     history: object,
     match: object
   };
@@ -46,27 +43,16 @@ class DelegationDetailsPageContainer extends Component {
 
   render() {
     return !this.invalidDelegationId ? (
-      <DelegationDetailsPage
-        delegationId={this.delegationId}
-        fetchingActivities={this.props.fetchingActivities}
-        onDelete={this.handleDelete}
-        onSend={this.handleSend}
-      />
+      <DelegationDetailsPage delegationId={this.delegationId} onDelete={this.handleDelete} onSend={this.handleSend} />
     ) : null;
   }
 }
 
-const mapStateToProps = state => ({
-  tasks: getActivities(state),
-  fetchingActivities: getActivitiesFetching(state)
-});
-
 const mapDispatchToProps = {
-  fetchChecklist,
   deleteDelegation
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(DelegationDetailsPageContainer);

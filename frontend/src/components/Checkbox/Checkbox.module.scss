@@ -21,11 +21,11 @@
     transition: all 0.25s ease-in-out;
     width: 1.2rem;
     z-index: 1;
-    background: #fff;
+    background: var(--checkbox-bg);
   }
 
   &:checked:before {
-    background: #f8f8f8;
+    background: var(--checkbox-bg);
     border-color: $primary-color;
     border-right-style: none;
     border-top-style: none;
@@ -39,7 +39,7 @@
   }
 
   &:after {
-    background: #f8f8f8;
+    background: var(--checkbox-bg);
     content: "";
     cursor: pointer;
     height: 1.4rem;

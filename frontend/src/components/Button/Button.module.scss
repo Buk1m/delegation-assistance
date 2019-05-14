@@ -55,6 +55,10 @@
       color: var(--btn-primary-bg-hf-c);
       text-decoration: none;
 
+      .spinner {
+        color: $primary-color;
+      }
+
       &:before {
         left: 0%;
       }

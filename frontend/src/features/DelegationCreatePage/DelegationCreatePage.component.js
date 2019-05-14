@@ -64,9 +64,9 @@ export const DelegationCreatePage = props => {
 };
 
 DelegationCreatePage.propTypes = {
+  countriesISOCodes: array,
   handleSubmit: func,
-  submitting: bool,
-  countriesISOCodes: array
+  submitting: bool
 };
 
 export default reduxForm({

@@ -5,9 +5,10 @@ import userReducer from "../reducers/user.reducer";
 import themeReducer from "../reducers/theme.reducer";
 import delegationsReducer from "../reducers/delegations.reducer";
 import checklistsReducer from "../reducers/checklists.reducer";
-import expenseReducer from "../reducers/expense.reducer";
-import delegationChecklistReducer from "../reducers/delegationChecklist.reducer";
 import checklistTemplateReducer from "../reducers/checklistTemplate.reducer";
+import delegationChecklistReducer from "../reducers/delegationChecklist.reducer";
+import expenseReducer from "../reducers/expense.reducer";
+import flightsReducer from "../reducers/flights.reducer";
 
 const combinedReducers = combineReducers({
   user: userReducer,
@@ -16,8 +17,9 @@ const combinedReducers = combineReducers({
   delegations: delegationsReducer,
   checklists: checklistsReducer,
   checklistTemplate: checklistTemplateReducer,
+  delegationChecklist: delegationChecklistReducer,
   expense: expenseReducer,
-  delegationChecklist: delegationChecklistReducer
+  flights: flightsReducer
 });
 
 export default combinedReducers;

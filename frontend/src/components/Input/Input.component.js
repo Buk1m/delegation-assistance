@@ -53,14 +53,14 @@ const Input = props => {
 };
 
 Input.propTypes = {
+  classes: string,
+  component: string.isRequired,
   label: string,
   name: string.isRequired,
-  type: string,
-  component: string.isRequired,
+  options: array,
   placeholder: string,
-  validate: oneOfType([func, array]),
-  classes: string,
-  options: array
+  type: string,
+  validate: oneOfType([func, array])
 };
 
 export default Input;

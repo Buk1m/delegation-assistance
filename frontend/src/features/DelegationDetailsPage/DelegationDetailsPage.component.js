@@ -1,16 +1,17 @@
 import React from "react";
-import { string, func } from "prop-types";
+import { func, string } from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { bed } from "react-icons-kit/fa/bed";
-import { plane } from "react-icons-kit/fa/plane";
 import { check } from "react-icons-kit/fa/check";
 import { ic_payment } from "react-icons-kit/md/ic_payment";
+import { plane } from "react-icons-kit/fa/plane";
 
-import LayoutMain from "../../components/layouts/LayoutMain";
-import Card from "../../components/Card/Card.component";
-import Button from "../../components/Button/Button.component";
-import DelegationDetails from "./components/DelegationDetails/DelegationDetails.container";
 import ActivitiesList from "../../components/ActivitiesList/ActivitiesList.container";
+import Button from "../../components/Button/Button.component";
+import Card from "../../components/Card/Card.component";
+import DelegationDetails from "./components/DelegationDetails/DelegationDetails.container";
+import DelegationFlights from "./components/DelegationFlights/DelegationFlights.container";
+import LayoutMain from "../../components/layouts/LayoutMain";
 import RenderTab from "../../components/renderers/RenderTab/RenderTab.renderer";
 
 import "react-tabs/style/react-tabs.css";
@@ -63,7 +64,7 @@ const DelegationDetailsPage = props => {
               </TabPanel>
               <TabPanel>
                 <div className="flights">
-                  <h1>TODO: IDEMIA2019-195 Jako pracownik mogę dodać lot do mojej delegacji</h1>
+                  <DelegationFlights delegationId={delegationId} />
                 </div>
               </TabPanel>
               <TabPanel>

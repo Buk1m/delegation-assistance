@@ -33,6 +33,24 @@
     padding: 20px;
     transition: 1s linear opacity;
   }
+
+  .react-datepicker__day--selected {
+    background: $primary-color;
+  }
+
+  .react-datepicker__time-list-item--selected {
+    background: $primary-color;
+  }
+
+  .date-pickers-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .flight:nth-child(even) {
+    background: var(--table-even-rows-bg);
+  }
 }
 
 @media screen and (min-width: $lg-start) {
@@ -68,5 +86,19 @@
   }
   .delete-btn {
     margin-right: 15px;
+  }
+}
+
+@media screen and (max-width: $xs-end) {
+  .flights-table {
+    overflow-x: scroll;
+  }
+
+  .mobile-table {
+    min-width: $mobile-table;
+  }
+
+  .flight {
+    min-width: $mobile-table;
   }
 }

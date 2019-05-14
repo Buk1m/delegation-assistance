@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker";
-import { bool, object } from "prop-types";
+import { bool, number, object } from "prop-types";
 
 import ValidationError from "../../ValidationError/ValidationError.component";
 
@@ -9,6 +9,7 @@ const RenderDateTimePicker = props => {
     input: { value, ...restInput },
     meta: { touched, error, warning },
     inline = true,
+    timeIntervals = 1,
     ...rest
   } = props;
   return (
@@ -21,7 +22,7 @@ const RenderDateTimePicker = props => {
         selected={!value ? undefined : new Date(value)}
         showTimeSelect
         timeFormat="HH:mm"
-        timeIntervals={1}
+        timeIntervals={timeIntervals}
         fixedHeight
         className="date-time-picker"
       />
@@ -31,9 +32,10 @@ const RenderDateTimePicker = props => {
 };
 
 RenderDateTimePicker.propTypes = {
+  inline: bool,
   input: object,
   meta: object,
-  inline: bool
+  timeIntervals: number
 };
 
 export default RenderDateTimePicker;

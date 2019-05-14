@@ -77,7 +77,7 @@ const DelegationsScreen = props => {
       <FlatList
         style={[styles.list, styles.listSideMargins]}
         data={delegations}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item.id}
         renderItem={delegation => renderItem(delegation, navigate)}
         refreshing={fetching}
         onRefresh={handleRefresh}
