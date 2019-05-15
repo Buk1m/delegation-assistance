@@ -10,7 +10,8 @@ const FieldRenderer = ({
   multiline = false,
   numberOfLines = 1,
   meta: { touched, error },
-  input: { onChange, ...restInput }
+  input: { onChange, ...restInput },
+  mystyles
 }) => {
   const inputStyles = multiline ? styles.textarea : styles.input;
   return (
@@ -18,7 +19,7 @@ const FieldRenderer = ({
       <View>
         <TextInput
           {...restInput}
-          style={inputStyles}
+          style={[inputStyles, mystyles]}
           multiline={multiline}
           numberOfLines={numberOfLines}
           onChangeText={onChange}

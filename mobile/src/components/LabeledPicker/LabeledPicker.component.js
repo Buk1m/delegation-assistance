@@ -16,7 +16,7 @@ const LabeledPicker = ({
   style,
   title,
   iconName,
-  data
+  data,
 }) => {
   return (
     <View style={style}>
