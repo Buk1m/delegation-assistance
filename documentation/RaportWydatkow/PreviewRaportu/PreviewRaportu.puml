@@ -1,0 +1,16 @@
+@startuml PobierzWydatki
+Client->ReportService:{GET} getPreviewReport()
+ReportService->DelegationService:getDelegation()
+DelegationService->DelegationRepository:getDelegation()
+DelegationRepository->DelegationService
+DelegationService->ReportService
+ReportService->DelegationService:getFiles
+DelegationService->ExpenseService:getFiles()
+ExpenseService->ExpenseRepository:getFiles()
+ExpenseRepository->ExpenseService
+ExpenseService->DelegationService
+DelegationService->ReportService
+ReportService->NBPService:getExchangeRates
+NBPService->ReportService
+ReportService->Client
+@enduml
