@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.MealsAdjuster
 import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist
 import com.idemia.ip.office.backend.delegation.assistant.entities.Country
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
@@ -14,7 +15,7 @@ import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataPr
 class CreateDelegationServiceCaseSpec extends Specification {
 
     DelegationRepository delegationRepository = Mock()
-    CreateDelegationService createDelegationService = new CreateDelegationServiceImpl(Schedulers.fromExecutor(Executors.newSingleThreadScheduledExecutor()), delegationRepository)
+    CreateDelegationService createDelegationService = new CreateDelegationServiceImpl(Schedulers.fromExecutor(Executors.newSingleThreadScheduledExecutor()), delegationRepository, Mock(MealsAdjuster))
 
     def 'Delegation and diet are properly saved'() {
         given: 'Delegation, checklist, country and diet'

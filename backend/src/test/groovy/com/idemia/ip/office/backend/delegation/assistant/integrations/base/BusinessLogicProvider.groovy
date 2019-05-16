@@ -6,6 +6,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Delega
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.AccommodationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.MealsDto
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -17,6 +18,7 @@ import java.util.stream.Collectors
 
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyChecklistTemplateDto
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDetailsDto
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyMealsDto
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getDateTimeFormatter
 import static org.springframework.http.HttpStatus.OK
 
@@ -43,6 +45,10 @@ class BusinessLogicProvider {
 
     WebTestClient.ResponseSpec tryUpdateChecklistTemplate(AuthToken authToken, ChecklistTemplateDto updatedChecklistTemplateDto = anyChecklistTemplateDto()) {
         webTestClientWrapper.put('/checklist', authToken, updatedChecklistTemplateDto)
+    }
+
+    MealsDto updateDelegationMeals(AuthToken authToken, MealsDto mealsDto = anyMealsDto(), Long delegationId) {
+        webTestClientWrapper.patch("/delegations/${delegationId}/meals", authToken, mealsDto, OK, MealsDto.class)
     }
 
     DelegationDetailsDto createDelegation(AuthToken authToken, DelegationDetailsDto delegationDto = anyDelegationDetailsDto()) {

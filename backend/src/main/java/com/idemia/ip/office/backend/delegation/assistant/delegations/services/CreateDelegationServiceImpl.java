@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.MealsAdjuster;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Country;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
@@ -15,11 +16,14 @@ public class CreateDelegationServiceImpl implements CreateDelegationService {
 
     private final Scheduler scheduler;
     private final DelegationRepository delegationRepository;
+    private final MealsAdjuster mealsAdjuster;
 
     public CreateDelegationServiceImpl(Scheduler scheduler,
-            DelegationRepository delegationRepository) {
+            DelegationRepository delegationRepository,
+            MealsAdjuster mealsAdjuster) {
         this.scheduler = scheduler;
         this.delegationRepository = delegationRepository;
+        this.mealsAdjuster = mealsAdjuster;
     }
 
     @Override
@@ -36,7 +40,9 @@ public class CreateDelegationServiceImpl implements CreateDelegationService {
         newDelegation.setDestinationCountry(country);
         newDelegation.setChecklist(checklist);
         newDelegation.setDelegationStatus(CREATED);
-        newDelegation.getDiet().setDelegation(newDelegation);
+        mealsAdjuster.adjustNumberOfMeals(newDelegation.getMeals(),
+                newDelegation.getStartDate(),
+                newDelegation.getEndDate());
         return Mono.just(newDelegation);
     }
 }

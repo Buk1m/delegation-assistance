@@ -4,6 +4,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Accomm
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDetailsDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.MealsDto
 import com.idemia.ip.office.backend.delegation.assistant.integrations.base.BaseIntegrationSpec
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -225,6 +226,21 @@ class DelegationsSpec extends BaseIntegrationSpec {
 
         where:
             tokenOwner << ['travelManager', 'accountant', 'approver']
+    }
+
+    def 'Should update delegation meals'() {
+        given: 'Employee and updated meals'
+            AuthToken employeeToken = businessLogicProvider.employeeToken()
+            DelegationDetailsDto delegation = businessLogicProvider.createDelegation(employeeToken)
+            MealsDto mealsDto = new MealsDto(lunches: 1, breakfasts: 2, dinners: 3, version: 0)
+
+        when: 'Employee update delegation meals'
+            MealsDto updatedMeals = businessLogicProvider.updateDelegationMeals(employeeToken, mealsDto, delegation.getId())
+
+        then: 'Employee has got updated meals'
+            updatedMeals.breakfasts == mealsDto.breakfasts
+            updatedMeals.lunches == mealsDto.lunches
+            updatedMeals.dinners == mealsDto.dinners
     }
 
     List<DelegationDetailsDto> createDelegationsToFilter(int delegationsCount) {

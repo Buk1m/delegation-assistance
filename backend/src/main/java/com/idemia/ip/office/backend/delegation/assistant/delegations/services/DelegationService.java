@@ -2,6 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
+import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.files.dtos.UserFile;
@@ -39,6 +40,8 @@ public interface DelegationService {
             Collection<? extends GrantedAuthority> authorities);
 
     Mono<Expense> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
+
+    Mono<Meals> updateMeals(Long delegationId, Authentication authentication, Meals meals);
 
     Mono<Page<Expense>> getExpenses(Long delegationId,
             Integer pageNumber,

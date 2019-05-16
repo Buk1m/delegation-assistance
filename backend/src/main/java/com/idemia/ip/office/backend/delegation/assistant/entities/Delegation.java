@@ -93,6 +93,25 @@ public class Delegation extends BaseEntity {
     @OneToOne(cascade = {PERSIST, REMOVE, REFRESH, DETACH})
     private Checklist checklist;
 
-    @OneToOne(mappedBy = "delegation", cascade = {PERSIST, REFRESH, DETACH})
+    @OneToOne(mappedBy = "delegation", cascade = {PERSIST, REMOVE, REFRESH, DETACH})
     private Diet diet;
+
+    @OneToOne(mappedBy = "delegation", cascade = {PERSIST, REMOVE, REFRESH, DETACH})
+    private Meals meals;
+
+    /**
+     * Sets a bidirectional association between Delegation and Diet.
+     */
+    public void setDiet(Diet diet) {
+        diet.setDelegation(this);
+        this.diet = diet;
+    }
+
+    /**
+     * Sets a bidirectional association between Delegation and Meals.
+     */
+    public void setMeals(Meals meals) {
+        meals.setDelegation(this);
+        this.meals = meals;
+    }
 }

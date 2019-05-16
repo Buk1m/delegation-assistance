@@ -7,6 +7,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Accomm
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DietDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.MealsDto
 import com.idemia.ip.office.backend.delegation.assistant.entities.*
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
 import com.idemia.ip.office.backend.delegation.assistant.expenses.dtos.ExpenseDto
@@ -65,6 +66,7 @@ class TestDataProvider {
                 .destinationLocation('Radom')
                 .destinationCountryId(1)
                 .diet(anyDietDto())
+                .meals(anyMealsDto())
                 .startDate(getLocalDateTime(getDateTimeFormatter()))
                 .endDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1))
                 .build()
@@ -84,6 +86,7 @@ class TestDataProvider {
                 .advancePayment(new BigDecimal(500))
                 .destinationCountry(anyCountry())
                 .diet(anyDiet())
+                .meals(anyMeals())
                 .startDate(getLocalDateTime(getDateTimeFormatter()))
                 .endDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1))
                 .checklist(anyChecklist())
@@ -96,6 +99,14 @@ class TestDataProvider {
 
     static DietDto anyDietDto() {
         new DietDto(currency: 'PLN', perDiem: 50)
+    }
+
+    static Meals anyMeals() {
+        new Meals(breakfasts: 1, dinners: 2, lunches: 3)
+    }
+
+    static MealsDto anyMealsDto() {
+        new MealsDto(breakfasts: 1, dinners: 2, lunches: 3)
     }
 
     static Checklist anyChecklist() {

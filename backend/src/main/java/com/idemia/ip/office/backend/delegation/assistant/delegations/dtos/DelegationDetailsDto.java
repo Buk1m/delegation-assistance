@@ -69,6 +69,10 @@ public class DelegationDetailsDto extends BaseDto {
     @NotNull(message = "{error.message.field.not.null}", groups = OnPost.class)
     private DietDto diet;
 
+    @Valid
+    @NotNull(message = "{error.message.field.not.null}", groups = OnPost.class)
+    private MealsDto meals;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

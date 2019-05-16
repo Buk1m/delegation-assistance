@@ -17,251 +17,250 @@ INSERT INTO activity(id, uuid, version, task, description, checklist_id, is_done
 INSERT INTO activity(id, uuid, version, task, description, checklist_id, is_done) VALUES (3, uuid(), 0, 'Flight booking', 'You must book your flight 7 days in advance.', 1, false);
 INSERT INTO activity(id, uuid, version, task, description, checklist_id, is_done) VALUES (4, uuid(), 0, 'Medicines', 'You should buy headache medications.', 1, false);
 
-INSERT INTO country(id, uuid, version, country_code, country_name) VALUES
-(1, uuid(), 0, 'PRI', 'Puerto Rico'),
-(2, uuid(), 0, 'ARM', 'Armenia'),
-(3, uuid(), 0, 'GUF', 'French Guiana'),
-(4, uuid(), 0, 'AUS', 'Australia'),
-(5, uuid(), 0, 'TWN', 'Taiwan'),
-(6, uuid(), 0, 'FRO', 'Faroe Islands'),
-(7, uuid(), 0, 'SVN', 'Slovenia'),
-(8, uuid(), 0, 'PNG', 'Papua New Guinea'),
-(9, uuid(), 0, 'HKG', 'Hong Kong SAR China'),
-(10, uuid(), 0, 'TGO', 'Togo'),
-(11, uuid(), 0, 'RWA', 'Rwanda'),
-(12, uuid(), 0, 'COG', 'Congo - Brazzaville'),
-(13, uuid(), 0, 'DEU', 'Germany'),
-(14, uuid(), 0, 'ISR', 'Israel'),
-(15, uuid(), 0, 'LCA', 'St. Lucia'),
-(16, uuid(), 0, 'MYS', 'Malaysia'),
-(17, uuid(), 0, 'BMU', 'Bermuda'),
-(18, uuid(), 0, 'SSD', 'South Sudan'),
-(19, uuid(), 0, 'ITA', 'Italy'),
-(20, uuid(), 0, 'SDN', 'Sudan'),
-(21, uuid(), 0, 'REU', 'Réunion'),
-(22, uuid(), 0, 'VGB', 'British Virgin Islands'),
-(23, uuid(), 0, 'SMR', 'San Marino'),
-(24, uuid(), 0, 'SGP', 'Singapore'),
-(25, uuid(), 0, 'GNQ', 'Equatorial Guinea'),
-(26, uuid(), 0, 'BES', 'Caribbean Netherlands'),
-(27, uuid(), 0, 'NZL', 'New Zealand'),
-(28, uuid(), 0, 'MAR', 'Morocco'),
-(29, uuid(), 0, 'CAN', 'Canada'),
-(30, uuid(), 0, 'TKM', 'Turkmenistan'),
-(31, uuid(), 0, 'DMA', 'Dominica'),
-(32, uuid(), 0, 'COL', 'Colombia'),
-(33, uuid(), 0, 'TLS', 'Timor-Leste'),
-(34, uuid(), 0, 'KGZ', 'Kyrgyzstan'),
-(35, uuid(), 0, 'BWA', 'Botswana'),
-(36, uuid(), 0, 'HRV', 'Croatia'),
-(37, uuid(), 0, 'CIV', 'Côte d’Ivoire'),
-(38, uuid(), 0, 'IRN', 'Iran'),
-(39, uuid(), 0, 'GUM', 'Guam'),
-(40, uuid(), 0, 'BFA', 'Burkina Faso'),
-(41, uuid(), 0, 'ZWE', 'Zimbabwe'),
-(42, uuid(), 0, 'MAF', 'St. Martin'),
-(43, uuid(), 0, 'MNP', 'Northern Mariana Islands'),
-(44, uuid(), 0, 'TKL', 'Tokelau'),
-(45, uuid(), 0, 'LBN', 'Lebanon'),
-(46, uuid(), 0, 'TCA', 'Turks & Caicos Islands'),
-(47, uuid(), 0, 'MCO', 'Monaco'),
-(48, uuid(), 0, 'KAZ', 'Kazakhstan'),
-(49, uuid(), 0, 'SYR', 'Syria'),
-(50, uuid(), 0, 'LIE', 'Liechtenstein'),
-(51, uuid(), 0, 'ARG', 'Argentina'),
-(52, uuid(), 0, 'HND', 'Honduras'),
-(53, uuid(), 0, 'SWE', 'Sweden'),
-(54, uuid(), 0, 'ZMB', 'Zambia'),
-(55, uuid(), 0, 'GLP', 'Guadeloupe'),
-(56, uuid(), 0, 'AIA', 'Anguilla'),
-(57, uuid(), 0, 'MLT', 'Malta'),
-(58, uuid(), 0, 'FRA', 'France'),
-(59, uuid(), 0, 'SLV', 'El Salvador'),
-(60, uuid(), 0, 'UGA', 'Uganda'),
-(61, uuid(), 0, 'GMB', 'Gambia'),
-(62, uuid(), 0, 'SPM', 'St. Pierre & Miquelon'),
-(63, uuid(), 0, 'NOR', 'Norway'),
-(64, uuid(), 0, 'FSM', 'Micronesia'),
-(65, uuid(), 0, 'KHM', 'Cambodia'),
-(66, uuid(), 0, 'JAM', 'Jamaica'),
-(67, uuid(), 0, 'IMN', 'Isle of Man'),
-(68, uuid(), 0, 'MTQ', 'Martinique'),
-(69, uuid(), 0, 'UKR', 'Ukraine'),
-(70, uuid(), 0, 'GRD', 'Grenada'),
-(71, uuid(), 0, 'SHN', 'St. Helena'),
-(72, uuid(), 0, 'DZA', 'Algeria'),
-(73, uuid(), 0, 'COK', 'Cook Islands'),
-(74, uuid(), 0, 'LVA', 'Latvia'),
-(75, uuid(), 0, 'VIR', 'U.S. Virgin Islands'),
-(76, uuid(), 0, 'IRL', 'Ireland'),
-(77, uuid(), 0, 'TZA', 'Tanzania'),
-(78, uuid(), 0, 'GIN', 'Guinea'),
-(79, uuid(), 0, 'CYM', 'Cayman Islands'),
-(80, uuid(), 0, 'THA', 'Thailand'),
-(81, uuid(), 0, 'CCK', 'Cocos (Keeling) Islands'),
-(82, uuid(), 0, 'WLF', 'Wallis & Futuna'),
-(83, uuid(), 0, 'BTN', 'Bhutan'),
-(84, uuid(), 0, 'BGR', 'Bulgaria'),
-(85, uuid(), 0, 'SAU', 'Saudi Arabia'),
-(86, uuid(), 0, 'ZAF', 'South Africa'),
-(87, uuid(), 0, 'CRI', 'Costa Rica'),
-(88, uuid(), 0, 'FIN', 'Finland'),
-(89, uuid(), 0, 'YEM', 'Yemen'),
-(90, uuid(), 0, 'HUN', 'Hungary'),
-(91, uuid(), 0, 'PER', 'Peru'),
-(92, uuid(), 0, 'LUX', 'Luxembourg'),
-(93, uuid(), 0, 'GRL', 'Greenland'),
-(94, uuid(), 0, 'IRQ', 'Iraq'),
-(95, uuid(), 0, 'BEN', 'Benin'),
-(96, uuid(), 0, 'TUV', 'Tuvalu'),
-(97, uuid(), 0, 'MDA', 'Moldova'),
-(98, uuid(), 0, 'AZE', 'Azerbaijan'),
-(99, uuid(), 0, 'SJM', 'Svalbard & Jan Mayen'),
-(100, uuid(), 0, 'KEN', 'Kenya'),
-(101, uuid(), 0, 'PAK', 'Pakistan'),
-(102, uuid(), 0, 'NCL', 'New Caledonia'),
-(103, uuid(), 0, 'OMN', 'Oman'),
-(104, uuid(), 0, 'PHL', 'Philippines'),
-(105, uuid(), 0, 'USA', 'United States'),
-(106, uuid(), 0, 'JPN', 'Japan'),
-(107, uuid(), 0, 'TJK', 'Tajikistan'),
-(108, uuid(), 0, 'ALA', 'Åland Islands'),
-(109, uuid(), 0, 'UZB', 'Uzbekistan'),
-(110, uuid(), 0, 'QAT', 'Qatar'),
-(111, uuid(), 0, 'PRK', 'North Korea'),
-(112, uuid(), 0, 'SYC', 'Seychelles'),
-(113, uuid(), 0, 'GGY', 'Guernsey'),
-(114, uuid(), 0, 'BRB', 'Barbados'),
-(115, uuid(), 0, 'TUN', 'Tunisia'),
-(116, uuid(), 0, 'MNG', 'Mongolia'),
-(117, uuid(), 0, 'IND', 'India'),
-(118, uuid(), 0, 'DOM', 'Dominican Republic'),
-(119, uuid(), 0, 'ATG', 'Antigua & Barbuda'),
-(120, uuid(), 0, 'NAM', 'Namibia'),
-(121, uuid(), 0, 'GBR', 'United Kingdom'),
-(122, uuid(), 0, 'BEL', 'Belgium'),
-(123, uuid(), 0, 'BOL', 'Bolivia'),
-(124, uuid(), 0, 'POL', 'Poland'),
-(125, uuid(), 0, 'LKA', 'Sri Lanka'),
-(126, uuid(), 0, 'CXR', 'Christmas Island'),
-(127, uuid(), 0, 'GUY', 'Guyana'),
-(128, uuid(), 0, 'GEO', 'Georgia'),
-(129, uuid(), 0, 'LTU', 'Lithuania'),
-(130, uuid(), 0, 'PCN', 'Pitcairn Islands'),
-(131, uuid(), 0, 'KNA', 'St. Kitts & Nevis'),
-(132, uuid(), 0, 'AFG', 'Afghanistan'),
-(133, uuid(), 0, 'ESH', 'Western Sahara'),
-(134, uuid(), 0, 'MOZ', 'Mozambique'),
-(135, uuid(), 0, 'MAC', 'Macau SAR China'),
-(136, uuid(), 0, 'PAN', 'Panama'),
-(137, uuid(), 0, 'MEX', 'Mexico'),
-(138, uuid(), 0, 'LBY', 'Libya'),
-(139, uuid(), 0, 'BLM', 'St. Barthélemy'),
-(140, uuid(), 0, 'VUT', 'Vanuatu'),
-(141, uuid(), 0, 'CUW', 'Curaçao'),
-(142, uuid(), 0, 'SLB', 'Solomon Islands'),
-(143, uuid(), 0, 'BLR', 'Belarus'),
-(144, uuid(), 0, 'ABW', 'Aruba'),
-(145, uuid(), 0, 'TCD', 'Chad'),
-(146, uuid(), 0, 'CMR', 'Cameroon'),
-(147, uuid(), 0, 'MDG', 'Madagascar'),
-(148, uuid(), 0, 'KWT', 'Kuwait'),
-(149, uuid(), 0, 'MYT', 'Mayotte'),
-(150, uuid(), 0, 'MLI', 'Mali'),
-(151, uuid(), 0, 'BLZ', 'Belize'),
-(152, uuid(), 0, 'SRB', 'Serbia'),
-(153, uuid(), 0, 'IDN', 'Indonesia'),
-(154, uuid(), 0, 'GTM', 'Guatemala'),
-(155, uuid(), 0, 'EST', 'Estonia'),
-(156, uuid(), 0, 'BDI', 'Burundi'),
-(157, uuid(), 0, 'FJI', 'Fiji'),
-(158, uuid(), 0, 'BRN', 'Brunei'),
-(159, uuid(), 0, 'ESP', 'Spain'),
-(160, uuid(), 0, 'HTI', 'Haiti'),
-(161, uuid(), 0, 'MNE', 'Montenegro'),
-(162, uuid(), 0, 'SVK', 'Slovakia'),
-(163, uuid(), 0, 'VAT', 'Vatican City'),
-(164, uuid(), 0, 'MSR', 'Montserrat'),
-(165, uuid(), 0, 'NIC', 'Nicaragua'),
-(166, uuid(), 0, 'NFK', 'Norfolk Island'),
-(167, uuid(), 0, 'ASM', 'American Samoa'),
-(168, uuid(), 0, 'SWZ', 'Swaziland'),
-(169, uuid(), 0, 'ALB', 'Albania'),
-(170, uuid(), 0, 'DJI', 'Djibouti'),
-(171, uuid(), 0, 'ISL', 'Iceland'),
-(172, uuid(), 0, 'JOR', 'Jordan'),
-(173, uuid(), 0, 'CHL', 'Chile'),
-(174, uuid(), 0, 'MHL', 'Marshall Islands'),
-(175, uuid(), 0, 'BRA', 'Brazil'),
-(176, uuid(), 0, 'SEN', 'Senegal'),
-(177, uuid(), 0, 'MUS', 'Mauritius'),
-(178, uuid(), 0, 'IOT', 'British Indian Ocean Territory'),
-(179, uuid(), 0, 'WSM', 'Samoa'),
-(180, uuid(), 0, 'VEN', 'Venezuela'),
-(181, uuid(), 0, 'NRU', 'Nauru'),
-(182, uuid(), 0, 'PYF', 'French Polynesia'),
-(183, uuid(), 0, 'TTO', 'Trinidad & Tobago'),
-(184, uuid(), 0, 'GAB', 'Gabon'),
-(185, uuid(), 0, 'LAO', 'Laos'),
-(186, uuid(), 0, 'AGO', 'Angola'),
-(187, uuid(), 0, 'VCT', 'St. Vincent & Grenadines'),
-(188, uuid(), 0, 'TON', 'Tonga'),
-(189, uuid(), 0, 'BHR', 'Bahrain'),
-(190, uuid(), 0, 'KIR', 'Kiribati'),
-(191, uuid(), 0, 'ECU', 'Ecuador'),
-(192, uuid(), 0, 'LBR', 'Liberia'),
-(193, uuid(), 0, 'JEY', 'Jersey'),
-(194, uuid(), 0, 'GNB', 'Guinea-Bissau'),
-(195, uuid(), 0, 'TUR', 'Turkey'),
-(196, uuid(), 0, 'DNK', 'Denmark'),
-(197, uuid(), 0, 'CPV', 'Cape Verde'),
-(198, uuid(), 0, 'GIB', 'Gibraltar'),
-(199, uuid(), 0, 'PSE', 'Palestinian Territories'),
-(200, uuid(), 0, 'FLK', 'Falkland Islands'),
-(201, uuid(), 0, 'CZE', 'Czechia'),
-(202, uuid(), 0, 'ETH', 'Ethiopia'),
-(203, uuid(), 0, 'LSO', 'Lesotho'),
-(204, uuid(), 0, 'ROU', 'Romania'),
-(205, uuid(), 0, 'PRY', 'Paraguay'),
-(206, uuid(), 0, 'RUS', 'Russia'),
-(207, uuid(), 0, 'CYP', 'Cyprus'),
-(208, uuid(), 0, 'NLD', 'Netherlands'),
-(209, uuid(), 0, 'COD', 'Congo - Kinshasa'),
-(210, uuid(), 0, 'PLW', 'Palau'),
-(211, uuid(), 0, 'BHS', 'Bahamas'),
-(212, uuid(), 0, 'MWI', 'Malawi'),
-(213, uuid(), 0, 'MKD', 'Macedonia'),
-(214, uuid(), 0, 'SLE', 'Sierra Leone'),
-(215, uuid(), 0, 'MRT', 'Mauritania'),
-(216, uuid(), 0, 'GRC', 'Greece'),
-(217, uuid(), 0, 'KOR', 'South Korea'),
-(218, uuid(), 0, 'CAF', 'Central African Republic'),
-(219, uuid(), 0, 'CUB', 'Cuba'),
-(220, uuid(), 0, 'MMR', 'Myanmar (Burma)'),
-(221, uuid(), 0, 'ERI', 'Eritrea'),
-(222, uuid(), 0, 'COM', 'Comoros'),
-(223, uuid(), 0, 'SXM', 'Sint Maarten'),
-(224, uuid(), 0, 'SOM', 'Somalia'),
-(225, uuid(), 0, 'NPL', 'Nepal'),
-(226, uuid(), 0, 'GHA', 'Ghana'),
-(227, uuid(), 0, 'NER', 'Niger'),
-(228, uuid(), 0, 'AND', 'Andorra'),
-(229, uuid(), 0, 'PRT', 'Portugal'),
-(230, uuid(), 0, 'NIU', 'Niue'),
-(231, uuid(), 0, 'CHN', 'China'),
-(232, uuid(), 0, 'SUR', 'Suriname'),
-(233, uuid(), 0, 'BGD', 'Bangladesh'),
-(234, uuid(), 0, 'VNM', 'Vietnam'),
-(235, uuid(), 0, 'AUT', 'Austria'),
-(236, uuid(), 0, 'STP', 'São Tomé & Príncipe'),
-(237, uuid(), 0, 'EGY', 'Egypt'),
-(238, uuid(), 0, 'CHE', 'Switzerland'),
-(239, uuid(), 0, 'URY', 'Uruguay'),
-(240, uuid(), 0, 'NGA', 'Nigeria'),
-(241, uuid(), 0, 'UMI', 'U.S. Outlying Islands'),
-(242, uuid(), 0, 'ARE', 'United Arab Emirates'),
-(243, uuid(), 0, 'BIH', 'Bosnia & Herzegovina'),
-(244, uuid(), 0, 'TST', 'Test Country');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (1, uuid(), 0, 'PRI', 'Puerto Rico');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (2, uuid(), 0, 'ARM', 'Armenia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (3, uuid(), 0, 'GUF', 'French Guiana');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (4, uuid(), 0, 'AUS', 'Australia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (5, uuid(), 0, 'TWN', 'Taiwan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (6, uuid(), 0, 'FRO', 'Faroe Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (7, uuid(), 0, 'SVN', 'Slovenia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (8, uuid(), 0, 'PNG', 'Papua New Guinea');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (9, uuid(), 0, 'HKG', 'Hong Kong SAR China');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (10, uuid(), 0, 'TGO', 'Togo');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (11, uuid(), 0, 'RWA', 'Rwanda');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (12, uuid(), 0, 'COG', 'Congo - Brazzaville');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (13, uuid(), 0, 'DEU', 'Germany');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (14, uuid(), 0, 'ISR', 'Israel');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (15, uuid(), 0, 'LCA', 'St. Lucia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (16, uuid(), 0, 'MYS', 'Malaysia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (17, uuid(), 0, 'BMU', 'Bermuda');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (18, uuid(), 0, 'SSD', 'South Sudan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (19, uuid(), 0, 'ITA', 'Italy');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (20, uuid(), 0, 'SDN', 'Sudan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (21, uuid(), 0, 'REU', 'Réunion');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (22, uuid(), 0, 'VGB', 'British Virgin Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (23, uuid(), 0, 'SMR', 'San Marino');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (24, uuid(), 0, 'SGP', 'Singapore');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (25, uuid(), 0, 'GNQ', 'Equatorial Guinea');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (26, uuid(), 0, 'BES', 'Caribbean Netherlands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (27, uuid(), 0, 'NZL', 'New Zealand');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (28, uuid(), 0, 'MAR', 'Morocco');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (29, uuid(), 0, 'CAN', 'Canada');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (30, uuid(), 0, 'TKM', 'Turkmenistan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (31, uuid(), 0, 'DMA', 'Dominica');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (32, uuid(), 0, 'COL', 'Colombia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (33, uuid(), 0, 'TLS', 'Timor-Leste');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (34, uuid(), 0, 'KGZ', 'Kyrgyzstan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (35, uuid(), 0, 'BWA', 'Botswana');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (36, uuid(), 0, 'HRV', 'Croatia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (37, uuid(), 0, 'CIV', 'Côte d’Ivoire');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (38, uuid(), 0, 'IRN', 'Iran');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (39, uuid(), 0, 'GUM', 'Guam');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (40, uuid(), 0, 'BFA', 'Burkina Faso');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (41, uuid(), 0, 'ZWE', 'Zimbabwe');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (42, uuid(), 0, 'MAF', 'St. Martin');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (43, uuid(), 0, 'MNP', 'Northern Mariana Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (44, uuid(), 0, 'TKL', 'Tokelau');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (45, uuid(), 0, 'LBN', 'Lebanon');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (46, uuid(), 0, 'TCA', 'Turks & Caicos Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (47, uuid(), 0, 'MCO', 'Monaco');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (48, uuid(), 0, 'KAZ', 'Kazakhstan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (49, uuid(), 0, 'SYR', 'Syria');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (50, uuid(), 0, 'LIE', 'Liechtenstein');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (51, uuid(), 0, 'ARG', 'Argentina');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (52, uuid(), 0, 'HND', 'Honduras');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (53, uuid(), 0, 'SWE', 'Sweden');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (54, uuid(), 0, 'ZMB', 'Zambia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (55, uuid(), 0, 'GLP', 'Guadeloupe');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (56, uuid(), 0, 'AIA', 'Anguilla');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (57, uuid(), 0, 'MLT', 'Malta');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (58, uuid(), 0, 'FRA', 'France');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (59, uuid(), 0, 'SLV', 'El Salvador');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (60, uuid(), 0, 'UGA', 'Uganda');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (61, uuid(), 0, 'GMB', 'Gambia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (62, uuid(), 0, 'SPM', 'St. Pierre & Miquelon');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (63, uuid(), 0, 'NOR', 'Norway');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (64, uuid(), 0, 'FSM', 'Micronesia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (65, uuid(), 0, 'KHM', 'Cambodia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (66, uuid(), 0, 'JAM', 'Jamaica');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (67, uuid(), 0, 'IMN', 'Isle of Man');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (68, uuid(), 0, 'MTQ', 'Martinique');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (69, uuid(), 0, 'UKR', 'Ukraine');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (70, uuid(), 0, 'GRD', 'Grenada');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (71, uuid(), 0, 'SHN', 'St. Helena');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (72, uuid(), 0, 'DZA', 'Algeria');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (73, uuid(), 0, 'COK', 'Cook Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (74, uuid(), 0, 'LVA', 'Latvia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (75, uuid(), 0, 'VIR', 'U.S. Virgin Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (76, uuid(), 0, 'IRL', 'Ireland');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (77, uuid(), 0, 'TZA', 'Tanzania');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (78, uuid(), 0, 'GIN', 'Guinea');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (79, uuid(), 0, 'CYM', 'Cayman Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (80, uuid(), 0, 'THA', 'Thailand');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (81, uuid(), 0, 'CCK', 'Cocos INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (Keeling) Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (82, uuid(), 0, 'WLF', 'Wallis & Futuna');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (83, uuid(), 0, 'BTN', 'Bhutan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (84, uuid(), 0, 'BGR', 'Bulgaria');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (85, uuid(), 0, 'SAU', 'Saudi Arabia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (86, uuid(), 0, 'ZAF', 'South Africa');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (87, uuid(), 0, 'CRI', 'Costa Rica');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (88, uuid(), 0, 'FIN', 'Finland');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (89, uuid(), 0, 'YEM', 'Yemen');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (90, uuid(), 0, 'HUN', 'Hungary');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (91, uuid(), 0, 'PER', 'Peru');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (92, uuid(), 0, 'LUX', 'Luxembourg');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (93, uuid(), 0, 'GRL', 'Greenland');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (94, uuid(), 0, 'IRQ', 'Iraq');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (95, uuid(), 0, 'BEN', 'Benin');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (96, uuid(), 0, 'TUV', 'Tuvalu');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (97, uuid(), 0, 'MDA', 'Moldova');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (98, uuid(), 0, 'AZE', 'Azerbaijan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (99, uuid(), 0, 'SJM', 'Svalbard & Jan Mayen');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (100, uuid(), 0, 'KEN', 'Kenya');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (101, uuid(), 0, 'PAK', 'Pakistan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (102, uuid(), 0, 'NCL', 'New Caledonia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (103, uuid(), 0, 'OMN', 'Oman');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (104, uuid(), 0, 'PHL', 'Philippines');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (105, uuid(), 0, 'USA', 'United States');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (106, uuid(), 0, 'JPN', 'Japan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (107, uuid(), 0, 'TJK', 'Tajikistan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (108, uuid(), 0, 'ALA', 'Åland Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (109, uuid(), 0, 'UZB', 'Uzbekistan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (110, uuid(), 0, 'QAT', 'Qatar');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (111, uuid(), 0, 'PRK', 'North Korea');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (112, uuid(), 0, 'SYC', 'Seychelles');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (113, uuid(), 0, 'GGY', 'Guernsey');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (114, uuid(), 0, 'BRB', 'Barbados');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (115, uuid(), 0, 'TUN', 'Tunisia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (116, uuid(), 0, 'MNG', 'Mongolia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (117, uuid(), 0, 'IND', 'India');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (118, uuid(), 0, 'DOM', 'Dominican Republic');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (119, uuid(), 0, 'ATG', 'Antigua & Barbuda');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (120, uuid(), 0, 'NAM', 'Namibia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (121, uuid(), 0, 'GBR', 'United Kingdom');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (122, uuid(), 0, 'BEL', 'Belgium');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (123, uuid(), 0, 'BOL', 'Bolivia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (124, uuid(), 0, 'POL', 'Poland');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (125, uuid(), 0, 'LKA', 'Sri Lanka');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (126, uuid(), 0, 'CXR', 'Christmas Island');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (127, uuid(), 0, 'GUY', 'Guyana');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (128, uuid(), 0, 'GEO', 'Georgia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (129, uuid(), 0, 'LTU', 'Lithuania');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (130, uuid(), 0, 'PCN', 'Pitcairn Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (131, uuid(), 0, 'KNA', 'St. Kitts & Nevis');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (132, uuid(), 0, 'AFG', 'Afghanistan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (133, uuid(), 0, 'ESH', 'Western Sahara');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (134, uuid(), 0, 'MOZ', 'Mozambique');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (135, uuid(), 0, 'MAC', 'Macau SAR China');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (136, uuid(), 0, 'PAN', 'Panama');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (137, uuid(), 0, 'MEX', 'Mexico');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (138, uuid(), 0, 'LBY', 'Libya');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (139, uuid(), 0, 'BLM', 'St. Barthélemy');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (140, uuid(), 0, 'VUT', 'Vanuatu');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (141, uuid(), 0, 'CUW', 'Curaçao');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (142, uuid(), 0, 'SLB', 'Solomon Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (143, uuid(), 0, 'BLR', 'Belarus');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (144, uuid(), 0, 'ABW', 'Aruba');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (145, uuid(), 0, 'TCD', 'Chad');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (146, uuid(), 0, 'CMR', 'Cameroon');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (147, uuid(), 0, 'MDG', 'Madagascar');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (148, uuid(), 0, 'KWT', 'Kuwait');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (149, uuid(), 0, 'MYT', 'Mayotte');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (150, uuid(), 0, 'MLI', 'Mali');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (151, uuid(), 0, 'BLZ', 'Belize');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (152, uuid(), 0, 'SRB', 'Serbia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (153, uuid(), 0, 'IDN', 'Indonesia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (154, uuid(), 0, 'GTM', 'Guatemala');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (155, uuid(), 0, 'EST', 'Estonia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (156, uuid(), 0, 'BDI', 'Burundi');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (157, uuid(), 0, 'FJI', 'Fiji');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (158, uuid(), 0, 'BRN', 'Brunei');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (159, uuid(), 0, 'ESP', 'Spain');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (160, uuid(), 0, 'HTI', 'Haiti');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (161, uuid(), 0, 'MNE', 'Montenegro');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (162, uuid(), 0, 'SVK', 'Slovakia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (163, uuid(), 0, 'VAT', 'Vatican City');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (164, uuid(), 0, 'MSR', 'Montserrat');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (165, uuid(), 0, 'NIC', 'Nicaragua');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (166, uuid(), 0, 'NFK', 'Norfolk Island');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (167, uuid(), 0, 'ASM', 'American Samoa');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (168, uuid(), 0, 'SWZ', 'Swaziland');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (169, uuid(), 0, 'ALB', 'Albania');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (170, uuid(), 0, 'DJI', 'Djibouti');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (171, uuid(), 0, 'ISL', 'Iceland');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (172, uuid(), 0, 'JOR', 'Jordan');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (173, uuid(), 0, 'CHL', 'Chile');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (174, uuid(), 0, 'MHL', 'Marshall Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (175, uuid(), 0, 'BRA', 'Brazil');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (176, uuid(), 0, 'SEN', 'Senegal');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (177, uuid(), 0, 'MUS', 'Mauritius');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (178, uuid(), 0, 'IOT', 'British Indian Ocean Territory');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (179, uuid(), 0, 'WSM', 'Samoa');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (180, uuid(), 0, 'VEN', 'Venezuela');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (181, uuid(), 0, 'NRU', 'Nauru');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (182, uuid(), 0, 'PYF', 'French Polynesia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (183, uuid(), 0, 'TTO', 'Trinidad & Tobago');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (184, uuid(), 0, 'GAB', 'Gabon');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (185, uuid(), 0, 'LAO', 'Laos');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (186, uuid(), 0, 'AGO', 'Angola');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (187, uuid(), 0, 'VCT', 'St. Vincent & Grenadines');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (188, uuid(), 0, 'TON', 'Tonga');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (189, uuid(), 0, 'BHR', 'Bahrain');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (190, uuid(), 0, 'KIR', 'Kiribati');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (191, uuid(), 0, 'ECU', 'Ecuador');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (192, uuid(), 0, 'LBR', 'Liberia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (193, uuid(), 0, 'JEY', 'Jersey');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (194, uuid(), 0, 'GNB', 'Guinea-Bissau');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (195, uuid(), 0, 'TUR', 'Turkey');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (196, uuid(), 0, 'DNK', 'Denmark');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (197, uuid(), 0, 'CPV', 'Cape Verde');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (198, uuid(), 0, 'GIB', 'Gibraltar');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (199, uuid(), 0, 'PSE', 'Palestinian Territories');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (200, uuid(), 0, 'FLK', 'Falkland Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (201, uuid(), 0, 'CZE', 'Czechia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (202, uuid(), 0, 'ETH', 'Ethiopia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (203, uuid(), 0, 'LSO', 'Lesotho');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (204, uuid(), 0, 'ROU', 'Romania');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (205, uuid(), 0, 'PRY', 'Paraguay');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (206, uuid(), 0, 'RUS', 'Russia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (207, uuid(), 0, 'CYP', 'Cyprus');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (208, uuid(), 0, 'NLD', 'Netherlands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (209, uuid(), 0, 'COD', 'Congo - Kinshasa');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (210, uuid(), 0, 'PLW', 'Palau');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (211, uuid(), 0, 'BHS', 'Bahamas');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (212, uuid(), 0, 'MWI', 'Malawi');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (213, uuid(), 0, 'MKD', 'Macedonia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (214, uuid(), 0, 'SLE', 'Sierra Leone');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (215, uuid(), 0, 'MRT', 'Mauritania');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (216, uuid(), 0, 'GRC', 'Greece');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (217, uuid(), 0, 'KOR', 'South Korea');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (218, uuid(), 0, 'CAF', 'Central African Republic');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (219, uuid(), 0, 'CUB', 'Cuba');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (220, uuid(), 0, 'MMR', 'Myanmar INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (Burma)');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (221, uuid(), 0, 'ERI', 'Eritrea');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (222, uuid(), 0, 'COM', 'Comoros');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (223, uuid(), 0, 'SXM', 'Sint Maarten');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (224, uuid(), 0, 'SOM', 'Somalia');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (225, uuid(), 0, 'NPL', 'Nepal');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (226, uuid(), 0, 'GHA', 'Ghana');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (227, uuid(), 0, 'NER', 'Niger');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (228, uuid(), 0, 'AND', 'Andorra');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (229, uuid(), 0, 'PRT', 'Portugal');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (230, uuid(), 0, 'NIU', 'Niue');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (231, uuid(), 0, 'CHN', 'China');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (232, uuid(), 0, 'SUR', 'Suriname');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (233, uuid(), 0, 'BGD', 'Bangladesh');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (234, uuid(), 0, 'VNM', 'Vietnam');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (235, uuid(), 0, 'AUT', 'Austria');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (236, uuid(), 0, 'STP', 'São Tomé & Príncipe');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (237, uuid(), 0, 'EGY', 'Egypt');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (238, uuid(), 0, 'CHE', 'Switzerland');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (239, uuid(), 0, 'URY', 'Uruguay');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (240, uuid(), 0, 'NGA', 'Nigeria');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (241, uuid(), 0, 'UMI', 'U.S. Outlying Islands');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (242, uuid(), 0, 'ARE', 'United Arab Emirates');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (243, uuid(), 0, 'BIH', 'Bosnia & Herzegovina');
+INSERT INTO country(id, uuid, version, country_code, country_name) VALUES (244, uuid(), 0, 'TST', 'Test Country');
 
 INSERT INTO delegation (id, uuid, version, checklist_id, delegated_employee_id, delegation_objective, delegation_status, destination_country_id, destination_location, end_date, start_date, advance_payment) VALUES (1, uuid(), 0, 1, 3, 'Sign new contract for new macbooks', 'CREATED', 244, 'Cupertino', '2019-05-03T10:12:00', '2019-06-04T18:30:00', null);
 INSERT INTO delegation (id, uuid, version, checklist_id, delegated_employee_id, delegation_objective, delegation_status, destination_country_id, destination_location, end_date, start_date, advance_payment) VALUES (2, uuid(), 0, 1, 1, 'Webflux training', 'CHECKED', 244, 'Warsaw', '2019-02-01T08:13:00', '2019-02-01T17:00:00', null);
@@ -276,6 +275,13 @@ INSERT INTO diet (delegation_id, uuid, version, per_diem, currency) VALUES (3, u
 INSERT INTO diet (delegation_id, uuid, version, per_diem, currency) VALUES (4, uuid(), 0, 50, 'EUR');
 INSERT INTO diet (delegation_id, uuid, version, per_diem, currency) VALUES (5, uuid(), 0, 7532, 'JPY');
 INSERT INTO diet (delegation_id, uuid, version, per_diem, currency) VALUES (6, uuid(), 0, 38, 'EUR');
+
+INSERT INTO meals (delegation_id, uuid, version, breakfasts, lunches, dinners) VALUES (1, uuid(), 0, 3, 5, 8);
+INSERT INTO meals (delegation_id, uuid, version, breakfasts, lunches, dinners) VALUES (2, uuid(), 0, 0, 0, 0);
+INSERT INTO meals (delegation_id, uuid, version, breakfasts, lunches, dinners) VALUES (3, uuid(), 0, 0, 0, 0);
+INSERT INTO meals (delegation_id, uuid, version, breakfasts, lunches, dinners) VALUES (4, uuid(), 0, 4, 6, 8);
+INSERT INTO meals (delegation_id, uuid, version, breakfasts, lunches, dinners) VALUES (5, uuid(), 0, 5, 5, 2);
+INSERT INTO meals (delegation_id, uuid, version, breakfasts, lunches, dinners) VALUES (6, uuid(), 0, 3, 6, 4);
 
 INSERT INTO expense (id, uuid, version, expense_currency, expense_date, expense_name, expense_value, payment_type, delegation_id) VALUES (1, uuid(), 0, 'PLN', '2019-02-02', 'Ticket for plane', '120.25', 'CREDIT_CARD', 3);
 INSERT INTO expense (id, uuid, version, expense_currency, expense_date, expense_name, expense_value, payment_type, delegation_id) VALUES (2, uuid(), 0, 'EUR', '2019-04-24', 'Ticket for train', '45.37', 'CASH', 2);

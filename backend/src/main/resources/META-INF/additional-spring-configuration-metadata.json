@@ -104,6 +104,11 @@
       "name": "exception.countries.country-not-found",
       "type": "java.lang.String",
       "description": "Error code if country was not found."
+    },
+    {
+      "name": "exception.maximum-number-of-meals-exceeded",
+      "type": "java.lang.String",
+      "description": "Error code for an exception which is thrown if maximum number of meals has been exceeded."
     }
   ]
 }

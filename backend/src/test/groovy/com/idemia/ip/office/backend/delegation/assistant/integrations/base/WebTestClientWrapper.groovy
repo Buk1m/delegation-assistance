@@ -70,6 +70,16 @@ class WebTestClientWrapper {
         sendRequest(PUT, uri, auth, body, contentType)
     }
 
+    def <T> T patch(String uri, AuthToken auth, Object body, HttpStatus expectedStatus, Class<T> responseClazz, MediaType contentType = APPLICATION_JSON) {
+        WebTestClient.ResponseSpec response = sendPatchRequest(uri, contentType, auth, body, expectedStatus)
+
+        getResponseBody(response, responseClazz)
+    }
+
+    WebTestClient.ResponseSpec patch(String uri, AuthToken auth, Object body, MediaType contentType = APPLICATION_JSON) {
+        sendRequest(PATCH, uri, auth, body, contentType)
+    }
+
     AuthToken signIn(String login, String password) {
         AuthData authData = new AuthData()
         authData.login = login
@@ -84,7 +94,7 @@ class WebTestClientWrapper {
         sendRequest(GET, uri, auth, expectedStatus, null, contentType)
     }
 
-    private WebTestClient.ResponseSpec patchServer(String uri, MediaType contentType, AuthToken auth, Object body, HttpStatus expectedStatus) {
+    private WebTestClient.ResponseSpec sendPatchRequest(String uri, MediaType contentType, AuthToken auth, Object body, HttpStatus expectedStatus) {
         sendRequest(PATCH, uri, auth, expectedStatus, body, contentType)
     }
 

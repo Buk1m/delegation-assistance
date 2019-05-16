@@ -5,6 +5,7 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Country;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
+import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.files.dtos.UserFile;
@@ -71,6 +72,15 @@ public class DelegationServiceImpl implements DelegationService {
     @Override
     public Mono<Delegation> updateDelegation(Delegation newDelegation, Delegation existingDelegation) {
         return updateDelegationService.flowUpdate(existingDelegation, newDelegation);
+    }
+
+    @Override
+    public Mono<Meals> updateMeals(Long delegationId, Authentication authentication, Meals updatedMeals) {
+        return getDelegationValidated(delegationId, authentication).flatMap(delegation ->
+                updateDelegationService.updateMeals(updatedMeals,
+                delegation.getMeals(),
+                delegation.getStartDate(),
+                delegation.getEndDate()));
     }
 
     @Override

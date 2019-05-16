@@ -4,10 +4,12 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Checkl
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDetailsDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationReportDto;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.MealsDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPatch;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
+import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService;
 import com.idemia.ip.office.backend.delegation.assistant.utils.RolesService;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
@@ -145,6 +149,18 @@ public class DelegationController {
                                 authentication.getName(),
                                 updateDelegation.getDelegationStatus()
                         ));
+    }
+
+    @PatchMapping("/delegations/{delegationId}/meals")
+    @Validated(OnPatch.class)
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    public Mono<ResponseEntity<MealsDto>> patchDelegationMeals(@Valid @RequestBody MealsDto mealsDto,
+            @PathVariable("delegationId") Long delegationId,
+            Authentication authentication) {
+        Meals meals = modelMapper.map(mealsDto, Meals.class);
+        return delegationService.updateMeals(delegationId, authentication, meals)
+                .map(updatedMeals -> modelMapper.map(updatedMeals, MealsDto.class))
+                .map(ResponseEntity::ok);
     }
 
     @GetMapping("/delegations/{delegationId}/report")
