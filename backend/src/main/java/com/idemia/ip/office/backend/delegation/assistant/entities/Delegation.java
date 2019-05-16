@@ -95,5 +95,4 @@ public class Delegation extends BaseEntity {
 
     @OneToOne(mappedBy = "delegation", cascade = {PERSIST, REFRESH, DETACH})
     private Diet diet;
-
 }

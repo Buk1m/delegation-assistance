@@ -7,6 +7,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Flight
 import com.idemia.ip.office.backend.delegation.assistant.integrations.base.BaseIntegrationSpec
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.test.web.reactive.server.WebTestClient
+import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
@@ -148,6 +149,45 @@ class DelegationsSpec extends BaseIntegrationSpec {
             accommodationDto.getHotelName() == accommodation.getHotelName()
             accommodationDto.getCheckInDate().toString() == accommodation.getCheckInDate().toString()
             accommodationDto.getCheckOutDate().toString() == accommodation.getCheckOutDate().toString()
+    }
+
+    def 'Should get delegations flights by owner'() {
+        given: 'Employee going to delegation'
+            DelegationDetailsDto delegationDetailsDto = anyDelegationDetailsDto()
+            AuthToken employeeToken = businessLogicProvider.employeeToken()
+            DelegationDetailsDto delegation = businessLogicProvider.createDelegation(employeeToken, delegationDetailsDto)
+
+        and: 'Employee has two flights'
+            businessLogicProvider.createDelegationFlight(employeeToken, anyFlightDto(), delegation.getId())
+            businessLogicProvider.createDelegationFlight(employeeToken, anyFlightDto(), delegation.getId())
+
+        when: 'Employee gets flights'
+            List<FlightDto> flights = businessLogicProvider.getDelegationFlights(employeeToken, delegation.getId())
+
+        then: 'Employee retrieved his flight'
+            flights.size() == 2
+    }
+
+    @Unroll
+    def 'Should get delegations flights by #tokenOwner'() {
+        given: 'Employee going to delegation'
+            def token = businessLogicProvider."${tokenOwner}Token"() as AuthToken
+            DelegationDetailsDto delegationDetailsDto = anyDelegationDetailsDto()
+            AuthToken employeeToken = businessLogicProvider.employeeToken()
+            DelegationDetailsDto delegation = businessLogicProvider.createDelegation(employeeToken, delegationDetailsDto)
+
+        and: 'Employee has two flights'
+            businessLogicProvider.createDelegationFlight(employeeToken, anyFlightDto(), delegation.getId())
+            businessLogicProvider.createDelegationFlight(employeeToken, anyFlightDto(), delegation.getId())
+
+        when: 'User with permissions gets flights'
+            List<FlightDto> flights = businessLogicProvider.getDelegationFlights(token, delegation.getId())
+
+        then: 'User retrieved his flight'
+            flights.size() == 2
+
+        where:
+            tokenOwner << ['travelManager', 'accountant', 'approver']
     }
 
     List<DelegationDetailsDto> createDelegationsToFilter(int delegationsCount) {

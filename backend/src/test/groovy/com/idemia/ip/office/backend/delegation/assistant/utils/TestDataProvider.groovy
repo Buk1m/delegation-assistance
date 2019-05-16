@@ -66,7 +66,7 @@ class TestDataProvider {
                 .destinationCountryId(1)
                 .diet(anyDietDto())
                 .startDate(getLocalDateTime(getDateTimeFormatter()))
-                .endDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1).plusDays(2))
+                .endDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1))
                 .build()
     }
 
@@ -186,6 +186,13 @@ class TestDataProvider {
                 .arrivalDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1))
                 .build()
 
+    }
+
+    static List<Flight> anyFlights() {
+        List<Flight> flights = new ArrayList<Flight>()
+        flights.add(anyFlight())
+        flights.add(anyFlight())
+        return flights
     }
 
     static Accommodation anyAccommodation() {

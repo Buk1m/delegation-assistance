@@ -6,7 +6,6 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Delega
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.AccommodationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
-import com.idemia.ip.office.backend.delegation.assistant.entities.ChecklistTemplate
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -78,6 +77,10 @@ class BusinessLogicProvider {
 
     WebTestClient.ResponseSpec tryGetAllDelegations(AuthToken authToken) {
         webTestClientWrapper.get('/delegations', authToken)
+    }
+
+    List<FlightDto> getDelegationFlights(AuthToken authToken, Long delegationId) {
+        webTestClientWrapper.getCollection("/delegations/${delegationId}/flights", authToken, OK, FlightDto.class, ArrayList.class) as List<FlightDto>
     }
 
     List<DelegationDto> getDelegationsFilteredBy(LocalDateTime since, LocalDateTime until, AuthToken authToken) {

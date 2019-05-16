@@ -4,6 +4,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.repositorie
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Flight;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
@@ -27,6 +28,26 @@ public class FlightServiceImpl implements FlightService {
             return Mono.fromCallable(() -> delegationRepository.save(delegation))
                     .map(d -> getLastSavedFlight(d));
         });
+    }
+
+    @Override
+    public Flux<Flight> getFlights(Long delegationId) {
+        return delegationService.getDelegation(delegationId)
+                .map(Delegation::getFlights)
+                .flatMapMany(flights -> {
+                    flights.sort(Comparator.comparing(Flight::getDepartureDate));
+                    return Flux.fromIterable(flights);
+                });
+    }
+
+    @Override
+    public Flux<Flight> getFlights(String delegatedEmployeeLogin, Long delegationId) {
+        return delegationService.getDelegation(delegationId, delegatedEmployeeLogin)
+                .map(Delegation::getFlights)
+                .flatMapMany(flights -> {
+                    flights.sort(Comparator.comparing(Flight::getDepartureDate));
+                    return Flux.fromIterable(flights);
+                });
     }
 
     private Flight getLastSavedFlight(Delegation d) {
