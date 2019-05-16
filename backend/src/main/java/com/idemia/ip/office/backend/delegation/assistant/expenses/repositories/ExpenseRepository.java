@@ -21,6 +21,6 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     Page<Long> findIdsBy(@Param("delegation") Delegation delegation,
             Pageable pageable);
 
-    @Query("from Expense e join fetch e.files where e.id in :ids")
+    @Query("select distinct e from Expense e join fetch e.files where e.id in :ids")
     List<Expense> getExpensesWithFilesById(@Param("ids") List<Long> ids, Sort sort);
 }

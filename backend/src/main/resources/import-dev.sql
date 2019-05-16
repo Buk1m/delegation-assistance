@@ -324,3 +324,4 @@ INSERT INTO file (id, uuid, version, file_path, user_filename, expense_id) VALUE
 INSERT INTO file (id, uuid, version, file_path, user_filename, expense_id) VALUES (21, uuid(), 0, 'example.png', 'paragon.png', 21);
 INSERT INTO file (id, uuid, version, file_path, user_filename, expense_id) VALUES (22, uuid(), 0, 'example.png', 'paragon.png', 22);
 INSERT INTO file (id, uuid, version, file_path, user_filename, expense_id) VALUES (23, uuid(), 0, 'example.png', 'paragon.png', 23);
+INSERT INTO file (id, uuid, version, file_path, user_filename, expense_id) VALUES (24, uuid(), 0, 'example.png', 'paragonik.png', 20);

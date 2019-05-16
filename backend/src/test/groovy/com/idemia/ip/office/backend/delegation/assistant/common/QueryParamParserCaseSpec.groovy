@@ -8,7 +8,7 @@ import spock.lang.Unroll
 class QueryParamParserCaseSpec extends Specification {
 
     @Unroll
-    def 'Get Sort.Orders from query strings return appropriate list'(String sortQueryParam, List<Sort.Order> expectedSortOrders) {
+    def 'Get Sort.Orders #sortQueryParam from query strings return appropriate list'(String sortQueryParam, List<Sort.Order> expectedSortOrders) {
         when: 'User wants to get list of Sort.Orders'
             List<Sort.Order> resultSortOrders = QueryParamParser.getSortOrders(sortQueryParam)
 
@@ -18,21 +18,23 @@ class QueryParamParserCaseSpec extends Specification {
                     .allMatch { o ->
                 expectedSortOrders.stream()
                         .anyMatch { expectedSortOrder ->
-                    expectedSortOrder.direction == o.direction &&
                             expectedSortOrder.property == o.property &&
-                            expectedSortOrder.ignoreCase == o.ignoreCase
+                                    expectedSortOrder.direction == o.direction
                 }
             }
 
         where: 'Parameters cases'
             sortQueryParam       || expectedSortOrders
-            'sort.asc,test.desc' || [new Sort.Order(Sort.Direction.ASC, 'sort',).ignoreCase(), new Sort.Order(Sort.Direction.DESC, 'test').ignoreCase()]
-            'sort.ASC,test.desc' || [new Sort.Order(Sort.Direction.ASC, 'sort',).ignoreCase(), new Sort.Order(Sort.Direction.DESC, 'test').ignoreCase()]
-            'sort.aSc,test.DESC' || [new Sort.Order(Sort.Direction.ASC, 'sort',).ignoreCase(), new Sort.Order(Sort.Direction.DESC, 'test').ignoreCase()]
+            'sort.asc,test.desc' || [new Sort.Order(Sort.Direction.ASC, 'sort',), new Sort.Order(Sort.Direction.DESC, 'test')]
+            'sort.ASC,test.desc' || [new Sort.Order(Sort.Direction.ASC, 'sort',), new Sort.Order(Sort.Direction.DESC, 'test')]
+            'sort.ASC,test.desc, test2.asc' || [new Sort.Order(Sort.Direction.ASC, 'sort',), new Sort.Order(Sort.Direction.DESC, 'test'), new Sort.Order(Sort.Direction.ASC, 'test2')]
+            'sort.aSc,test.DESC' || [new Sort.Order(Sort.Direction.ASC, 'sort',), new Sort.Order(Sort.Direction.DESC, 'test')]
+            'sort.aSc,, , test.DESC' || [new Sort.Order(Sort.Direction.ASC, 'sort',), new Sort.Order(Sort.Direction.DESC, 'test')]
             't.blabla'           || []
-            't.blabla.,test.asc' || [new Sort.Order(Sort.Direction.ASC, 'test').ignoreCase()]
-            't.blabla.,test.asc' || [new Sort.Order(Sort.Direction.ASC, 'test').ignoreCase()]
-            't.blabla.,test.asc' || [new Sort.Order(Sort.Direction.ASC, 'test').ignoreCase()]
+            ',,,'           || []
+            't.blabla.,test.asc' || [new Sort.Order(Sort.Direction.ASC, 'test')]
+            't.blabla.,test.asc' || [new Sort.Order(Sort.Direction.ASC, 'test')]
+            't.blabla.,test.asc' || [new Sort.Order(Sort.Direction.ASC, 'test')]
             'test'               || []
     }
 }

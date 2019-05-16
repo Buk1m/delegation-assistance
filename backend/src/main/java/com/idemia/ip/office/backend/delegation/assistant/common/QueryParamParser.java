@@ -18,7 +18,7 @@ public final class QueryParamParser {
 
     public static List<Sort.Order> getSortOrders(String sortQueryParam) {
         return Stream.of(StringUtils.split(sortQueryParam, ','))
-                .map(String::toLowerCase)
+                .map(String::trim)
                 .map(QueryParamParser::getSortOrder)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
@@ -27,10 +27,15 @@ public final class QueryParamParser {
 
     private static Optional<Sort.Order> getSortOrder(String s) {
         String[] orderSubString = StringUtils.split(s, '.');
-        if (orderSubString.length != 2 || !SORT.containsKey(orderSubString[1])) {
+
+        if (isStringValidForSortOrder(orderSubString)) {
             return Optional.empty();
         }
 
-        return Optional.of(new Sort.Order(SORT.get(orderSubString[1]), orderSubString[0]).ignoreCase());
+        return Optional.of(new Sort.Order(SORT.get(orderSubString[1].toLowerCase()), orderSubString[0]));
+    }
+
+    private static boolean isStringValidForSortOrder(String[] orderSubString) {
+        return orderSubString.length != 2 || !SORT.containsKey(orderSubString[1].toLowerCase());
     }
 }
