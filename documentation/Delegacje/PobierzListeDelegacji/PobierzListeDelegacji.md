@@ -22,7 +22,7 @@
 - **status** - status delegacji **Domyślna wartość** null
 - **page** która strona jest pobierana **domyślna wartość** 1
 - **size** rozmiar strony **domyślna wartość** 10
-- **sort** pola, po których mają odbywać się sortowania `.asc` po nazwie pola oznacza sortowanie rosnąco, `.desc` po nazwie pola oznacza sortowanie malejąco **domyślna wartość** delegationId.desc **dostępne wartości** delegationId, delegationStatus, delegationStartDate, delegationEndDate
+- **sort** pola, po których mają odbywać się sortowania `.asc` po nazwie pola oznacza sortowanie rosnąco, `.desc` po nazwie pola oznacza sortowanie malejąco **domyślna wartość** delegationId.desc **dostępne wartości** delegationId, status, delegationStartDate, delegationEndDate
 
 **Typ nośnika:** -
 

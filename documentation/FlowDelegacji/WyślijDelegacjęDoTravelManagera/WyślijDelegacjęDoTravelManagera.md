@@ -27,12 +27,12 @@
 ```json
 {
   "version": 2,
-  "delegationStatus": "PREPARED"
+  "status": "PREPARED"
 }
 ```
 
 - `version` - pole wymagane, pole wersji
-- `delegationStatus` - pole wymagane, powinno być przekazywane jako `string`
+- `status` - pole wymagane, powinno być przekazywane jako `string`
 
 #### Dodatkowe informacje
 

@@ -47,6 +47,7 @@ public class DelegationDto extends BaseDto {
     private String delegationObjective;
 
     @NotNull(message = "{error.message.not.null}", groups = OnPatch.class)
+    @JsonProperty("status")
     private DelegationStatus delegationStatus;
 
     private DelegationUserDto delegatedEmployee;
