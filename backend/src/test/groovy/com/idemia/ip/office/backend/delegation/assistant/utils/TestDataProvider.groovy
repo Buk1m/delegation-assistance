@@ -211,4 +211,11 @@ class TestDataProvider {
                 .checkOutDate(getLocalDateTimePlusYears(getDateTimeFormatter(), 1))
                 .build()
     }
+
+    static List<Accommodation> anyAccommodations() {
+        List<Accommodation> accommodations = new ArrayList<Accommodation>()
+        accommodations.add(anyAccommodation())
+        accommodations.add(anyAccommodation())
+        return accommodations
+    }
 }

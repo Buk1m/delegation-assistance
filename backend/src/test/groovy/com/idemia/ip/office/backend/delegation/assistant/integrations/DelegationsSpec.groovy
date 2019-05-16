@@ -190,6 +190,43 @@ class DelegationsSpec extends BaseIntegrationSpec {
             tokenOwner << ['travelManager', 'accountant', 'approver']
     }
 
+    def 'Should get delegations accommodations by owner'() {
+        given: 'Employee going to delegation'
+            AuthToken employeeToken = businessLogicProvider.employeeToken()
+            DelegationDetailsDto delegation = businessLogicProvider.createDelegation(employeeToken)
+
+        and: 'Employee has two accommodations'
+            businessLogicProvider.createDelegationAccommodation(employeeToken, anyAccommodationDto(), delegation.getId())
+            businessLogicProvider.createDelegationAccommodation(employeeToken, anyAccommodationDto(), delegation.getId())
+
+        when: 'Employee gets accommodations'
+            List<AccommodationDto> accommodations = businessLogicProvider.getDelegationAccommodations(employeeToken, delegation.getId())
+
+        then: 'Employee retrieved his accommodations'
+            accommodations.size() == 2
+    }
+
+    @Unroll
+    def 'Should get delegations accommodations by #tokenOwner'() {
+        given: 'Employee going to delegation'
+            def token = businessLogicProvider."${tokenOwner}Token"() as AuthToken
+            AuthToken employeeToken = businessLogicProvider.employeeToken()
+            DelegationDetailsDto delegation = businessLogicProvider.createDelegation(employeeToken)
+
+        and: 'Employee has two accommodations'
+            businessLogicProvider.createDelegationAccommodation(employeeToken, anyAccommodationDto(), delegation.getId())
+            businessLogicProvider.createDelegationAccommodation(employeeToken, anyAccommodationDto(), delegation.getId())
+
+        when: 'User with permissions gets accommodations'
+            List<AccommodationDto> accommodations = businessLogicProvider.getDelegationAccommodations(token, delegation.getId())
+
+        then: 'User retrieved his accommodations'
+            accommodations.size() == 2
+
+        where:
+            tokenOwner << ['travelManager', 'accountant', 'approver']
+    }
+
     List<DelegationDetailsDto> createDelegationsToFilter(int delegationsCount) {
         List<DelegationDetailsDto> delegations = []
         for (int i = 0; i < delegationsCount; i++) {

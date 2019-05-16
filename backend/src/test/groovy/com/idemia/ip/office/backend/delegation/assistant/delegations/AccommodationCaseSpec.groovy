@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono
 import spock.lang.Specification
 
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyAccommodation
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyAccommodations
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getUser
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getUserDelegation
 
@@ -51,8 +52,70 @@ class AccommodationCaseSpec extends Specification {
         when: 'Accommodation is added to delegation'
             accommodationService.addAccommodation(accommodation, user.getLogin(), delegation.getId()).block()
 
-        then: 'Returns empty optional and throws exception'
-            delegationService.getDelegation(delegation.getId(), user.getLogin()) >> {
+        then: 'Delegation service throws EntityNotFound'
+            delegationService.getDelegation(_ as Long, _ as String) >> {
+                throw new EntityNotFoundException("no-delegation", Delegation.class)
+            }
+            thrown(EntityNotFoundException)
+    }
+
+    def 'Getting delegation accommodations by user which owns delegation'() {
+        given: 'User, delegation and accommodations'
+            User user = getUser(1, 'mike')
+            Delegation delegation = getUserDelegation(1, user)
+            List<Accommodation> accommodations = anyAccommodations()
+            delegation.getAccommodations().addAll(accommodations)
+
+        when: 'Getting accommodations'
+            List<Accommodation> result = accommodationService.getAccommodations(user.getLogin(), delegation.getId()).collectList().block()
+
+        then: 'Result size should be equals to delegation accommodations count'
+            delegationService.getDelegation(_ as Long, _ as String) >> Mono.just(delegation)
+            result.size() == accommodations.size()
+    }
+
+    def 'Getting delegation accommodations by user when delegation does not exists'() {
+        when: 'Getting accommodations of delegation with id 1 which does not exists'
+            accommodationService.getAccommodations('somebody', 1).collectList().block()
+
+        then: 'Delegation service throws EntityNotFound'
+            delegationService.getDelegation(_ as Long, _ as String) >> {
+                throw new EntityNotFoundException("no-delegation", Delegation.class)
+            }
+            thrown(EntityNotFoundException)
+    }
+
+    def 'Getting delegation accommodations by user which does not own delegation'() {
+        when: 'Getting accommodations by somebody which does not own delegation with id 1'
+            accommodationService.getAccommodations('somebody', 1).collectList().block()
+
+        then: 'Delegation service throws EntityNotFound'
+            delegationService.getDelegation(_ as Long, _ as String) >> {
+                throw new EntityNotFoundException("no-delegation", Delegation.class)
+            }
+            thrown(EntityNotFoundException)
+    }
+
+    def 'Getting delegation accommodations'() {
+        given: 'User, delegation and accommodations'
+            Delegation delegation = getUserDelegation(1, user)
+            List<Accommodation> accommodations = anyAccommodations()
+            delegation.getAccommodations().addAll(accommodations)
+
+        when: 'Getting accommodations'
+            List<Accommodation> result = accommodationService.getAccommodations(delegation.getId()).collectList().block()
+
+        then: 'Result size should be equals to delegation accommodations count'
+            delegationService.getDelegation(delegation.getId()) >> Mono.just(delegation)
+            result.size() == accommodations.size()
+    }
+
+    def 'Getting delegation accommodations when delegation does not exists'() {
+        when: 'Getting accommodations of delegation with id 1'
+            accommodationService.getAccommodations(1).collectList().block()
+
+        then: 'Delegation service throws EntityNotFound'
+            delegationService.getDelegation(_ as Long) >> {
                 throw new EntityNotFoundException("no-delegation", Delegation.class)
             }
             thrown(EntityNotFoundException)

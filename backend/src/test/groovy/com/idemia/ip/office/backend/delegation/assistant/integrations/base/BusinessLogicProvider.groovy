@@ -75,6 +75,10 @@ class BusinessLogicProvider {
         webTestClientWrapper.getCollection('/delegations', authToken, OK, DelegationDto.class, ArrayList.class)
     }
 
+    List<AccommodationDto> getDelegationAccommodations(AuthToken authToken, Long delegationId) {
+        webTestClientWrapper.getCollection("/delegations/${delegationId}/accommodations", authToken, OK, AccommodationDto.class, ArrayList.class) as List<AccommodationDto>
+    }
+
     WebTestClient.ResponseSpec tryGetAllDelegations(AuthToken authToken) {
         webTestClientWrapper.get('/delegations', authToken)
     }

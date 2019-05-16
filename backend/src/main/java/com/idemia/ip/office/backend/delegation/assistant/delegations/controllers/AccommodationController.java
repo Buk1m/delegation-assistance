@@ -4,19 +4,24 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Accomm
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.AccommodationService;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Accommodation;
+import com.idemia.ip.office.backend.delegation.assistant.utils.RolesService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @Validated
@@ -47,5 +52,19 @@ public class AccommodationController {
                 delegationId)
                 .map(e -> modelMapper.map(e, AccommodationDto.class))
                 .map(ResponseEntity::ok);
+    }
+
+    @GetMapping("/delegations/{delegationId}/accommodations")
+    @Validated(OnPost.class)
+    public Mono<ResponseEntity<List<AccommodationDto>>> getDelegationFlight(
+            @PathVariable("delegationId") Long delegationId,
+            Authentication authentication) {
+        Flux<Accommodation> accommodations = RolesService.hasAnyRole(authentication.getAuthorities(),
+                RolesService.travelManagerApproverAccoutant) ? accommodationService.getAccommodations(delegationId) :
+                accommodationService.getAccommodations(authentication.getName(), delegationId);
+        Mono<List<AccommodationDto>> accommodationsDto = accommodations.map(e -> modelMapper.map(e,
+                AccommodationDto.class))
+                .collectList();
+        return accommodationsDto.map(ResponseEntity::ok);
     }
 }

@@ -4,6 +4,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.repositorie
 import com.idemia.ip.office.backend.delegation.assistant.entities.Accommodation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
@@ -29,6 +30,26 @@ public class AccommodationServiceImpl implements AccommodationService {
             return Mono.fromCallable(() -> delegationRepository.save(delegation))
                     .map(d -> getLastSavedAccommodation(d));
         });
+    }
+
+    @Override
+    public Flux<Accommodation> getAccommodations(Long delegationId) {
+        return delegationService.getDelegation(delegationId)
+                .map(Delegation::getAccommodations)
+                .flatMapMany(accommodations -> {
+                    accommodations.sort(Comparator.comparing(Accommodation::getCheckInDate));
+                    return Flux.fromIterable(accommodations);
+                });
+    }
+
+    @Override
+    public Flux<Accommodation> getAccommodations(String delegatedEmployeeLogin, Long delegationId) {
+        return delegationService.getDelegation(delegationId, delegatedEmployeeLogin)
+                .map(Delegation::getAccommodations)
+                .flatMapMany(accommodations -> {
+                    accommodations.sort(Comparator.comparing(Accommodation::getCheckInDate));
+                    return Flux.fromIterable(accommodations);
+                });
     }
 
     private Accommodation getLastSavedAccommodation(Delegation d) {
