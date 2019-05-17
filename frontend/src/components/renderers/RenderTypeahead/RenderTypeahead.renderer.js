@@ -46,10 +46,10 @@ const RenderTypeahead = ({
 
 RenderTypeahead.propTypes = {
   input: object,
+  isMulti: bool,
+  isSearchable: bool,
   meta: object,
   options: array,
-  isSearchable: bool,
-  isMulti: bool,
   placeholder: string
 };
 

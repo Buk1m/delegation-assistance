@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { func, object, string } from "prop-types";
+import { func, object, number } from "prop-types";
 
 import FlightModalForm from "./FlightModalForm.component";
 import { addFlight } from "../../../../../actions/flights.actions";
@@ -8,7 +8,7 @@ import { addFlight } from "../../../../../actions/flights.actions";
 export class FlightModalFormContainer extends Component {
   static propTypes = {
     addFlight: func,
-    delegationId: string,
+    delegationId: number,
     initialValues: object
   };
 

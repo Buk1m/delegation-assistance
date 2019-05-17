@@ -1,5 +1,5 @@
 import React from "react";
-import { array, bool, object, string, oneOfType } from "prop-types";
+import { array, bool, number, object, string, oneOfType } from "prop-types";
 
 import styles from "./Row.module.scss";
 
@@ -21,8 +21,8 @@ const Row = ({ label, children, loading = false }) => {
 };
 
 Row.propTypes = {
+  children: oneOfType([array, object, string, number]),
   label: string.isRequired,
-  children: oneOfType([array, object, string]),
   loading: bool
 };
 

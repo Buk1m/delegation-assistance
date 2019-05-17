@@ -1,4 +1,4 @@
-export const RequestActionCreator = (type, { url, method, needAuth, data, headers, baseURL }, meta) => ({
+export const RequestActionCreator = (type, { url, method, needAuth, data, headers, baseURL, ...rest }, meta) => ({
   type,
   payload: {
     url,
@@ -6,7 +6,8 @@ export const RequestActionCreator = (type, { url, method, needAuth, data, header
     needAuth,
     data,
     headers,
-    baseURL
+    baseURL,
+    ...rest
   },
   meta: { ...meta, apiRequest: true }
 });

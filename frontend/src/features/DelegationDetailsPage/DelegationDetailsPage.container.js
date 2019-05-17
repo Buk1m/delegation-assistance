@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { string, object, func } from "prop-types";
+import { toNumber } from "lodash";
+import { object, func, number } from "prop-types";
 import { toast } from "react-toastify";
 
 import DelegationDetailsPage from "./DelegationDetailsPage.component";
@@ -9,7 +10,7 @@ import { confirmationModal } from "../../helpers/confirmationModal";
 
 class DelegationDetailsPageContainer extends Component {
   static propTypes = {
-    delegationId: string,
+    delegationId: number,
     deleteDelegation: func,
     history: object,
     match: object
@@ -25,6 +26,7 @@ class DelegationDetailsPageContainer extends Component {
 
       this._redirectToDelegationsPage();
     }
+    this.delegationId = toNumber(this.delegationId);
   }
 
   _redirectToDelegationsPage = () => this.props.history.push("/delegations");

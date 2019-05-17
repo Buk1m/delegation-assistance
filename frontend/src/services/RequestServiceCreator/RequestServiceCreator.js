@@ -9,7 +9,7 @@ class RequestServiceCreator {
     this.apiVersion = args.apiVersion;
   }
 
-  makeCall(type, { url, method, needAuth, data, headers = {} }, meta) {
+  makeCall(type, { url, method, needAuth, data, headers = {}, ...rest }, meta) {
     return RequestActionCreator(
       type,
       {
@@ -18,13 +18,14 @@ class RequestServiceCreator {
         needAuth,
         data,
         headers,
-        baseURL: this.baseURL
+        baseURL: this.baseURL,
+        ...rest
       },
       meta
     );
   }
 
-  get(type, { url, needAuth, headers }, meta) {
+  get(type, { url, needAuth, headers, ...rest }, meta) {
     return this.makeCall.call(
       this,
       type,
@@ -32,13 +33,14 @@ class RequestServiceCreator {
         url,
         method: "get",
         needAuth,
-        headers
+        headers,
+        ...rest
       },
       meta
     );
   }
 
-  post(type, { url, needAuth, headers, data }, meta) {
+  post(type, { url, needAuth, headers, data, ...rest }, meta) {
     return this.makeCall.call(
       this,
       type,
@@ -47,13 +49,14 @@ class RequestServiceCreator {
         method: "post",
         needAuth,
         headers,
-        data
+        data,
+        ...rest
       },
       meta
     );
   }
 
-  put(type, { url, needAuth, headers, data }, meta) {
+  put(type, { url, needAuth, headers, data, ...rest }, meta) {
     return this.makeCall.call(
       this,
       type,
@@ -62,13 +65,14 @@ class RequestServiceCreator {
         method: "put",
         needAuth,
         headers,
-        data
+        data,
+        ...rest
       },
       meta
     );
   }
 
-  patch(type, { url, needAuth, headers, data }, meta) {
+  patch(type, { url, needAuth, headers, data, ...rest }, meta) {
     return this.makeCall.call(
       this,
       type,
@@ -77,13 +81,14 @@ class RequestServiceCreator {
         method: "patch",
         needAuth,
         headers,
-        data
+        data,
+        ...rest
       },
       meta
     );
   }
 
-  delete(type, { url, needAuth, headers, data }, meta) {
+  delete(type, { url, needAuth, headers, data, ...rest }, meta) {
     return this.makeCall.call(
       this,
       type,
@@ -92,7 +97,8 @@ class RequestServiceCreator {
         method: "delete",
         needAuth,
         headers,
-        data
+        data,
+        ...rest
       },
       meta
     );

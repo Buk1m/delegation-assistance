@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { func, object, string } from "prop-types";
+import { func, object, number } from "prop-types";
 
 import AccommodationModalForm from "./AccommodationModalForm.component";
 import { addAccommodation } from "../../../../../actions/accommodations.actions";
@@ -8,7 +8,7 @@ import { addAccommodation } from "../../../../../actions/accommodations.actions"
 export class AccommodationModalFormContainer extends Component {
   static propTypes = {
     addAccommodation: func,
-    delegationId: string,
+    delegationId: number,
     initialValues: object
   };
 
@@ -22,7 +22,7 @@ export class AccommodationModalFormContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  addAccommodation,
+  addAccommodation
 };
 
 export default connect(

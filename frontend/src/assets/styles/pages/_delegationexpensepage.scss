@@ -1,0 +1,59 @@
+@import "../constants";
+
+$icon-wrapper-size: 40px;
+$item-height: 40px;
+
+.de-file-items-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  margin: 20px 0;
+}
+
+.de-file-item {
+  height: $item-height;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 5px 0 5px 10px;
+  cursor: pointer;
+  background-color: var(--bg);
+}
+
+.de-file-link {
+  flex: 0 0 $icon-wrapper-size;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--c);
+  border-left: 1px solid #ddd;
+}
+
+.de-file-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 0 1 calc(100% - $icon-wrapper-size);
+  max-width: calc(100% - $icon-wrapper-size);
+  overflow: hidden;
+}
+
+@media #{$fulldesktop} {
+  .de-file-items-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media #{$mobile} {
+  .de-file-items-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media #{$small} {
+  .de-file-items-grid {
+    grid-template-columns: 1fr;
+  }
+}

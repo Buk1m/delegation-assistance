@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { array, bool, func, string } from "prop-types";
+import { array, bool, func, string, number } from "prop-types";
 
 import DelegationFlights from "./DelegationFlights.component";
 import {
@@ -14,7 +14,7 @@ import { fetchFlights, sortFlightsByDepartureDate } from "../../../../actions/fl
 class DelegationFlightsContainer extends Component {
   static propTypes = {
     addingFlight: bool,
-    delegationId: string,
+    delegationId: number,
     fetchFlights: func,
     fetching: bool,
     flights: array,

@@ -36,6 +36,7 @@
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
+  max-width: 60%;
 
   & > button,
   & > a {
@@ -54,6 +55,10 @@
   }
 
   .buttons {
+    max-width: initial;
+    justify-content: center;
+    width: 100%;
+
     & > button,
     & > a {
       &:last-of-type {

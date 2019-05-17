@@ -5,7 +5,11 @@ import Row from "../../../../components/Row/Row.component";
 import Button from "../../../../components/Button/Button.component";
 
 const DelegationDetails = props => {
-  const { delegation, fetching, edit = true } = props;
+  const {
+    delegation: { destinationCountry, destinationLocation, status, startDate, endDate, delegationObjective, diet },
+    fetching,
+    edit = true
+  } = props;
   return (
     <Fragment>
       {edit ? (
@@ -15,25 +19,25 @@ const DelegationDetails = props => {
       ) : null}
       <div className="display-container pl-2 pr-2">
         <Row loading={fetching} label="Country:">
-          {delegation.destinationCountry}
+          {destinationCountry}
         </Row>
         <Row loading={fetching} label="Location:">
-          {delegation.destinationLocation}
+          {destinationLocation}
         </Row>
         <Row loading={fetching} label="Status:">
-          {delegation.status}
+          {status}
         </Row>
         <Row loading={fetching} label="Date from:">
-          {delegation.startDate}
+          {startDate}
         </Row>
         <Row loading={fetching} label="Date to:">
-          {delegation.endDate}
+          {endDate}
         </Row>
         <Row loading={fetching} label="Objective:">
-          {delegation.delegationObjective}
+          {delegationObjective}
         </Row>
         <Row loading={fetching} label="Diet:">
-          {delegation.diet && delegation.diet.perDiem + " " + delegation.diet.currency}
+          {diet && diet.perDiem + " " + diet.currency}
         </Row>
       </div>
     </Fragment>

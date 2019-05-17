@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { array, bool, func, string } from "prop-types";
+import { array, bool, func, string, number } from "prop-types";
 
 import DelegationAccommodations from "./DelegationAccommodations.component";
 import { fetchAccommodations, sortAccommodationsByCheckInDate } from "../../../../actions/accommodations.actions";
@@ -15,7 +15,7 @@ class DelegationAccommodationsContainer extends Component {
   static propTypes = {
     accommodations: array,
     addingAccommodation: bool,
-    delegationId: string,
+    delegationId: number,
     fetchAccommodations: func,
     fetching: bool,
     sortAccommodationsByCheckInDate: func,

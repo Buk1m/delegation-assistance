@@ -1,21 +1,14 @@
 import { get, isNil, omit } from "lodash";
 import axios from "axios";
 
-import {
-  getLoggedStatus,
-  getTokenExpDate,
-} from "../../selectors/user.selectors";
+import { getLoggedStatus, getTokenExpDate } from "../../selectors/user.selectors";
 import { logoutUser } from "../../actions/user.actions";
 
 export const PENDING = "PENDING";
 export const FULFILLED = "FULFILLED";
 export const REJECTED = "REJECTED";
 
-function handleResponse(
-  { dispatch, type, meta },
-  positiveResult = false,
-  value
-) {
+function handleResponse({ dispatch, type, meta }, positiveResult = false, value) {
   let desiredType, desiredAction;
   if (!axios.isCancel(value)) {
     desiredType = positiveResult ? FULFILLED : REJECTED;
@@ -60,7 +53,7 @@ const RequestActionMiddleware = store => next => action => {
     const { dispatch, getState } = store;
     const state = getState();
     const { type, payload, meta } = action;
-    const { url, method, needAuth, data, headers, baseURL } = payload || {};
+    const { url, method, needAuth, data, headers, baseURL, ...rest } = payload || {};
     let promise;
 
     if (checkIfIsRegularAction(action)) {
@@ -74,7 +67,8 @@ const RequestActionMiddleware = store => next => action => {
           method,
           data,
           headers,
-          baseURL
+          baseURL,
+          ...rest
         });
         dispatch({
           type: `${type}_${PENDING}`,
@@ -87,9 +81,7 @@ const RequestActionMiddleware = store => next => action => {
         return promise;
       } else {
         // eslint-disable-next-line no-console, no-undef
-        console.warn(
-          "You can not start authorized request while not being logged."
-        );
+        console.warn("You can not start authorized request while not being logged.");
         return Promise.reject({
           error: "Dana funkcjonalność wymaga zalogowania"
         }).catch(handleResponse.bind(null, { dispatch, type, meta }, false));

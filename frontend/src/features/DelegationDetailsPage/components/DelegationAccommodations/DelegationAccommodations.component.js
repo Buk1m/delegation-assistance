@@ -2,7 +2,7 @@ import React from "react";
 import { Icon } from "react-icons-kit";
 import { sortAmountAsc } from "react-icons-kit/fa/sortAmountAsc";
 import { sortAmountDesc } from "react-icons-kit/fa/sortAmountDesc";
-import { array, bool, func, string } from "prop-types";
+import { array, bool, func, string, number } from "prop-types";
 
 import AccommodationItem from "./AccommodationItem/AccommodationItem.component";
 import AccommodationModalForm from "./AccommodationModalForm";
@@ -58,7 +58,7 @@ const DelegationAccommodations = props => {
 DelegationAccommodations.propTypes = {
   accommodations: array,
   addingAccommodation: bool,
-  delegationId: string,
+  delegationId: number,
   fetching: bool,
   handleSortChange: func,
   sortOrder: string

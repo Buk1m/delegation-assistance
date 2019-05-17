@@ -44,7 +44,7 @@ describe("Create Delegation Page", () => {
       startDate: "02-03-2004",
       endDate: "02-03-2004",
       delegationObjective: "testObjective",
-      destinationCountryISO3: "testCountry",
+      destinationCountry: "testCountry",
       destinationLocation: "testLocation",
       perDiem: 1.0,
       currency: "PLN",
@@ -58,8 +58,8 @@ describe("Create Delegation Page", () => {
     expect(enzymeWrapper.find("Input").length).toBe(8);
   });
 
-  it("should render destinationCountryISO3 Input", () => {
-    expect(enzymeWrapper.find("Input[name='destinationCountryISO3']").length).toBe(1);
+  it("should render destinationCountry Input", () => {
+    expect(enzymeWrapper.find("Input[name='destinationCountry']").length).toBe(1);
   });
 
   it("should render destinationLocation Input", () => {

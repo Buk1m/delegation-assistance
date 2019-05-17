@@ -31,8 +31,8 @@ const DelegationsMyPage = props => {
 };
 
 DelegationsMyPage.propTypes = {
-  delegations: array,
-  columns: array
+  columns: array,
+  delegations: array
 };
 
 export default DelegationsMyPage;

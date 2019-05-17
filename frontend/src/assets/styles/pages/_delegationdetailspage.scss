@@ -53,42 +53,6 @@
     background: var(--table-even-rows-bg);
   }
 
-  @media screen and (min-width: $lg-start) {
-    .preview-btn {
-      position: absolute;
-      right: 363px;
-      top: -76px;
-    }
-    .send-btn {
-      position: absolute;
-      right: 140px;
-      top: -76px;
-    }
-    .delete-btn {
-      position: absolute;
-      right: 32px;
-      top: -76px;
-    }
-  }
-
-  @media screen and (max-width: $lg-end) {
-    .actions {
-      display: flex;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-    .preview-btn {
-      margin-right: 15px;
-    }
-    .send-btn {
-      margin-right: 15px;
-    }
-    .delete-btn {
-      margin-right: 15px;
-    }
-  }
-
   @media screen and (max-width: $xs-end) {
     .db-card-content {
       padding: 0.25rem;

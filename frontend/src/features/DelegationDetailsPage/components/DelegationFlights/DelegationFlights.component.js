@@ -2,7 +2,7 @@ import React from "react";
 import { Icon } from "react-icons-kit";
 import { sortAmountAsc } from "react-icons-kit/fa/sortAmountAsc";
 import { sortAmountDesc } from "react-icons-kit/fa/sortAmountDesc";
-import { array, bool, func, string } from "prop-types";
+import { array, bool, func, string, number } from "prop-types";
 
 import Button from "../../../../components/Button/Button.component";
 import FlightItem from "./FlightItem/FlightItem.component";
@@ -64,7 +64,7 @@ const DelegationFlights = props => {
 
 DelegationFlights.propTypes = {
   addingFlight: bool,
-  delegationId: string,
+  delegationId: number,
   fetching: bool,
   flights: array,
   handleSortChange: func,

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { string, object, func, bool } from "prop-types";
+import { number, object, func, bool } from "prop-types";
 import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
 
@@ -10,9 +10,9 @@ import DelegationDetails from "./DelegationDetails.component";
 
 class DelegationDetailsContainer extends Component {
   static propTypes = {
-    delegationId: string,
-    fetchDelegation: func,
     delegation: object,
+    delegationId: number,
+    fetchDelegation: func,
     fetching: bool,
     history: object
   };

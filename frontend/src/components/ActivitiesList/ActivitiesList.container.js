@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bool, func, string, array } from "prop-types";
+import { bool, func, number, array } from "prop-types";
 
 import { getActivities, getActivitiesFetching } from "../../selectors/delegationChecklist.selectors.js";
 import { fetchChecklist } from "../../actions/delegationChecklist.action";
@@ -8,10 +8,10 @@ import ActivitiesList from "./ActivitiesList.component.js";
 
 export class ActivitiesListContainer extends Component {
   static propTypes = {
-    delegationId: string,
     activities: array,
-    fetching: bool,
+    delegationId: number,
     fetchChecklist: func,
+    fetching: bool
   };
 
   componentDidMount() {

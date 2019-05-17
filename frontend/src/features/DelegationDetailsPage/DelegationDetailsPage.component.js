@@ -1,17 +1,16 @@
-import React from "react";
-import { func, string } from "prop-types";
+import React, { Fragment } from "react";
+import { func, number } from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { bed } from "react-icons-kit/fa/bed";
-import { check } from "react-icons-kit/fa/check";
+import { bed, check, plane } from "react-icons-kit/fa";
 import { ic_payment } from "react-icons-kit/md/ic_payment";
-import { plane } from "react-icons-kit/fa/plane";
 
 import ActivitiesList from "../../components/ActivitiesList/ActivitiesList.container";
 import Button from "../../components/Button/Button.component";
 import Card from "../../components/Card/Card.component";
 import DelegationAccommodations from "./components/DelegationAccommodations";
-import DelegationDetails from "./components/DelegationDetails/DelegationDetails.container";
-import DelegationFlights from "./components/DelegationFlights/DelegationFlights.container";
+import DelegationDetails from "./components/DelegationDetails";
+import DelegationExpenses from "./components/DelegationExpenses";
+import DelegationFlights from "./components/DelegationFlights";
 import LayoutMain from "../../components/layouts/LayoutMain";
 import RenderTab from "../../components/renderers/RenderTab/RenderTab.renderer";
 
@@ -20,19 +19,17 @@ import "react-tabs/style/react-tabs.css";
 const DelegationDetailsPage = props => {
   const { delegationId, onDelete, onSend } = props;
   return (
-    <LayoutMain title={"Delegation No. " + delegationId}>
+    <LayoutMain
+      title={"Delegation No. " + delegationId}
+      buttons={
+        <Fragment>
+          <Button className="primary" text="Preview Report" />
+          <Button className="primary" text="Send to Manager" onClick={onSend} />
+          <Button className="warning" text="Delete" onClick={onDelete} />
+        </Fragment>
+      }
+    >
       <div id="delegation-details" className="container">
-        <div className="actions">
-          <div className="preview-btn">
-            <Button className="primary" text="Preview Raport" />
-          </div>
-          <div className="send-btn">
-            <Button className="primary" text="Send to Travel Manager" onClick={onSend} />
-          </div>
-          <div className="delete-btn">
-            <Button className="warning" text="Delete" onClick={onDelete} />
-          </div>
-        </div>
         <Card className="delegation-details" title="Delegation details:">
           <DelegationDetails delegationId={delegationId} />
         </Card>
@@ -60,7 +57,7 @@ const DelegationDetailsPage = props => {
               </TabPanel>
               <TabPanel>
                 <div className="expenses">
-                  <h1>TODO: IDEMIA2019-119 Jako pracownik moge zobaczyć wydatki w delegacji</h1>
+                  <DelegationExpenses delegationId={delegationId} />
                 </div>
               </TabPanel>
               <TabPanel>
@@ -80,7 +77,7 @@ const DelegationDetailsPage = props => {
 };
 
 DelegationDetailsPage.propTypes = {
-  delegationId: string,
+  delegationId: number,
   onDelete: func,
   onSend: func
 };

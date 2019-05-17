@@ -15,17 +15,4 @@ const mapRoles = roles => {
   return userRoles;
 };
 
-const formatISODate = date => {
-  const formatter = new Intl.DateTimeFormat("en-GB", {
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-    hour12: false,
-    day: "numeric",
-    month: "numeric",
-    year: "numeric"
-  });
-  return formatter.format(new Date(date));
-};
-
-export { prepareToken, mapRoles, formatISODate };
+export { prepareToken, mapRoles };

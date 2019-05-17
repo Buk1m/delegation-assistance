@@ -23,7 +23,7 @@ export const DelegationCreatePage = props => {
         <Card title="Delegation information">
           <Form onSubmit={handleSubmit} id="create-delegation">
             <Input
-              name="destinationCountryISO3"
+              name="destinationCountry"
               component="typeahead"
               label="Destination Country"
               validate={[validateRequired]}

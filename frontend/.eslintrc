@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
@@ -40,14 +37,14 @@
     ],
     "react/sort-prop-types": 1
   },
-  "plugins": [
-    "react",
-    "webdriverio"
-  ],
+  "plugins": ["react", "webdriverio"],
   "globals": {
     "window": true,
     "document": true,
-    "Promise": true
+    "Promise": true,
+    "Blob": true,
+    "Intl": true,
+    "console": true
   },
   "env": {
     "jest": true,
