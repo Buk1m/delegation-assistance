@@ -163,21 +163,6 @@ public class DelegationController {
                 .map(ResponseEntity::ok);
     }
 
-    @GetMapping("/delegations/{delegationId}/report")
-    public Mono<ResponseEntity<DelegationReportDto>> downloadReport(
-            @PathVariable("delegationId") Long delegationId,
-            Authentication authentication) {
-        LOG.info("Getting report of delegation with id {} by user with login {}",
-                delegationId,
-                authentication.getName());
-        Mono<Delegation> delegation = RolesService.hasAnyRole(authentication.getAuthorities(),
-                RolesService.travelManagerApproverAccoutant) ? delegationService.getDelegation(delegationId) :
-                delegationService.getDelegation(delegationId, authentication.getName());
-        Mono<DelegationReportDto> delegationReportDto = delegation.map(e -> modelMapper.map(e,
-                DelegationReportDto.class));
-        return delegationReportDto.map(ResponseEntity::ok);
-    }
-
     private DelegationDetailsDto mapToDelegationDetails(Delegation delegation) {
         DelegationDetailsDto delegationDetailsDto = modelMapper.map(delegation, DelegationDetailsDto.class);
         delegationDetailsDto.setDestinationCountryId(null);

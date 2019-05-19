@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import static org.modelmapper.Conditions.isNotNull;
 import static com.idemia.ip.office.backend.delegation.assistant.converters.ByteArrayToStringConverter.byteArrayToStringConverter;
+import static org.modelmapper.Conditions.isNotNull;
 
 @Configuration
 public class ModelMapperConfiguration {

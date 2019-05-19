@@ -4,32 +4,32 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.3.RELEASE</version>
-		<relativePath/>
-	</parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.3.RELEASE</version>
+        <relativePath/>
+    </parent>
 
-	<groupId>com.idemia.ip.office.backend</groupId>
-	<artifactId>delegation-assistant</artifactId>
-	<version>0.0.1</version>
-	<name>Delegation Assistant backend application.</name>
+    <groupId>com.idemia.ip.office.backend</groupId>
+    <artifactId>delegation-assistant</artifactId>
+    <version>0.0.1</version>
+    <name>Delegation Assistant backend application.</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-		<modelmapper.version>2.3.2</modelmapper.version>
-		<hibernate-validator.version>6.0.15.Final</hibernate-validator.version>
-		<lombok.version>1.18.6</lombok.version>
-		<jbcrypt.version>0.4</jbcrypt.version>
-		<java-jwt.version>3.7.0</java-jwt.version>
-		<spock-core.version>1.3-groovy-2.5</spock-core.version>
-		<spock-spring.version>1.3-groovy-2.5</spock-spring.version>
-		<commons-lang3.version>3.8.1</commons-lang3.version>
-		<gmavenplus-plugin.version>1.6.2</gmavenplus-plugin.version>
+        <modelmapper.version>2.3.2</modelmapper.version>
+        <hibernate-validator.version>6.0.15.Final</hibernate-validator.version>
+        <lombok.version>1.18.6</lombok.version>
+        <jbcrypt.version>0.4</jbcrypt.version>
+        <java-jwt.version>3.7.0</java-jwt.version>
+        <spock-core.version>1.3-groovy-2.5</spock-core.version>
+        <spock-spring.version>1.3-groovy-2.5</spock-spring.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <gmavenplus-plugin.version>1.6.2</gmavenplus-plugin.version>
         <javax.el.version>3.0.1-b09</javax.el.version>
-		<mysql-connector-java.version>8.0.15</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.15</mysql-connector-java.version>
     </properties>
 
     <dependencies>
@@ -76,19 +76,19 @@
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -99,82 +99,82 @@
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
-		<dependency>
-			<groupId>org.mindrot</groupId>
-			<artifactId>jbcrypt</artifactId>
-			<version>${jbcrypt.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.auth0</groupId>
-			<artifactId>java-jwt</artifactId>
-			<version>${java-jwt.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-			<version>${spock-core.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-spring</artifactId>
-			<version>${spock-spring.version}</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>${jbcrypt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${java-jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spock-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <version>${spock-spring.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
-	<build>
-		<plugins>
-		    <plugin>
+    <build>
+        <plugins>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<profiles>
-						<profile>dev</profile>
-						<profile>prod</profile>
-					</profiles>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-				<version>${gmavenplus-plugin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compileTests</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<useFile>false</useFile>
-					<includes>
-						<include>**/*Test.java</include>
-						<include>**/*Spec.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.10</version>
-				<configuration>
-					<repository>${project.artifactId}</repository>
-					<tag>${project.version}</tag>
-					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <profiles>
+                        <profile>dev</profile>
+                        <profile>prod</profile>
+                    </profiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>${gmavenplus-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compileTests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useFile>false</useFile>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Spec.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.10</version>
+                <configuration>
+                    <repository>${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

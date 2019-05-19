@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 public class ExternalResourceServiceImpl implements ExternalResourceService {
-    
+
     private final ExpenseService expenseService;
     private final ChecklistTemplateService checklistTemplateService;
     private final CountryService countryService;

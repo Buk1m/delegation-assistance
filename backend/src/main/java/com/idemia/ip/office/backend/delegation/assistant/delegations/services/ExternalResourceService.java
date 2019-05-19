@@ -19,7 +19,10 @@ public interface ExternalResourceService {
 
     Mono<Expense> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
 
-    Mono<Page<Expense>> getExpenses(Delegation delegation, Integer pageNumber, Integer pageSize, List<Sort.Order> sortCriteria);
+    Mono<Page<Expense>> getExpenses(Delegation delegation,
+            Integer pageNumber,
+            Integer pageSize,
+            List<Sort.Order> sortCriteria);
 
     Mono<UserFile> getFile(Long expenseId, Long fileId);
 }
