@@ -24,10 +24,10 @@ class ChecklistScreenContainer extends Component {
   };
 
   static propTypes = {
-    tasks: array,
+    deleteTask: func,
     fetchTasks: func,
     saveTasks: func,
-    deleteTask: func
+    tasks: array
   };
 
   componentDidMount = () => {

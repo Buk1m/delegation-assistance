@@ -23,6 +23,20 @@
   color: $primaryTextColor;
 }
 
+.iconStyle {
+  color: $primaryColor;
+  font-size: 40;
+}
+
+.filterButton {
+  align-items: center;
+  padding: 5px;
+}
+
+.navigationOptions {
+  flex-direction: row;
+}
+
 :export {
   primary: $primaryColor;
 }

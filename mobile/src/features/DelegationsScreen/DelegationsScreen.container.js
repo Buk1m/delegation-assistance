@@ -63,7 +63,7 @@ class DelegationsScreenContainer extends Component {
           style={styles.collapseButtonHeader}
           onPress={navigation.getParam("changeIsSortFilterPanelCollapsed")}
         >
-          <Icon.MaterialCommunityIcons name={`filter-outline`} style={styles.iconStyle} />
+          <Icon.MaterialCommunityIcons name="filter-outline" style={styles.iconStyle} />
         </TouchableOpacity>
       )
     };

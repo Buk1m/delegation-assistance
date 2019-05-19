@@ -15,6 +15,7 @@ $palette0A400: #5a34ff;
 $palette0A700: #451aff;
 
 // shades of grey
+$gpalette000: #fff;
 $gpalette050: #e6e6e6;
 $gpalette0100: #c0c0c0;
 $gpalette0200: #969696;
@@ -25,6 +26,7 @@ $gpalette0600: #282828;
 $gpalette0700: #222222;
 $gpalette0800: #1c1c1c;
 $gpalette0900: #111111;
+$gpalette1000: #000;
 
 // shades ready to use
 // feel free to add/edit
@@ -32,12 +34,19 @@ $primaryColor: $palette0900;
 $primaryLightColor: $palette0300;
 $secondaryColor: $palette0700;
 $secondaryLightColor: $palette0A200;
-$primaryTextColor: #ffffff;
-$secondaryTextColor: #ffffff;
-$textColor: #000000;
+$primaryTextColor: $gpalette000;
+$secondaryTextColor: $gpalette000;
+
+$textColor: $gpalette1000;
 $validateColor: #cf0000;
+
+$lightBackgroundColor: $gpalette000;
+$darkBackgroundColor: $gpalette0500;
+
+$lightBorderColor: $gpalette0200;
 
 :export {
   primary: $primaryColor;
   secondary: $secondaryColor;
+  primaryTextColor: $primaryTextColor
 }

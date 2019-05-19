@@ -1,0 +1,24 @@
+@import "../../../../../assets/styles/constants";
+@import "../../../../../assets/styles/colorPalette";
+
+.circleContainer {
+  border-radius: 45px;
+  border-color: $gpalette0100;
+  border-width: 1px;
+  width: 3.2rem;
+  height: 3.2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.paymentName {
+ color: $primaryTextColor;
+}
+
+.cardPaymentType {
+  color: $card-payment-type;
+}
+
+.cashPaymentType {
+  color: $cash-payment-type;
+}

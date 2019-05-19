@@ -1,4 +1,4 @@
-@import "../../../assets/styles/colors";
+@import "../../../assets/styles/colorPalette";
 
 .dataRow {
   margin-bottom: 0.35rem;
@@ -13,8 +13,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $primary-color;
-  color: white;
+  background: $primaryColor;
+  color: $primaryTextColor;
   margin-right: 10px;
   margin-bottom: 0.4rem;
 }
@@ -22,7 +22,7 @@
 .header {
   font-weight: bold;
   font-size: 1.1rem;
-  color: $primary-color;
+  color: $primaryColor;
 }
 
 .submit {

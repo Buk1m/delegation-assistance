@@ -1,0 +1,66 @@
+@import "../../../assets/styles/colorPalette";
+
+.modal {
+  padding-top: 0.5rem;
+  background-color: $primaryTextColor;
+}
+
+.collapseButton {
+  align-items: center;
+  padding: 5px;
+}
+
+.iconStyle {
+  color: $primaryColor;
+  font-size: 40;
+}
+
+.sideMargins {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.column {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.picker {
+  align-self: center;
+}
+
+.labeledPicker {
+  width: 200;
+}
+
+.button {
+  height: 35;
+  width: 120;
+  background-color: $primaryColor;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20;
+  margin-bottom: 20;
+}
+
+.directionButton {
+  align-items: center;
+  justify-content: center;
+  background-color: $primaryColor;
+  height: 2.2rem;
+  width: 2.2rem;
+  border-radius: 3px;
+  margin-left: 0.1rem;
+}
+
+.directionIcon {
+  color: $primaryTextColor;
+  font-size: 2rem;
+}

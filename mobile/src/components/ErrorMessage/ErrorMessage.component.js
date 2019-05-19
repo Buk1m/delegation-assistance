@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { Icon } from "expo";
 import { string } from "prop-types";
 
-import styles from "./ErrorMessageStyles.scss";
+import styles from "./ErrorMessage.module.scss";
 
 const ErrorMessage = props => {
   return (

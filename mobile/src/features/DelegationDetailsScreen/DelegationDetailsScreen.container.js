@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { func } from "prop-types";
+import { View } from "react-native";
 import { showMessage } from "react-native-flash-message";
 
 import DelegationDetailsScreen from "./DelegationDetailsScreen.component";
 import OptionsMenu from "./OptionsMenu/OptionsMenu.component";
-import { fetchDelegation } from "../../actions/delegations.actions";
-import { fetchDelegationChecklist } from "../../actions/delegationChecklist.actions";
+import IconButton from "../../components/IconButton/IconButton.component";
+
+import styles from "./DelegationDetailsScreen.module.scss";
 import colors from "../../assets/styles/_colorPalette.scss";
 
 export class DelegationDetailsScreenContainer extends Component {
-  static propTypes = {
-    fetchDelegation: func,
-    fetchDelegationChecklist: func
-  };
-
   _menu = null;
 
   setMenuRef = ref => {
@@ -51,19 +46,54 @@ export class DelegationDetailsScreenContainer extends Component {
     return {
       title: `Delegation no. ${navigation.getParam("delegationId")}`,
       headerTintColor: colors.primary,
-      headerRight: <OptionsMenu navigation={navigation} />
+      headerRight: (
+        <View style={styles.navigationOptions}>
+          <IconButton
+            style={styles.filterButton}
+            iconStyle={styles.iconStyle}
+            iconName="filter-outline"
+            iconPackName="MaterialCommunityIcons"
+            onPress={navigation.getParam("changeIsSortFilterPanelCollapsed")}
+          />
+          <OptionsMenu navigation={navigation} />
+        </View>
+      )
     };
   };
 
   constructor(props) {
     super(props);
     this.delegationId = props.navigation.getParam("delegationId");
+    this.state = {
+      isExpensesSortFilterPanelCollapsed: true,
+      changeIsSortFilterPanelCollapsedFunctionsMap: {},
+      currentTabName: ""
+    };
   }
 
+  setFunctionForCollapsing = (passedFunction, tabName) => {
+    const functions = this.state.changeIsSortFilterPanelCollapsedFunctionsMap;
+    functions[tabName] = passedFunction;
+    this.setState({ changeIsSortFilterPanelCollapsedFunctionsMap: functions });
+  };
+
+  setCurrentTabName = tabName => {
+    this.setState({ currentTabName: tabName });
+  };
+
+  _changeIsSortFilterPanelCollapsed = () => {
+    if (this._isMethodKnown(this.state.currentTabName)) {
+      this.state.changeIsSortFilterPanelCollapsedFunctionsMap[this.state.currentTabName]();
+    }
+  };
+
+  _isMethodKnown = tabName => {
+    return this.state.changeIsSortFilterPanelCollapsedFunctionsMap[tabName] !== undefined;
+  };
+
   componentDidMount = () => {
-    this.props.fetchDelegation(this.delegationId);
-    this.props.fetchDelegationChecklist(this.delegationId);
     this.props.navigation.setParams({
+      changeIsSortFilterPanelCollapsed: this._changeIsSortFilterPanelCollapsed,
       handleSend: this.handleSendToTravelManager,
       handleEdit: this.handleEdit,
       handleDelete: this.handleDelete,
@@ -73,16 +103,14 @@ export class DelegationDetailsScreenContainer extends Component {
   };
 
   render() {
-    return <DelegationDetailsScreen />;
+    return (
+      <DelegationDetailsScreen
+        delegationId={this.delegationId}
+        setFunctionForCollapsing={this.setFunctionForCollapsing}
+        setCurrentTabName={this.setCurrentTabName}
+      />
+    );
   }
 }
 
-const mapDispatchToProps = {
-  fetchDelegation,
-  fetchDelegationChecklist
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(DelegationDetailsScreenContainer);
+export default DelegationDetailsScreenContainer;

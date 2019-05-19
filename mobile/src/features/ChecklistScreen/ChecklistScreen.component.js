@@ -48,9 +48,9 @@ const ChecklistScreen = props => {
 };
 
 ChecklistScreen.propTypes = {
-  tasks: array,
   handleDelete: func,
-  handleSubmit: func
+  handleSubmit: func,
+  tasks: array
 };
 
 export default reduxForm({

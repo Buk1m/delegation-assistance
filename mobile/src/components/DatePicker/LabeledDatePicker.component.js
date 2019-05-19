@@ -4,7 +4,7 @@ import { Icon } from "expo";
 import DatePicker from "react-native-datepicker";
 import { string, object } from "prop-types";
 
-import styles from "./LabeledDatePickerStyles.scss";
+import styles from "./LabeledDatePicker.module.scss";
 
 const LabeledDatePicker = ({ input: { onChange, value }, title, style }) => {
   return (

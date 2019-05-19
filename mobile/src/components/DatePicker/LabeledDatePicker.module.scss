@@ -1,4 +1,6 @@
 @import "../../assets/styles/colors";
+@import "../../assets/styles/colorPalette";
+
 
 .datePickerButton {
   height: 35;
@@ -24,11 +26,11 @@
 }
 
 .dateText {
-  color: white;
+  color: $primaryTextColor;
 }
 
 .placeholderText {
-  color: white;
+  color: $primaryTextColor;
 }
 
 .datePicker {

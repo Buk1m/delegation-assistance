@@ -1,0 +1,49 @@
+@import "../../../../../assets/styles/colorPalette";
+
+.expenseContainer {
+  border-bottom-width: 0.05rem;
+  border-bottom-color: $gpalette0100;
+}
+
+.expense {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paymentIcon {
+  align-items: flex-start;
+  flex: 1;
+}
+
+.expenseTitleAndDate {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 1.5rem;
+  flex: 3;
+}
+
+.expenseDate {
+  color: $gpalette0200;
+}
+
+.expensePriceAndFilesCount {
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 1rem;
+  flex: 3;
+}
+
+.expensePrice {
+  font-weight: bold;
+}
+
+.expenseFilesCount {
+  color: $gpalette0200;
+}
+
+.attachmentsButton {
+  align-items: flex-end;
+  flex: 1;
+}

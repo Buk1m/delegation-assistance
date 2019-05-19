@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from "expo";
 import { string, object, array } from "prop-types";
 
-import styles from "./LabeledPickerStyles.scss";
+import styles from "./LabeledPicker.module.scss";
 
 const renderPickerItems = items => {
   return items.map(item => {
@@ -11,25 +11,15 @@ const renderPickerItems = items => {
   });
 };
 
-const LabeledPicker = ({
-  input: { onChange, value },
-  style,
-  title,
-  iconName,
-  data,
-}) => {
+const LabeledPicker = ({ input: { onChange, value }, style, title, iconName, data, pickerStyle }) => {
   return (
     <View style={style}>
       <View style={styles.title}>
         <Icon.Ionicons name={iconName} />
         <Text> {title} </Text>
       </View>
-      <View style={styles.labeledPicker}>
-        <Picker
-          style={styles.text}
-          selectedValue={value}
-          onValueChange={value => onChange(value)}
-        >
+      <View style={[styles.labeledPicker, pickerStyle]}>
+        <Picker style={styles.text} selectedValue={value} onValueChange={value => onChange(value)}>
           {renderPickerItems(data)}
         </Picker>
       </View>
@@ -38,11 +28,12 @@ const LabeledPicker = ({
 };
 
 LabeledPicker.propTypes = {
-  input: object,
-  style: object,
-  title: string,
+  data: array,
   iconName: string,
-  data: array
+  input: object,
+  pickerStyle: object,
+  style: object,
+  title: string
 };
 
 export default LabeledPicker;

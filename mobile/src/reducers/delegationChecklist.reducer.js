@@ -15,8 +15,8 @@ const delegationChecklistReducer = (state = initialState, action) => {
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${PENDING}`:
       return {
         ...state,
-        checklistName: "",
-        tasks: [],
+        delegationId: 0,
+        activities: [],
         fetching: true
       };
     case `${ACTIONS.FETCH_DELEGATION_CHECKLIST}_${FULFILLED}`:

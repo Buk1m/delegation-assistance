@@ -65,7 +65,7 @@ const DelegationsScreen = props => {
         <IconButton
           style={styles.collapseButton}
           iconStyle={styles.iconStyle}
-          iconName={"md-arrow-dropup-circle"}
+          iconName="arrow-dropup-circle"
           onPress={changeIsSortFilterPanelCollapsed}
         />
       </Collapsible>
@@ -77,7 +77,7 @@ const DelegationsScreen = props => {
       <FlatList
         style={[styles.list, styles.listSideMargins]}
         data={delegations}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         renderItem={delegation => renderItem(delegation, navigate)}
         refreshing={fetching}
         onRefresh={handleRefresh}

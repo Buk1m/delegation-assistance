@@ -6,7 +6,9 @@ import { Icon } from "expo";
 import StatusProp from "../../../components/StatusProp/StatusProp.component";
 import Button from "../../../components/Button/Button.component";
 import RenderDetailsRow from "../../../components/renderers/RenderDetailsRow/RenderDetailsRow.renderer";
+
 import styles from "./DelegationDetails.module.scss";
+import colors from "../../../assets/styles/_colorPalette.scss";
 
 const DelegationDetails = props => {
   const {
@@ -24,31 +26,34 @@ const DelegationDetails = props => {
         <StatusProp status={status} />
       </View>
       <RenderDetailsRow
-        title={"Destination:"}
+        title="Destination:"
         content={`${destinationCountry} - ${destinationLocation}`}
-        icon={<Icon.Ionicons size={24} color="white" name="md-pin" s tyle={styles.pin} />}
+        icon={<Icon.Ionicons size={24} color={colors.primaryTextColor} name="md-pin" style={styles.pin} />}
         fetching={props.fetching}
       />
       <RenderDetailsRow
-        title={"Delegation period:"}
+        title="Delegation period:"
         content={`${startDate} - ${endDate}`}
-        icon={<Icon.MaterialIcons size={24} color="white" name="date-range" />}
+        icon={<Icon.MaterialIcons size={24} color={colors.primaryTextColor} name="date-range" />}
         fetching={props.fetching}
       />
       <RenderDetailsRow
-        title={"Diet:"}
+        title="Diet:"
         content={`${diet.perDiem} ${diet.currency}`}
-        icon={<Icon.MaterialCommunityIcons size={24} color="white" name="food-apple" />}
+        icon={<Icon.MaterialCommunityIcons size={24} color={colors.primaryTextColor} name="food-apple" />}
         fetching={props.fetching}
       />
       <RenderDetailsRow
-        title={"Objective:"}
+        title="Objective:"
         content={`${delegationObjective}`}
-        icon={<Icon.MaterialCommunityIcons size={24} color="white" name="target" />}
+        icon={<Icon.MaterialCommunityIcons size={24} color={colors.primaryTextColor} name="target" />}
         fetching={props.fetching}
       />
       <View style={styles.submit}>
-        <Button title="Submit delegation" icon={<Icon.FontAwesome size={20} color="white" name="send" />} />
+        <Button
+          title="Submit delegation"
+          icon={<Icon.FontAwesome size={20} color={colors.primaryTextColor} name="send" />}
+        />
       </View>
     </View>
   );

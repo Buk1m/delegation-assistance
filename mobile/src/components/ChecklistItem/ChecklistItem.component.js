@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import CheckBox from "react-native-check-box";
 import { object, func } from "prop-types";
 
-import styles from "./ChecklistItemStyles.scss";
+import styles from "./ChecklistItem.module.scss";
 
 const ChecklistItem = props => {
   const { checkbox, onClick } = props;

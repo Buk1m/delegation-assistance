@@ -21,7 +21,7 @@
 - **page** która strona jest pobierana **domyślna wartość** 1, jeśli wartośc jest mniejsza od jedynki ustawiana jest domyślna wartość
 - **size** rozmiar strony **domyślna wartość** 10, jeśli wartość jest mniejsza od 1, ustawiana jest domyślna wartość
 - **sort** pola, po których mają odbywać się sortowania **`.asc`** po nazwie pola oznacza sortowanie rosnąco, **`.desc`** po nazwie pola oznacza sortowanie malejąco. 
-Jeśli podana wartość jest niepoprawna, wykorzystywana jest z domyślnej wartosci (domyślna wartość **`id.desc`**) **dostępne wartości** expenseId, expenseDate
+Jeśli podana wartość jest niepoprawna, wykorzystywana jest z domyślnej wartosci (domyślna wartość **`id.desc`**) **dostępne wartości** id, expenseDate
 
 **Typ danych:** -
 

@@ -14,3 +14,13 @@ $delegation-status-prepared: #fac05e;
 $delegation-status-checked: #f7e94c;
 $delegation-status-approved: #2ecc78;
 $delegation-status-finalized: #ababab;
+
+$cash-payment-type: #008000;
+$card-payment-type: #0000ff;
+$default-payment-type: #000;
+
+:export {
+  cash: $cash-payment-type;
+  card: $card-payment-type;
+  default: $default-payment-type;
+}
