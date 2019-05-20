@@ -30,4 +30,6 @@ const delegationStatuses = {
   FINALIZED: "Finalized"
 };
 
-export { userRoles, userRolesMap, environments, themes, delegationStatuses };
+const paymentTypes = [{ label: "Cash", value: "CASH" }, { label: "Credit card", value: "CREDIT_CARD" }];
+
+export { userRoles, userRolesMap, environments, themes, delegationStatuses, paymentTypes };

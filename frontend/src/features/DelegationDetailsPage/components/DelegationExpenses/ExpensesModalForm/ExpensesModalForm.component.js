@@ -7,10 +7,9 @@ import currencies from "../../../../../components/Currencies/CurrenciesMap";
 import Input from "../../../../../components/Input/Input.component";
 import Button from "../../../../../components/Button/Button.component";
 import { validateRequired } from "../../../../../validators/Validators";
+import { paymentTypes } from "../../../../../config/index";
 
 import "filepond/dist/filepond.min.css";
-
-const paymentTypes = [{ label: "Cash", value: "CASH" }, { label: "Credit card", value: "CREDIT_CARD" }];
 
 const ExpensesModalForm = props => {
   const { handleSubmit, setFiles, files, initialize, invalid, pristine } = props;
@@ -69,6 +68,15 @@ const ExpensesModalForm = props => {
                     name="expenseCurrency"
                     options={currencies}
                     placeholder="Currency"
+                    validate={[validateRequired]}
+                  />
+                  <Input
+                    component="input"
+                    label="Exchange rate"
+                    name="exchangeRate"
+                    placeholder="Add exchange rate"
+                    step="0.01"
+                    type="number"
                     validate={[validateRequired]}
                   />
                 </div>
