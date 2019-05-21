@@ -1,11 +1,10 @@
-@import "../../assets/styles/constants";
+@import "../../assets/styles/colorPalette";
 
 .input {
-  border-color: $primary-color;
+  border-color: $primaryColor;
   border-radius: 10px;
   border-width: 2px;
   min-width: 8.625rem;
-  max-width: 18.75rem;
   height: 2.3125rem;
   width: 18.75rem;
   padding-left: 0.625rem;
@@ -13,7 +12,8 @@
 }
 
 .validationField {
-  color: $validate-text-color;
+  color: $validateColor;
+  font-weight: bold;
   padding-left: 1.25rem;
   margin: 0 1.25rem;
 }

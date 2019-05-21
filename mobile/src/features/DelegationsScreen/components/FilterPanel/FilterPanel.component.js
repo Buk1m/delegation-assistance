@@ -28,8 +28,8 @@ const FilterPanel = props => {
 
   return (
     <View style={[styles.column, styles.sideMargins]}>
-      <Field name="startDate" component={DatePicker} style={styles.datePicker} title="Date from" />
-      <Field name="endDate" component={DatePicker} style={styles.datePicker} title="Date to" />
+      <Field name="startDate" component={DatePicker} style={{ containerStyle: styles.datePicker }} title="Date from" />
+      <Field name="endDate" component={DatePicker} style={{ containerStyle: styles.datePicker }} title="Date to" />
 
       <Field
         name="delegationStatus"
@@ -37,7 +37,7 @@ const FilterPanel = props => {
         style={styles.picker}
         data={statusesWithKeys}
         title="Status"
-        iconName="md-stats"
+        iconName="stats"
       />
 
       <Button style={styles.button} title="Filter" onPress={handleSubmit} />

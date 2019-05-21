@@ -1,11 +1,9 @@
-@import "../../assets/styles/colors";
 @import "../../assets/styles/colorPalette";
-
 
 .datePickerButton {
   height: 35;
   width: 120;
-  background-color: $secondary-color;
+  background-color: $palette0400;
   border-radius: 3px;
   align-items: center;
   justify-content: center;
@@ -30,10 +28,16 @@
 }
 
 .placeholderText {
-  color: $primaryTextColor;
+  color: $palette0100;
 }
 
 .datePicker {
   margin-top: 42;
   border-top-width: 0;
+}
+
+.validationField {
+  color: $validateColor;
+  font-weight: bold;
+  width: 15rem;
 }

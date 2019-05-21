@@ -66,10 +66,10 @@ const CreateDelegationsScreen = props => {
                 name="diet.perDiem"
                 placeholder="0.00"
                 component={FieldRenderer}
+                style={{ inputStyle: { width: 50 } }}
+                data={currencies}
                 validate={[validateNumber, validateCurrency]}
                 isSecure={false}
-                data={currencies}
-                mystyles={{ width: 50 }}
               />
             </View>
             <View>
@@ -108,6 +108,7 @@ CreateDelegationsScreen.propTypes = {
 export default reduxForm({
   form: "create-delegation",
   ...startDateEarlierThanEndDate,
+  dateNames: ["startDate", "endDate"],
   onSubmitSuccess: (result, dispatch) => {
     dispatch(reset("create-delegation"));
   }

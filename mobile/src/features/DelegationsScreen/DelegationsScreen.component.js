@@ -1,7 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View, FlatList, Alert } from "react-native";
 import Collapsible from "react-native-collapsible";
-import { Icon } from "expo";
 import { array, bool, func, object } from "prop-types";
 
 import Delegation from "./components/Delegation/Delegation.component";
@@ -9,6 +8,8 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.component";
 import FilterPanel from "./components/FilterPanel/FilterPanel.component";
 import SortPanel from "./components/SortPanel/SortPanel.component";
 import IconButton from "../../components/IconButton/IconButton.component";
+import PlatformIcon from "../../components/PlatformIcon/PlatformIcon.component";
+
 import styles from "./DelegationsScreen.module.scss";
 import style from "../CreateDelegationScreen/CreateDelegationButtonStyles.module.scss";
 
@@ -89,7 +90,7 @@ const DelegationsScreen = props => {
         title="+"
         onPress={() => navigate.navigate("CreateDelegation")}
       >
-        <Icon.Ionicons name="md-add" style={style.addDelegationButtonText} />
+        <PlatformIcon name="add" style={style.addDelegationButtonText}/>
       </TouchableOpacity>
     </View>
   );

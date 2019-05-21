@@ -1,9 +1,13 @@
 import { Text, View, Picker } from "react-native";
 import React from "react";
-import { Icon } from "expo";
 import { string, object, array } from "prop-types";
 
+import PlatformIcon from "../PlatformIcon/PlatformIcon.component";
+
 import styles from "./LabeledPicker.module.scss";
+import colors from "../../assets/styles/_colorPalette";
+
+const pickerIconSize = 18;
 
 const renderPickerItems = items => {
   return items.map(item => {
@@ -15,7 +19,7 @@ const LabeledPicker = ({ input: { onChange, value }, style, title, iconName, dat
   return (
     <View style={style}>
       <View style={styles.title}>
-        <Icon.Ionicons name={iconName} />
+        {iconName && <PlatformIcon name={iconName} size={pickerIconSize} color={colors.textColor} />}
         <Text> {title} </Text>
       </View>
       <View style={[styles.labeledPicker, pickerStyle]}>

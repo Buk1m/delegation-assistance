@@ -25,7 +25,7 @@ const expensesReducer = (state = initialState, action) => {
       };
     }
     case `${ACTIONS.ADD_EXPENSE}_${REJECTED}`: {
-      showMessage({ message: `Error occured while adding expense: ${action.payload.Message}`, type: "danger" });
+      showMessage({ message: `Error occurred while adding expense: ${action.payload.Message}`, type: "danger" });
       return {
         ...state,
         fetching: false,

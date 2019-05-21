@@ -24,7 +24,7 @@
 
 ```json
 {
-  "hotelsName": "Gloria Hotel",
+  "hotelName": "Gloria Hotel",
   "checkInDate": "2019-01-01T10:00:00",
   "checkOutDate": "2019-05-12T10:00:00"
 }
@@ -44,7 +44,7 @@
 {
   "id": 1,
   "version": 0,
-  "hotelsName": "Gloria Hotel",
+  "hotelName": "Gloria Hotel",
   "checkInDate": "2019-01-01T10:00:00",
   "checkOutDate": "2019-05-12T10:00:00"
 }

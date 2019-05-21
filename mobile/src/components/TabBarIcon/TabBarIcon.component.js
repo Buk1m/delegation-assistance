@@ -1,17 +1,27 @@
 import React from "react";
-import { Icon } from "expo";
+import { bool, string } from "prop-types";
 
+import PlatformIcon from "../PlatformIcon/PlatformIcon.component";
 import Colors from "../../constants/Colors";
 
-export default class TabBarIcon extends React.Component {
-  render() {
-    return (
-      <Icon.Ionicons
-        name={this.props.name}
-        size={26}
-        style={{ marginBottom: -3 }}
-        color={this.props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
-      />
-    );
-  }
-}
+const tabBarIconSize = 26;
+
+const TabBarIcon = props => {
+  const { name, focused } = props;
+
+  return (
+    <PlatformIcon
+      name={name}
+      size={tabBarIconSize}
+      style={{ marginBottom: -3 }}
+      color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+    />
+  );
+};
+
+TabBarIcon.propTypes = {
+  focused: bool,
+  name: string
+};
+
+export default TabBarIcon;

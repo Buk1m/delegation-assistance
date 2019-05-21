@@ -48,5 +48,8 @@ $lightBorderColor: $gpalette0200;
 :export {
   primary: $primaryColor;
   secondary: $secondaryColor;
-  primaryTextColor: $primaryTextColor
+  primaryTextColor: $primaryTextColor;
+  textColor: $textColor;
+  lightGrey: $gpalette050;
+  lightPurple: $palette0100;
 }

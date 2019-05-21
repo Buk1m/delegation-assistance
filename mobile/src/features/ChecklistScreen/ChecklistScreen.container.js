@@ -1,22 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Icon } from "expo";
-import { Platform } from "react-native";
 import { array, func } from "prop-types";
 
 import { deleteTask, fetchTasks, saveTasks } from "../../actions/checklists.actions";
 import { getTasks } from "../../selectors/checklists.selectors";
 import ChecklistScreen from "./ChecklistScreen.component";
+import PlatformIcon from "../../components/PlatformIcon/PlatformIcon.component";
+
+import styles from "./ChecklistScreen.module.scss";
+import colors from "../../assets/styles/_colorPalette";
+
+const addIconSize = 24;
 
 class ChecklistScreenContainer extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Checklist",
       headerRight: (
-        <Icon.Ionicons
-          name={Platform.OS === "ios" ? `ios-add` : "md-add"}
-          size={24}
-          style={{ marginRight: 20 }}
+        <PlatformIcon
+          name="add"
+          size={addIconSize}
+          style={styles.addChecklistButton}
+          color={colors.textColor}
           onPress={() => navigation.navigate("CreateTask")}
         />
       )

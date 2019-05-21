@@ -7,16 +7,27 @@ import PlatformIcon from "../../../../../components/PlatformIcon/PlatformIcon.co
 import styles from "./PaymentIcon.module.scss";
 import colors from "../../../../../assets/styles/_constants.scss";
 
+const getPaymentTypeName = paymentType => {
+  switch (paymentType.toLowerCase()) {
+    case "credit_card":
+      return "card";
+    case "cash":
+      return "cash";
+    default:
+      return "default";
+  }
+};
+
 const PaymentIcon = props => {
   const { paymentType, style } = props;
-  const paymentTypeInLower = paymentType.toLowerCase();
+  const paymentTypeName = getPaymentTypeName(paymentType);
   const paymentIconSize = 26;
 
   return (
     <View style={style}>
       <View style={styles.circleContainer}>
-        <PlatformIcon name={`${paymentTypeInLower}`} size={paymentIconSize} color={colors[paymentTypeInLower]} />
-        <Text style={styles[`${paymentTypeInLower}PaymentType`]}>{paymentType}</Text>
+        <PlatformIcon name={`${paymentTypeName}`} size={paymentIconSize} color={colors[paymentTypeName]} />
+        <Text style={styles[`${paymentTypeName}PaymentType`]}>{paymentTypeName.toUpperCase()}</Text>
       </View>
     </View>
   );

@@ -30,7 +30,7 @@ const SortPanel = props => {
           pickerStyle={styles.labeledPicker}
           title="Sort by"
           data={addKeysToItems(sortBys)}
-          iconName="md-funnel"
+          iconName="funnel"
           validate={[validateRequired]}
           isSecure={false}
         />
