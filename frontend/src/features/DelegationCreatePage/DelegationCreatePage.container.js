@@ -24,9 +24,11 @@ class DelegationCreatePageContainer extends Component {
       ...values,
       destinationCountry: values.destinationCountry.value,
       startDate: values.startDate.toISOString().split(".")[0],
-      endDate: values.endDate.toISOString().split(".")[0],
-      diet: { perDiem: values.diet.perDiem, currency: values.diet.currency.value }
+      endDate: values.endDate.toISOString().split(".")[0]
     };
+    if (values.diet) {
+      delegation.diet = { perDiem: values.diet.perDiem, currency: values.diet.currency.value };
+    }
 
     return this.props.addNewDelegation(delegation).then(() => {
       this._redirectToDelegationsPage();

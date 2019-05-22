@@ -1,7 +1,6 @@
 import { Text, View, Picker } from "react-native";
 import React from "react";
 import { string, object, array } from "prop-types";
-
 import PlatformIcon from "../PlatformIcon/PlatformIcon.component";
 
 import styles from "./LabeledPicker.module.scss";
@@ -15,18 +14,29 @@ const renderPickerItems = items => {
   });
 };
 
-const LabeledPicker = ({ input: { onChange, value }, style, title, iconName, data, pickerStyle }) => {
+const LabeledPicker = ({
+  input: { onChange, value },
+  style,
+  title,
+  iconName,
+  data,
+  pickerStyle,
+  meta: { touched, error }
+}) => {
   return (
-    <View style={style}>
-      <View style={styles.title}>
-        {iconName && <PlatformIcon name={iconName} size={pickerIconSize} color={colors.textColor} />}
-        <Text> {title} </Text>
+    <View style={styles.container}>
+      <View style={style}>
+        <View style={styles.title}>
+          {iconName && <PlatformIcon name={iconName} size={pickerIconSize} color={colors.textColor} />}
+          <Text> {title} </Text>
+        </View>
+        <View style={[styles.labeledPicker, pickerStyle]}>
+          <Picker style={styles.text} selectedValue={value} onValueChange={value => onChange(value)}>
+            {renderPickerItems(data)}
+          </Picker>
+        </View>
       </View>
-      <View style={[styles.labeledPicker, pickerStyle]}>
-        <Picker style={styles.text} selectedValue={value} onValueChange={value => onChange(value)}>
-          {renderPickerItems(data)}
-        </Picker>
-      </View>
+      {touched && (error && <Text style={[styles.validationField]}>{error}</Text>)}
     </View>
   );
 };

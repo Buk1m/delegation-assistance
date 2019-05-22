@@ -5,13 +5,14 @@ import { Ionicons } from "@expo/vector-icons";
 import localStyles from "./FileListStyles.module.scss";
 
 const PaymentType = ({ payType, choosePayType }) => {
+  const iconSize = 32;
   return (
     <View style={localStyles.container}>
       {payType === "CREDIT_CARD" ? (
         <Fragment>
           <TouchableOpacity>
             <Text style={localStyles["left-button-active"]}>
-              <Ionicons name="ios-card" size={32} />
+              <Ionicons name="ios-card" size={iconSize} />
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -20,7 +21,7 @@ const PaymentType = ({ payType, choosePayType }) => {
             }}
           >
             <Text style={localStyles["right-button-inactive"]}>
-              <Ionicons name="ios-cash" size={32} />
+              <Ionicons name="ios-cash" size={iconSize} />
             </Text>
           </TouchableOpacity>
         </Fragment>
@@ -32,12 +33,12 @@ const PaymentType = ({ payType, choosePayType }) => {
             }}
           >
             <Text style={localStyles["left-button-inactive"]}>
-              <Ionicons name="ios-card" size={32} />
+              <Ionicons name="ios-card" size={iconSize} />
             </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={localStyles["right-button-active"]}>
-              <Ionicons name="ios-cash" size={32} />
+              <Ionicons name="ios-cash" size={iconSize} />
             </Text>
           </TouchableOpacity>
         </Fragment>

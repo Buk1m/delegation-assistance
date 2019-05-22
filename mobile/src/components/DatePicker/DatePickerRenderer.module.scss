@@ -1,38 +1,30 @@
-@import "../../assets/styles/constants";
+@import "../../assets/styles/colorPalette";
 
-.date-icon {
+.dateIcon {
   position: absolute;
-  left: 0;
+  left: 0.625rem;
   top: 0.25rem;
-  margin-left: 0;
+  margin-left: -6rem;
 }
 
-.date-input {
-  margin-left: 2.25rem;
-  border-color: $primary-color;
+.dateInput {
+  border-color: $primaryColor;
   border-radius: 10px;
   border-width: 2px;
   height: 2.3125rem;
+  margin-left: 1.25rem;
+  width: 18.75rem;
   min-width: 15.625rem;
   max-width: 18.75rem;
-  padding-left: 0.625rem;
-}
-
-.date-picker {
-  width: 18.75rem;
-  margin: 0 1.25rem;
 }
 
 .validation-field {
-  color: $validate-text-color;
+  color: $validateColor;
   padding-left: 1.25rem;
   margin: 0 1.25rem;
 }
 
-.active {
-  color: $text-color;
-}
-
-.inactive {
-  color: $inactiveTextColor;
+:export {
+  activeColor: $textColor;
+  inactiveColor: $gpalette0100;
 }

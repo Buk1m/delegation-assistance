@@ -781,6 +781,7 @@ exports[`Create Delegation Page should render correctly 1`] = `
                   },
                 ]
               }
+              validate={[Function]}
             />
           </div>
           <div
@@ -800,7 +801,12 @@ exports[`Create Delegation Page should render correctly 1`] = `
               onFocus={[Function]}
               placeholder="0.00"
               type="text"
-              validate={[Function]}
+              validate={
+                Array [
+                  [Function],
+                  [Function],
+                ]
+              }
             />
           </div>
         </div>

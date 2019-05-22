@@ -17,18 +17,20 @@ const FieldRenderer = ({
   const inputStyles = multiline ? styles.textarea : styles.input;
 
   return (
-    <View>
-      <TextInput
-        {...restInput}
-        style={[inputStyles, inputStyle]}
-        multiline={multiline}
-        numberOfLines={numberOfLines}
-        onChangeText={onChange}
-        placeholder={placeholder}
-        placeholderTextColor={placeholderTextColor}
-        autoCapitalize="none"
-        secureTextEntry={isSecure}
-      />
+    <View style={styles.container}>
+      <View>
+        <TextInput
+          {...restInput}
+          style={[inputStyles, inputStyle]}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
+          onChangeText={onChange}
+          placeholder={placeholder}
+          placeholderTextColor={placeholderTextColor}
+          autoCapitalize="none"
+          secureTextEntry={isSecure}
+        />
+      </View>
       {touched && (error && <Text style={validationFieldStyle}>{error}</Text>)}
     </View>
   );

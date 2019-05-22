@@ -2,7 +2,7 @@
 
 .container {
   flex-direction: row;
-  margin: auto;
+  margin-left: 1.25rem;
 }
 
 .button {
@@ -13,7 +13,7 @@
   border-radius: 10px;
   font-weight: bold;
   text-align: center;
-  margin: 1.25rem 1.25rem 0.9375rem;
+  margin: 1.25rem 0.25rem 0.9375rem 1.25rem;
   font-size: 1.25rem;
   padding: 0.3125rem;
 }
@@ -44,7 +44,7 @@
 }
 
 .dual-button-container {
-  width: 3.3125rem;
+  width: 3.625rem;
   height: 2.3125rem;
   font-weight: bold;
   text-align: center;

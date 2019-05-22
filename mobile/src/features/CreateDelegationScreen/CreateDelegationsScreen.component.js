@@ -3,14 +3,21 @@ import { View, ScrollView, KeyboardAvoidingView, Text } from "react-native";
 import { reduxForm, reset, Field } from "redux-form";
 import { bool, func } from "prop-types";
 
-import { validateRequired, validateNumber, validateCurrency } from "../../validators/Validators";
-import startDateEarlierThanEndDate from "../../validators/startDateEarlierThenEndDate";
 import Button from "../../components/Button/Button.component";
+import {
+  validateRequired,
+  validateNumber,
+  validateCurrency,
+  validateDiemExists,
+  validateCurrencyExists,
+  startDateEarlierThanEndDate
+} from "../../validators/Validators";
 import DatePickerRenderer from "../../components/DatePicker/DatePickerRenderer.component";
 import FieldRenderer from "../../components/FieldRenderer/FieldRenderer.component";
 import Currencies from "../../components/Currencies/Currencies";
 import LabeledPicker from "../../components/LabeledPicker/LabeledPicker.component";
 
+import localstyles from "./CreateDelegationButtonStyles.module";
 import styles from "../../assets/styles/styles.scss";
 
 const currenciesTags = Currencies.map(currency => {
@@ -66,9 +73,9 @@ const CreateDelegationsScreen = props => {
                 name="diet.perDiem"
                 placeholder="0.00"
                 component={FieldRenderer}
+                validate={[validateNumber, validateCurrency, validateDiemExists]}
                 style={{ inputStyle: { width: 50 } }}
                 data={currencies}
-                validate={[validateNumber, validateCurrency]}
                 isSecure={false}
               />
             </View>
@@ -78,8 +85,10 @@ const CreateDelegationsScreen = props => {
                 name="diet.currency"
                 placeholder="Select"
                 component={LabeledPicker}
+                validate={validateCurrencyExists}
                 data={currencies}
                 isSecure={false}
+                mystyles={localstyles.halfField}
               />
             </View>
           </View>

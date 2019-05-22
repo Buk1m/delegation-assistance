@@ -1,19 +1,31 @@
-@import "../../assets/styles/colors";
+@import "../../assets/styles/colorPalette";
 
 .labeledPicker {
-  background-color: $secondary-color;
   border-radius: 10px;
-  height: 2.3125rem;;
+  border-color: $primaryColor;
+  border-width: 2px;
+  height: 2.3125rem;
   width: 120;
   justify-content: center;
   margin-top: -20px;
+  margin-left: 20px;
 }
 
 .text {
-  color: $text-color-button;
+  color: $textColor;
 }
 
 .title {
   flex-direction: row;
   align-items: center;
+}
+
+.validationField {
+  color: $validateColor;
+  padding-left: 2.25rem;
+  margin: 0rem;
+}
+
+.container {
+  position: relative;
 }

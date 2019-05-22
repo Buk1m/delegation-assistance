@@ -73,7 +73,7 @@ export const DelegationCreatePage = props => {
                 />
               </div>
               <div className="form-group col-md-3 pt-md-1 pl-md-2">
-                <Input label="Currency" component="typeahead" name="diet.currency" options={currencies} />
+                <Input label="Currency" component="typeahead" name="diet.currency" options={currencies} validate={validateRequired} />
               </div>
               <div className="form-group col-md-3" />
               <div className="form-group col-md-3">
@@ -81,7 +81,7 @@ export const DelegationCreatePage = props => {
                   label="Advance Payment"
                   name="advancePayment"
                   placeholder="0.00"
-                  validate={validateNumber}
+                  validate={[validateNumber, validateRequired]}
                   type="text"
                   component="input"
                   {...currencyMask}
