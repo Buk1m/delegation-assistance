@@ -3,6 +3,7 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Flight;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,18 +32,8 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Flux<Flight> getFlights(Long delegationId) {
-        return delegationService.getDelegation(delegationId)
-                .map(Delegation::getFlights)
-                .flatMapMany(flights -> {
-                    flights.sort(Comparator.comparing(Flight::getDepartureDate));
-                    return Flux.fromIterable(flights);
-                });
-    }
-
-    @Override
-    public Flux<Flight> getFlights(String delegatedEmployeeLogin, Long delegationId) {
-        return delegationService.getDelegation(delegationId, delegatedEmployeeLogin)
+    public Flux<Flight> getFlights(Long delegationId, Authentication authentication) {
+        return delegationService.getDelegationValidated(delegationId, authentication)
                 .map(Delegation::getFlights)
                 .flatMapMany(flights -> {
                     flights.sort(Comparator.comparing(Flight::getDepartureDate));

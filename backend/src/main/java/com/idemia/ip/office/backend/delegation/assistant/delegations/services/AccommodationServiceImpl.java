@@ -3,6 +3,7 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Accommodation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -33,18 +34,8 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public Flux<Accommodation> getAccommodations(Long delegationId) {
-        return delegationService.getDelegation(delegationId)
-                .map(Delegation::getAccommodations)
-                .flatMapMany(accommodations -> {
-                    accommodations.sort(Comparator.comparing(Accommodation::getCheckInDate));
-                    return Flux.fromIterable(accommodations);
-                });
-    }
-
-    @Override
-    public Flux<Accommodation> getAccommodations(String delegatedEmployeeLogin, Long delegationId) {
-        return delegationService.getDelegation(delegationId, delegatedEmployeeLogin)
+    public Flux<Accommodation> getAccommodations(Long delegationId, Authentication authentication) {
+        return delegationService.getDelegationValidated(delegationId, authentication)
                 .map(Delegation::getAccommodations)
                 .flatMapMany(accommodations -> {
                     accommodations.sort(Comparator.comparing(Accommodation::getCheckInDate));

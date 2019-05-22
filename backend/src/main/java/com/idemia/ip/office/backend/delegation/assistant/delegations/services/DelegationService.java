@@ -50,4 +50,6 @@ public interface DelegationService {
             Authentication authentication);
 
     Mono<UserFile> getFile(Long delegationId, Long expenseId, Long fileId, Authentication authentication);
+
+    Mono<Delegation> getDelegationValidated(Long delegationId, Authentication authentication);
 }

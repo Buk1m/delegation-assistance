@@ -130,7 +130,6 @@ public class DelegationServiceImpl implements DelegationService {
             DelegationStatus status,
             LocalDateTime since,
             LocalDateTime until) {
-        this.delegationValidator.validateDates(since, until);
         return readDelegationService.getDelegations(userLogin, status, since, until);
     }
 
@@ -147,7 +146,8 @@ public class DelegationServiceImpl implements DelegationService {
         return Mono.zip(checklistMono, countryMono);
     }
 
-    private Mono<Delegation> getDelegationValidated(Long delegationId, Authentication authentication) {
+    @Override
+    public Mono<Delegation> getDelegationValidated(Long delegationId, Authentication authentication) {
         return this.getDelegation(delegationId)
                 .map(d -> checkUserAccess(d, authentication));
     }

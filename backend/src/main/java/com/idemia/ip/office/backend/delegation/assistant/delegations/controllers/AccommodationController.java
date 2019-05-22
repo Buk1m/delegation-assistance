@@ -4,7 +4,6 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Accomm
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.AccommodationService;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Accommodation;
-import com.idemia.ip.office.backend.delegation.assistant.utils.RolesService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,9 +58,7 @@ public class AccommodationController {
     public Mono<ResponseEntity<List<AccommodationDto>>> getDelegationFlight(
             @PathVariable("delegationId") Long delegationId,
             Authentication authentication) {
-        Flux<Accommodation> accommodations = RolesService.hasAnyRole(authentication.getAuthorities(),
-                RolesService.travelManagerApproverAccoutant) ? accommodationService.getAccommodations(delegationId) :
-                accommodationService.getAccommodations(authentication.getName(), delegationId);
+        Flux<Accommodation> accommodations = accommodationService.getAccommodations(delegationId, authentication);
         Mono<List<AccommodationDto>> accommodationsDto = accommodations.map(e -> modelMapper.map(e,
                 AccommodationDto.class))
                 .collectList();

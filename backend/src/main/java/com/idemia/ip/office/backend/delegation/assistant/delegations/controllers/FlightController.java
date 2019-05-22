@@ -4,7 +4,6 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Flight
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.FlightService;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Flight;
-import com.idemia.ip.office.backend.delegation.assistant.utils.RolesService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,9 +51,7 @@ public class FlightController {
     @Validated(OnPost.class)
     public Mono<ResponseEntity<List<FlightDto>>> getDelegationFlight(@PathVariable("delegationId") Long delegationId,
             Authentication authentication) {
-        Flux<Flight> flights = RolesService.hasAnyRole(authentication.getAuthorities(),
-                RolesService.travelManagerApproverAccoutant) ? flightService.getFlights(delegationId) :
-                flightService.getFlights(authentication.getName(), delegationId);
+        Flux<Flight> flights = flightService.getFlights(delegationId, authentication);
         Mono<List<FlightDto>> flightsDto = flights.map(e -> modelMapper.map(e, FlightDto.class)).collectList();
         return flightsDto.map(ResponseEntity::ok);
     }

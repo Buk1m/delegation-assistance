@@ -8,6 +8,8 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.Flight
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.EntityNotFoundException
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.core.Authentication
 import reactor.core.publisher.Mono
 import spock.lang.Specification
 
@@ -20,6 +22,7 @@ class FlightServiceCaseSpec extends Specification {
 
     DelegationService delegationService = Mock()
     DelegationRepository delegationRepository = Mock()
+    Authentication authentication = Mock()
 
     FlightService flightService = new FlightServiceImpl(delegationService, delegationRepository)
 
@@ -69,19 +72,19 @@ class FlightServiceCaseSpec extends Specification {
             delegation.getFlights().addAll(flights)
 
         when: 'Getting flights'
-            List<Flight> result = flightService.getFlights(user.getLogin(), delegation.getId()).collectList().block()
+            List<Flight> result = flightService.getFlights(delegation.getId(), authentication).collectList().block()
 
         then: 'Result size should be equals to delegation flights count'
-            delegationService.getDelegation(_ as Long, _ as String) >> Mono.just(delegation)
+            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> Mono.just(delegation)
             result.size() == flights.size()
     }
 
     def 'Getting delegation flights by user when delegation does not exists'() {
         when: 'Getting flights of delegation with id 1 with does not exists'
-            flightService.getFlights('somebody', 1).collectList().block()
+            flightService.getFlights(1, authentication).collectList().block()
 
         then: 'Delegation service throws EntityNotFound'
-            delegationService.getDelegation(_ as Long, _ as String) >> {
+            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
                 throw new EntityNotFoundException("no-delegation", Delegation.class)
             }
             thrown(EntityNotFoundException)
@@ -89,16 +92,16 @@ class FlightServiceCaseSpec extends Specification {
 
     def 'Getting delegation flights by user which does not own delegation'() {
         when: 'Getting flights by somebody which does not own delegation with id 1'
-            flightService.getFlights('somebody', 1).collectList().block()
+            flightService.getFlights(1, authentication).collectList().block()
 
-        then: 'Delegation service throws EntityNotFound'
-            delegationService.getDelegation(_ as Long, _ as String) >> {
-                throw new EntityNotFoundException("no-delegation", Delegation.class)
+        then: 'Delegation service throws AccessDeniedException'
+            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
+                throw new AccessDeniedException("not own delegation")
             }
-            thrown(EntityNotFoundException)
+            thrown(AccessDeniedException)
     }
 
-    def 'Getting delegation flights'() {
+    def 'Getting delegation flights by user with permissions'() {
         given: 'User, delegation and flight'
             User user = getUser(1, 'mike')
             Delegation delegation = getUserDelegation(1, user)
@@ -106,19 +109,19 @@ class FlightServiceCaseSpec extends Specification {
             delegation.getFlights().addAll(flights)
 
         when: 'Getting flights'
-            List<Flight> result = flightService.getFlights(delegation.getId()).collectList().block()
+            List<Flight> result = flightService.getFlights(delegation.getId(), authentication).collectList().block()
 
         then: 'Result size should be equals to delegation flights count'
-            delegationService.getDelegation(_ as Long) >> Mono.just(delegation)
+            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> Mono.just(delegation)
             result.size() == flights.size()
     }
 
     def 'Getting delegation flights when delegation does not exists'() {
         when: 'Getting flights of delegation with id 1'
-            flightService.getFlights(1).collectList().block()
+            flightService.getFlights(1, authentication).collectList().block()
 
         then: 'Delegation service throws EntityNotFound'
-            delegationService.getDelegation(_ as Long) >> {
+            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
                 throw new EntityNotFoundException("no-delegation", Delegation.class)
             }
             thrown(EntityNotFoundException)

@@ -79,23 +79,6 @@ class DelegationServiceCaseSpec extends Specification {
             null    | CREATED | parse('2019-01-01T10:19:19') | parse('2019-02-01T10:19:19')
     }
 
-    @Unroll
-    def "Searching delegations by user: #login, date since: #since, date until: #until with status: #status, should throw exception"() {
-        when:
-            delegationService.getDelegations(login, status, since, until).collectList().block()
-
-        then:
-            delegationFlowValidator.validateDates(since, until) >> { throw new InvalidParameterException("test") }
-            thrown InvalidParameterException
-
-        where:
-            login   | status  | since                        | until
-            'login' | null    | parse('2019-03-01T10:19:19') | parse('2019-02-01T10:19:19')
-            'login' | CREATED | parse('2019-03-01T10:19:19') | parse('2019-02-01T10:19:19')
-            null    | null    | parse('2019-03-01T10:19:19') | parse('2019-02-01T10:19:19')
-            null    | CREATED | parse('2019-03-01T10:19:19') | parse('2019-02-01T10:19:19')
-    }
-
     def 'Service validates properly delegations new status'() {
         given: 'Delegation with status'
             Delegation existingDelegation = anyDelegation()
