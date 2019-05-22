@@ -9,7 +9,7 @@ const getLocaleDateTime = date =>
   date.toLocaleString([], { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric" });
 
 const AccommodationItem = ({ accommodation }) => {
-  const { hotelsName, checkInDate, checkOutDate } = accommodation;
+  const { hotelName, checkInDate, checkOutDate } = accommodation;
   return (
     <div className="accommodation">
       <div className={["row mobile-table", styles.accommodation].join(" ")}>
@@ -18,7 +18,7 @@ const AccommodationItem = ({ accommodation }) => {
             <div className="col-2 col-md-1">
               <Icon size={24} icon={hotel} />
             </div>
-            <div className="col-10 ">{hotelsName} </div>
+            <div className="col-10 ">{hotelName} </div>
           </div>
         </div>
         <div className="col-3">{getLocaleDateTime(checkInDate)}</div>

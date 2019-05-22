@@ -8,7 +8,8 @@ describe("create delegation form", () => {
   const OBJECTIVE = "Push all changes before delegation.";
   const CURRENCY = "EUR";
   const DIET = "123";
-  const ADVANCE ="123.45";
+  const ADVANCE = "123.45";
+  const REQUIRED_ERROR = "This field is required.";
 
   before(() => {
     CreateDelegationPage.loginAsEmployee();
@@ -19,15 +20,15 @@ describe("create delegation form", () => {
 
     CreateDelegationPage.submit();
 
-    expect(CreateDelegationPage.destinationCountyErrorMsg.getText()).to.equal("This field is required.");
+    expect(CreateDelegationPage.destinationCountyErrorMsg.getText()).to.equal(REQUIRED_ERROR);
 
-    expect(CreateDelegationPage.destinationLocationErrorMsg.getText()).to.equal("This field is required.");
+    expect(CreateDelegationPage.destinationLocationErrorMsg.getText()).to.equal(REQUIRED_ERROR);
 
-    expect(CreateDelegationPage.delegationObjectiveErrorMsg.getText()).to.equal("This field is required.");
+    expect(CreateDelegationPage.delegationObjectiveErrorMsg.getText()).to.equal(REQUIRED_ERROR);
 
-    expect(CreateDelegationPage.startDateErrorMsg.getText()).to.equal("This field is required.");
+    expect(CreateDelegationPage.startDateErrorMsg.getText()).to.equal(REQUIRED_ERROR);
 
-    expect(CreateDelegationPage.endDateErrorMsg.getText()).to.equal("This field is required.");
+    expect(CreateDelegationPage.endDateErrorMsg.getText()).to.equal(REQUIRED_ERROR);
 
     expect(CreateDelegationPage.getAllRequiredMsg.length).to.equal(5);
   });

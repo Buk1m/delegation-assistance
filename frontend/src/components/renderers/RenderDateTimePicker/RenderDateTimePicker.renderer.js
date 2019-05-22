@@ -26,7 +26,7 @@ const RenderDateTimePicker = props => {
         fixedHeight
         className="date-time-picker"
       />
-      <ValidationError touched={touched} error={error} warning={warning} />
+      <ValidationError touched={touched} error={error} warning={warning} name={restInput.name} />
     </div>
   );
 };

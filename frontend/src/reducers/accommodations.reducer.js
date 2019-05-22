@@ -21,7 +21,7 @@ const accommodationsReducer = (state = initialState, action) => {
     case `${ACTIONS.ADD_ACCOMMODATION}_${FULFILLED}`: {
       const accommodations = [...state.accommodations, parseAccommodationDate(action.payload.data)];
       const sortedAccommodations = sortAccommodationsByCheckInDate(state.sortOrder, accommodations);
-      toast.success(`Added new accommodation at ${action.payload.data.hotelsName}.`);
+      toast.success(`Added new accommodation at ${action.payload.data.hotelName}.`);
       return { ...state, addingAccommodation: false, accommodations: sortedAccommodations };
     }
     case `${ACTIONS.FETCH_ACCOMMODATIONS}_${FULFILLED}`: {

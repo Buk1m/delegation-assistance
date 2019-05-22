@@ -8,6 +8,17 @@ exports.config = {
   services: ["intercept"],
 
   specs: ["../frontend/__e2e__/specs/**/*.spec.js"],
+
+  suites: {
+    delegation: [
+      "../frontend/__e2e__/specs/DelegationAccommodations.spec.js",
+      "../frontend/__e2e__/specs/DelegationFlights.spec.js"
+      // "../frontend/__e2e__/specs/DelegationDetails.spec.js",
+      // "../frontend/__e2e__/specs/CreateDelegation.spec.js"
+    ],
+    login: ["../frontend/__e2e__/specs/Login.spec.js"]
+  },
+
   exclude: [
     // 'path/to/excluded/files'
   ],
@@ -16,7 +27,7 @@ exports.config = {
 
   capabilities: [
     {
-      maxInstances: 5,
+      maxInstances: 3,
       browserName: "chrome"
       // Uncomment to run tests withiout opening browser window
       // "goog:chromeOptions": {

@@ -26,7 +26,7 @@ const FlightModalForm = props => {
               <div className={["container-fluid", styles["modal-responsive"]].join(" ")}>
                 <div className="row">
                   <div className="col-8 col-lg-5">
-                    <Input name="from" label="From location *" component="input" validate={[validateRequired]} />
+                    <Input name="departurePlace" label="From location *" component="input" validate={[validateRequired]} />
                   </div>
                   <div className="col-lg-6 order-lg-2">
                     <Input
@@ -39,7 +39,7 @@ const FlightModalForm = props => {
                     />
                   </div>
                   <div className="col-8 offset-lg-1 col-lg-5 order-lg-1">
-                    <Input name="to" label="To location *" component="input" validate={[validateRequired]} />
+                    <Input name="arrivalPlace" label="To location *" component="input" validate={[validateRequired]} />
                   </div>
                   <div className="col-lg-6 order-lg-3">
                     <Input

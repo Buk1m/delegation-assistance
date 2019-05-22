@@ -26,7 +26,7 @@ const AccommodationModalForm = props => {
               <div className={["container-fluid", styles["modal-responsive"]].join(" ")}>
                 <div className="row">
                   <div className="col">
-                    <Input name="hotelsName" label="Hotel Name *" component="input" validate={[validateRequired]} />
+                    <Input name="hotelName" label="Hotel Name *" component="input" validate={[validateRequired]} />
                   </div>
                 </div>
                 <div className="row">

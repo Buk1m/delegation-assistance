@@ -37,16 +37,16 @@
   {
     "id": 1,
     "version": 1,
-    "from": "Warsaw",
-    "to": "Paris",
+    "departurePlace": "Warsaw",
+    "arrivalPlace": "Paris",
     "departureDate": "2019-01-01T10:00:00",
     "arrivalDate": "2019-01-01T12:00:00"
   },
   {
     "id": 2,
     "version": 1,
-    "from": "Paris",
-    "to": "Warsaw",
+    "departurePlace": "Paris",
+    "arrivalPlace": "Warsaw",
     "departureDate": "2019-01-02T10:00:00",
     "arrivalDate": "2019-01-02T12:00:00"
   }

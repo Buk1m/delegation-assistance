@@ -1,4 +1,5 @@
 import { APIService } from "../services/data";
+import { formatToISO } from "../helpers/formatters";
 
 export const ACTIONS = {
   ADD_FLIGHT: "FLIGHTS_ADD_FLIGHT",
@@ -6,7 +7,7 @@ export const ACTIONS = {
   SORT_FLIGHTS: "FLIGHTS_SORT_FLIGHTS"
 };
 
-const addFlight = (delegationId, flight) => dispatch => {
+const addFlight = (delegationId, { departurePlace, departureDate, arrivalPlace, arrivalDate }) => dispatch => {
   return dispatch(
     APIService.post(ACTIONS.ADD_FLIGHT, {
       url: `/delegations/${delegationId}/flights`,
@@ -14,7 +15,12 @@ const addFlight = (delegationId, flight) => dispatch => {
         "Content-type": "application/json"
       },
       needAuth: true,
-      data: flight
+      data: {
+        departurePlace: departurePlace,
+        departureDate: formatToISO(departureDate),
+        arrivalPlace: arrivalPlace,
+        arrivalDate: formatToISO(arrivalDate)
+      }
     })
   );
 };

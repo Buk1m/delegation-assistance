@@ -15,18 +15,18 @@ const RenderInput = ({ input, label, type, disabled, className, meta: { touched,
         type={type}
         {...rest}
       />
-      <ValidationError touched={touched} error={error} warning={warning} />
+      <ValidationError touched={touched} error={error} warning={warning} name={input.name} />
     </div>
   );
 };
 
 RenderInput.propTypes = {
-  type: string.isRequired,
-  label: string,
-  disabled: bool,
   className: string,
+  disabled: bool,
+  input: object,
+  label: string,
   meta: object,
-  input: object
+  type: string.isRequired
 };
 
 export default RenderInput;

@@ -10,7 +10,7 @@ const getLocaleTime = date => date.toLocaleTimeString([], { hour: "2-digit", min
 const getLocaleDate = date => date.toLocaleDateString();
 
 const FlightItem = ({ flight }) => {
-  const { arrivalDate, departureDate, from, to } = flight;
+  const { arrivalDate, departureDate, departurePlace, arrivalPlace } = flight;
   return (
     <div className="flight">
       <div className={["row mobile-table", styles.flight].join(" ")}>
@@ -19,7 +19,7 @@ const FlightItem = ({ flight }) => {
             <div className="col-1">
               <Icon size={24} icon={ic_flight_takeoff} />
             </div>
-            <div className="col-5">{from} </div>
+            <div className="col-5">{departurePlace} </div>
             <div className="col-3">{getLocaleDate(departureDate)}</div>
             <div className="col-2">{getLocaleTime(departureDate)}</div>
           </div>
@@ -29,7 +29,7 @@ const FlightItem = ({ flight }) => {
             <div className="col-1">
               <Icon size={24} icon={ic_flight_land} />
             </div>
-            <div className="col-5">{to}</div>
+            <div className="col-5">{arrivalPlace}</div>
             <div className="col-3">{getLocaleDate(arrivalDate)}</div>
             <div className="col-2">{getLocaleTime(arrivalDate)}</div>
           </div>

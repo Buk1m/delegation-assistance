@@ -27,6 +27,10 @@ const formatISODate = date => {
   return formatter.format(new Date(date));
 };
 
+const formatToISO = date => {
+  return new Date(date).toISOString().split(".")[0];
+};
+
 const formatISODateToExpenseDate = date => {
   return moment(new Date(date)).format("YYYY-MM-DD");
 };
@@ -41,4 +45,11 @@ const formatExpenseDate = date => {
   return formatter.format(new Date(date));
 };
 
-export { formatColumnDate, formatISODate, formatISODateToExpenseDate, formatExpenseDate, formatExpenseValue };
+export {
+  formatColumnDate,
+  formatISODate,
+  formatISODateToExpenseDate,
+  formatExpenseDate,
+  formatExpenseValue,
+  formatToISO
+};

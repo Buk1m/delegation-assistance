@@ -16,12 +16,12 @@ const Button = props => {
 };
 
 Button.propTypes = {
-  text: string.isRequired,
-  onClick: func,
   className: string,
-  type: string,
   disabled: bool,
-  submitting: bool
+  onClick: func,
+  submitting: bool,
+  text: string.isRequired,
+  type: string
 };
 
 export default Button;

@@ -57,6 +57,7 @@ class CreateDelegationPage extends Page {
   get destinationCountyErrorMsg() {
     return $("div.select-control > span");
   }
+
   get destinationLocationErrorMsg() {
     return $("#input_destinationLocation + span");
   }

@@ -1,6 +1,6 @@
 import Page from "./page";
 
-class DelegationDetails extends Page {
+class DelegationDetailsPage extends Page {
   open(delegationId) {
     super.open(`delegations/${delegationId}`);
   }
@@ -35,4 +35,4 @@ class DelegationDetails extends Page {
   }
 }
 
-export default new DelegationDetails();
+export default new DelegationDetailsPage();
