@@ -77,7 +77,6 @@ const ExpensesModalForm = props => {
                     placeholder="Add exchange rate"
                     step="0.01"
                     type="number"
-                    validate={[validateRequired]}
                   />
                 </div>
               </div>
