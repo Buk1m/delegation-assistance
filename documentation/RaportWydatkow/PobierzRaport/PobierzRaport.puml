@@ -1,0 +1,9 @@
+@startuml PobierzMojeDelegacje
+	"Client"->"DelegationController":getReport(Long delegationId, String reportType)
+	"DelegationController"->DelegationService:getDelegationReport(Long delegationId, String reportType)
+	database filesystem
+	DelegationService-> filesystem:getReportFile
+	filesystem-->DelegationService:result
+	DelegationService-->"DelegationController":file with report
+	"DelegationController"-->Client:file with report
+@enduml
