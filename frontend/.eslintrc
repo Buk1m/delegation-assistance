@@ -42,6 +42,7 @@
     "window": true,
     "document": true,
     "Promise": true,
+    "FormData": true,
     "Blob": true,
     "Intl": true,
     "console": true

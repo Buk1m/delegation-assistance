@@ -10,24 +10,28 @@ export const ACTIONS = {
 const addExpense = (
   delegationId,
   { expenseName, expenseValue, expenseDate, paymentType, expenseCurrency, attachments }
-) => dispatch =>
-  dispatch(
+) => dispatch => {
+  const formData = new FormData();
+  formData.append("expenseName", expenseName);
+  formData.append("expenseValue", expenseValue);
+  formData.append("expenseCurrency", expenseCurrency.value);
+  formData.append("expenseDate", formatISODateToExpenseDate(expenseDate));
+  formData.append("paymentType", paymentType.value);
+  attachments.map((file, index) => {
+    formData.append("attachments[" + index + "]", file);
+  });
+  
+  return dispatch(
     APIService.post(ACTIONS.ADD_EXPENSE, {
       url: `/delegations/${delegationId}/expenses`,
       headers: {
         "Content-type": "multipart/form-data"
       },
       needAuth: true,
-      data: {
-        expenseName: expenseName,
-        expenseValue: expenseValue,
-        expenseDate: formatISODateToExpenseDate(expenseDate),
-        paymentType: paymentType.value,
-        expenseCurrency: expenseCurrency.value,
-        attachments
-      }
+      data: formData
     })
   );
+};
 
 const fetchExpenses = (
   delegationId,

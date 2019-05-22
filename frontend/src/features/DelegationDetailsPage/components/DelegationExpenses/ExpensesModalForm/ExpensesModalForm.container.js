@@ -16,7 +16,7 @@ export class ExpensesModalFormContainer extends Component {
   };
 
   _handleSubmit = values => {
-    values.attachments = { ...this.state.files };
+    values.attachments = this.state.files;
     return this.props.addExpense(this.props.delegationId, values);
   };
 
