@@ -24,7 +24,7 @@ target
 .vscode
 
 # config
-**\*-dev.properties
+**/*-dev.properties
 
 # FRONTEND
 # misc
