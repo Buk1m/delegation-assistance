@@ -5,7 +5,8 @@ export const ACTIONS = {
   DELETE_DELEGATION: "DELEGATIONS_DELETE_DELEGATION",
   GET_DELEGATIONS: "DELEGATIONS_GET_DELEGATIONS",
   GET_DELEGATION: "DELEGATIONS_GET_DELEGATION",
-  UPDATE_DELEGATION: "DELEGATIONS_UPDATE_DELEGATION"
+  UPDATE_DELEGATION: "DELEGATIONS_UPDATE_DELEGATION",
+  UPDATE_DELEGATION_MEALS: "DELEGATIONS_UPDATE_DELEGATION_MEALS"
 };
 
 const addNewDelegation = delegation => dispatch => {
@@ -101,4 +102,25 @@ const updateDelegation = delegation => dispatch => {
   );
 };
 
-export { addNewDelegation, deleteDelegation, fetchDelegations, fetchDelegation, fetchMyDelegations, updateDelegation };
+const updateDelegationMeals = (meals, delegationId) => dispatch => {
+  return dispatch(
+    APIService.patch(ACTIONS.UPDATE_DELEGATION_MEALS, {
+      url: `/delegations/${delegationId}/meals`,
+      needAuth: true,
+      headers: {
+        "Content-type": "application/json"
+      },
+      data: meals
+    })
+  );
+};
+
+export {
+  addNewDelegation,
+  deleteDelegation,
+  fetchDelegations,
+  fetchDelegation,
+  fetchMyDelegations,
+  updateDelegation,
+  updateDelegationMeals
+};

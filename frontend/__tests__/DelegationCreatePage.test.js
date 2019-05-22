@@ -54,8 +54,8 @@ describe("Create Delegation Page", () => {
     expect(props.handleSubmit).toBeCalledWith(value);
   });
 
-  it("should render 8 Inputs", () => {
-    expect(enzymeWrapper.find("Input").length).toBe(8);
+  it("should render 11 Inputs", () => {
+    expect(enzymeWrapper.find("Input").length).toBe(11);
   });
 
   it("should render destinationCountry Input", () => {
@@ -88,6 +88,18 @@ describe("Create Delegation Page", () => {
 
   it("should render advancePayment input", () => {
     expect(enzymeWrapper.find("Input[name='advancePayment']").length).toBe(1);
+  });
+
+  it("should render meals.breakfasts input", () => {
+    expect(enzymeWrapper.find("Input[name='meals.breakfasts']").length).toBe(1);
+  });
+
+  it("should render meals.lunches input", () => {
+    expect(enzymeWrapper.find("Input[name='meals.lunches']").length).toBe(1);
+  });
+
+  it("should render meals.dinners input", () => {
+    expect(enzymeWrapper.find("Input[name='meals.dinners']").length).toBe(1);
   });
 
   it("should dispatch action", () => {

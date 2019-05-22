@@ -15,8 +15,12 @@ const currencyMask = createNumberMask({
   locale: "en-US"
 });
 
+const intMask = createNumberMask({
+  decimalPlaces: 0
+});
+
 export const DelegationCreatePage = props => {
-  const { handleSubmit, countriesISOCodes, submitting } = props;
+  const { handleSubmit, countries, submitting } = props;
   return (
     <LayoutMain title="Create delegation">
       <div className="container create-delegation-card m-auto pb-4">
@@ -26,8 +30,8 @@ export const DelegationCreatePage = props => {
               name="destinationCountry"
               component="typeahead"
               label="Destination Country"
-              validate={[validateRequired]}
-              options={countriesISOCodes}
+              validate={validateRequired}
+              options={countries}
               isSearchable={true}
             />
             <Input
@@ -66,14 +70,20 @@ export const DelegationCreatePage = props => {
                   label="Diem"
                   name="diet.perDiem"
                   placeholder="0.00"
-                  validate={validateNumber}
                   type="text"
                   component="input"
+                  validate={validateNumber}
                   {...currencyMask}
                 />
               </div>
               <div className="form-group col-md-3 pt-md-1 pl-md-2">
-                <Input label="Currency" component="typeahead" name="diet.currency" options={currencies} validate={validateRequired} />
+                <Input
+                  label="Currency"
+                  component="typeahead"
+                  name="diet.currency"
+                  options={currencies}
+                  validate={validateRequired}
+                />
               </div>
               <div className="form-group col-md-3" />
               <div className="form-group col-md-3">
@@ -88,6 +98,17 @@ export const DelegationCreatePage = props => {
                 />
               </div>
             </div>
+            <div className="form-row">
+              <div className="form-group col-md-4">
+                <Input label="Breakfasts" name="meals.breakfasts" type="text" component="input" {...intMask} />
+              </div>
+              <div className="form-group col-md-4">
+                <Input label="Lunches" name="meals.lunches" type="text" component="input" {...intMask} />
+              </div>
+              <div className="form-group col-md-4">
+                <Input label="Dinners" name="meals.dinners" type="text" component="input" {...intMask} />
+              </div>
+            </div>
             <div className="d-flex justify-content-center btn-create-delegation">
               <Button type="submit" submitting={submitting} disabled={submitting} text="Create delegation" />
             </div>
@@ -99,7 +120,7 @@ export const DelegationCreatePage = props => {
 };
 
 DelegationCreatePage.propTypes = {
-  countriesISOCodes: array,
+  countries: array,
   handleSubmit: func,
   submitting: bool
 };

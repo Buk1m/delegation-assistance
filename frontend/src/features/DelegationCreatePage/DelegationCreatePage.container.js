@@ -13,7 +13,7 @@ class DelegationCreatePageContainer extends Component {
     history: object
   };
 
-  countriesISOCodes = codes.map(code => {
+  countries = codes.map(code => {
     return { label: code.name, value: code.alpha3 };
   });
 
@@ -26,8 +26,15 @@ class DelegationCreatePageContainer extends Component {
       startDate: values.startDate.toISOString().split(".")[0],
       endDate: values.endDate.toISOString().split(".")[0]
     };
+
     if (values.diet) {
       delegation.diet = { perDiem: values.diet.perDiem, currency: values.diet.currency.value };
+    }
+
+    if (values.meals) {
+      delegation.meals = values.meals;
+    } else {
+      delegation.meals = {};
     }
 
     return this.props.addNewDelegation(delegation).then(() => {
@@ -36,7 +43,7 @@ class DelegationCreatePageContainer extends Component {
   };
 
   render() {
-    return <DelegationCreatePage onSubmit={this.handleCreateDelegation} countriesISOCodes={this.countriesISOCodes} />;
+    return <DelegationCreatePage onSubmit={this.handleCreateDelegation} countries={this.countries} />;
   }
 }
 

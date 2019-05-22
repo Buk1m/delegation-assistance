@@ -240,3 +240,25 @@ $cancel-color: #6c757d;
     }
   }
 }
+
+.decrement {
+  @extend .delete;
+  min-width: initial;
+  margin: 5px;
+
+  &:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+  }
+}
+
+.increment {
+  @extend .add;
+  min-width: initial;
+  margin: 5px;
+
+  &:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+  }
+}

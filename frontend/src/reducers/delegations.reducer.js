@@ -21,6 +21,8 @@ const delegationsReducer = (state = initialState, action) => {
     case `${ACTIONS.GET_DELEGATION}_${PENDING}`:
     case `${ACTIONS.GET_DELEGATIONS}_${PENDING}`:
       return { ...state, fetching: true };
+    case `${ACTIONS.UPDATE_DELEGATION_MEALS}_${PENDING}`:
+      return { ...state };
 
     case `${ACTIONS.ADD_DELEGATION}_${FULFILLED}`:
       updateNotification(
@@ -39,6 +41,8 @@ const delegationsReducer = (state = initialState, action) => {
       return { ...state, fetching: false, delegation: action.payload.data };
     case `${ACTIONS.GET_DELEGATIONS}_${FULFILLED}`:
       return { ...state, fetching: false, delegations: action.payload.data };
+    case `${ACTIONS.UPDATE_DELEGATION_MEALS}_${FULFILLED}`:
+      return { ...state, delegation: {...state.delegation, meals: action.payload.data } };
 
     case `${ACTIONS.ADD_DELEGATION}_${REJECTED}`:
       updateNotification(state.toastId, "Failed to create delegation.", toast.TYPE.ERROR);
@@ -52,6 +56,9 @@ const delegationsReducer = (state = initialState, action) => {
     case `${ACTIONS.GET_DELEGATION}_${REJECTED}`:
     case `${ACTIONS.GET_DELEGATIONS}_${REJECTED}`:
       return { ...state, fetching: false, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+    case `${ACTIONS.UPDATE_DELEGATION_MEALS}_${REJECTED}`:
+      updateNotification(state.toastId, "Failed to update meals.", toast.TYPE.ERROR);
+      return { ...state, errors: action.payload.Message, subErrors: action.payload.SubErrors };
 
     default:
       return state;

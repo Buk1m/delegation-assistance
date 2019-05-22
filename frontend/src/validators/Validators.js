@@ -12,8 +12,7 @@ const validateDepartureArrivalDate = (arrivalDate, allValues) => {
   return null;
 };
 
-const validateNumber = value =>
-  value && isNaN(Number(value)) ? "Must be a number" : undefined;
+const validateNumber = value => (value && isNaN(Number(value)) ? "Must be a number" : undefined);
 
 const validateRequired = value => (value ? undefined : "This field is required.");
 
@@ -24,4 +23,26 @@ const validateStartEndDate = (endDate, allValues) => {
   return null;
 };
 
-export { validateCheckInOutDate, validateDepartureArrivalDate, validateRequired, validateStartEndDate, validateNumber };
+const validateCurrency = (value, { diet: perDiem }) => {
+  if (value === undefined && perDiem !== undefined) {
+    return "Diem must have currency.";
+  }
+  return null;
+};
+
+const validateDiem = (value, { diet: currency }) => {
+  if (value === undefined && currency !== undefined) {
+    return "Diem must be set.";
+  }
+  return null;
+};
+
+export {
+  validateCheckInOutDate,
+  validateDepartureArrivalDate,
+  validateRequired,
+  validateStartEndDate,
+  validateNumber,
+  validateCurrency,
+  validateDiem
+};
