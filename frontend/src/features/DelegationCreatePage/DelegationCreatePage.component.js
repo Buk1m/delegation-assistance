@@ -7,7 +7,12 @@ import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Input from "../../components/Input/Input.component";
 import Button from "../../components/Button/Button.component";
-import { validateRequired, validateStartEndDate, validateNumber } from "../../validators/Validators";
+import {
+  validateRequired,
+  validateStartEndDate,
+  validateCurrency,
+  validateDiem
+} from "../../validators/Validators";
 import currencies from "../../components/Currencies/CurrenciesMap";
 
 const currencyMask = createNumberMask({
@@ -72,7 +77,7 @@ export const DelegationCreatePage = props => {
                   placeholder="0.00"
                   type="text"
                   component="input"
-                  validate={validateNumber}
+                  validate={validateDiem}
                   {...currencyMask}
                 />
               </div>
@@ -82,7 +87,7 @@ export const DelegationCreatePage = props => {
                   component="typeahead"
                   name="diet.currency"
                   options={currencies}
-                  validate={validateRequired}
+                  validate={validateCurrency}
                 />
               </div>
               <div className="form-group col-md-3" />
@@ -91,7 +96,6 @@ export const DelegationCreatePage = props => {
                   label="Advance Payment"
                   name="advancePayment"
                   placeholder="0.00"
-                  validate={[validateNumber, validateRequired]}
                   type="text"
                   component="input"
                   {...currencyMask}
