@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import get from "lodash/get";
 
 const getFlights = state => get(state, "flights.flights", []);
 const getFlightsFetching = state => get(state, "flights.fetching", false);

@@ -1,6 +1,12 @@
+@import "../../../assets/styles/_constants";
+
 :export {
   primary: var(--input-select-bg);
   primary-hf: var(--input-select-hf);
   neutral0: var(--bg);
   neutral80: var(--c);
+  errorBorder: var(--input-error-c);
+  defaultBorder: var(--input-brdc);
+  selectHeight: 46;
+  selectMargin: 5px 0;
 }

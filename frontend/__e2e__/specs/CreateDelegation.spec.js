@@ -7,7 +7,7 @@ describe("create delegation form", () => {
   const LOCATION = "Lodz";
   const OBJECTIVE = "Push all changes before delegation.";
   const CURRENCY = "EUR";
-  const DIET = "123";
+  const DIET = "1.23";
   const ADVANCE = "123.45";
   const REQUIRED_ERROR = "This field is required.";
 

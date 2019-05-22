@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import get from "lodash/get";
 import { userRoles } from "../config";
 
 const getLoggedStatus = state => get(state, "user.logged", false);

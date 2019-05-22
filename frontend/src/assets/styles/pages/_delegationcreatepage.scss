@@ -48,10 +48,6 @@
 .select-control {
   margin-bottom: 12px;
 
-  .react-select__value-container {
-    height: 45px;
-  }
-
   .react-select__control--is-focused {
     border: 1px solid $primary-color !important;
     box-shadow: 0 0 0 0.1rem rgba($primary-color, 0.25) !important;

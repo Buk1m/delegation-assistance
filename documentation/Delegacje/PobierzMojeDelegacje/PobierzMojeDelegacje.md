@@ -60,7 +60,7 @@
     "version": 10,
     "startDate": "2019-01-01T10:19:19",
     "endDate": "2019-02-01T10:19:19",
-    "destinationCountry": "BFA",
+    "destinationCountry": "Poland",
     "destinationLocation": "Radom",
     "delegationObjective": "Buy high quality rice",
     "status": "CREATED",

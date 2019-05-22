@@ -71,9 +71,9 @@ const delegationsMyColumns = [
     isDummyField: true,
     formatter: (cell, row) =>
       row.status === "CREATED" ? (
-        <ButtonLink href={`/delegations/${row.id}/edit`} text="Edit" />
+        <ButtonLink href={`/delegations/${row.id}`} text="Edit" />
       ) : (
-        <ButtonLink href={"/delegations/" + row.id} text="View" className="secondary" />
+        <ButtonLink href={`/delegations/${row.id}`} text="View" className="secondary" />
       )
   }
 ];

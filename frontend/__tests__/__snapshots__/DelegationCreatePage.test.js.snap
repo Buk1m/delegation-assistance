@@ -18,7 +18,7 @@ exports[`Create Delegation Page should render correctly 1`] = `
           component="typeahead"
           isSearchable={true}
           label="Destination Country"
-          name="destinationCountry"
+          name="destinationCountryId"
           validate={[Function]}
         />
         <Input
@@ -66,7 +66,7 @@ exports[`Create Delegation Page should render correctly 1`] = `
           className="form-row"
         >
           <div
-            className="form-group col-md-3"
+            className="form-group col-sm-3"
           >
             <Input
               autoComplete="off"
@@ -79,11 +79,16 @@ exports[`Create Delegation Page should render correctly 1`] = `
               onFocus={[Function]}
               placeholder="0.00"
               type="text"
-              validate={[Function]}
+              validate={
+                Array [
+                  [Function],
+                  [Function],
+                ]
+              }
             />
           </div>
           <div
-            className="form-group col-md-3 pt-md-1 pl-md-2"
+            className="form-group col-sm-4 col-md-3"
           >
             <Input
               component="typeahead"
@@ -777,14 +782,16 @@ exports[`Create Delegation Page should render correctly 1`] = `
                   },
                 ]
               }
-              validate={[Function]}
+              validate={
+                Array [
+                  [Function],
+                  [Function],
+                ]
+              }
             />
           </div>
           <div
-            className="form-group col-md-3"
-          />
-          <div
-            className="form-group col-md-3"
+            className="form-group offset-sm-1 col-sm-4  offset-md-3 col-md-3"
           >
             <Input
               autoComplete="off"
@@ -804,7 +811,7 @@ exports[`Create Delegation Page should render correctly 1`] = `
           className="form-row"
         >
           <div
-            className="form-group col-md-4"
+            className="form-group col-sm-4"
           >
             <Input
               autoComplete="off"
@@ -819,7 +826,7 @@ exports[`Create Delegation Page should render correctly 1`] = `
             />
           </div>
           <div
-            className="form-group col-md-4"
+            className="form-group col-sm-4"
           >
             <Input
               autoComplete="off"
@@ -834,7 +841,7 @@ exports[`Create Delegation Page should render correctly 1`] = `
             />
           </div>
           <div
-            className="form-group col-md-4"
+            className="form-group col-sm-4"
           >
             <Input
               autoComplete="off"

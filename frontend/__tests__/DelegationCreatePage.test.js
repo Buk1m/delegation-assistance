@@ -59,7 +59,7 @@ describe("Create Delegation Page", () => {
   });
 
   it("should render destinationCountry Input", () => {
-    expect(enzymeWrapper.find("Input[name='destinationCountry']").length).toBe(1);
+    expect(enzymeWrapper.find("Input[name='destinationCountryId']").length).toBe(1);
   });
 
   it("should render destinationLocation Input", () => {

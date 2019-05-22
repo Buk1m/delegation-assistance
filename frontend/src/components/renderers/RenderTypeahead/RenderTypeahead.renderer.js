@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import { bool, array, object, string } from "prop-types";
+import { array, bool, object, string } from "prop-types";
 
 import ValidationError from "../../ValidationError/ValidationError.component";
 
@@ -37,9 +37,17 @@ const RenderTypeahead = ({
             neutral80: styles.neutral80
           }
         })}
+        styles={{
+          control: provided => ({
+            ...provided,
+            height: styles.selectHeight,
+            margin: styles.selectMargin,
+            borderColor: touched && error ? styles.errorBorder : styles.defaultBorder
+          })
+        }}
         {...rest}
       />
-      <ValidationError error={error} touched={touched} warning={warning} />
+      <ValidationError error={error} touched={touched} warning={warning} name={rest.name} />
     </div>
   );
 };

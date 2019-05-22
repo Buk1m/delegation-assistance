@@ -42,14 +42,15 @@
 }
 ```
 
-`startDate`: wymagane pole, format: `yyyy-MM-dd'T'HH:mm:ss`
-`endDate`: wymagane pole, `endDate > startDate`, format `yyyy-MM-dd'T'HH:mm:ss`
-`destinationCountry`: wymagane pole, musi mieć długość 3 znaków
-`destinationLocation`: wymagane pole
-`delegationObjective`: wymagane pole
-`breakfasts`: opcjonalne pole(domyślna wartość: tyle ile dni trwa delegacja), wartość musi należeć do przedziału `<0, {ilosc_dni_delegacji}>` jeśli nie należy do niego brana jest najbliższa prawidłowa wartość z tego przedziału
-`lunches`: opcjonalne pole(domyślna wartość: tyle ile dni trwa delegacja), wartość musi należeć do przedziału `<0, {ilosc_dni_delegacji}>` jeśli nie należy do niego brana jest najbliższa prawidłowa wartość z tego przedziału
+`startDate`: wymagane pole, format: `yyyy-MM-dd'T'HH:mm:ss`  
+`endDate`: wymagane pole, `endDate > startDate`, format `yyyy-MM-dd'T'HH:mm:ss`  
+`destinationCountryId`: wymagane pole
+`destinationLocation`: wymagane pole  
+`delegationObjective`: wymagane pole  
+`breakfasts`: opcjonalne pole(domyślna wartość: tyle ile dni trwa delegacja), wartość musi należeć do przedziału `<0, {ilosc_dni_delegacji}>` jeśli nie należy do niego brana jest najbliższa prawidłowa wartość z tego przedziału  
+`lunches`: opcjonalne pole(domyślna wartość: tyle ile dni trwa delegacja), wartość musi należeć do przedziału `<0, {ilosc_dni_delegacji}>` jeśli nie należy do niego brana jest najbliższa prawidłowa wartość z tego przedziału  
 `dinners`: opcjonalne pole(domyślna wartość: tyle ile dni trwa delegacja), wartość musi należeć do przedziału `<0, {ilosc_dni_delegacji}>` jeśli nie należy do niego brana jest najbliższa prawidłowa wartość z tego przedziału
+
 #### Dodatkowe informacje
 
 Delegacja jest tworzona ze statusem `CREATED`
@@ -70,8 +71,8 @@ Delegacja jest tworzona ze statusem `CREATED`
   "version": 2,
   "startDate": "2019-01-01T10:19:19",
   "endDate": "2019-02-01T10:19:19",
-  "destinationCountry": "BFA",
-  "destinationLocation": "Radom",  
+  "destinationCountry": "Poland",
+  "destinationLocation": "Radom",
   "advancePayment": 200,
   "delegationObjective": "Buy high quality rice",
   "status": "CREATED",
@@ -109,7 +110,9 @@ Delegacja jest tworzona ze statusem `CREATED`
 ### Przyklad gdy wartosci przekraczaja zbiór
 
 - Gdy wartość jest za duża
+
 #### Zapytanie
+
 ```json
 {
   "startDate": "2019-01-01T10:19:19",
@@ -123,7 +126,9 @@ Delegacja jest tworzona ze statusem `CREATED`
   ...
 }
 ```
-#### Odpowiedz 
+
+#### Odpowiedz
+
 ```json
 {
   "startDate": "2019-01-01T10:19:19",
@@ -139,7 +144,9 @@ Delegacja jest tworzona ze statusem `CREATED`
 ```
 
 - Gdy wartosc jest za mala
+
 #### Zapytanie
+
 ```json
 {
   "startDate": "2019-01-01T10:19:19",
@@ -153,7 +160,9 @@ Delegacja jest tworzona ze statusem `CREATED`
   ...
 }
 ```
-#### Odpowiedz 
+
+#### Odpowiedz
+
 ```json
 {
   "startDate": "2019-01-01T10:19:19",
@@ -167,6 +176,7 @@ Delegacja jest tworzona ze statusem `CREATED`
   ...
 }
 ```
+
 ### 3. Mockupy
 
 #### Wyszukiwarka

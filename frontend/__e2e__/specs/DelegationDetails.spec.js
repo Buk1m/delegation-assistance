@@ -14,8 +14,8 @@ describe("display delegation details", () => {
   const STATUS = "CREATED";
   const OBJECTIVE = "Push all changes before delegation.";
   const CURRENCY = "EUR";
-  const DIET = "123";
-  const ADVANCE ="123.45";
+  const DIET = "1.23";
+  const ADVANCE = "123.45";
 
   before(() => {
     DelegationDetails.loginAsEmployee();
@@ -83,7 +83,7 @@ describe("display delegation details", () => {
     expect(DelegationDetails.destinationLocation.getText()).to.equal(LOCATION);
     expect(DelegationDetails.status.getText()).to.equal(STATUS);
     expect(DelegationDetails.delegationObjective.getText()).to.equal(OBJECTIVE);
-    expect(DelegationDetails.diet.getText()).to.equal(DIET);
+    expect(DelegationDetails.diet.getText()).to.equal(`${DIET} ${CURRENCY}`);
   });
 
   it("travel manager should have access to employee's delegation details", () => {

@@ -7,12 +7,7 @@ import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Input from "../../components/Input/Input.component";
 import Button from "../../components/Button/Button.component";
-import {
-  validateRequired,
-  validateStartEndDate,
-  validateCurrency,
-  validateDiem
-} from "../../validators/Validators";
+import { validateRequired, validateStartEndDate, validateCurrency, validateDiem } from "../../validators/Validators";
 import currencies from "../../components/Currencies/CurrenciesMap";
 
 const currencyMask = createNumberMask({
@@ -25,16 +20,18 @@ const intMask = createNumberMask({
 });
 
 export const DelegationCreatePage = props => {
-  const { handleSubmit, countries, submitting } = props;
+  const { countries, countriesFetching, handleSubmit, onSelectOpen, submitting } = props;
   return (
     <LayoutMain title="Create delegation">
       <div className="container create-delegation-card m-auto pb-4">
         <Card title="Delegation information">
           <Form onSubmit={handleSubmit} id="create-delegation">
             <Input
-              name="destinationCountry"
+              name="destinationCountryId"
               component="typeahead"
               label="Destination Country"
+              onMenuOpen={onSelectOpen}
+              isLoading={countriesFetching}
               validate={validateRequired}
               options={countries}
               isSearchable={true}
@@ -70,28 +67,27 @@ export const DelegationCreatePage = props => {
               />
             </div>
             <div className="form-row">
-              <div className="form-group col-md-3">
+              <div className="form-group col-sm-3">
                 <Input
                   label="Diem"
                   name="diet.perDiem"
                   placeholder="0.00"
                   type="text"
                   component="input"
-                  validate={validateDiem}
+                  validate={[validateDiem, validateRequired]}
                   {...currencyMask}
                 />
               </div>
-              <div className="form-group col-md-3 pt-md-1 pl-md-2">
+              <div className="form-group col-sm-4 col-md-3">
                 <Input
                   label="Currency"
                   component="typeahead"
                   name="diet.currency"
                   options={currencies}
-                  validate={validateCurrency}
+                  validate={[validateCurrency, validateRequired]}
                 />
               </div>
-              <div className="form-group col-md-3" />
-              <div className="form-group col-md-3">
+              <div className="form-group offset-sm-1 col-sm-4  offset-md-3 col-md-3">
                 <Input
                   label="Advance Payment"
                   name="advancePayment"
@@ -103,13 +99,13 @@ export const DelegationCreatePage = props => {
               </div>
             </div>
             <div className="form-row">
-              <div className="form-group col-md-4">
+              <div className="form-group col-sm-4">
                 <Input label="Breakfasts" name="meals.breakfasts" type="text" component="input" {...intMask} />
               </div>
-              <div className="form-group col-md-4">
+              <div className="form-group col-sm-4">
                 <Input label="Lunches" name="meals.lunches" type="text" component="input" {...intMask} />
               </div>
-              <div className="form-group col-md-4">
+              <div className="form-group col-sm-4">
                 <Input label="Dinners" name="meals.dinners" type="text" component="input" {...intMask} />
               </div>
             </div>
@@ -125,7 +121,9 @@ export const DelegationCreatePage = props => {
 
 DelegationCreatePage.propTypes = {
   countries: array,
+  countriesFetching: bool,
   handleSubmit: func,
+  onSelectOpen: func,
   submitting: bool
 };
 

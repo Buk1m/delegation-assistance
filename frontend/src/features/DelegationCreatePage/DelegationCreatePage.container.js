@@ -1,40 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { func, object } from "prop-types";
+import { array, bool, func, object } from "prop-types";
 import { withRouter } from "react-router-dom";
 
 import DelegationCreatePage from "./DelegationCreatePage.component";
 import { addNewDelegation } from "../../actions/delegations.actions";
-import { codes } from "iso-country-codes";
+import { fetchCountries } from "../../actions/countries.actions";
+import { formatToISO } from "../../helpers/formatters";
+import { getCountriesTypeahead, getCountriesFetching } from "../../selectors/countries.selectors";
 
 class DelegationCreatePageContainer extends Component {
   static propTypes = {
     addNewDelegation: func,
+    countries: array,
+    countriesFetching: bool,
+    fetchCountries: func,
     history: object
   };
-
-  countries = codes.map(code => {
-    return { label: code.name, value: code.alpha3 };
-  });
 
   _redirectToDelegationsPage = () => this.props.history.push("/delegations/my");
 
   handleCreateDelegation = values => {
     const delegation = {
+      meals: {},
       ...values,
-      destinationCountry: values.destinationCountry.value,
-      startDate: values.startDate.toISOString().split(".")[0],
-      endDate: values.endDate.toISOString().split(".")[0]
+      destinationCountryId: values.destinationCountryId.value,
+      startDate: formatToISO(values.startDate),
+      endDate: formatToISO(values.endDate)
     };
 
     if (values.diet) {
       delegation.diet = { perDiem: values.diet.perDiem, currency: values.diet.currency.value };
-    }
-
-    if (values.meals) {
-      delegation.meals = values.meals;
-    } else {
-      delegation.meals = {};
     }
 
     return this.props.addNewDelegation(delegation).then(() => {
@@ -43,17 +39,30 @@ class DelegationCreatePageContainer extends Component {
   };
 
   render() {
-    return <DelegationCreatePage onSubmit={this.handleCreateDelegation} countries={this.countries} />;
+    return (
+      <DelegationCreatePage
+        countries={this.props.countries}
+        countriesFetching={this.props.countriesFetching}
+        onSelectOpen={this.props.fetchCountries}
+        onSubmit={this.handleCreateDelegation}
+      />
+    );
   }
 }
 
+const mapStateToProps = state => ({
+  countries: getCountriesTypeahead(state),
+  countriesFetching: getCountriesFetching(state)
+});
+
 const mapDispatchToProps = {
-  addNewDelegation
+  addNewDelegation,
+  fetchCountries
 };
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(DelegationCreatePageContainer)
 );

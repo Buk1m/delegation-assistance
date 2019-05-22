@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import get from "lodash/get";
 
 const getExpenses = state => get(state, "expenses.expenses", []);
 const getExpensesTotalSize = state => get(state, "expenses.totalSize", 0);
