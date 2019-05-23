@@ -5,6 +5,7 @@
 !["sequence diagram"](http://www.plantuml.com/plantuml/svg/hPAnIiKm68NtF4L77Ve23gMerKrA5PnZUuW_fab9_jPMyTsj58a90UzmrvplV3c1r9wbutdKHMjV2ExZUHialv6uqGJ3PTLXieuVuHRgSVLvtpnz5GhSEYo4zoEzk1GHLbQtq52IoPhVfWA7mxsG477fn-Q9hTkolHJAt9VpHnjFMdn76ZwdQjO9nYD5ztrH4iWmDeMZC3MdkZCyzE6w_JExMVjNQHGwoV0YPFz8ZjyXQfXX7hNu1W00)
 
 ### 2. Opis techniczny i funkcjonalny
+
 Użytkownik może podejrzeć raport, nie jest to jednak jednoznaczne z jego wygenerowaniem i wysłaniem do Travel Managera w celu akcpetacji.
 Pliki widoczne w preview nie są dołączone do generowanego raportu!! Dowodem opłacenia wydatku jest orygianlny paragon/wyciąg transakcji z konta. Jest on potrzebny do dołączenia do delegacji w wersji fizyczej
 
@@ -41,26 +42,68 @@ Pliki widoczne w preview nie są dołączone do generowanego raportu!! Dowodem o
   "duration": 3,
   "destinationCountry": "Poland",
   "destinationLocation": "Radom",
-  "advancePayment": 200,
-  "place": "Fill this cell",
+  "place": "Place from-to-from",
   "delegationObjective": "Buy high quality rice",
+  "generationDate": "2019-02-11T00:00:00",
+  "totalRepayment": 328.09,
+  "targetCurrency": "PLN",
+  "advancePayment": 200,
+  "user": {
+    "firstname": "Jan",
+    "lastname": "Kowalski"
+  },
   "flights": [
     {
+      "id": 1,
       "from": "Warsaw",
       "to": "Paris",
       "departureDate": "2019-02-03",
       "departureTime": "10:00:00",
       "arrivalDate": "2019-02-03",
       "arrivalTime": "12:00:00"
+    },
+    {
+      "id": 15,
+      "from": "Paris",
+      "to": "Warsaw",
+      "departureDate": "2019-02-06",
+      "departureTime": "14:00:00",
+      "arrivalDate": "2019-02-06",
+      "arrivalTime": "16:00:00"
     }
   ],
   "accommodations": [
     {
+      "id": 123,
       "hotelName": "Gloria Hotel",
       "checkInDate": "2019-02-03",
       "checkInTime": "12:30:00",
       "checkOutDate": "2019-02-06",
       "checkOutTime": "10:00:00"
+    }
+  ],
+  "expenses": [
+    {
+      "id": 321,
+      "expenseName": "Waciki",
+      "expenseDate": "2019-01-04",
+      "expenseValue": 19.29,
+      "expenseCurrency": "EUR",
+      "exchangeRate": 4.15,
+      "paymentType": "Card",
+      "targetCurrency": "PLN",
+      "exchangeAmount": 80.05
+    },
+    {
+      "id": 345,
+      "expenseName": "Chipsy",
+      "expenseDate": "2019-01-04",
+      "expenseValue": 1.19,
+      "expenseCurrency": "EUR",
+      "exchangeRate": 4.15,
+      "paymentType": "Card",
+      "targetCurrency": "PLN",
+      "exchangeAmount": 80.05
     }
   ],
   "diet": {
@@ -73,33 +116,21 @@ Pliki widoczne w preview nie są dołączone do generowanego raportu!! Dowodem o
     "lunches": 3,
     "dinners": 1
   },
-    "dietReturns": {
-      "entitlements": {
-        "perDiemEntitlement": "300%",
-        "breakfastEntitlement": "-30%",
-        "lunchesEntitlement": "-90%",
-        "dinnersEntitlement": "-30%"
-      },
-      "totalEntitlement": "150%",
-      "totalDiems": 58.5,
-      "targetCurrency": "PLN",
-      "exchangeAmount": 248.04
+  "diemReturns": {
+    "entitlements": {
+      "perDiem": "300%",
+      "breakfast": "-30%",
+      "lunches": "-90%",
+      "dinners": "-30%",
+      "total": "150%"
     },
-    "expensesReturns": [ 
-      {
-        "expenseName": "Waciki",
-        "expenseDate": "2019-01-04",
-        "expenseValue": 19.29,
-        "expenseCurrency": "EUR",
-        "exchangeRate": 4.15,
-        "paymentType": "Card",
-        "targetCurrency": "PLN",
-        "exchangeAmount": 80.05
-      }
-    ],
-    "total": 328.09,
-    "targetCurrency": "PLN"
+    "totalDiems": 58.5,
+    "allowance": {
+      "targetCurrency": "PLN",
+      "basePerDiem": 248.04
+    }
   }
+}
 ```
 
 #### Żądanie:
@@ -110,7 +141,7 @@ Pliki widoczne w preview nie są dołączone do generowanego raportu!! Dowodem o
 
 **Endpoint URL:** GET /delegations/{delegationId}/report-preview/files
 
-**Query:** 
+**Query:**
 
 **Typ nośnika:** -
 
@@ -133,6 +164,7 @@ Pliki widoczne w preview nie są dołączone do generowanego raportu!! Dowodem o
 ```
 
 **Ogólny wygląd**
+
 ```
 "Nazwa wydatku1": {plik binarny}
 "Nazwa wydatku1": {plik binarny}
@@ -160,6 +192,7 @@ Odpowiedź dla `/delegations/{delegationId}/report-preview/files`, będzie wygl�
 ### Przeglądarka
 
 ![Browser mockup](./mockupy/web_raport.png?raw=true "Browser")
+![JSON names](./mockupy/names.png?raw=true "JSON names")
 
 ### 4. Test cases
 
