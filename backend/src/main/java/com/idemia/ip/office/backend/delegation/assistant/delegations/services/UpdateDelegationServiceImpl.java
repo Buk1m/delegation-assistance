@@ -49,6 +49,10 @@ public class UpdateDelegationServiceImpl implements UpdateDelegationService {
             Meals oldMeals,
             LocalDateTime delegationStartDate,
             LocalDateTime delegationEndDate) {
+            if(updatedMeals == null) {
+                updatedMeals = new Meals();
+            }
+
             notNullPropertyMapper.map(updatedMeals, oldMeals);
         mealsAdjuster.adjustNumberOfMeals(oldMeals, delegationStartDate, delegationEndDate);
         return Mono.fromCallable(() -> mealsRepository.save(oldMeals));

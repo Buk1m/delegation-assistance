@@ -6,7 +6,9 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Meals
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static java.time.LocalDateTime.parse
+import java.time.LocalDateTime
+
+import static java.time.LocalDateTime.now
 
 class MealsAdjusterCaseSpec extends Specification {
 
@@ -26,18 +28,23 @@ class MealsAdjusterCaseSpec extends Specification {
             adjustedMeals.dinners == adjustedDinners
 
         where:
-            breakfasts | lunches | dinners | delegationStartDate         | delegationEndDate          | adjustedBreakfasts  | adjustedLunches       | adjustedDinners
-            1          | 0       | 0       | parse('2019-03-01T10:00')   | parse('2019-03-01T11:00')  | 1                   | 0                     | 0
-            0          | 1       | 0       | parse('2019-03-01T10:00')   | parse('2019-03-01T11:00')  | 0                   | 1                     | 0
-            0          | 0       | 1       | parse('2019-03-01T10:00')   | parse('2019-03-01T11:00')  | 0                   | 0                     | 1
-            1          | 1       | 1       | parse('2019-03-01T10:00')   | parse('2019-03-02T10:00')  | 1                   | 1                     | 1
-            2          | 1       | 1       | parse('2019-03-01T10:00')   | parse('2019-03-02T12:00')  | 2                   | 1                     | 1
-            2          | 2       | 1       | parse('2019-03-01T10:00')   | parse('2019-03-02T18:00')  | 2                   | 2                     | 1
-            7          | 7       | 6       | parse('2019-03-01T10:00')   | parse('2019-03-08T09:00')  | 7                   | 7                     | 6
-            7          | 7       | 7       | parse('2019-03-01T10:00')   | parse('2019-03-08T18:00')  | 7                   | 7                     | 7
-            20         | null    | null    | parse('2019-03-01T10:00')   | parse('2019-03-08T18:00')  | 8                   | 8                     | 8
-            20         | 0       | 0       | parse('2019-03-01T10:00')   | parse('2019-03-08T18:00')  | 8                   | 0                     | 0
-            null       | null    | null    | parse('2019-03-01T10:00')   | parse('2019-03-08T18:00')  | 8                   | 8                     | 8
-            20         | 20      | null    | parse('2019-03-01T10:00')   | parse('2019-03-08T18:00')  | 8                   | 8                     | 8
+            breakfasts | lunches | dinners | delegationStartDate | delegationEndDate                                               | adjustedBreakfasts | adjustedLunches | adjustedDinners
+            0          | 1       | 0       | now()               | now().plusHours(1)                                              | 0                  | 1               | 0
+            0          | 0       | 1       | now()               | now().plusHours(1)                                              | 0                  | 0               | 1
+            1          | 1       | 1       | now()               | now().plusDays(1)                                               | 1                  | 1               | 1
+            2          | 1       | 1       | now()               | now().plusDays(1).plusHours(2)                                  | 2                  | 1               | 1
+            2          | 2       | 1       | now()               | now().plusDays(1).plusHours(8)                                  | 2                  | 2               | 1
+            7          | 7       | 6       | now()               | now().plusDays(6).plusHours(23)                                 | 7                  | 7               | 6
+            7          | 7       | 7       | now()               | now().plusDays(7).plusHours(8)                                  | 7                  | 7               | 7
+            20         | null    | null    | now()               | now().plusDays(7).plusHours(8)                                  | 7                  | 7               | 7
+            20         | 0       | 0       | now()               | now().plusDays(7).plusHours(8)                                  | 7                  | 0               | 0
+            null       | null    | null    | now()               | now().plusDays(7).plusHours(8)                                  | 7                  | 7               | 7
+            20         | 20      | null    | now()               | now().plusDays(7).plusHours(8)                                  | 7                  | 7               | 7
+            null       | null    | null    | now()               | now().plusDays(1).plusHours(23).plusMinutes(59)                 | 1                  | 1               | 1
+            null       | null    | null    | now()               | now().plusDays(1).plusHours(23).plusMinutes(59).plusSeconds(59) | 1                  | 1               | 1
+            null       | null    | null    | now()               | now().plusDays(2)                                               | 2                  | 2               | 2
+            3          | 2       | 2       | now()               | now().plusDays(2).plusSeconds(1)                                | 3                  | 2               | 2
+            3          | 2       | 2       | now()               | now().plusDays(2).plusSeconds(1)                                | 3                  | 2               | 2
+            3          | 3       | 3       | now()               | now().plusDays(2).plusSeconds(1)                                | 3                  | 3               | 3
     }
 }
