@@ -36,6 +36,12 @@ const delegationExpensesReducer = (state = initialState, action) => {
         subErrors: action.payload.SubErrors
       };
 
+    case `${ACTIONS.CLEAR_EXPENSES}`:
+      return {
+        ...state,
+        data: []
+      };
+
     default:
       return { ...state };
   }

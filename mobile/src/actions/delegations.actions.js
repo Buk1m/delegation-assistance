@@ -1,4 +1,5 @@
 import { APIService } from "../services/data";
+import { formatToISO } from "../helpers/formatters";
 
 export const ACTIONS = {
   ADD_DELEGATION: "DELEGATIONS_ADD_DELEGATION",
@@ -11,6 +12,17 @@ export const ACTIONS = {
 };
 
 const addNewDelegation = delegation => dispatch => {
+  const {
+    destinationCountryId,
+    destinationLocation,
+    delegationObjective,
+    startDate,
+    endDate,
+    diet: { perDiem, currency },
+    meals: { breakfasts, lunches, dinners },
+    advancePayment
+  } = delegation;
+
   return dispatch(
     APIService.post(ACTIONS.ADD_DELEGATION, {
       url: "/delegations",
@@ -18,7 +30,16 @@ const addNewDelegation = delegation => dispatch => {
         "Content-type": "application/json"
       },
       needAuth: true,
-      data: delegation
+      data: {
+        destinationCountryId,
+        destinationLocation,
+        delegationObjective,
+        startDate: formatToISO(startDate),
+        endDate: formatToISO(endDate),
+        diet: { perDiem: parseInt(perDiem, 10), currency },
+        meals: { breakfasts: parseInt(breakfasts, 10), lunches: parseInt(lunches, 10), dinners: parseInt(dinners, 10) },
+        advancePayment: parseInt(advancePayment, 10)
+      }
     })
   );
 };

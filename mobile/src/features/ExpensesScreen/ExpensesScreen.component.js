@@ -72,7 +72,13 @@ const ExpensesScreen = props => {
                 validate={validateRequired}
                 data={currencies}
                 isSecure={false}
-                style={{ inputStyle: { width: 50 } }}
+                style={{
+                  containerStyle: localstyles.pickerContainer,
+                  pickerStyle: localstyles.labeledPicker,
+                  titleStyle: localstyles.pickerTitle,
+                  textStyle: localstyles.pickerText,
+                  validationFieldStyle: localstyles.pickerValidationField
+                }}
               />
             </View>
           </View>

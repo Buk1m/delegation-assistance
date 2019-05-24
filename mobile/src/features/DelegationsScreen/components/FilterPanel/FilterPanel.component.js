@@ -34,7 +34,7 @@ const FilterPanel = props => {
       <Field
         name="delegationStatus"
         component={LabeledPicker}
-        style={styles.picker}
+        style={{ viewStyle: styles.picker }}
         data={statusesWithKeys}
         title="Status"
         iconName="stats"

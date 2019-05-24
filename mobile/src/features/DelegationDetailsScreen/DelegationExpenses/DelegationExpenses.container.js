@@ -8,7 +8,7 @@ import {
   getExpensesFetching,
   getExpenses
 } from "../../../selectors/delegationExpenses.selectors";
-import { fetchDelegationExpenses } from "../../../actions/delegationExpenses.actions";
+import { fetchDelegationExpenses, clearExpenses } from "../../../actions/delegationExpenses.actions";
 import DelegationExpenses from "./DelegationExpenses.component";
 
 const firstPageIndex = 1;
@@ -27,6 +27,7 @@ class DelegationExpensesContainer extends Component {
   }
 
   static propTypes = {
+    clearExpenses: func,
     delegationId: number,
     expenses: array,
     fetchDelegationExpenses: func,
@@ -56,6 +57,10 @@ class DelegationExpensesContainer extends Component {
       this.state.sortBy + "." + this.state.sortDirection
     );
     this.props.setFunctionForCollapsing(this._changeIsSortFilterPanelCollapsed, "DelegationExpenses");
+  }
+
+  componentWillUnmount() {
+    this.props.clearExpenses();
   }
 
   handleLoadMoreExpenses = () => {
@@ -115,7 +120,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  fetchDelegationExpenses
+  fetchDelegationExpenses,
+  clearExpenses
 };
 
 export default connect(

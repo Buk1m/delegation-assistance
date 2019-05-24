@@ -1,7 +1,8 @@
 import { APIService } from "../services/data";
 
 export const ACTIONS = {
-  FETCH_DELEGATION_EXPENSES: "DELEGATION_EXPENSES_FETCH_DELEGATION_EXPENSES"
+  FETCH_DELEGATION_EXPENSES: "DELEGATION_EXPENSES_FETCH_DELEGATION_EXPENSES",
+  CLEAR_EXPENSES: "DELEGATION_EXPENSES_CLEAR_EXPENSES"
 };
 
 const fetchDelegationExpenses = (delegationId, currentPage, expensesPerPage, sortBy) => dispatch => {
@@ -16,4 +17,10 @@ const fetchDelegationExpenses = (delegationId, currentPage, expensesPerPage, sor
   );
 };
 
-export { fetchDelegationExpenses };
+const clearExpenses = () => dispatch => {
+  return dispatch({
+    type: ACTIONS.CLEAR_EXPENSES
+  });
+};
+
+export { fetchDelegationExpenses, clearExpenses };

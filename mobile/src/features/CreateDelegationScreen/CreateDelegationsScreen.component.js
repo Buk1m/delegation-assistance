@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ScrollView, KeyboardAvoidingView, Text } from "react-native";
 import { reduxForm, reset, Field } from "redux-form";
-import { bool, func } from "prop-types";
+import { array, bool, func } from "prop-types";
 
 import Button from "../../components/Button/Button.component";
 import {
@@ -31,7 +31,7 @@ const addKeysToItems = items => {
 };
 
 const CreateDelegationsScreen = props => {
-  const { handleSubmit, submitting } = props;
+  const { handleSubmit, submitting, countries } = props;
   const currencies = addKeysToItems(currenciesTags);
   return (
     <View style={styles.container}>
@@ -39,9 +39,17 @@ const CreateDelegationsScreen = props => {
         <KeyboardAvoidingView behavior="padding" enable>
           <Text style={styles.subtitle}> Destination Country </Text>
           <Field
-            name="destinationCountryISO3"
+            name="destinationCountryId"
             placeholder="Destination Country"
-            component={FieldRenderer}
+            component={LabeledPicker}
+            data={addKeysToItems(countries)}
+            style={{
+              containerStyle: localstyles.pickerContainer,
+              pickerStyle: localstyles.countryLabeledPicker,
+              titleStyle: localstyles.pickerTitle,
+              textStyle: localstyles.pickerText,
+              validationFieldStyle: localstyles.pickerValidationField
+            }}
             validate={[validateRequired]}
             isSecure={false}
           />
@@ -88,7 +96,50 @@ const CreateDelegationsScreen = props => {
                 validate={validateCurrencyExists}
                 data={currencies}
                 isSecure={false}
-                mystyles={localstyles.halfField}
+                style={{
+                  containerStyle: localstyles.pickerContainer,
+                  viewStyle: localstyles.halfField,
+                  pickerStyle: localstyles.labeledPicker,
+                  titleStyle: localstyles.pickerTitle,
+                  textStyle: localstyles.pickerText,
+                  validationFieldStyle: localstyles.pickerValidationField
+                }}
+              />
+            </View>
+          </View>
+
+          <View style={localstyles.meals}>
+            <View>
+              <Text style={localstyles.subtitle}> Breakfasts</Text>
+              <Field
+                name="meals.breakfasts"
+                placeholder="0"
+                component={FieldRenderer}
+                validate={[validateNumber]}
+                style={{ inputStyle: localstyles.meal }}
+                isSecure={false}
+              />
+            </View>
+            <View>
+              <Text style={localstyles.subtitle}> Lunches</Text>
+              <Field
+                name="meals.lunches"
+                placeholder="0"
+                component={FieldRenderer}
+                validate={[validateNumber]}
+                style={{ inputStyle: localstyles.meal }}
+                isSecure={false}
+              />
+            </View>
+            <View>
+              <Text style={localstyles.subtitle}> Dinners</Text>
+              <Field
+                name="meals.dinners"
+                placeholder="0"
+                component={FieldRenderer}
+                validate={[validateNumber]}
+                style={{ inputStyle: localstyles.meal }}
+                isSecure={false}
               />
             </View>
           </View>
@@ -110,6 +161,7 @@ const CreateDelegationsScreen = props => {
 };
 
 CreateDelegationsScreen.propTypes = {
+  countries: array,
   handleSubmit: func,
   submitting: bool
 };

@@ -1,11 +1,11 @@
-@import "../../assets/styles/constants";
+@import "../../assets/styles/colorPalette";
 
 .addDelegationButton {
   width: 3.75rem;
   height: 3.75rem;
   border-radius: 50px;
   line-height: 60px;
-  background-color: $primary-color;
+  background-color: $primaryColor;
   position: absolute;
   bottom: 2rem;
   right: 2rem;
@@ -19,12 +19,74 @@
   elevation: 10;
 }
 
+.subtitle {
+  color: $textColor;
+  margin-left: 0.7rem;
+}
+
+.meals {
+  flex: 1;
+  padding-top: 1rem;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.meal {
+  width: 4rem;
+  min-width: 0;
+  margin: 0 1.25rem;
+  padding-left: 2rem;
+}
+
 .addDelegationButtonText {
-  color: $text-color-button;
+  color: $primaryTextColor;
   font-size: 3.125rem;
   font-weight: normal;
 }
 
 .halfField {
   max-width: 8.625rem;
+}
+
+.countryLabeledPicker {
+  border-radius: 10px;
+  border-color: $primaryColor;
+  border-width: 2px;
+  background-color: transparent;
+  height: 2.3125rem;
+  width: 18.625rem;
+  justify-content: center;
+  margin-top: -20px;
+  margin-left: 20px;
+}
+
+.labeledPicker {
+  border-radius: 10px;
+  border-color: $primaryColor;
+  border-width: 2px;
+  background-color: transparent;
+  height: 2.3125rem;
+  width: 120;
+  justify-content: center;
+  margin-top: -20px;
+  margin-left: 20px;
+}
+
+.pickerText {
+  color: $textColor;
+}
+
+.pickerTitle {
+  flex-direction: row;
+  align-items: center;
+}
+
+.pickerValidationField {
+  color: $validateColor;
+  padding-left: 2.25rem;
+  margin: 0rem;
+}
+
+.pickerContainer {
+  position: relative;
 }

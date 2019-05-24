@@ -23,7 +23,7 @@ const SortPanel = props => {
       <Field
         name="sortBy"
         component={LabeledPicker}
-        style={styles.picker}
+        style={{ viewStyle: styles.picker }}
         title="Sort by"
         data={addKeysToItems(sortBys)}
         iconName="funnel"

@@ -1,4 +1,5 @@
 import { APIService } from "../services/data";
+import { formatToISO } from "../helpers/formatters";
 
 export const ACTIONS = {
   ADD_DELEGATION_ACCOMMODATION: "DELEGATION_ACCOMMODATION_ADD_DELEGATION_ACCOMMODATION"
@@ -14,7 +15,7 @@ const addNewDelegationAccommodation = (delegationId, accommodation) => dispatch 
         "Content-type": "application/json"
       },
       needAuth: true,
-      data: { hotelName, checkInDate, checkOutDate }
+      data: { hotelName, checkInDate: formatToISO(checkInDate), checkOutDate: formatToISO(checkOutDate) }
     })
   );
 };

@@ -32,8 +32,7 @@ const DelegationDetailsScreen = props => {
       tabBarTextStyle={styles["tab-label"]}
       initialPage={initialTabIndex}
       renderTabBar={() => <ScrollableTabBar />}
-      // eslint-disable-next-line no-unused-vars
-      onChangeTab={({ i, ref }) => handleChangeTab(i, setCurrentTabName)}
+      onChangeTab={({ i }) => handleChangeTab(i, setCurrentTabName)}
     >
       <DelegationDetails delegationId={delegationId} tabLabel="Details" />
       <DelegationChecklist delegationId={delegationId} tabLabel="Checklist" />

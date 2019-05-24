@@ -16,27 +16,33 @@ const renderPickerItems = items => {
 
 const LabeledPicker = ({
   input: { onChange, value },
-  style,
+  style: {
+    containerStyle = null,
+    viewStyle = null,
+    pickerStyle = null,
+    titleStyle = styles.title,
+    textStyle = styles.text,
+    validationFieldStyle = styles.validationField
+  },
   title,
   iconName,
   data,
-  pickerStyle,
   meta: { touched, error }
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={style}>
-        <View style={styles.title}>
+    <View style={containerStyle}>
+      <View style={viewStyle}>
+        <View style={titleStyle}>
           {iconName && <PlatformIcon name={iconName} size={pickerIconSize} color={colors.textColor} />}
           <Text> {title} </Text>
         </View>
         <View style={[styles.labeledPicker, pickerStyle]}>
-          <Picker style={styles.text} selectedValue={value} onValueChange={value => onChange(value)}>
+          <Picker style={textStyle} selectedValue={value} onValueChange={value => onChange(value)}>
             {renderPickerItems(data)}
           </Picker>
         </View>
       </View>
-      {touched && (error && <Text style={[styles.validationField]}>{error}</Text>)}
+      {touched && (error && <Text style={validationFieldStyle}>{error}</Text>)}
     </View>
   );
 };
@@ -45,7 +51,7 @@ LabeledPicker.propTypes = {
   data: array,
   iconName: string,
   input: object,
-  pickerStyle: object,
+  meta: object,
   style: object,
   title: string
 };

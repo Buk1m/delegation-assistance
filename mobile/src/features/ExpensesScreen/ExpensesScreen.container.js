@@ -13,7 +13,7 @@ class ExpensesScreenContainer extends Component {
   };
 
   static propTypes = {
-    addExpense: func
+    addNewExpense: func
   };
 
   state = {
@@ -37,14 +37,9 @@ class ExpensesScreenContainer extends Component {
   getImageFromCamera = async () => {
     const { Permissions } = Expo;
     const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
-    const cameraRollPermission = await Permissions.askAsync(
-      Permissions.CAMERA_ROLL
-    ); //Required on IOS
+    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL); //Required on IOS
 
-    if (
-      cameraPermission.status === "granted" &&
-      cameraRollPermission.status === "granted"
-    ) {
+    if (cameraPermission.status === "granted" && cameraRollPermission.status === "granted") {
       const capturedImage = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         quality: 1, // Value {0..1}, 1 is maximum - without compression
@@ -61,14 +56,9 @@ class ExpensesScreenContainer extends Component {
   getImageFromCameraRoll = async () => {
     const { Permissions } = Expo;
     const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
-    const cameraRollPermission = await Permissions.askAsync(
-      Permissions.CAMERA_ROLL
-    ); //Required on IOS
+    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL); //Required on IOS
 
-    if (
-      cameraPermission.status === "granted" &&
-      cameraRollPermission.status === "granted"
-    ) {
+    if (cameraPermission.status === "granted" && cameraRollPermission.status === "granted") {
       const capturedImage = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         quality: 1, // Value {0..1}, 1 is maximum - without compression
@@ -84,8 +74,9 @@ class ExpensesScreenContainer extends Component {
 
   handleSubmit = values => {
     const attachments = this.state.attachments.map(value => {
-      return value.file;
+      return { uri: value.file.uri, type: value.file.type, filename: value.file.uri.split('/').pop() };
     });
+
     const payType = this.state.payType;
     const delegationId = this.state.delegationId;
 
@@ -112,7 +103,7 @@ class ExpensesScreenContainer extends Component {
     });
   };
 
-  deleteFile = (index, e) => {
+  deleteFile = (index,) => {
     const files = Object.assign([], this.state.attachments);
     files.splice(index, 1);
     this.setState({ attachments: files });

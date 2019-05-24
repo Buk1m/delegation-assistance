@@ -8,6 +8,7 @@ import delegationChecklistReducer from "../reducers/delegationChecklist.reducer"
 import delegationExpensesReducer from "../reducers/delegationExpenses.reducer";
 import delegationFlightReducer from "../reducers/delegationFlight.reducer";
 import delegationAccommodationReducer from "../reducers/delegationAccommodation.reducer";
+import countriesReducer from "../reducers/countries.reducer";
 
 const combinedReducers = {
   form: formReducer,
@@ -18,7 +19,8 @@ const combinedReducers = {
   delegationChecklist: delegationChecklistReducer,
   delegationExpenses: delegationExpensesReducer,
   delegationFlight: delegationFlightReducer,
-  delegationAccommodation: delegationAccommodationReducer
+  delegationAccommodation: delegationAccommodationReducer,
+  countries: countriesReducer
 };
 
 export default combinedReducers;
