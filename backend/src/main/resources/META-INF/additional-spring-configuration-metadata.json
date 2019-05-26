@@ -109,6 +109,46 @@
       "name": "exception.maximum-number-of-meals-exceeded",
       "type": "java.lang.String",
       "description": "Error code for an exception which is thrown if maximum number of meals has been exceeded."
+    },
+    {
+      "name": "clients.api.nbp.url",
+      "type": "java.lang.String",
+      "description": "Base url for NBP api."
+    },
+    {
+      "name": "retry.policy.exponential.max-retries",
+      "type": "java.lang.Integer",
+      "description": "Number indicating max retry requests to NBP api."
+    },
+    {
+      "name": "cache.expiration-days",
+      "type": "java.lang.Integer",
+      "description": "Number indicating how long cache is unexpired."
+    },
+    {
+      "name": "cache.clear-expired-cron",
+      "type": "java.lang.String",
+      "description": "Cron declaring frequency of clearing NBP api responses cache."
+    },
+    {
+      "name": "clients.api.nbp.exchange-uri",
+      "type": "java.lang.String",
+      "description": "Number indicating uri to exchange rates."
+    },
+    {
+      "name": "clients.services.nbp.max-days-back",
+      "type": "java.lang.Integer",
+      "description": "Number indicating max days back to get exchanges."
+    },
+    {
+      "name": "retry.policy.exponential.initial-backoff",
+      "type": "java.lang.Long",
+      "description": "Number indicating starting backoff value."
+    },
+    {
+      "name": "retry.policy.exponential.max-backoff",
+      "type": "java.lang.String",
+      "description": "Number indicating maximum backoff value."
     }
   ]
 }

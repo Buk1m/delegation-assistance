@@ -9,15 +9,14 @@ import spock.lang.Unroll
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getDateTimeFormatter
-import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getLocalDateTime
-import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getLocalDateTimeMinusYears
-import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.getLocalDateTimePlusYears
+import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeConstants.DATE_TIME_FORMAT
+import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.*
 
 class DatesValidatorCaseSpec extends Specification {
     @Shared
-    DateTimeFormatter formatter = getDateTimeFormatter()
+    DateTimeFormatter formatter = DATE_TIME_FORMAT
     DatesValidator datesValidator = new DatesValidator()
+
     @Shared
     ValidateDates validateDates = Mock(ValidateDates) {
         start() >> 'start'
@@ -52,7 +51,7 @@ class DatesValidatorCaseSpec extends Specification {
             result == datesValidator.isValid(objectUnderTest, null)
 
         where:
-            start                       | end                                      | validator                  | result
+            start                       | end                                      | validator                 | result
             getLocalDateTime(formatter) | getLocalDateTimePlusYears(formatter, 1)  | validateDates             | true
             getLocalDateTime(formatter) | getLocalDateTimeMinusYears(formatter, 1) | validateDates             | false
             null                        | null                                     | validateDates             | false
