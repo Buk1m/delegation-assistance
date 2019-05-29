@@ -7,16 +7,18 @@ import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Input from "../../components/Input/Input.component";
 import Button from "../../components/Button/Button.component";
-import { validateRequired, validateStartEndDate, validateCurrency, validateDiem } from "../../validators/Validators";
+import {
+  validateRequired,
+  validateStartEndDate,
+  validateCurrency,
+  validateDiem,
+  validateInteger
+} from "../../validators/Validators";
 import currencies from "../../components/Currencies/CurrenciesMap";
 
 const currencyMask = createNumberMask({
   decimalPlaces: 2,
   locale: "en-US"
-});
-
-const intMask = createNumberMask({
-  decimalPlaces: 0
 });
 
 export const DelegationCreatePage = props => {
@@ -100,13 +102,34 @@ export const DelegationCreatePage = props => {
             </div>
             <div className="form-row">
               <div className="form-group col-sm-4">
-                <Input label="Breakfasts" name="meals.breakfasts" type="text" component="input" {...intMask} />
+                <Input
+                  label="Breakfasts"
+                  placeholder="Add breakfasts..."
+                  name="meals.breakfasts"
+                  type="text"
+                  component="input"
+                  validate={validateInteger}
+                />
               </div>
               <div className="form-group col-sm-4">
-                <Input label="Lunches" name="meals.lunches" type="text" component="input" {...intMask} />
+                <Input
+                  label="Lunches"
+                  placeholder="Add lunches..."
+                  name="meals.lunches"
+                  type="text"
+                  component="input"
+                  validate={validateInteger}
+                />
               </div>
               <div className="form-group col-sm-4">
-                <Input label="Dinners" name="meals.dinners" type="text" component="input" {...intMask} />
+                <Input
+                  label="Dinners"
+                  placeholder="Add dinners..."
+                  name="meals.dinners"
+                  type="text"
+                  component="input"
+                  validate={validateInteger}
+                />
               </div>
             </div>
             <div className="d-flex justify-content-center btn-create-delegation">

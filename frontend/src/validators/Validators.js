@@ -37,6 +37,10 @@ const validateDiem = (value, { diet: currency }) => {
   return null;
 };
 
+const validateInteger = value => {
+  return value && !/^\d+$/.test(value) ? "This field must be an integer" : null;
+};
+
 export {
   validateCheckInOutDate,
   validateDepartureArrivalDate,
@@ -44,5 +48,6 @@ export {
   validateStartEndDate,
   validateNumber,
   validateCurrency,
-  validateDiem
+  validateDiem,
+  validateInteger
 };

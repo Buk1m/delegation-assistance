@@ -814,45 +814,36 @@ exports[`Create Delegation Page should render correctly 1`] = `
             className="form-group col-sm-4"
           >
             <Input
-              autoComplete="off"
               component="input"
-              format={[Function]}
               label="Breakfasts"
               name="meals.breakfasts"
-              normalize={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
+              placeholder="Add breakfasts..."
               type="text"
+              validate={[Function]}
             />
           </div>
           <div
             className="form-group col-sm-4"
           >
             <Input
-              autoComplete="off"
               component="input"
-              format={[Function]}
               label="Lunches"
               name="meals.lunches"
-              normalize={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
+              placeholder="Add lunches..."
               type="text"
+              validate={[Function]}
             />
           </div>
           <div
             className="form-group col-sm-4"
           >
             <Input
-              autoComplete="off"
               component="input"
-              format={[Function]}
               label="Dinners"
               name="meals.dinners"
-              normalize={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
+              placeholder="Add dinners..."
               type="text"
+              validate={[Function]}
             />
           </div>
         </div>
