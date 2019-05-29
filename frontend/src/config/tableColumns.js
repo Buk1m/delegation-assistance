@@ -3,10 +3,13 @@ import { dateFilter, selectFilter, textFilter } from "react-bootstrap-table2-fil
 import { Type } from "react-bootstrap-table2-editor";
 import { money, creditCard } from "react-icons-kit/fa/";
 import { Icon } from "react-icons-kit";
+import { ic_keyboard_arrow_right } from "react-icons-kit/md/ic_keyboard_arrow_right";
 
 import ButtonLink from "../components/ButtonLink/ButtonLink.component";
 import { delegationStatuses } from "./index";
 import { formatExpenseDate, formatExpenseValue, formatColumnDate } from "../helpers/formatters";
+
+const iconSize = 22;
 
 const delegationsSharedColumns = [
   {
@@ -87,7 +90,14 @@ const delegationsManageColumns = [
     classes: (cell, row) => {
       return row.status ? row.status.toLowerCase() : "";
     },
-    formatter: cell => <span className="delegation-status">{delegationStatuses[cell]}</span>,
+    formatter: cell => (
+      <span className="delegation-status">
+        {delegationStatuses[cell]}
+        <span className="arrow">
+          <Icon size={iconSize} icon={ic_keyboard_arrow_right} />
+        </span>
+      </span>
+    ),
     filter: selectFilter({
       options: delegationStatuses
     }),

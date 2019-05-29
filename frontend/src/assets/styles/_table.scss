@@ -4,9 +4,10 @@
   padding: 3px 10px;
   font-weight: bold;
   font-size: 14px;
-  display: block;
-  text-align: center;
+  display: flex;
   color: #fff;
+  align-items: center;
+  justify-content: space-between;
 
   .prepared & {
     background-color: var(--dlg-s-prepared);
@@ -49,4 +50,8 @@
     display: block;
     overflow: auto;
   }
+}
+
+.arrow {
+  color: #fff;
 }

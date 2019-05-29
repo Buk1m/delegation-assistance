@@ -33,8 +33,8 @@ const DelegationsManagePage = props => {
 };
 
 DelegationsManagePage.propTypes = {
-  delegations: array,
-  columns: array
+  columns: array,
+  delegations: array
 };
 
 export default DelegationsManagePage;
