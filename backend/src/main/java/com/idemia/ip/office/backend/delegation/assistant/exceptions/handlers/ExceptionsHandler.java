@@ -45,16 +45,19 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
     public Mono<ResponseEntity> handleResponseStatusException(ResponseStatusException e) {
+        LOG.info("Failed to process response",e);
         return Mono.just(ResponseEntity.status(e.getStatus()).build());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public Mono<ResponseEntity> handleApplicationException(AccessDeniedException e) {
+        LOG.info("Access was denied", e);
         return Mono.just(ResponseEntity.status(FORBIDDEN).build());
     }
 
     @ExceptionHandler(ApplicationException.class)
     public Mono<ResponseEntity> handleApplicationException(ApplicationException e) {
+        LOG.info("Business logic couldn't be processed", e);
         return Mono.just(new ExceptionDto(e.getErrorCode(), e.getMessage()))
                 .map(exceptionDto -> ResponseEntity.badRequest().body(exceptionDto));
     }
@@ -73,6 +76,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
     public Mono<ResponseEntity> handleObjectOptimisticLockingFailureException(ObjectOptimisticLockingFailureException e) {
+        LOG.info("Conflict occurred", e);
         return Mono.just(ResponseEntity.status(CONFLICT).build());
     }
 
