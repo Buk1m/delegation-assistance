@@ -1,8 +1,23 @@
 @import "../../../assets/styles/colorPalette";
 
+.container {
+  height: 100%;
+}
+
 .modal {
   padding-top: 0.5rem;
   background-color: $primaryTextColor;
+}
+
+.messageText {
+  text-align: center;
+  font-size: 1.2rem;
+  color: $primaryColor;
+  margin-top: 4rem;
+}
+
+.spinner {
+  margin: 3rem 0rem 2rem 0rem;
 }
 
 .collapseButton {
@@ -63,4 +78,12 @@
 .directionIcon {
   color: $primaryTextColor;
   font-size: 2rem;
+}
+
+.addExpenseButton {
+  background-color: $primaryColor;
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
+  margin: 2rem;
 }

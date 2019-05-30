@@ -1,0 +1,92 @@
+@import "../../assets/styles/colorPalette";
+
+.flightItem {
+  border-radius: 3px;
+  shadow-color: $gpalette1000;
+  shadow-opacity: 0.4;
+  shadow-radius: 2.4;
+  elevation: 4;
+  margin: 0.5rem 0.7rem 0.5rem 0.7rem;
+  flex-direction: row;
+  background-color: $gpalette000;
+}
+
+.sideOrnament {
+  flex: 0.2;
+  height: 100%;
+  background-color: $primaryColor;
+  border-radius: 3px 0px 0px 3px;
+}
+
+.flightData {
+  flex: 7;
+  padding: 0.3rem 0.7rem;
+}
+
+.header {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.text {
+  font-size: 0.9rem;
+  text-align: center;
+  color: $gpalette0200;
+}
+
+.flightIcon {
+  flex: 0.3;
+  align-items: center;
+  justify-content: center;
+}
+
+.airplaneIcon {
+  transform: rotate(90deg);
+}
+
+.places {
+  flex-direction: row;
+  padding-bottom: 0.3rem;
+}
+
+.place {
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem 0rem;
+}
+
+.dateTimes {
+  flex-direction: row;
+}
+
+.dateTime {
+  flex-direction: column;
+  flex: 1;
+  padding-top: 0.3rem;
+}
+
+.centerText {
+  justify-content: center;
+  align-items: center;
+}
+
+.bottomBorder {
+  border-bottom-width: 1px;
+  border-color: $gpalette050;
+}
+
+.rightBorder {
+  border-right-width: 0.5px;
+  border-color: $gpalette050;
+}
+
+.leftBorder {
+  border-left-width: 0.5px;
+  border-color: $gpalette050;
+}
+
+:export {
+  iconColor: $primaryColor;
+}

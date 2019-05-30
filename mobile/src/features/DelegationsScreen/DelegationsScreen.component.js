@@ -1,45 +1,23 @@
 import React from "react";
-import { TouchableOpacity, View, FlatList, Alert } from "react-native";
+import { TouchableOpacity, View, FlatList } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { array, bool, func, object } from "prop-types";
+import { FAB } from "react-native-paper";
 
 import Delegation from "./components/Delegation/Delegation.component";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.component";
 import FilterPanel from "./components/FilterPanel/FilterPanel.component";
 import SortPanel from "./components/SortPanel/SortPanel.component";
 import IconButton from "../../components/IconButton/IconButton.component";
-import PlatformIcon from "../../components/PlatformIcon/PlatformIcon.component";
+import { extractKey } from "../../helpers/extractors";
 
 import styles from "./DelegationsScreen.module.scss";
-import style from "../CreateDelegationScreen/CreateDelegationButtonStyles.module.scss";
 
 const renderItem = (delegation, navigate) => {
   return (
-    <TouchableOpacity onPress={() => showOptions(delegation.item.id, navigate)}>
+    <TouchableOpacity onPress={() => navigate.navigate("DelegationDetails", { delegationId: delegation.item.id })}>
       <Delegation data={delegation.item} />
     </TouchableOpacity>
-  );
-};
-
-const showOptions = (delegationId, navigate) => {
-  Alert.alert(
-    "Choose action",
-    "",
-    [
-      {
-        text: "Cancel",
-        style: "cancel"
-      },
-      {
-        text: "Show Details",
-        onPress: () => navigate.navigate("DelegationDetails", { delegationId: delegationId })
-      },
-      {
-        text: "Add Expense",
-        onPress: () => navigate.navigate("CreateExpense", { delegationId: delegationId })
-      }
-    ],
-    { cancelable: true }
   );
 };
 
@@ -78,20 +56,14 @@ const DelegationsScreen = props => {
       <FlatList
         style={[styles.list, styles.listSideMargins]}
         data={delegations}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={extractKey}
         renderItem={delegation => renderItem(delegation, navigate)}
         refreshing={fetching}
         onRefresh={handleRefresh}
         contentContainerStyle={styles["content-container"]}
       />
 
-      <TouchableOpacity
-        style={style.addDelegationButton}
-        title="+"
-        onPress={() => navigate.navigate("CreateDelegation")}
-      >
-        <PlatformIcon name="add" style={style.addDelegationButtonText}/>
-      </TouchableOpacity>
+      <FAB style={styles.addDelegationButton} large icon="add" onPress={() => navigate.navigate("CreateDelegation")} />
     </View>
   );
 };

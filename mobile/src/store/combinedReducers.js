@@ -18,8 +18,8 @@ const combinedReducers = {
   expenses: expensesReducer,
   delegationChecklist: delegationChecklistReducer,
   delegationExpenses: delegationExpensesReducer,
-  delegationFlight: delegationFlightReducer,
-  delegationAccommodation: delegationAccommodationReducer,
+  delegationFlights: delegationFlightReducer,
+  delegationAccommodations: delegationAccommodationReducer,
   countries: countriesReducer
 };
 

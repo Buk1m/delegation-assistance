@@ -6,6 +6,7 @@ import Collapsible from "react-native-collapsible";
 import AttachmentItem from "../AttachmentItem";
 import AttachmentsButton from "../AttachmentsButton/AttachmentsButton.component";
 import PaymentIcon from "../PaymentIcon/PaymentIcon.component";
+import { extractKey } from "../../../../../helpers/extractors";
 
 import styles from "./DelegationExpense.module.scss";
 
@@ -58,7 +59,7 @@ const DelegationExpense = props => {
       <Collapsible style={styles.collapsible} collapsed={!isCollapsed}>
         <FlatList
           data={files}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={extractKey}
           renderItem={attachment => renderAttachment(delegationId, id, attachment)}
         />
       </Collapsible>

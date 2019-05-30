@@ -106,6 +106,7 @@ export class DelegationDetailsScreenContainer extends Component {
     return (
       <DelegationDetailsScreen
         delegationId={this.delegationId}
+        navigate={this.props.navigation}
         setFunctionForCollapsing={this.setFunctionForCollapsing}
         setCurrentTabName={this.setCurrentTabName}
       />

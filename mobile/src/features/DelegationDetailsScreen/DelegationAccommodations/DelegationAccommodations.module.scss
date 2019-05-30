@@ -1,0 +1,28 @@
+@import "../../../assets/styles/colorPalette";
+
+.container {
+  height: 100%;
+}
+
+.addAccommodationButton {
+  background-color: $primaryColor;
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
+  margin: 2rem;
+}
+
+.spinner {
+  margin-top: 3rem;
+}
+
+.messageText {
+  text-align: center;
+  font-size: 1.2rem;
+  color: $primaryColor;
+  margin-top: 4rem;
+}
+
+.list {
+  padding-top: 1rem;
+}

@@ -1,4 +1,4 @@
-@import "../../assets/styles/colors";
+@import "../../assets/styles/colorPalette";
 
 .collapseButton {
   align-items: center;
@@ -9,7 +9,7 @@
 }
 
 .iconStyle {
-  color: $primary-color;
+  color: $primaryColor;
   font-size: 40;
 }
 
@@ -32,11 +32,11 @@
 }
 
 .collapsible {
-  border-bottom-color: $inactiveTextColor;
+  border-bottom-color: $gpalette0200;
   border-bottom-width: 1;
   margin-left: 20;
   margin-right: 20;
-  background-color: $text-color-button;
+  background-color: $primaryTextColor;
 }
 
 .column {
@@ -55,7 +55,7 @@
 .button {
   height: 35;
   width: 120;
-  background-color: $primary-color;
+  background-color: $primaryColor;
   border-radius: 3px;
   align-items: center;
   justify-content: center;
@@ -71,4 +71,12 @@
   padding-top: 15px;
   min-height: 100%;
   width: 100%;
+}
+
+.addDelegationButton {
+  background-color: $primaryColor;
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
+  margin: 2rem;
 }

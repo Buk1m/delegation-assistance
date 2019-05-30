@@ -25,7 +25,7 @@ class CreateDelegationsScreenContainer extends Component {
 
   handleSubmit = values => {
     return this.props.addNewDelegation(values).then(() => {
-      this.props.navigation.navigate("Home");
+      this.props.navigation.goBack();
     });
   };
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View } from "react-native";
-import { array, bool, func, number } from "prop-types";
+import { array, bool, func, number, object } from "prop-types";
 
 import {
   getDelegationExpensesTotalSize,
@@ -32,6 +32,7 @@ class DelegationExpensesContainer extends Component {
     expenses: array,
     fetchDelegationExpenses: func,
     fetching: bool,
+    navigate: object,
     setFunctionForCollapsing: func,
     totalSize: number
   };
@@ -96,14 +97,15 @@ class DelegationExpensesContainer extends Component {
     return (
       <View>
         <DelegationExpenses
+          changeIsSortFilterPanelCollapsed={this._changeIsSortFilterPanelCollapsed}
+          changeSortDirection={this.changeSortDirection}
           delegationId={this.props.delegationId}
           expenses={this.props.expenses}
           fetching={this.props.fetching}
           handleLoadMoreExpenses={this.handleLoadMoreExpenses}
-          changeIsSortFilterPanelCollapsed={this._changeIsSortFilterPanelCollapsed}
           isSortFilterPanelCollapsed={this.state.isSortFilterPanelCollapsed}
+          navigate={this.props.navigate}
           sortDirection={this.state.sortDirection}
-          changeSortDirection={this.changeSortDirection}
           sortItems={this.sortItems}
         />
       </View>

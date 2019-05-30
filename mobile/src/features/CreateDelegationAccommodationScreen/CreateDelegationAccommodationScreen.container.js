@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { func } from "prop-types";
 
-import { addNewDelegationAccommodation } from "../../actions/delegationAccommodation.actions";
+import { addNewDelegationAccommodation } from "../../actions/delegationAccommodations.actions";
 import CreateDelegationAccommodationScreen from "./CreateDelegationAccommodationScreen.component";
 
 class CreateDelegationAccommodationContainer extends Component {
@@ -17,7 +17,7 @@ class CreateDelegationAccommodationContainer extends Component {
   handleSubmit = values => {
     const delegationId = this.props.navigation.getParam("delegationId");
     return this.props.addNewDelegationAccommodation(delegationId, values).then(() => {
-      this.props.navigation.navigate("Home");
+      this.props.navigation.goBack();
     });
   };
 
