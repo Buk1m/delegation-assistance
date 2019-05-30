@@ -1,4 +1,5 @@
 import { APIService } from "../services/data";
+import { FileSystem } from "expo";
 
 export const ACTIONS = {
   ADD_EXPENSE: "EXPENSES_ADD_EXPENSE"
@@ -12,20 +13,25 @@ const addNewExpense = (expense, { attachments }, payType, delegationId) => dispa
   formData.append("expenseCurrency", expense.expenseCurrency);
   formData.append("exchangeRate", expense.exchangeRate);
   formData.append("paymentType", payType);
-  attachments.map((file, index) => {
-    formData.append("attachments[" + index + "]", file);
+  const promisesMap = attachments.map(file => {
+    return FileSystem.readAsStringAsync(file.uri);
   });
 
-  return dispatch(
-    APIService.post(ACTIONS.ADD_EXPENSE, {
-      url: `/delegations/${delegationId}/expenses`,
-      headers: {
-        "Content-type": "multipart/form-data"
-      },
-      needAuth: true,
-      data: formData
-    })
-  );
+  return Promise.all(promisesMap).then(files => {
+    files.map((fp, index) => {
+      formData.append("attachments[" + index + "]", new File([fp], "nazwa.png", { type: "image/png" }));
+    });
+    return dispatch(
+      APIService.post(ACTIONS.ADD_EXPENSE, {
+        url: `/delegations/${delegationId}/expenses`,
+        headers: {
+          "Content-type": "multipart/form-data"
+        },
+        needAuth: true,
+        data: formData
+      })
+    );
+  });
 };
 
 export { addNewExpense };

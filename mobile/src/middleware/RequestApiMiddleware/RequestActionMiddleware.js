@@ -51,6 +51,16 @@ const RequestActionMiddleware = store => next => action => {
         if (needAuth === true) {
           headers["Authorization"] = `Bearer ${state.user.token}`;
         }
+        axios.interceptors.request.use(request => {
+          console.log(request);
+          return request;
+        });
+
+        axios.interceptors.response.use(response => {
+          console.log("\n\n\n response");
+          console.log(response);
+          return response;
+        });
         promise = axios(url, {
           method,
           data,

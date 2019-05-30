@@ -74,13 +74,13 @@ class ExpensesScreenContainer extends Component {
 
   handleSubmit = values => {
     const attachments = this.state.attachments.map(value => {
-      return { uri: value.file.uri, type: value.file.type, filename: value.file.uri.split('/').pop() };
+      return { uri: value.file.uri, type: value.file.type, name: value.file.uri.split('/').pop() };
     });
 
     const payType = this.state.payType;
     const delegationId = this.state.delegationId;
 
-    this.props.addNewExpense(values, { attachments }, payType, delegationId);
+    this.props.addNewExpense(values, { attachments }, payType, delegationId).then(s => console.log(s)).catch(e => console.log(e));
   };
 
   addFileToList = (file, fileName) => {

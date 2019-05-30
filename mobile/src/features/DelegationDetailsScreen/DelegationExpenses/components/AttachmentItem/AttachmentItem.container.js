@@ -16,7 +16,15 @@ class AttachmentItemContainer extends Component {
   };
 
   downloadAttachment = () => {
-    this.props.openFile(this.props.delegationId, this.props.expenseId, this.props.attachmentId);
+    this.props.openFile(this.props.delegationId, this.props.expenseId, this.props.attachmentId).then(response => {
+      const blob = new Blob([response.data]);
+
+      if (global.window === undefined) {
+        global.window = global;
+      }
+      const link = URL.createObjectURL(blob);
+      console.log(link);
+    });
   };
 
   render() {
