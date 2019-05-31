@@ -39,40 +39,46 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(Exception.class)
     public Mono<ResponseEntity> handleException(Exception e) {
-        LOG.error("An unexpected error has occurred!", e);
+        LOG.error("An unexpected error has occurred! ", e);
         return Mono.just(ResponseEntity.status(INTERNAL_SERVER_ERROR).build());
     }
 
     @ExceptionHandler(ResponseStatusException.class)
     public Mono<ResponseEntity> handleResponseStatusException(ResponseStatusException e) {
+        LOG.info("Failed to process response, with message: {} ", e.getMessage(), e);
         return Mono.just(ResponseEntity.status(e.getStatus()).build());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public Mono<ResponseEntity> handleApplicationException(AccessDeniedException e) {
+        LOG.info("Access was denied. ", e);
         return Mono.just(ResponseEntity.status(FORBIDDEN).build());
     }
 
     @ExceptionHandler(ApplicationException.class)
     public Mono<ResponseEntity> handleApplicationException(ApplicationException e) {
+        LOG.info("Business logic, request couldn't be processed. ", e);
         return Mono.just(new ExceptionDto(e.getErrorCode(), e.getMessage()))
                 .map(exceptionDto -> ResponseEntity.badRequest().body(exceptionDto));
     }
 
     @ExceptionHandler(WebExchangeBindException.class)
     public Mono<ResponseEntity> handleWebExchangeBindException(WebExchangeBindException e) {
+        LOG.info("Constraint violation. ", e);
         return Mono.just(mapWebExchangeBindException(e))
                 .map(exceptionDto -> ResponseEntity.status(BAD_REQUEST).body(exceptionDto));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public Mono<ResponseEntity> handleConstraintViolationException(ConstraintViolationException e) {
+        LOG.info("Constraint violation. ", e);
         return Mono.just(mapConstraintViolationException(e))
                 .map(exceptionDto -> ResponseEntity.status(BAD_REQUEST).body(exceptionDto));
     }
 
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
     public Mono<ResponseEntity> handleObjectOptimisticLockingFailureException(ObjectOptimisticLockingFailureException e) {
+        LOG.info("Conflict occurred. ", e);
         return Mono.just(ResponseEntity.status(CONFLICT).build());
     }
 
