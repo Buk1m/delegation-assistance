@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 
+import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeConstants.DATE_TIME_FORMAT_STRING;
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
 @Builder
@@ -31,12 +32,12 @@ public class AccommodationDto extends BaseDto {
 
     @NotNull(message = "{error.message.not.null}", groups = OnPost.class)
     @DateTimeFormat(iso = DATE_TIME)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT_STRING)
     private LocalDateTime checkInDate;
 
     @NotNull(message = "{error.message.not.null}", groups = OnPost.class)
     @DateTimeFormat(iso = DATE_TIME)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT_STRING)
     private LocalDateTime checkOutDate;
 
     @NotBlank(message = "{error.message.field.not.blank}", groups = OnPost.class)

@@ -78,13 +78,13 @@ public class Delegation extends BaseEntity {
     private List<Expense> expenses = new ArrayList<>();
 
     @OneToMany(fetch = EAGER, cascade = ALL)
-    @JoinColumn(name = "flight_id")
+    @JoinColumn(name = "delegation_id")
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 10)
     private List<Flight> flights = new ArrayList<>();
 
     @OneToMany(fetch = EAGER, cascade = ALL)
-    @JoinColumn(name = "accommodation_id")
+    @JoinColumn(name = "delegation_id")
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 10)
     private List<Accommodation> accommodations = new ArrayList<>();

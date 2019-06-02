@@ -14,6 +14,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class AccommodationReport {
 
+    private Long id;
+
     private LocalDate checkInDate;
 
     private LocalTime checkInTime;

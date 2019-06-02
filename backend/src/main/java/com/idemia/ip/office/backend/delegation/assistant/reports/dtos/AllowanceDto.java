@@ -1,4 +1,4 @@
-package com.idemia.ip.office.backend.delegation.assistant.reports.model;
+package com.idemia.ip.office.backend.delegation.assistant.reports.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,17 +12,16 @@ import java.util.Currency;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DietReturns {
-
-    private Entitlements entitlements;
-
-    private BigDecimal totalEntitlement;
-
-    private BigDecimal totalDiems;
+public class AllowanceDto {
 
     private Currency targetCurrency;
 
-    private BigDecimal exchangeAmount;
+    private BigDecimal basePerDiem;
+
+    public AllowanceDto(String targetCurrency, BigDecimal basePerDiem) {
+        this.targetCurrency = Currency.getInstance(targetCurrency);
+        this.basePerDiem = basePerDiem;
+    }
 
     public String getTargetCurrency() {
         return targetCurrency.getCurrencyCode();

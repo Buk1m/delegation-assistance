@@ -1,4 +1,4 @@
-package com.idemia.ip.office.backend.delegation.assistant.reports.model;
+package com.idemia.ip.office.backend.delegation.assistant.reports.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.util.Currency;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DietReport {
+public class DietReportDto {
 
     private Currency currency;
 

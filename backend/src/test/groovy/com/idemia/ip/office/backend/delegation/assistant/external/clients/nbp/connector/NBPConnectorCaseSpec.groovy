@@ -29,7 +29,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 
 class NBPConnectorCaseSpec extends Specification {
 
-    private final static Integer MOCK_SERVER_PORT = 1133
+    private static final Integer MOCK_SERVER_PORT = 1133
 
     @Rule
     WireMockRule wireMockRule = new WireMockRule(MOCK_SERVER_PORT)

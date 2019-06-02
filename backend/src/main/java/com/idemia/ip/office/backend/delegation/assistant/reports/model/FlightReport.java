@@ -10,6 +10,8 @@ import java.time.LocalTime;
 @Setter
 public class FlightReport {
 
+    private Long id;
+
     private String departurePlace;
 
     private String arrivalPlace;

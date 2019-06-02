@@ -10,14 +10,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toMap;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.springframework.data.domain.Sort.Direction.ASC;
+import static org.springframework.data.domain.Sort.Direction.DESC;
+
 public final class QueryParamParser {
-    private final static Map<String, Sort.Direction> SORT = Stream.of(
-            new AbstractMap.SimpleEntry<>("desc", Sort.Direction.DESC),
-            new AbstractMap.SimpleEntry<>("asc", Sort.Direction.ASC)
-    ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+    private static final Map<String, Sort.Direction> SORT = Stream.of(DESC, ASC)
+            .map(s -> new AbstractMap.SimpleEntry<>(s.name().toLowerCase(), s))
+            .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+    private QueryParamParser() {
+    }
 
     public static List<Sort.Order> getSortOrders(String sortQueryParam) {
-        return Stream.of(StringUtils.split(sortQueryParam, ','))
+        return Stream.of(StringUtils.split(StringUtils.defaultIfBlank(sortQueryParam, EMPTY), ','))
                 .map(String::trim)
                 .map(QueryParamParser::getSortOrder)
                 .filter(Optional::isPresent)

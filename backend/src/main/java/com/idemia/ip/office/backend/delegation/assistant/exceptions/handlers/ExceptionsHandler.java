@@ -34,8 +34,8 @@ public class ExceptionsHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExceptionsHandler.class);
 
-    private final static String CONSTRAINT_VIOLATIONS_ERROR_CODE = "constraint-violations";
-    private final static String CONSTRAINT_VIOLATIONS_ERROR_MESSAGE = "There are model's constraint violations.";
+    private static final String CONSTRAINT_VIOLATIONS_ERROR_CODE = "constraint-violations";
+    private static final String CONSTRAINT_VIOLATIONS_ERROR_MESSAGE = "There are model's constraint violations.";
 
     @ExceptionHandler(Exception.class)
     public Mono<ResponseEntity> handleException(Exception e) {

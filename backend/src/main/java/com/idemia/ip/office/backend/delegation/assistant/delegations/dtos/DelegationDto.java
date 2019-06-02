@@ -19,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeConstants.DATE_TIME_FORMAT_STRING;
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
 @Builder
@@ -32,11 +33,11 @@ public class DelegationDto extends BaseDto {
     private Long id;
 
     @DateTimeFormat(iso = DATE_TIME)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT_STRING)
     private LocalDateTime startDate;
 
     @DateTimeFormat(iso = DATE_TIME)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT_STRING)
     private LocalDateTime endDate;
 
     @JsonProperty("destinationCountry")

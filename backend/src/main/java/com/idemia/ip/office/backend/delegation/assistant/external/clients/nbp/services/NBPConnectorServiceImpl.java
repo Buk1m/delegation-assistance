@@ -67,7 +67,8 @@ public class NBPConnectorServiceImpl implements NBPConnectorService {
         Currency currency = Currency.getInstance(exchangeCurrencyRate.getCurrencyCode());
         LocalDate exchangeRateDate = exchangeCurrencyRate.getExchangeDate();
         return Mono.just(0)
-                .flatMap(i -> nbpConnector.getCurrencyRates(currency, effectiveExchangeDate(exchangeRateDate, daysBack)))
+                .flatMap(i -> nbpConnector.getCurrencyRates(currency,
+                        effectiveExchangeDate(exchangeRateDate, daysBack)))
                 .retryWhen(Retry.onlyIf(context -> shouldRetry(context, daysBack)))
                 .flatMapIterable(dto -> mapRates(dto, exchangeCurrencyRate));
     }

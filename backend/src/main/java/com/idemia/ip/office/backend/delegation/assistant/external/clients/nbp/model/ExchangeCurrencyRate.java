@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Currency;
+import java.util.Optional;
 
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 
@@ -30,6 +31,11 @@ public class ExchangeCurrencyRate {
     private BigDecimal rate;
 
     public ExchangeCurrencyRate() {
+    }
+
+    public ExchangeCurrencyRate(String currencyCode, LocalDate exchangeDate) {
+        this.currencyCode =  Currency.getInstance(currencyCode);
+        this.exchangeDate = exchangeDate;
     }
 
     public ExchangeCurrencyRate(String currencyCode,

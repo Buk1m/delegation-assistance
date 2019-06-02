@@ -5,17 +5,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Entitlements {
 
-    private String perDiemEntitlement;
+    private String perDiem;
 
-    private String breakfastEntitlement;
+    private BigDecimal perDiemPercentage;
 
-    private String lunchesEntitlement;
+    private String total;
 
-    private String dinnersEntitlement;
+    private BigDecimal totalPercentage;
+
+    private String breakfast;
+
+    private BigDecimal breakfastPercentage;
+
+    private String lunches;
+
+    private BigDecimal lunchesPercentage;
+
+    private String dinners;
+
+    private BigDecimal dinnersPercentage;
 }

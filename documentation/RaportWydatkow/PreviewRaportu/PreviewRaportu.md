@@ -109,7 +109,8 @@ Pliki widoczne w preview nie są dołączone do generowanego raportu!! Dowodem o
   "diet": {
     "perDiem": 45,
     "currency": "EUR",
-    "exchangeRate": 4.24
+    "exchangeRate": 4.24,
+    "exchangeAmount": 1804.98
   },
   "meals": {
     "breakfasts": 2,

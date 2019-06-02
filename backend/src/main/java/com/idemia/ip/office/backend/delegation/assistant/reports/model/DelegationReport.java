@@ -1,5 +1,6 @@
 package com.idemia.ip.office.backend.delegation.assistant.reports.model;
 
+import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class DelegationReport {
 
     private LocalDateTime endDate;
 
+    private LocalDateTime generationDate;
+
     private String countryName;
 
     private BigDecimal advancePayment;
@@ -32,19 +36,21 @@ public class DelegationReport {
 
     private BigDecimal duration;
 
-    private List<FlightReport> flights;
+    private List<FlightReport> flights = new ArrayList<>();
 
-    private List<AccommodationReport> accommodations;
+    private List<AccommodationReport> accommodations = new ArrayList<>();
 
-    private DietReport diet;
+    private DietReport diet = new DietReport();
 
-    private MealsReport meals;
+    private MealsReport meals = new MealsReport();
 
-    private DietReturns dietReturns;
+    private DiemReturns diemReturns = new DiemReturns();
 
-    private List<ExpenseReport> expenseReturns;
+    private List<ExpenseReport> expenses = new ArrayList<>();
 
-    private BigDecimal total;
+    private User delegatedEmployee = new User();
+
+    private BigDecimal totalRepayment;
 
     private Currency targetCurrency;
 
