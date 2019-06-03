@@ -16,8 +16,8 @@ export class ExpensesModalFormContainer extends Component {
   };
 
   _handleSubmit = values => {
-    values.attachments = this.state.files;
-    return this.props.addExpense(this.props.delegationId, values);
+      values.attachments = this.state.files;
+      return this.props.addExpense(this.props.delegationId, values);
   };
 
   _setFiles = files => {
@@ -27,7 +27,13 @@ export class ExpensesModalFormContainer extends Component {
   };
 
   render() {
-    return <ExpensesModalForm onSubmit={this._handleSubmit} setFiles={this._setFiles} files={this.state.files} />;
+    return (
+      <ExpensesModalForm
+        onSubmit={this._handleSubmit}
+        setFiles={this._setFiles}
+        files={this.state.files}
+      />
+    );
   }
 }
 
