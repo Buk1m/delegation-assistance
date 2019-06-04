@@ -5,12 +5,11 @@ import { Form, reduxForm, reset } from "redux-form";
 import currencies from "../../../../../components/Currencies/CurrenciesMap";
 import Input from "../../../../../components/Input/Input.component";
 import Button from "../../../../../components/Button/Button.component";
-import { validateRequired } from "../../../../../validators/Validators";
+import { validateRequired, validateIsFile } from "../../../../../validators/Validators";
 import { paymentTypes } from "../../../../../config/index";
 
 const ExpensesModalForm = props => {
   const { handleSubmit, setFiles, files, initialize, invalid, pristine } = props;
-  console.log(files);
   return (
     <Form onSubmit={handleSubmit}>
       <div
@@ -31,9 +30,16 @@ const ExpensesModalForm = props => {
                 validate={[validateRequired]}
                 component="input"
               />
-              
-              <Input component="filepond" name="attachments" label="Attachments *" validate={[validateRequired]} setFiles={setFiles} files={files} />      
-              
+
+              <Input
+                component="filepond"
+                name="attachments"
+                label="Attachments *"
+                validate={validateIsFile(files.length)}
+                setFiles={setFiles}
+                files={files}
+              />
+
               <div className="d-flex justify-content-around">
                 <div>
                   <Input component="datepicker" name="expenseDate" label="Expense date" validate={[validateRequired]} />

@@ -1,11 +1,11 @@
 import React from "react";
 import { FilePond } from "react-filepond";
-import { func, object } from "prop-types";
+import { array,func, object } from "prop-types";
 
 import "filepond/dist/filepond.min.css";
 import ValidationError from "../../ValidationError/ValidationError.component";
 
-const RenderDateTimePicker = props => {
+const RenderFilePond = props => {
   const {
     input: { value, ...restInput },
     meta: { touched, error, warning },
@@ -29,11 +29,11 @@ const RenderDateTimePicker = props => {
   );
 };
 
-RenderDateTimePicker.propTypes = {
+RenderFilePond.propTypes = {
   input: object,
   meta: object,
   setFiles: func,
-  files: object
+  files: array
 };
 
-export default RenderDateTimePicker;
+export default RenderFilePond;
