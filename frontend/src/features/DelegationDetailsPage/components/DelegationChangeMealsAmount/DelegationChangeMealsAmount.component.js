@@ -7,22 +7,17 @@ import Spinner from "../../../../components/Spinner/Spinner.component";
 import "./DelegationChangeMealsAmount.module.scss";
 import spinnerStyle from "../../../../components/Spinner/Spinner.module.scss";
 
-const isDisabledPlus = (mealsAmount, maxMealsAmount) => {
-  return mealsAmount >= maxMealsAmount;
-};
-
-const isDisabledMinus = mealsAmount => {
-  return mealsAmount <= 0;
-};
-
 const DelegationChangeMealsAmount = ({
-  mealType,
   mealAmount,
-  onChange,
-  onChangeTyping,
   maxMealsAmount,
+  mealType,
   fetchingMeals,
-  editingMeal
+  editingMeal,
+  onClick,
+  handleOnChangeTyping,
+  handleOnBlurTyping,
+  isDisabledPlus,
+  isDisabledMinus
 }) => {
   return (
     <form>
@@ -31,19 +26,20 @@ const DelegationChangeMealsAmount = ({
           <Button
             className="decrement"
             text="-"
-            onClick={e => onChange(mealType, "-")}
+            onClick={e => onClick(mealType, "-")}
             disabled={isDisabledMinus(mealAmount)}
           />
           <input
             type="number"
             value={Number(mealAmount).toString()}
             id="meal_input"
-            onChange={e => onChangeTyping(e, mealType)}
+            onBlur={e => handleOnBlurTyping(e, mealType)}
+            onChange={e => handleOnChangeTyping(e, mealType)}
           />
           <Button
             className="increment"
             text="+"
-            onClick={e => onChange(mealType, "+")}
+            onClick={e => onClick(mealType, "+")}
             disabled={isDisabledPlus(mealAmount, maxMealsAmount)}
           />
           {fetchingMeals && editingMeal === mealType ? <Spinner className={spinnerStyle["spinner-inline"]} /> : null}
@@ -56,11 +52,14 @@ const DelegationChangeMealsAmount = ({
 DelegationChangeMealsAmount.propTypes = {
   editingMeal: string,
   fetchingMeals: bool,
+  handleOnBlurTyping: func,
+  handleOnChangeTyping: func,
+  isDisabledMinus: func,
+  isDisabledPlus: func,
   maxMealsAmount: number,
   mealAmount: number,
   mealType: string.isRequired,
-  onChange: func,
-  onChangeTyping: func
+  onClick: func
 };
 
 export default DelegationChangeMealsAmount;
