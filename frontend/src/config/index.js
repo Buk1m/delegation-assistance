@@ -1,3 +1,6 @@
+import { filePdfO, fileExcelO } from "react-icons-kit/fa";
+import { formatFilenameDate } from "../helpers/formatters";
+
 const userRoles = {
   employee: "Employee",
   travelmanager: "Manager",
@@ -30,6 +33,23 @@ const delegationStatuses = {
   FINALIZED: "Finalized"
 };
 
+const reportTypes = [
+  {
+    type: "PDF",
+    icon: filePdfO,
+    iconSize: 30,
+    filename: delegationId => `Report_${delegationId}_${formatFilenameDate(Date.now())}.pdf`,
+    contentType: "application/pdf"
+  },
+  {
+    type: "XLSX",
+    icon: fileExcelO,
+    iconSize: 30,
+    filename: delegationId => `Report_${delegationId}_${formatFilenameDate(Date.now())}.xlsx`,
+    contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  }
+];
+
 const paymentTypes = [{ label: "Cash", value: "CASH" }, { label: "Credit card", value: "CREDIT_CARD" }];
 
-export { userRoles, userRolesMap, environments, themes, delegationStatuses, paymentTypes };
+export { userRoles, userRolesMap, environments, themes, delegationStatuses, reportTypes, paymentTypes };

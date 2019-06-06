@@ -8,6 +8,8 @@ exports[`Create Delegation Page should render correctly 1`] = `
     className="container create-delegation-card m-auto pb-4"
   >
     <Card
+      classes=""
+      number={0}
       title="Delegation information"
     >
       <Form

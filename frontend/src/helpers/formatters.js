@@ -27,15 +27,13 @@ const formatISODate = date => {
   return formatter.format(new Date(date));
 };
 
-const formatToISO = date => {
-  return new Date(date).toISOString().split(".")[0];
-};
+const formatToISO = date => new Date(date).toISOString().split(".")[0];
 
-const formatISODateToExpenseDate = date => {
-  return moment(new Date(date)).format("YYYY-MM-DD");
-};
+const formatISODateToDelegationDate = date => moment(new Date(date)).format("YYYY-MM-DD");
 
-const formatExpenseDate = date => {
+const formatFilenameDate = date => moment(new Date(date)).format("YYYY_MM_DD");
+
+const formatDelegationDate = date => {
   const formatter = new Intl.DateTimeFormat("en-GB", {
     hour12: false,
     day: "numeric",
@@ -48,8 +46,9 @@ const formatExpenseDate = date => {
 export {
   formatColumnDate,
   formatISODate,
-  formatISODateToExpenseDate,
-  formatExpenseDate,
+  formatISODateToDelegationDate,
+  formatDelegationDate,
+  formatFilenameDate,
   formatExpenseValue,
   formatToISO
 };

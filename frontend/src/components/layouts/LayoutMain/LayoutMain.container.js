@@ -6,11 +6,12 @@ import LayoutMain from "./LayoutMain.component";
 
 export class LayoutMainContainer extends Component {
   static propTypes = {
+    buttons: oneOfType([array, object]),
+    buttonsHide: bool,
     children: object.isRequired,
-    hideTitle: bool,
     fullContent: bool,
-    title: string,
-    buttons: oneOfType([array, object])
+    hideTitle: bool,
+    title: string
   };
 
   componentDidMount() {
@@ -22,6 +23,7 @@ export class LayoutMainContainer extends Component {
       <LayoutMain
         title={this.props.title}
         hideTitle={this.props.hideTitle}
+        buttonsHide={this.props.buttonsHide}
         buttons={this.props.buttons}
         fullContent={this.props.fullContent}
       >

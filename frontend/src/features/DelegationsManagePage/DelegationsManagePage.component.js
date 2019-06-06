@@ -3,14 +3,14 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory from "react-bootstrap-table2-filter";
 import cellEditFactory from "react-bootstrap-table2-editor";
-import { array } from "prop-types";
+import { array, bool } from "prop-types";
 
 import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Spinner from "../../components/Spinner/Spinner.component";
 
 const DelegationsManagePage = props => {
-  const { delegations = [], columns } = props;
+  const { delegations = [], columns, fetching } = props;
   return (
     <LayoutMain title="Manage all user delegations">
       <Card title="Manage delegations">
@@ -25,7 +25,7 @@ const DelegationsManagePage = props => {
           pagination={paginationFactory()}
           filter={filterFactory()}
           cellEdit={cellEditFactory({ mode: "click", blurToSave: true })}
-          noDataIndication={() => <Spinner />}
+          noDataIndication={() => (fetching ? <Spinner /> : <span>No data</span>)}
         />
       </Card>
     </LayoutMain>
@@ -34,7 +34,8 @@ const DelegationsManagePage = props => {
 
 DelegationsManagePage.propTypes = {
   columns: array,
-  delegations: array
+  delegations: array,
+  fetching: bool
 };
 
 export default DelegationsManagePage;

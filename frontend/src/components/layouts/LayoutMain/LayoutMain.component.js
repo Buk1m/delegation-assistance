@@ -6,8 +6,7 @@ import Footer from "../components/Footer/Footer.component";
 
 import styles from "./LayoutMain.module.scss";
 
-const LayoutMain = props => {
-  const { children, title = "", fullContent = false, hideTitle = false, buttons = null } = props;
+const LayoutMain = ({ children, title, fullContent, hideTitle, buttonsHide, buttons }) => {
   return (
     <div>
       <Header />
@@ -15,7 +14,7 @@ const LayoutMain = props => {
         {title && !hideTitle ? (
           <div className={styles["page-header"]}>
             <h2>{title}</h2>
-            {buttons ? <div className={styles["buttons"]}>{buttons}</div> : null}
+            {!buttonsHide && buttons ? <div className={styles["buttons"]}>{buttons}</div> : null}
           </div>
         ) : null}
         <section>{children}</section>
@@ -25,12 +24,21 @@ const LayoutMain = props => {
   );
 };
 
+LayoutMain.defaultProps = {
+  buttons: null,
+  buttonsHide: false,
+  title: "",
+  fullContent: false,
+  hideTitle: false
+};
+
 LayoutMain.propTypes = {
+  buttons: oneOfType([array, object]),
+  buttonsHide: bool,
   children: object.isRequired,
-  hideTitle: bool,
   fullContent: bool,
-  title: string,
-  buttons: oneOfType([array, object])
+  hideTitle: bool,
+  title: string
 };
 
 export default LayoutMain;

@@ -1,5 +1,16 @@
 @import "../../assets/styles/_constants";
+
+$title-and-padding-size: 140px;
+
 .msg {
   color: var(--spinner-c);
   margin-top: 16px;
+}
+
+.full {
+  min-height: calc(100vh - #{$header-size} - #{$footer-size} - #{$title-and-padding-size});
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

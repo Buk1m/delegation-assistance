@@ -4,13 +4,13 @@ import Icon from "react-icons-kit";
 import { ic_file_download } from "react-icons-kit/md/";
 
 import Row from "../../../../../components/Row/Row.component";
-import { formatExpenseDate } from "../../../../../helpers/formatters";
+import { formatDelegationDate } from "../../../../../helpers/formatters";
 
 const ExpenseItem = ({ files, handleDownloadExpenseFile, name, value, currency, paymentType, exchangeRate, date }) => {
   return (
     <div>
       <Row label="Name">{name}</Row>
-      <Row label="Date">{formatExpenseDate(date)}</Row>
+      <Row label="Date">{formatDelegationDate(date)}</Row>
       <Row label="Amount">{value}</Row>
       <Row label="Currency">{currency}</Row>
       <Row label="Payment type">{paymentType}</Row>

@@ -6,15 +6,19 @@ import Spinner from "../Spinner/Spinner.component";
 import styles from "./SpinnerWrapper.module.scss";
 
 const SpinnerWrapper = props => {
-  const { children, message, loading = true } = props;
+  const { children, message, loading } = props;
   return loading ? (
-    <div className="d-flex flex-column align-items-center">
+    <div className={styles.full}>
       <Spinner />
       <p className={styles.msg}>{message}</p>
     </div>
   ) : (
     <Fragment>{children}</Fragment>
   );
+};
+
+SpinnerWrapper.defaultProps = {
+  loading: true
 };
 
 SpinnerWrapper.propTypes = {

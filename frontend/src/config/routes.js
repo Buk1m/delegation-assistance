@@ -6,6 +6,7 @@ import DelegationCreatePage from "../features/DelegationCreatePage/";
 import DelegationsManagePage from "../features/DelegationsManagePage/";
 import DelegationsMyPage from "../features/DelegationsMyPage/";
 import DelegationDetailsPage from "../features/DelegationDetailsPage/";
+import ReportPage from "../features/ReportPage";
 import ChecklistsPage from "../features/ChecklistsPage/";
 import ChecklistGlobalTemplatePage from "../features/ChecklistGlobalTemplatePage";
 import ProfilePage from "../features/ProfilePage/";
@@ -21,6 +22,7 @@ const routes = [
   { path: "/delegations/manage", component: DelegationsManagePage, canAccess: [travelmanager, approver, accountant] },
   { path: "/delegations/my", component: DelegationsMyPage, canAccess: [employee] },
   { path: "/delegations/:delegationId", component: DelegationDetailsPage },
+  { path: "/delegations/:delegationId/report", component: ReportPage },
   { path: "/checklist", component: ChecklistsPage },
   { path: "/checklist/global-template", component: ChecklistGlobalTemplatePage, canAccess: [travelmanager] },
   { path: "/profile", component: ProfilePage },

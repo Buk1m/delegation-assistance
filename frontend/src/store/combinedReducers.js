@@ -8,6 +8,7 @@ import countriesReducer from "../reducers/countries.reducer";
 import delegationChecklistReducer from "../reducers/delegationChecklist.reducer";
 import delegationsReducer from "../reducers/delegations.reducer";
 import expensesReducer from "../reducers/expenses.reducer";
+import reportReducer from "../reducers/report.reducer";
 import flightsReducer from "../reducers/flights.reducer";
 import themeReducer from "../reducers/theme.reducer";
 import userReducer from "../reducers/user.reducer";
@@ -20,6 +21,7 @@ const combinedReducers = combineReducers({
   delegationChecklist: delegationChecklistReducer,
   delegations: delegationsReducer,
   expenses: expensesReducer,
+  report: reportReducer,
   flights: flightsReducer,
   form: formReducer,
   theme: themeReducer,

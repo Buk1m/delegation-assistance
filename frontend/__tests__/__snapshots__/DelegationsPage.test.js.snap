@@ -5,6 +5,8 @@ exports[`Delegations Page should render correctly 1`] = `
   title="Delegations dashboard"
 >
   <Card
+    classes=""
+    number={0}
     title="Statistics"
   />
 </Connect(LayoutMainContainer)>

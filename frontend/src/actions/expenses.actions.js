@@ -1,5 +1,5 @@
 import { APIService } from "../services/data";
-import { formatISODateToExpenseDate } from "../helpers/formatters";
+import { formatISODateToDelegationDate } from "../helpers/formatters";
 
 export const ACTIONS = {
   ADD_EXPENSE: "EXPENSES_ADD_EXPENSE",
@@ -15,12 +15,10 @@ const addExpense = (
   formData.append("expenseName", expenseName);
   formData.append("expenseValue", expenseValue);
   formData.append("expenseCurrency", expenseCurrency.value);
-  formData.append("expenseDate", formatISODateToExpenseDate(expenseDate));
+  formData.append("expenseDate", formatISODateToDelegationDate(expenseDate));
   formData.append("paymentType", paymentType.value);
-  attachments.map((file, index) => {
-    formData.append("attachments[" + index + "]", file);
-  });
-  
+  attachments.map((file, index) => formData.append("attachments[" + index + "]", file));
+
   return dispatch(
     APIService.post(ACTIONS.ADD_EXPENSE, {
       url: `/delegations/${delegationId}/expenses`,

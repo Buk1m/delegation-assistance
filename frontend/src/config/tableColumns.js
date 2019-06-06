@@ -1,13 +1,12 @@
 import React from "react";
 import { dateFilter, selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { Type } from "react-bootstrap-table2-editor";
-import { money, creditCard } from "react-icons-kit/fa/";
 import { Icon } from "react-icons-kit";
 import { ic_keyboard_arrow_right } from "react-icons-kit/md/ic_keyboard_arrow_right";
 
 import ButtonLink from "../components/ButtonLink/ButtonLink.component";
 import { delegationStatuses } from "./index";
-import { formatExpenseDate, formatExpenseValue, formatColumnDate } from "../helpers/formatters";
+import { formatColumnDate } from "../helpers/formatters";
 
 const iconSize = 22;
 
@@ -108,30 +107,4 @@ const delegationsManageColumns = [
   }
 ];
 
-const expensesColumns = [
-  { dataField: "id", hidden: true, sort: true },
-  { dataField: "expenseValue", hidden: true },
-  { dataField: "expenseCurrency", hidden: true },
-  { dataField: "exchangeRate", hidden: true },
-  { dataField: "files", hidden: true },
-  {
-    dataField: "expenseDate",
-    text: "Date",
-    sort: true,
-    formatter: formatColumnDate("expenseDate", formatExpenseDate),
-    headerStyle: () => ({ minWidth: "100px", width: "20%" })
-  },
-  { dataField: "expenseName", text: "Name" },
-  {
-    dataField: "paymentType",
-    text: "Amount",
-    formatter: formatExpenseValue,
-    formatExtraData: {
-      CREDIT_CARD: <Icon icon={creditCard} size={20} style={{ color: "var(--table-expense-card-c)" }} />,
-      CASH: <Icon icon={money} size={20} style={{ color: "var(--table-expense-cash-c)" }} />
-    },
-    headerStyle: () => ({ minWidth: "100px", width: "20%" })
-  }
-];
-
-export { delegationsMyColumns, delegationsManageColumns, expensesColumns };
+export { delegationsMyColumns, delegationsManageColumns };

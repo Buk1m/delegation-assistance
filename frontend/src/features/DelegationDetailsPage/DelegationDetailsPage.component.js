@@ -15,6 +15,7 @@ import LayoutMain from "../../components/layouts/LayoutMain";
 import RenderTab from "../../components/renderers/RenderTab/RenderTab.renderer";
 
 import "react-tabs/style/react-tabs.css";
+import ButtonLink from "../../components/ButtonLink/ButtonLink.component";
 
 const DelegationDetailsPage = props => {
   const { delegationId, onDelete, onSend } = props;
@@ -23,7 +24,7 @@ const DelegationDetailsPage = props => {
       title={"Delegation No. " + delegationId}
       buttons={
         <Fragment>
-          <Button className="primary" text="Preview Report" />
+          <ButtonLink href={`/delegations/${delegationId}/report`} className="primary" text="Preview Report" />
           <Button className="primary" text="Send to Manager" onClick={onSend} />
           <Button className="warning" text="Delete" onClick={onDelete} />
         </Fragment>

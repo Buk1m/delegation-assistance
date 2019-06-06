@@ -43,6 +43,7 @@
     "document": true,
     "Promise": true,
     "FormData": true,
+    "process": true,
     "Blob": true,
     "Intl": true,
     "console": true

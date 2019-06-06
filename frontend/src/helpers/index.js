@@ -15,4 +15,14 @@ const mapRoles = roles => {
   return userRoles;
 };
 
-export { prepareToken, mapRoles };
+const downloadFileFromResponse = (response, filename) => {
+  const blob = new Blob([response.data]);
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.setAttribute("download", filename);
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+};
+
+export { prepareToken, mapRoles, downloadFileFromResponse };

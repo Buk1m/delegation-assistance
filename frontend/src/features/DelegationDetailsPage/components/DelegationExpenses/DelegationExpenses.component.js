@@ -7,7 +7,7 @@ import ExpandRow from "./ExpensesTableExpand/ExpandRow.component";
 import ExpensesModalForm from "./ExpensesModalForm";
 import Spinner from "../../../../components/Spinner/Spinner.component";
 import Button from "../../../../components/Button/Button.component";
-import { expensesColumns } from "../../../../config/tableColumns";
+import expensesColumns from "../../../../config/tableColumns/delegationExpenses.columns";
 
 const DelegationExpenses = ({ expenses, fetching, delegationId, totalSize, onTableChange, page, sizePerPage }) => {
   return (

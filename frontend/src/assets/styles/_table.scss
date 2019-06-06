@@ -46,9 +46,16 @@
 }
 
 @media screen and (max-width: 992px) {
-  .react-bootstrap-table table {
+  .react-bootstrap-table {
     display: block;
     overflow: auto;
+    table {
+      table-layout: auto;
+    }
+  }
+
+  .table thead th {
+    min-width: 100px;
   }
 }
 

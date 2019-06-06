@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { array, func } from "prop-types";
+import { array, bool, func } from "prop-types";
 
 import DelegationsManagePage from "./DelegationsManagePage.component";
-import { getDelegations } from "../../selectors/delegations.selectors";
+import { getDelegations, getDelegationFetching } from "../../selectors/delegations.selectors";
 import { fetchDelegations } from "../../actions/delegations.actions";
 import { delegationsManageColumns } from "../../config/tableColumns";
 
 class DelegationsManagePageContainer extends Component {
   static propTypes = {
+    delegations: array,
     fetchDelegations: func,
-    delegations: array
+    fetching: bool
   };
 
   componentDidMount() {
@@ -18,12 +19,19 @@ class DelegationsManagePageContainer extends Component {
   }
 
   render() {
-    return <DelegationsManagePage delegations={this.props.delegations} columns={delegationsManageColumns} />;
+    return (
+      <DelegationsManagePage
+        delegations={this.props.delegations}
+        columns={delegationsManageColumns}
+        fetching={this.props.fetching}
+      />
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  delegations: getDelegations(state)
+  delegations: getDelegations(state),
+  fetching: getDelegationFetching(state)
 });
 
 const mapDispatchToProps = {

@@ -4,6 +4,7 @@ import { array, func, number, object } from "prop-types";
 
 import ExpenseItem from "./ExpenseItem.component";
 import { downloadExpenseFile } from "../../../../../actions/expenses.actions";
+import { downloadFileFromResponse } from "../../../../../helpers";
 
 export class ExpenseItemContainer extends Component {
   static propTypes = {
@@ -19,15 +20,7 @@ export class ExpenseItemContainer extends Component {
         fileId: file.id,
         fileName: file.filename
       })
-      .then(response => {
-        const blob = new Blob([response.data]);
-        const link = document.createElement("a");
-        link.href = window.URL.createObjectURL(blob);
-        link.setAttribute("download", file.filename);
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      });
+      .then(response => downloadFileFromResponse(response, file.filename));
   };
 
   render() {
