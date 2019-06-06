@@ -41,8 +41,6 @@ const validateInteger = value => {
   return value && !/^\d+$/.test(value) ? "This field must be an integer" : null;
 };
 
-const validateIsFile = number => values => number ? null : "Attachments are required" ;
-
 export {
   validateCheckInOutDate,
   validateDepartureArrivalDate,
@@ -51,6 +49,5 @@ export {
   validateNumber,
   validateCurrency,
   validateDiem,
-  validateInteger,
-  validateIsFile
+  validateInteger
 };
