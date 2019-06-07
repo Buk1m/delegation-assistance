@@ -1,18 +1,15 @@
 import React from "react";
-import { array, bool, func } from "prop-types";
+import { bool, func } from "prop-types";
 import { Form, reduxForm, reset } from "redux-form";
-import { FilePond } from "react-filepond";
 
 import currencies from "../../../../../components/Currencies/CurrenciesMap";
 import Input from "../../../../../components/Input/Input.component";
 import Button from "../../../../../components/Button/Button.component";
-import { validateRequired } from "../../../../../validators/Validators";
+import { validateRequired, validateAttachments } from "../../../../../validators/Validators";
 import { paymentTypes } from "../../../../../config/index";
 
-import "filepond/dist/filepond.min.css";
-
 const ExpensesModalForm = props => {
-  const { handleSubmit, setFiles, files, initialize, invalid, pristine } = props;
+  const { handleSubmit, initialize, invalid, pristine } = props;
   return (
     <Form onSubmit={handleSubmit}>
       <div
@@ -33,13 +30,9 @@ const ExpensesModalForm = props => {
                 validate={[validateRequired]}
                 component="input"
               />
-              <FilePond
-                files={files}
-                allowMultiple={true}
-                onupdatefiles={fileItems => {
-                  setFiles(fileItems.map(fileItem => fileItem.file));
-                }}
-              />
+
+              <Input component="filepond" name="attachments" label="Attachments *" validate={[validateAttachments]} />
+
               <div className="d-flex justify-content-around">
                 <div>
                   <Input component="datepicker" name="expenseDate" label="Expense date" validate={[validateRequired]} />
@@ -105,12 +98,10 @@ const ExpensesModalForm = props => {
 };
 
 ExpensesModalForm.propTypes = {
-  files: array,
   handleSubmit: func,
   initialize: func,
   invalid: bool,
-  pristine: bool,
-  setFiles: func
+  pristine: bool
 };
 
 export default reduxForm({

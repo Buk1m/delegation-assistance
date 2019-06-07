@@ -7,6 +7,7 @@ import RenderTextarea from "../renderers/RenderTextarea/RenderTextarea.renderer"
 import RenderSelect from "../renderers/RenderSelect/RenderSelect.renderer";
 import RenderDateTimePicker from "../renderers/RenderDateTimePicker/RenderDateTimePicker.renderer";
 import RenderTypeahead from "../renderers/RenderTypeahead/RenderTypeahead.renderer";
+import RenderFilePond from "../renderers/RenderFilePond/RenderFilePond.renderer.js";
 
 import styles from "./Inputs.module.scss";
 
@@ -15,6 +16,7 @@ const components = {
   textarea: RenderTextarea,
   select: RenderSelect,
   datepicker: RenderDateTimePicker,
+  filepond: RenderFilePond,
   typeahead: RenderTypeahead
 };
 

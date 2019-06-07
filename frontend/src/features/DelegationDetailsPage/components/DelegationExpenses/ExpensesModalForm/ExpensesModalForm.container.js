@@ -11,23 +11,10 @@ export class ExpensesModalFormContainer extends Component {
     delegationId: number
   };
 
-  state = {
-    files: []
-  };
-
-  _handleSubmit = values => {
-    values.attachments = this.state.files;
-    return this.props.addExpense(this.props.delegationId, values);
-  };
-
-  _setFiles = files => {
-    this.setState({
-      files: files
-    });
-  };
+  _handleSubmit = values => this.props.addExpense(this.props.delegationId, values);
 
   render() {
-    return <ExpensesModalForm onSubmit={this._handleSubmit} setFiles={this._setFiles} files={this.state.files} />;
+    return <ExpensesModalForm onSubmit={this._handleSubmit} />;
   }
 }
 
