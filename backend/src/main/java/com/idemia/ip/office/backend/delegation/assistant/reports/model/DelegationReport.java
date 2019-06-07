@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.reports.model;
 
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
+import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,8 @@ public class DelegationReport {
     private String countryName;
 
     private BigDecimal advancePayment;
+
+    private DelegationStatus delegationStatus;
 
     private String destinationLocation;
 

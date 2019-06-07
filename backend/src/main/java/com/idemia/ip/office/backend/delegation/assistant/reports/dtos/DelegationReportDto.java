@@ -2,6 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.reports.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,8 @@ public class DelegationReportDto {
     private String countryName;
 
     private BigDecimal advancePayment;
+
+    private DelegationStatus delegationStatus;
 
     private String destinationLocation;
 
