@@ -2,7 +2,7 @@ import React from "react";
 import { money, creditCard } from "react-icons-kit/fa/";
 import { Icon } from "react-icons-kit";
 
-import { formatDelegationDate, formatExpenseValue, formatColumnDate } from "../../helpers/formatters";
+import { formatDelegationDate, formatExpenseValue, formatColumnDate } from "../../../helpers/formatters";
 
 const columns = [
   { dataField: "id", hidden: true, sort: true },

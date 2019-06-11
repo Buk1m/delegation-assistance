@@ -7,14 +7,14 @@ import { getLoggedStatus, getRoleActive } from "../../selectors/user.selectors";
 
 class PrivateRoute extends Component {
   static propTypes = {
-    loggedStatus: bool,
     canAccess: array,
+    loggedStatus: bool,
     roleActive: string
   };
 
-  _redirectToHome = () => <Redirect to="/" />;
+  _redirectToHome = () => (window.location.pathname === "/" ? null : <Redirect to="/" />);
 
-  _redirectToLogin = () => <Redirect to="/login" />;
+  _redirectToLogin = () => (window.location.pathname === "/login" ? null : <Redirect to="/login" />);
 
   haveAccessToRoute = () => {
     let result = false;

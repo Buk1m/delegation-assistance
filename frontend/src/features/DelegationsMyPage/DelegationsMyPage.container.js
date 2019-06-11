@@ -5,7 +5,6 @@ import { array, bool, func } from "prop-types";
 import DelegationsMyPage from "./DelegationsMyPage.component";
 import { getDelegations, getDelegationFetching } from "../../selectors/delegations.selectors";
 import { fetchMyDelegations } from "../../actions/delegations.actions";
-import { delegationsMyColumns } from "../../config/tableColumns";
 
 class DelegationsMyPageContainer extends Component {
   static propTypes = {
@@ -19,13 +18,7 @@ class DelegationsMyPageContainer extends Component {
   }
 
   render() {
-    return (
-      <DelegationsMyPage
-        delegations={this.props.delegations}
-        columns={delegationsMyColumns}
-        fetching={this.props.fetching}
-      />
-    );
+    return <DelegationsMyPage delegations={this.props.delegations} fetching={this.props.fetching} />;
   }
 }
 

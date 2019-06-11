@@ -9,15 +9,16 @@ import Spinner from "../../components/Spinner/Spinner.component";
 import Button from "../../components/Button/Button.component";
 import Card from "../../components/Card/Card.component";
 import { reportTypes } from "../../config";
-
-import flightsColumns from "../../config/tableColumns/reportFlights.columns";
-import accommodationsColumns from "../../config/tableColumns/reportAccommodations.columns";
-import expensesColumns from "../../config/tableColumns/reportExpenses.columns";
-import dietColumns from "../../config/tableColumns/reportDiet.columns";
-import mealsColumns from "../../config/tableColumns/reportMeals.columns";
-import diemReturnsColumns from "../../config/tableColumns/reportDiemReturns.columns";
-import allowanceColumns from "../../config/tableColumns/reportAllowance.columns";
-import detailsColumns from "../../config/tableColumns/reportDetails.columns";
+import {
+  flightsColumns,
+  accommodationsColumns,
+  expensesColumns,
+  dietColumns,
+  mealsColumns,
+  diemReturnsColumns,
+  allowanceColumns,
+  detailsColumns
+} from "../../config/tableColumns/report";
 
 const tableLayout = fetching => ({
   bootstrap4: true,

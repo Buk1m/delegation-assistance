@@ -8,9 +8,10 @@ import { array, bool } from "prop-types";
 import LayoutMain from "../../components/layouts/LayoutMain";
 import Card from "../../components/Card/Card.component";
 import Spinner from "../../components/Spinner/Spinner.component";
+import columns from "../../config/tableColumns/delegations/manage.columns";
 
 const DelegationsManagePage = props => {
-  const { delegations = [], columns, fetching } = props;
+  const { delegations = [], fetching } = props;
   return (
     <LayoutMain title="Manage all user delegations">
       <Card title="Manage delegations">
@@ -33,7 +34,6 @@ const DelegationsManagePage = props => {
 };
 
 DelegationsManagePage.propTypes = {
-  columns: array,
   delegations: array,
   fetching: bool
 };

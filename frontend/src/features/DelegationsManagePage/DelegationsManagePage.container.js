@@ -5,7 +5,6 @@ import { array, bool, func } from "prop-types";
 import DelegationsManagePage from "./DelegationsManagePage.component";
 import { getDelegations, getDelegationFetching } from "../../selectors/delegations.selectors";
 import { fetchDelegations } from "../../actions/delegations.actions";
-import { delegationsManageColumns } from "../../config/tableColumns";
 
 class DelegationsManagePageContainer extends Component {
   static propTypes = {
@@ -19,13 +18,7 @@ class DelegationsManagePageContainer extends Component {
   }
 
   render() {
-    return (
-      <DelegationsManagePage
-        delegations={this.props.delegations}
-        columns={delegationsManageColumns}
-        fetching={this.props.fetching}
-      />
-    );
+    return <DelegationsManagePage delegations={this.props.delegations} fetching={this.props.fetching} />;
   }
 }
 

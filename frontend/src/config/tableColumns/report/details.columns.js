@@ -1,5 +1,5 @@
-import { columnsCentered } from "./_styles";
-import { formatColumnDate } from "../../helpers/formatters";
+import { columnsCentered } from "../_styles";
+import { formatColumnDate } from "../../../helpers/formatters";
 
 const columns = [
   { dataField: "startDate", text: "Start date", ...columnsCentered(), formatter: formatColumnDate("startDate") },

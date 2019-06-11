@@ -1,4 +1,4 @@
-import { columnsCentered } from "./_styles";
+import { columnsCentered } from "../_styles";
 
 const columns = [
   { dataField: "entitlements.perDiem", text: "Per diem", ...columnsCentered() },

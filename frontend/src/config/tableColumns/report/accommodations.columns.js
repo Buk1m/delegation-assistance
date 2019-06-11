@@ -1,5 +1,5 @@
-import { formatColumnDate, formatDelegationDate } from "../../helpers/formatters";
-import { columnsCentered } from "./_styles";
+import { formatColumnDate, formatDelegationDate } from "../../../helpers/formatters";
+import { columnsCentered } from "../_styles";
 
 const columns = [
   { dataField: "id", hidden: true },

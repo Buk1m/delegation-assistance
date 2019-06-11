@@ -49,6 +49,8 @@
   .react-bootstrap-table {
     display: block;
     overflow: auto;
+    position: relative;
+
     table {
       table-layout: auto;
     }

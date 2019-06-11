@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
-import { formatColumnDate, formatDelegationDate } from "../../helpers/formatters";
-import { columnsCentered } from "./_styles";
+import { formatColumnDate, formatDelegationDate } from "../../../helpers/formatters";
+import { columnsCentered } from "../_styles";
 
 const columns = (total, targetCurrency) => [
   { dataField: "id", hidden: true },
