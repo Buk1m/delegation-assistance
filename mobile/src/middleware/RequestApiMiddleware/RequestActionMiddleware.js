@@ -41,7 +41,7 @@ const RequestActionMiddleware = store => next => action => {
     const { dispatch, getState } = store;
     const state = getState();
     const { type, payload, meta } = action;
-    const { url, method, needAuth, data, headers, baseURL } = payload || {};
+    const { url, method, needAuth, data, headers, baseURL, ...rest } = payload || {};
     let promise;
 
     if (checkIfIsRegularAction(action)) {
@@ -66,7 +66,8 @@ const RequestActionMiddleware = store => next => action => {
           data,
           headers,
           baseURL,
-          timeout: 10000
+          timeout: 10000,
+		  ...rest
         });
         dispatch({
           type: `${type}_${PENDING}`,
