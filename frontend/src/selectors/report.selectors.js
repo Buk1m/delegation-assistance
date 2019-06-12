@@ -20,6 +20,8 @@ const getReportDuration = state => get(state, "report.duration", 0);
 const getReportDelegationObjective = state => get(state, "report.delegationObjective", null);
 const getReportStartDate = state => get(state, "report.startDate", null);
 const getReportEndDate = state => get(state, "report.endDate", null);
+const getReportDelegationStatus = state => get(state, "report.delegationStatus", null);
+const getReportDelegationVersion = state => get(state, "report.delegationVersion", null);
 
 export {
   getReportFetching,
@@ -41,5 +43,7 @@ export {
   getReportDuration,
   getReportDelegationObjective,
   getReportStartDate,
-  getReportEndDate
+  getReportEndDate,
+  getReportDelegationStatus,
+  getReportDelegationVersion
 };

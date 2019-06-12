@@ -214,6 +214,15 @@ $cancel-color: #6c757d;
   }
 }
 
+$disabled-color: #6c757d;
+.disabled {
+  @extend .primary;
+  color: #fff;
+  background-color: $disabled-color;
+  opacity: 0.5;
+  cursor: default;
+}
+
 .delete {
   $delete-color: #d23f31;
   @extend .primary;

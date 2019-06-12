@@ -24,13 +24,22 @@ const environments = {
 
 const themes = ["Dark", "Idemia", "Contrast"];
 
+const delegationStatusCodes = {
+  CREATED: "CREATED",
+  PREPARED: "PREPARED",
+  NEEDS_WORK: "NEEDS_WORK",
+  CHECKED: "CHECKED",
+  APPROVED: "APPROVED",
+  FINALIZED: "FINALIZED"
+};
+
 const delegationStatuses = {
-  CREATED: "Created",
-  PREPARED: "Prepared",
-  NEEDS_WORK: "Needs work",
-  CHECKED: "Confirmed by Manager",
-  APPROVED: "Approved",
-  FINALIZED: "Finalized"
+  [delegationStatusCodes.CREATED]: "Created",
+  [delegationStatusCodes.PREPARED]: "Prepared",
+  [delegationStatusCodes.NEEDS_WORK]: "Needs work",
+  [delegationStatusCodes.CHECKED]: "Confirmed by Manager",
+  [delegationStatusCodes.APPROVED]: "Approved",
+  [delegationStatusCodes.FINALIZED]: "Finalized"
 };
 
 const reportTypes = [
@@ -52,4 +61,13 @@ const reportTypes = [
 
 const paymentTypes = [{ label: "Cash", value: "CASH" }, { label: "Credit card", value: "CREDIT_CARD" }];
 
-export { userRoles, userRolesMap, environments, themes, delegationStatuses, reportTypes, paymentTypes };
+export {
+  delegationStatuses,
+  delegationStatusCodes,
+  environments,
+  paymentTypes,
+  reportTypes,
+  themes,
+  userRoles,
+  userRolesMap
+};

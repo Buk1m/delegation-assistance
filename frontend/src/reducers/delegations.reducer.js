@@ -4,7 +4,8 @@ import { inProgressNotification, updateNotification } from "../helpers/notificat
 import { toast } from "react-toastify";
 
 const initialState = {
-  delegations: []
+  delegations: [],
+  delegation: {}
 };
 
 const delegationsReducer = (state = initialState, action) => {
@@ -14,8 +15,9 @@ const delegationsReducer = (state = initialState, action) => {
         ...state,
         toastId: inProgressNotification(`Creating delegation to ${action.meta.delegation.destinationLocation}`)
       };
+    case `${ACTIONS.UPDATE_DELEGATION_STATUS}_${PENDING}`:
     case `${ACTIONS.UPDATE_DELEGATION}_${PENDING}`:
-      return { ...state, toastId: inProgressNotification(`Updating delegation no.${action.meta.delegation.id}.`) };
+      return { ...state, toastId: inProgressNotification(`Updating delegation no.${action.meta.delegationId}.`) };
     case `${ACTIONS.DELETE_DELEGATION}_${PENDING}`:
       return { ...state, toastId: inProgressNotification(`Deleting delegation no.${action.meta.delegationId}.`) };
     case `${ACTIONS.GET_DELEGATION}_${PENDING}`:
@@ -31,8 +33,9 @@ const delegationsReducer = (state = initialState, action) => {
         toast.TYPE.SUCCESS
       );
       return { ...state, delegations: [...state.delegations.concat(action.meta)] };
+    case `${ACTIONS.UPDATE_DELEGATION_STATUS}_${FULFILLED}`:
     case `${ACTIONS.UPDATE_DELEGATION}_${FULFILLED}`:
-      updateNotification(state.toastId, `Updated delegation no. ${action.meta.delegation.id}.`, toast.TYPE.SUCCESS);
+      updateNotification(state.toastId, `Updated delegation no. ${action.meta.delegationId}.`, toast.TYPE.SUCCESS);
       return { ...state };
     case `${ACTIONS.DELETE_DELEGATION}_${FULFILLED}`:
       updateNotification(state.toastId, `Deleted delegation no. ${action.meta.delegation.id}.`, toast.TYPE.SUCCESS);
@@ -42,13 +45,20 @@ const delegationsReducer = (state = initialState, action) => {
     case `${ACTIONS.GET_DELEGATIONS}_${FULFILLED}`:
       return { ...state, fetching: false, delegations: action.payload.data };
     case `${ACTIONS.UPDATE_DELEGATION_MEALS}_${FULFILLED}`:
-      return { ...state, delegation: {...state.delegation, meals: action.payload.data } };
+      return { ...state, delegation: { ...state.delegation, meals: action.payload.data } };
 
     case `${ACTIONS.ADD_DELEGATION}_${REJECTED}`:
       updateNotification(state.toastId, "Failed to create delegation.", toast.TYPE.ERROR);
       return { ...state, errors: action.payload.Message, subErrors: action.payload.SubErrors };
     case `${ACTIONS.UPDATE_DELEGATION}_${REJECTED}`:
       updateNotification(state.toastId, "Failed to update delegation.", toast.TYPE.ERROR);
+      return { ...state, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+    case `${ACTIONS.UPDATE_DELEGATION_STATUS}_${REJECTED}`:
+      updateNotification(
+        state.toastId,
+        `Failed to update delegation status: ${action.payload.response.data.errorMessage}`,
+        toast.TYPE.ERROR
+      );
       return { ...state, errors: action.payload.Message, subErrors: action.payload.SubErrors };
     case `${ACTIONS.DELETE_DELEGATION}_${REJECTED}`:
       updateNotification(state.toastId, "Failed to delete delegation.", toast.TYPE.ERROR);

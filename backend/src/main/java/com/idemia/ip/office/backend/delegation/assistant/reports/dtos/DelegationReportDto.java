@@ -2,6 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.reports.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.idemia.ip.office.backend.delegation.assistant.common.BaseDto;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,7 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DelegationReportDto {
+public class DelegationReportDto extends BaseDto {
 
     @DateTimeFormat(iso = DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT_STRING)

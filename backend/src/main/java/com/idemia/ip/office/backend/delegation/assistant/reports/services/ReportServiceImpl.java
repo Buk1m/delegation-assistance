@@ -53,7 +53,9 @@ public class ReportServiceImpl implements ReportService {
     private DelegationReport summarizeReport(DelegationReport delegationReport) {
         BigDecimal total = delegationReport.getDiet().getExchangeAmount();
         BigDecimal expensesTotal = getExpensesTotal(delegationReport);
-        total = total.subtract(delegationReport.getAdvancePayment());
+        if (delegationReport.getAdvancePayment() != null){
+            total = total.subtract(delegationReport.getAdvancePayment());
+        }
         total = scale(total.add(expensesTotal));
         delegationReport.setTotalRepayment(total);
         delegationReport.setTargetCurrency(TARGET_CURRENCY);

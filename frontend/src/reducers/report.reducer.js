@@ -21,7 +21,9 @@ const initialState = {
   duration: 0,
   delegationObjective: null,
   startDate: null,
-  endDate: null
+  endDate: null,
+  delegationStatus: "",
+  delegationVersion: 0
 };
 
 const reportReducer = (state = initialState, action) => {
@@ -52,7 +54,9 @@ const reportReducer = (state = initialState, action) => {
         duration: action.payload.data.duration,
         delegationObjective: action.payload.data.delegationObjective,
         startDate: action.payload.data.startDate,
-        endDate: action.payload.data.endDate
+        endDate: action.payload.data.endDate,
+        delegationStatus: action.payload.data.delegationStatus,
+        delegationVersion: action.payload.data.version
       };
 
     case `${ACTIONS.GET_REPORT}_${REJECTED}`:

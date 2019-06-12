@@ -61,6 +61,6 @@ public class DelegationValidator {
 
     private ApplicationException getEmptyDelegationException(Long id) {
         LOG.info("User was trying to change delegation's status with id: {}", id);
-        return new ApplicationException(delegationsExceptionProperties.getNoExpenses(), "Delegation has no expenses");
+        return new ApplicationException("Delegation has no expenses", delegationsExceptionProperties.getNoExpenses());
     }
 }

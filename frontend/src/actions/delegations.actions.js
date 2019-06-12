@@ -6,7 +6,8 @@ export const ACTIONS = {
   GET_DELEGATIONS: "DELEGATIONS_GET_DELEGATIONS",
   GET_DELEGATION: "DELEGATIONS_GET_DELEGATION",
   UPDATE_DELEGATION: "DELEGATIONS_UPDATE_DELEGATION",
-  UPDATE_DELEGATION_MEALS: "DELEGATIONS_UPDATE_DELEGATION_MEALS"
+  UPDATE_DELEGATION_MEALS: "DELEGATIONS_UPDATE_DELEGATION_MEALS",
+  UPDATE_DELEGATION_STATUS: "DELEGATIONS_UPDATE_DELEGATION_STATUS"
 };
 
 const addNewDelegation = delegation => dispatch => {
@@ -83,6 +84,28 @@ const fetchMyDelegations = () => dispatch => {
   );
 };
 
+const updateDelegationStatus = (delegationId, status, version) => dispatch => {
+  return dispatch(
+    APIService.patch(
+      ACTIONS.UPDATE_DELEGATION_STATUS,
+      {
+        url: `/delegations/${delegationId}`,
+        needAuth: true,
+        headers: {
+          "Content-type": "application/json"
+        },
+        data: {
+          status,
+          version
+        }
+      },
+      {
+        delegationId
+      }
+    )
+  );
+};
+
 const updateDelegation = delegation => dispatch => {
   return dispatch(
     APIService.patch(
@@ -121,6 +144,7 @@ export {
   fetchDelegations,
   fetchDelegation,
   fetchMyDelegations,
+  updateDelegationStatus,
   updateDelegation,
   updateDelegationMeals
 };

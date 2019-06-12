@@ -5,15 +5,19 @@ import { object, func, number } from "prop-types";
 import { toast } from "react-toastify";
 
 import DelegationDetailsPage from "./DelegationDetailsPage.component";
-import { deleteDelegation } from "../../actions/delegations.actions";
+import { deleteDelegation, updateDelegationStatus } from "../../actions/delegations.actions";
 import { confirmationModal } from "../../helpers/confirmationModal";
+import { getDelegation } from "../../selectors/delegations.selectors";
+import { delegationStatusCodes } from "../../config";
 
 class DelegationDetailsPageContainer extends Component {
   static propTypes = {
+    delegation: object,
     delegationId: number,
     deleteDelegation: func,
     history: object,
-    match: object
+    match: object,
+    updateDelegationStatus: func
   };
 
   constructor(props) {
@@ -29,32 +33,46 @@ class DelegationDetailsPageContainer extends Component {
     this.delegationId = toNumber(this.delegationId);
   }
 
-  _redirectToDelegationsPage = () => this.props.history.push("/delegations");
+  _redirectToDelegationsPage = () => this.props.history.push("/delegations/my");
 
-  handleDelete = () => {
+  _handleDelete = () => {
     const action = () => this.props.deleteDelegation(this.delegationId).then(this._redirectToDelegationsPage());
     toast.info("TODO: IDEMIA2019-23 Jako pracownik mogę usunąć moje delegacje - brakuje backendu");
     confirmationModal("Delete delegation", "This delegation will be deleted permanently.", action);
   };
 
-  handleSend = () => {
+  _handleSendToManager = () => {
     const action = () =>
-      toast.info("TODO: IDEMIA2019-25 Jako pracownik mogę wysłać delegację do Travel Managera w celu akceptacji");
+      this.props
+        .updateDelegationStatus(this.delegationId, delegationStatusCodes.PREPARED, this.props.delegation.version)
+        .then(() => {
+          this._redirectToDelegationsPage();
+        });
     confirmationModal("Send delegatiion", "This delegation will be sent to travel manager.", action);
   };
 
   render() {
     return !this.invalidDelegationId ? (
-      <DelegationDetailsPage delegationId={this.delegationId} onDelete={this.handleDelete} onSend={this.handleSend} />
+      <DelegationDetailsPage
+        delegationId={this.delegationId}
+        handleDelete={this._handleDelete}
+        handleSendToManager={this._handleSendToManager}
+        status={this.props.delegation.status}
+      />
     ) : null;
   }
 }
 
+const mapStateToProps = state => ({
+  delegation: getDelegation(state)
+});
+
 const mapDispatchToProps = {
-  deleteDelegation
+  deleteDelegation,
+  updateDelegationStatus
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(DelegationDetailsPageContainer);

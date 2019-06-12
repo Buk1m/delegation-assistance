@@ -1,5 +1,6 @@
 package com.idemia.ip.office.backend.delegation.assistant.reports.model;
 
+import com.idemia.ip.office.backend.delegation.assistant.common.BaseDto;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DelegationReport {
+public class DelegationReport extends BaseDto {
 
     private LocalDateTime startDate;
 

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 import ReportPage from "./ReportPage.component";
 import { fetchReport, downloadReport } from "../../actions/report.actions";
+import { updateDelegationStatus } from "../../actions/delegations.actions";
 import {
   getReportFetching,
   getReportFlights,
@@ -19,14 +20,20 @@ import {
   getReportStartDate,
   getReportEndDate,
   getReportDuration,
-  getReportPlace
+  getReportPlace,
+  getReportDelegationStatus,
+  getReportDelegationVersion
 } from "../../selectors/report.selectors";
 import { downloadFileFromResponse } from "../../helpers";
+import { delegationStatusCodes } from "../../config";
+import { confirmationModal } from "../../helpers/confirmationModal";
 
 export class ReportPageContainer extends Component {
   static propTypes = {
     accommodations: array,
     allowance: array,
+    delegationStatus: string,
+    delegationVersion: number,
     details: array,
     diemReturns: array,
     diet: array,
@@ -39,7 +46,8 @@ export class ReportPageContainer extends Component {
     match: object,
     meals: array,
     targetCurrency: string,
-    totalRepayment: number
+    totalRepayment: number,
+    updateDelegationStatus: func
   };
 
   constructor(props) {
@@ -56,7 +64,17 @@ export class ReportPageContainer extends Component {
     this._redirectToDelegationsPage();
   };
 
-  _redirectToDelegationsPage = () => this.props.history.push("/delegations");
+  _redirectToDelegationsPage = () => this.props.history.push("/delegations/my");
+
+  _handleSendToManager = () => {
+    const action = () =>
+      this.props
+        .updateDelegationStatus(this.delegationId, delegationStatusCodes.PREPARED, this.props.delegationVersion)
+        .then(() => {
+          this._redirectToDelegationsPage();
+        });
+    confirmationModal("Send delegatiion", "This delegation will be sent to travel manager.", action);
+  };
 
   _handleDownloadReport = report => {
     if (report) {
@@ -76,6 +94,7 @@ export class ReportPageContainer extends Component {
     return (
       <ReportPage
         handleDownloadReport={this._handleDownloadReport}
+        handleSendToManager={this._handleSendToManager}
         fetching={this.props.fetching}
         flights={this.props.flights}
         accommodations={this.props.accommodations}
@@ -87,6 +106,7 @@ export class ReportPageContainer extends Component {
         allowance={this.props.allowance}
         meals={this.props.meals}
         details={this.props.details}
+        delegationStatus={this.props.delegationStatus}
       />
     );
   }
@@ -103,6 +123,8 @@ const mapStateToProps = state => ({
   allowance: getReportAllowance(state),
   totalRepayment: getReportTotalRepayment(state),
   targetCurrency: getReportTargetCurrency(state),
+  delegationStatus: getReportDelegationStatus(state),
+  delegationVersion: getReportDelegationVersion(state),
   details: [
     {
       startDate: getReportStartDate(state),
@@ -115,7 +137,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchReport,
-  downloadReport
+  downloadReport,
+  updateDelegationStatus
 };
 
 export default connect(

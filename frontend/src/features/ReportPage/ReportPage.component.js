@@ -9,6 +9,7 @@ import Spinner from "../../components/Spinner/Spinner.component";
 import Button from "../../components/Button/Button.component";
 import Card from "../../components/Card/Card.component";
 import { reportTypes } from "../../config";
+
 import {
   flightsColumns,
   accommodationsColumns,
@@ -19,6 +20,7 @@ import {
   allowanceColumns,
   detailsColumns
 } from "../../config/tableColumns/report";
+import { canSendToTravelManager } from "../../ui-restrictions/delegation.restriction";
 
 const tableLayout = fetching => ({
   bootstrap4: true,
@@ -31,6 +33,7 @@ const tableLayout = fetching => ({
 
 const ReportPage = ({
   handleDownloadReport,
+  handleSendToManager,
   fetching,
   flights,
   accommodations,
@@ -41,7 +44,8 @@ const ReportPage = ({
   meals,
   diemReturns,
   allowance,
-  details
+  details,
+  delegationStatus
 }) => {
   return (
     <LayoutMain
@@ -58,12 +62,12 @@ const ReportPage = ({
             />
           ))}
           <Button
+            className={canSendToTravelManager(delegationStatus) ? "primary" : "disabled"}
             text="Send to Manager"
-            onClick={() =>
-              window.alert(
-                "TODO: IDEMIA2019-171 [Frontend] Jako pracownik mogę wysłać delegację do Travel Managera w celu akceptacji"
-              )
-            }
+            onClick={() => {
+              handleSendToManager();
+            }}
+            disabled={!canSendToTravelManager(delegationStatus)}
           />
         </Fragment>
       }
@@ -123,6 +127,7 @@ const ReportPage = ({
 ReportPage.propTypes = {
   accommodations: array,
   allowance: array,
+  delegationStatus: string,
   details: array,
   diemReturns: array,
   diet: array,
@@ -130,6 +135,7 @@ ReportPage.propTypes = {
   fetching: bool,
   flights: array,
   handleDownloadReport: func,
+  handleSendToManager: func,
   meals: array,
   targetCurrency: string,
   totalRepayment: number
