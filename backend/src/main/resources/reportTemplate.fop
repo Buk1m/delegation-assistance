@@ -1,0 +1,432 @@
+<fo:root language="PL"
+         xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <fo:layout-master-set>
+        <fo:simple-page-master master-name="A4" page-height="210mm" page-width="290mm" margin-top="5mm" margin-bottom="5mm" margin-left="10mm" margin-right="10mm">
+            <fo:region-body margin-top="8mm" margin-bottom="8mm"/>
+            <fo:region-before extent="15mm" region-name="xsl-region-before"/>
+            <fo:region-after extent="15mm" region-name="xsl-region-after"/>
+        </fo:simple-page-master>
+    </fo:layout-master-set>
+    <fo:page-sequence master-reference="A4" font-family="Arial">
+        <fo:flow flow-name="xsl-region-body">
+            <!--HEADER-->
+            <fo:block font-weight="bold" text-align="center" font-size="26pt" space-after="8mm">Travel and Expense Report</fo:block>
+
+            <!--NAME AND PURPOSE-->
+            <fo:block>
+                <fo:inline>Requestor(s) name: </fo:inline>
+                <fo:inline font-weight="bold">$param.delegationReport.delegatedEmployee.firstName $param.delegationReport.delegatedEmployee.lastName</fo:inline>
+            </fo:block>
+            <fo:block space-after="10mm">
+                <fo:inline>Purpose of trip: </fo:inline>
+                <fo:inline font-weight="bold">$param.delegationReport.delegationObjective</fo:inline>
+            </fo:block>
+
+            <!--FLIGHTS-->
+            <fo:block font-weight="bold" text-align="center" space-after="5mm">Flight details</fo:block>
+            <fo:block space-after="10mm">
+                <fo:table table-layout="fixed" font-size="12pt" text-align="center" width="100%" border-width="1pt" border-style="solid">
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-header border-width="1pt" border-style="solid">
+                        <fo:table-row>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Date</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Time</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>From</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>To</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Date</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Time</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-header>
+                    <fo:table-body>
+                        #foreach( $flight in $param.delegationReport.flights )
+                        <fo:table-row border-width="1pt" border-style="solid">
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$flight.departureDate</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$flight.departureTime</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$flight.departurePlace</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$flight.arrivalPlace</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$flight.arrivalDate</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$flight.arrivalTime</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                        #end
+                    </fo:table-body>
+                </fo:table>
+            </fo:block>
+
+            <!--ACCOMMODATIONS-->
+            <fo:block font-weight="bold" text-align="center" space-after="5mm">Accommodation</fo:block>
+            <fo:block space-after="10mm">
+                <fo:table table-layout="fixed" font-size="12pt" text-align="center" width="100%" border-width="1pt" border-style="solid">
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(2)" border-width="1pt" border-style="solid"/>
+                    <fo:table-header border-width="1pt" border-style="solid">
+                        <fo:table-row>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Check in date</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Check out date</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Hotel’s name</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-header>
+                    <fo:table-body>
+                        #foreach( $accommodation in $param.delegationReport.accommodations )
+                        <fo:table-row border-width="1pt" border-style="solid">
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$accommodation.checkInDate</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$accommodation.checkOutDate</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$accommodation.hotelName</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                        #end
+                    </fo:table-body>
+                </fo:table>
+            </fo:block>
+
+            <!--EXPENSES-->
+            <fo:block font-weight="bold" text-align="center" space-after="5mm">Expenses</fo:block>
+            <fo:block space-after="10mm">
+                <fo:table table-layout="fixed" font-size="12pt" text-align="center" width="100%" border-width="1pt" border-style="solid">
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(2)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(2)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(2)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-header border-width="1pt" border-style="solid">
+                        <fo:table-row>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Date</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Description/Purpose</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Idemia participants</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Currency</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Amount</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Cash/Card</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Currency</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Exch Amount</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Exchange</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-header>
+                    <fo:table-body>
+                        #foreach( $expense in $param.delegationReport.expenses )
+                        <fo:table-row border-width="1pt" border-style="solid">
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$expense.expenseDate</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$expense.expenseName</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$param.delegationReport.delegatedEmployee.firstName $param.delegationReport.delegatedEmployee.lastName</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$expense.expenseCurrency</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$expense.expenseValue</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$expense.paymentType</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$expense.targetCurrency</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$expense.exchangeAmount</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$expense.exchangeRate</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                        #end
+
+                        <fo:table-row border-width="1pt" border-style="solid" background-color="#D9D9D9">
+                            <fo:table-cell padding="1pt">
+                                <fo:block></fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" font-weight="bold" text-align="right" number-columns-spanned="5">
+                                <fo:block>Diem</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" font-weight="bold">
+                                <fo:block>$param.delegationReport.diet.currency</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$param.delegationReport.diet.exchangeAmount</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$param.delegationReport.diet.exchangeRate</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+
+                        <fo:table-row border-width="1pt" border-style="solid">
+                            <fo:table-cell padding="1pt">
+                                <fo:block></fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" text-align="right" number-columns-spanned="5">
+                                <fo:block>Advance payment</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" font-weight="bold">
+                                <fo:block>$param.delegationReport.targetCurrency</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>$param.delegationReport.advancePayment</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" number-rows-spanned="2">
+                                <fo:block font-size="8">NBP rate on the day preceding the submission of the document</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+
+                        <fo:table-row border-width="1pt" border-style="solid">
+                            <fo:table-cell padding="1pt" font-weight="bold" text-align="right" number-columns-spanned="6">
+                                <fo:block>TOTAL</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" font-weight="bold">
+                                <fo:block>$param.delegationReport.targetCurrency</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" font-weight="bold">
+                                <fo:block>$param.delegationReport.totalRepayment</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </fo:block>
+
+            <!--BASE DIEM-->
+            <fo:block space-after="10mm">
+                <fo:table table-layout="fixed" font-size="12pt" text-align="center" width="100%">
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
+                    <fo:table-column column-width="proportional-column-width(3)"/>
+                    <fo:table-header>
+                        <fo:table-row>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>Currency of per diem allowance</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>Base per diem allowance</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-header>
+                    <fo:table-body>
+                        <fo:table-row>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9">
+                                <fo:block>$param.delegationReport.diemReturns.allowance.basePerDiem</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9">
+                                <fo:block>$param.delegationReport.diemReturns.allowance.targetCurrency</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </fo:block>
+
+            <!--SUMMARY-->
+            <fo:block space-after="30mm">
+                <fo:table table-layout="fixed" font-size="12pt" text-align="center" width="100%">
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-header>
+                        <fo:table-row>
+                            <fo:table-cell padding="1pt" number-columns-spanned="7">
+                                <fo:block></fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>Breakfast</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>Lunches</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>Dinners</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+
+                        <fo:table-row>
+                            <fo:table-cell padding="1pt" number-columns-spanned="6">
+                                <fo:block></fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">Number</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9">
+                                <fo:block>$param.delegationReport.meals.breakfasts</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9">
+                                <fo:block>$param.delegationReport.meals.lunches</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9">
+                                <fo:block>$param.delegationReport.meals.dinners</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+
+                        <fo:table-row border-width="1pt" border-style="solid">
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">Start Date</fo:block>
+                                <fo:block>(DD/MM/YY)</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">Start Time</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">End Date</fo:block>
+                                <fo:block>(DD/MM/YY)</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">End Time</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">Duration</fo:block>
+                                <fo:block>Days</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">Place</fo:block>
+                                <fo:block>(from ... to)</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>per diem entitlement</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>Breakfast -15% each</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>Lunch -30% each</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>Dinner -30% each</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">Total entitl.</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block font-weight="bold">Total diems</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-header>
+
+                    <fo:table-body>
+                        <fo:table-row border-width="1pt" border-style="solid">
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9" number-columns-spanned="2">
+                                <fo:block>$param.delegationReport.startDate.format($param.formatter)</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9" number-columns-spanned="2">
+                                <fo:block>$param.delegationReport.endDate.format($param.formatter)</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>$param.delegationReport.duration</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9">
+                                <fo:block>$param.delegationReport.place</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>$param.delegationReport.diemReturns.entitlements.perDiem</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>$param.delegationReport.diemReturns.entitlements.breakfast</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>$param.delegationReport.diemReturns.entitlements.lunches</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>$param.delegationReport.diemReturns.entitlements.dinners</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>$param.delegationReport.diemReturns.entitlements.total</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
+                                <fo:block>$param.delegationReport.diemReturns.totalDiems</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </fo:block>
+
+            <!--Signature-->
+            <fo:block space-after="10mm">
+                <fo:table table-layout="fixed" font-size="12pt" text-align="center" width="100%">
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-column column-width="proportional-column-width(1)"/>
+                    <fo:table-body>
+                        <fo:table-row>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Date: ……………………………………</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Signature: ……………………………………</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding="1pt">
+                                <fo:block>Approved by: ……………………………………</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </fo:block>
+        </fo:flow>
+    </fo:page-sequence>
+</fo:root>

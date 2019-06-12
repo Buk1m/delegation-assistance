@@ -111,6 +111,11 @@
       "description": "Error code for an exception which is thrown if maximum number of meals has been exceeded."
     },
     {
+      "name": "exception.reports.report-type-not-supported",
+      "type": "java.lang.String",
+      "description": "Error code for and exception which is thrown if report generator for specified type does not exist."
+    },
+    {
       "name": "clients.api.nbp.url",
       "type": "java.lang.String",
       "description": "Base url for NBP api."
@@ -149,6 +154,21 @@
       "name": "retry.policy.exponential.max-backoff",
       "type": "java.lang.String",
       "description": "Number indicating maximum backoff value."
+    },
+    {
+      "name": "pdf-report-generator.template-file-name",
+      "type": "java.lang.String",
+      "description": "Report template file name."
+    },
+    {
+      "name": "exception.reports.report-generation-problem",
+      "type": "java.lang.String",
+      "description": "Error code for and exception which is thrown if report generation failed."
+    },
+    {
+      "name": "xlsx-report-generator.template-file-name",
+      "type": "java.lang.String",
+      "description": "Report template file name."
     }
   ]
 }

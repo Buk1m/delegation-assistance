@@ -30,6 +30,9 @@
         <gmavenplus-plugin.version>1.6.2</gmavenplus-plugin.version>
         <javax.el.version>3.0.1-b09</javax.el.version>
         <mysql-connector-java.version>8.0.15</mysql-connector-java.version>
+        <xmlgraphics.fop.version>2.3</xmlgraphics.fop.version>
+        <velocity.version>1.7</velocity.version>
+        <poi-ooxml.version>4.1.0</poi-ooxml.version>
     </properties>
 
     <dependencies>
@@ -136,6 +139,21 @@
             <artifactId>wiremock-jre8-standalone</artifactId>
             <version>2.23.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop</artifactId>
+            <version>${xmlgraphics.fop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>${velocity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi-ooxml.version}</version>
         </dependency>
     </dependencies>
 

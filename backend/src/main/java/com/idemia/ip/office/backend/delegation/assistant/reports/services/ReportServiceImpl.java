@@ -1,11 +1,16 @@
 package com.idemia.ip.office.backend.delegation.assistant.reports.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService;
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.ApplicationException;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.DelegationReport;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.ExpenseReport;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.FlightReport;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException;
+import com.idemia.ip.office.backend.delegation.assistant.reports.configuration.ReportsExceptionProperties;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
@@ -21,23 +26,34 @@ import static com.idemia.ip.office.backend.delegation.assistant.common.FinanceAr
 import static com.idemia.ip.office.backend.delegation.assistant.common.FinanceArithmeticStandards.scale;
 import static java.math.RoundingMode.HALF_UP;
 
+import java.util.Map;
+import java.util.Set;
+
 @Service
 public class ReportServiceImpl implements ReportService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ReportServiceImpl.class);
+
     private final Scheduler scheduler;
-    private final DelegationService delegationService;
     private final ModelMapper reportModelMapper;
+    private final ReportsExceptionProperties exceptionProperties;
+    private final Map<String, ReportGenerator> reportGenerators;
+    private final DelegationService delegationService;
     private final ExpenseProcessorService expenseProcessorService;
     private final DietProcessorService dietProcessorService;
 
     public ReportServiceImpl(Scheduler scheduler,
-            DelegationService delegationService,
             ModelMapper reportModelMapper,
+            ReportsExceptionProperties exceptionProperties,
+            Map<String, ReportGenerator> reportGenerators,
+            DelegationService delegationService,
             ExpenseProcessorService expenseProcessorService,
             DietProcessorService dietProcessorService) {
         this.scheduler = scheduler;
-        this.delegationService = delegationService;
         this.reportModelMapper = reportModelMapper;
+        this.exceptionProperties = exceptionProperties;
+        this.reportGenerators = reportGenerators;
+        this.delegationService = delegationService;
         this.expenseProcessorService = expenseProcessorService;
         this.dietProcessorService = dietProcessorService;
     }
@@ -48,6 +64,24 @@ public class ReportServiceImpl implements ReportService {
                 .publishOn(scheduler)
                 .flatMap(this::processDelegationReport)
                 .map(this::summarizeReport);
+    }
+
+    @Override
+    public Mono<byte[]> getReportFile(Long delegationId,
+            Authentication authentication,
+            String reportGeneratorTypeName) {
+        return getDelegationPreview(delegationId, authentication).flatMap(reportPreview -> {
+            try {
+                return Mono.just(getReportGenerator(reportGeneratorTypeName).generateReport(reportPreview));
+            } catch (Exception e) {
+                LOG.info("Report generation for delegation with id {} failed at {} for type {} caused by {}",
+                        delegationId,
+                        LocalDateTime.now(),
+                        reportGeneratorTypeName,
+                        e);
+                throw new ApplicationException(exceptionProperties.getReportGenerationProblem());
+            }
+        });
     }
 
     private DelegationReport summarizeReport(DelegationReport delegationReport) {
@@ -125,6 +159,7 @@ public class ReportServiceImpl implements ReportService {
                 .orElseGet(() -> flights.get(flights.size() - 1));
     }
 
-    //TODO https://atlas.it.p.lodz.pl/jira/browse/IDEMIA2019-238
-    //TODO https://atlas.it.p.lodz.pl/jira/browse/IDEMIA2019-241
+    private ReportGenerator getReportGenerator(String reportGeneratorTypeName) {
+        return reportGenerators.get(reportGeneratorTypeName);
+    }
 }
