@@ -36,11 +36,6 @@
       "description": "The path to the file that contains the private key for jwt encryption."
     },
     {
-      "name": "exception.internal.monkeys-ran-out-of-bananas",
-      "type": "java.lang.String",
-      "description": "Error code when something unexpected happen on backend."
-    },
-    {
       "name": "exception.delegations.invalid-since-and-until-parameter",
       "type": "java.lang.String",
       "description": "Error code for an exception which is thrown if since date is after until date."
@@ -74,11 +69,6 @@
       "name": "exception.forbidden.not-owner-of-resource",
       "type": "java.lang.String",
       "description": "Error code for an exception which is thrown if user is not owner of resource."
-    },
-    {
-      "name": "exception.delegations.no-expenses",
-      "type": "java.lang.String",
-      "description": "Error code for an exception which is thrown if delegation has no expenses."
     },
     {
       "name": "exception.data.data-has-changed",

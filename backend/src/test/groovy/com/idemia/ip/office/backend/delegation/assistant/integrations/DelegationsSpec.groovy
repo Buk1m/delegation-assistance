@@ -5,6 +5,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Delega
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.MealsDto
+import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
 import com.idemia.ip.office.backend.delegation.assistant.integrations.base.BaseIntegrationSpec
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -12,6 +13,8 @@ import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
+import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.CREATED
+import static com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus.PREPARED
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyDelegationDetailsDto
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyAccommodationDto
 import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataProvider.anyFlightDto
@@ -117,6 +120,25 @@ class DelegationsSpec extends BaseIntegrationSpec {
 
         where:
             tokenOwner << ['travelManager', 'accountant', 'approver']
+    }
+
+    @Unroll
+    def 'Should #tokenOwner update delegation status to #status'(String tokenOwner, DelegationStatus status) {
+        given: 'Privileged user and employees delegation'
+            def token = businessLogicProvider."${tokenOwner}Token"() as AuthToken
+            AuthToken employeeToken = businessLogicProvider.employeeToken()
+            DelegationDetailsDto createDelegation = businessLogicProvider.createDelegation(employeeToken)
+
+        when: '#tokenOwner tries to update delegation to #status'
+            DelegationDto updatedDelegation = businessLogicProvider.patchDelegationStatus(token, createDelegation.id, status)
+
+        then: 'Delagtaions status is updated'
+            updatedDelegation.delegationStatus == status
+
+        where:
+            tokenOwner | status
+            'employee' | PREPARED
+            'employee' | CREATED
     }
 
     def 'Should add flight to delegations'() {

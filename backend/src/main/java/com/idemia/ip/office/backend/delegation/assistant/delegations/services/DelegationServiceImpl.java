@@ -133,7 +133,7 @@ public class DelegationServiceImpl implements DelegationService {
     private Mono<Delegation> validateAccessToNewStatus(Delegation newDelegation,
             Delegation existingDelegation,
             Authentication authentication) {
-        return Mono.just(delegationValidator.validateDelegationFlow(newDelegation, existingDelegation, authentication.getAuthorities()))
+        return Mono.just(delegationValidator.validateDelegationFlow(newDelegation, authentication.getAuthorities()))
                 .map(result -> {
                     if (!result) {
                         LOG.warn("User: {} was trying to update delegation with id: {} to status: {}", authentication.getName(), existingDelegation.getId(), newDelegation.getDelegationStatus());

@@ -76,8 +76,6 @@
 #### Możliwe kody błędów:
 
 - delegation-not-found - jeśli delegacja nie istnieje
-- no-expenses - jeśli delegacja nie ma żadnych expensów
-- role-has-no-access-to-resource - jeśli role uzytkownika nie pozwalają na tę akcję we flow
 - data-has-changed - jeśli delegacja została zaktualizowana przez innego użytkownika
 
 ### 3. Mockupy

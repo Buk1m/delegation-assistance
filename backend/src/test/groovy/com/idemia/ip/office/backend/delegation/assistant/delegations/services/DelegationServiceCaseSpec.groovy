@@ -2,7 +2,6 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations.services
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationValidator
 import com.idemia.ip.office.backend.delegation.assistant.entities.*
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException
 import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import org.springframework.http.codec.multipart.FilePart
 import org.springframework.security.access.AccessDeniedException
@@ -92,7 +91,7 @@ class DelegationServiceCaseSpec extends Specification {
         then: 'Delegation is not validated'
             1 * readDelegationService.getDelegation(_ as Long) >> Mono.just(existingDelegation)
             1 * delegationFlowValidator.validateUserAccess(existingDelegation, _ as AuthenticationImpl) >> true
-            1 * delegationFlowValidator.validateDelegationFlow(updateDelegation, existingDelegation, _ as Collection<? extends GrantedAuthority>) >> false
+            1 * delegationFlowValidator.validateDelegationFlow(updateDelegation, _ as Collection<? extends GrantedAuthority>) >> false
             0 * updateDelegationService.statusUpdate(existingDelegation, updateDelegation)
             thrown(AccessDeniedException)
     }

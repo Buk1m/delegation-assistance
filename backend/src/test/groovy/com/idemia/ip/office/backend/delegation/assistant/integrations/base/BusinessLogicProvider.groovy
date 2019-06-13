@@ -2,7 +2,12 @@ package com.idemia.ip.office.backend.delegation.assistant.integrations.base
 
 import com.idemia.ip.office.backend.delegation.assistant.checklists.dtos.ChecklistTemplateDto
 import com.idemia.ip.office.backend.delegation.assistant.configuration.PasswordProperties
-import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.*
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.AccommodationDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDetailsDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.FlightDto
+import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.MealsDto
+import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
 import com.idemia.ip.office.backend.delegation.assistant.security.dtos.AuthToken
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -103,6 +108,11 @@ class BusinessLogicProvider {
                 OK,
                 DelegationDto.class,
                 ArrayList.class) as List<DelegationDto>
+    }
+
+    DelegationDto patchDelegationStatus(AuthToken authToken, Long delegationId, DelegationStatus newDelegationStatus, Long version = 0) {
+        DelegationDto patchDelegationDto = new DelegationDto(delegationStatus: newDelegationStatus, version: version)
+        webTestClientWrapper.patch("/delegations/${delegationId}", authToken, patchDelegationDto, OK, DelegationDto.class)
     }
 
     AuthToken accountantToken() {
