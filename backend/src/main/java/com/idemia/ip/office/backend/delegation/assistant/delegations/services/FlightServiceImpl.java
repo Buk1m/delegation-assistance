@@ -33,7 +33,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flux<Flight> getFlights(Long delegationId, Authentication authentication) {
-        return delegationService.getDelegationValidated(delegationId, authentication)
+        return delegationService.getDelegation(delegationId, authentication)
                 .map(Delegation::getFlights)
                 .flatMapMany(flights -> {
                     flights.sort(Comparator.comparing(Flight::getDepartureDate));

@@ -32,7 +32,7 @@ public class DelegationValidator {
     public DelegationValidator(List<DelegationFlowStrategy> delegationPatchStrategies,
             DelegationsExceptionProperties delegationsExceptionProperties) {
         this.delegationPatchStrategies = delegationPatchStrategies.stream()
-                .collect(Collectors.toMap(DelegationFlowStrategy::getRoleValidates, Function.identity()));
+                .collect(Collectors.toMap(DelegationFlowStrategy::getRoleForStatusValidation, Function.identity()));
         this.delegationsExceptionProperties = delegationsExceptionProperties;
     }
 

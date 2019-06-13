@@ -135,16 +135,9 @@ public class DelegationController {
                 authentication.getName(),
                 flowDelegationDTO);
         Delegation updateDelegation = modelMapper.map(flowDelegationDTO, Delegation.class);
-        return delegationService.getDelegation(delegationId)
-                .flatMap(d -> delegationService.validateNewStatus(updateDelegation, d, authentication.getAuthorities()))
-                .flatMap(d -> delegationService.updateDelegation(updateDelegation, d))
+        return delegationService.updateDelegation(delegationId, updateDelegation, authentication)
                 .map(d -> modelMapper.map(d, DelegationDto.class))
-                .map(ResponseEntity::ok)
-                .doOnError(AccessDeniedException.class,
-                        (e) -> LOG.warn("User with login: {}, was trying to set delegation to status: {}",
-                                authentication.getName(),
-                                updateDelegation.getDelegationStatus()
-                        ));
+                .map(ResponseEntity::ok);
     }
 
     @PatchMapping("/delegations/{delegationId}/meals")

@@ -75,7 +75,7 @@ class FlightServiceCaseSpec extends Specification {
             List<Flight> result = flightService.getFlights(delegation.getId(), authentication).collectList().block()
 
         then: 'Result size should be equals to delegation flights count'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> Mono.just(delegation)
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> Mono.just(delegation)
             result.size() == flights.size()
     }
 
@@ -84,7 +84,7 @@ class FlightServiceCaseSpec extends Specification {
             flightService.getFlights(1, authentication).collectList().block()
 
         then: 'Delegation service throws EntityNotFound'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> {
                 throw new EntityNotFoundException("no-delegation", Delegation.class)
             }
             thrown(EntityNotFoundException)
@@ -95,7 +95,7 @@ class FlightServiceCaseSpec extends Specification {
             flightService.getFlights(1, authentication).collectList().block()
 
         then: 'Delegation service throws AccessDeniedException'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> {
                 throw new AccessDeniedException("not own delegation")
             }
             thrown(AccessDeniedException)
@@ -112,7 +112,7 @@ class FlightServiceCaseSpec extends Specification {
             List<Flight> result = flightService.getFlights(delegation.getId(), authentication).collectList().block()
 
         then: 'Result size should be equals to delegation flights count'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> Mono.just(delegation)
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> Mono.just(delegation)
             result.size() == flights.size()
     }
 
@@ -121,7 +121,7 @@ class FlightServiceCaseSpec extends Specification {
             flightService.getFlights(1, authentication).collectList().block()
 
         then: 'Delegation service throws EntityNotFound'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> {
                 throw new EntityNotFoundException("no-delegation", Delegation.class)
             }
             thrown(EntityNotFoundException)

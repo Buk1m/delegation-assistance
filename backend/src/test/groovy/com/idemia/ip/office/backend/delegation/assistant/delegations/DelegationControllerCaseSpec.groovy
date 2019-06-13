@@ -68,18 +68,10 @@ class DelegationControllerCaseSpec extends Specification {
         then: 'Delegation is updated'
             response.statusCode == OK
 
-            1 * delegationService.getDelegation(delegationId) >> Mono.just(anyDelegation())
-            1 * delegationService.validateNewStatus(_ as Delegation, _ as Delegation, _ as Collection<? extends GrantedAuthority>) >>
-                    { Delegation newDel, Delegation existingDel, Collection<? extends GrantedAuthority> authorities ->
-                        newDel.delegationStatus == preparedDelegationStatus
-                        Mono.just(existingDel)
-                    }
-
-            1 * delegationService.updateDelegation(_ as Delegation, _ as Delegation) >>
-                    { Delegation newDel, Delegation existingDel ->
-                        newDel.delegationStatus == preparedDelegationStatus
-                        Mono.just(existingDel)
-                    }
+            1 * delegationService.updateDelegation(delegationId, _ as Delegation, _ as Authentication) >> { Long id, Delegation newDel, Authentication auth ->
+                newDel.delegationStatus == updatedDelegationDto.delegationStatus
+                Mono.just(anyDelegation())
+            }
     }
 
     def 'Delegation with wrong status is not saved and an exception handled'() {
@@ -91,9 +83,8 @@ class DelegationControllerCaseSpec extends Specification {
             delegationController.patchDelegation(patchDelegationDTO, 1, principal).block()
 
         then: 'Exception is handled'
-            1 * delegationService.getDelegation(1) >> Mono.just(anyDelegation())
-            1 * delegationService.validateNewStatus(_ as Delegation, _ as Delegation, _ as Collection<? extends GrantedAuthority>) >> {
-                Delegation newDel, Delegation existingDel, Collection<? extends GrantedAuthority> authorities -> Mono.error(new AccessDeniedException('errorCode'))
+            1 * delegationService.updateDelegation(_ as Long, _ as Delegation, _ as Authentication) >> { Long id, Delegation newDel, Authentication auth ->
+                throw new AccessDeniedException("Test")
             }
 
             thrown(AccessDeniedException)

@@ -9,12 +9,13 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.files.dtos.UserFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -22,12 +23,13 @@ import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 @Service
 @Transactional
 public class DelegationServiceImpl implements DelegationService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DelegationServiceImpl.class);
 
     private final DelegationValidator delegationValidator;
     private final ExternalResourceService externalResourceService;
@@ -66,34 +68,16 @@ public class DelegationServiceImpl implements DelegationService {
 
     @Override
     public Mono<Delegation> getDelegationDetails(Long delegationId, Authentication authentication) {
-        return this.getDelegationValidated(delegationId, authentication);
-    }
-
-    @Override
-    public Mono<Delegation> updateDelegation(Delegation newDelegation, Delegation existingDelegation) {
-        return updateDelegationService.flowUpdate(existingDelegation, newDelegation);
+        return this.getDelegation(delegationId, authentication);
     }
 
     @Override
     public Mono<Meals> updateMeals(Long delegationId, Authentication authentication, Meals updatedMeals) {
-        return getDelegationValidated(delegationId, authentication).flatMap(delegation ->
+        return getDelegation(delegationId, authentication).flatMap(delegation ->
                 updateDelegationService.updateMeals(updatedMeals,
                 delegation.getMeals(),
                 delegation.getStartDate(),
                 delegation.getEndDate()));
-    }
-
-    @Override
-    public Mono<Delegation> validateNewStatus(Delegation newDelegation,
-            Delegation existingDelegation,
-            Collection<? extends GrantedAuthority> authorities) {
-        return Mono.just(delegationValidator.validateDelegationFlow(newDelegation, existingDelegation, authorities))
-                .map(result -> {
-                    if (!result) {
-                        throw new AccessDeniedException("User was trying to access not his delegation.");
-                    }
-                    return existingDelegation;
-                });
     }
 
     @Override
@@ -115,13 +99,13 @@ public class DelegationServiceImpl implements DelegationService {
             Integer pageSize,
             List<Sort.Order> sortCriteria,
             Authentication authentication) {
-        return this.getDelegationValidated(delegationId, authentication)
+        return this.getDelegation(delegationId, authentication)
                 .flatMap(d -> externalResourceService.getExpenses(d, pageNumber, pageSize, sortCriteria));
     }
 
     @Override
     public Mono<UserFile> getFile(Long delegationId, Long expenseId, Long fileId, Authentication authentication) {
-        return this.getDelegationValidated(delegationId, authentication)
+        return this.getDelegation(delegationId, authentication)
                 .flatMap(d -> externalResourceService.getFile(expenseId, fileId));
     }
 
@@ -131,6 +115,36 @@ public class DelegationServiceImpl implements DelegationService {
             LocalDateTime since,
             LocalDateTime until) {
         return readDelegationService.getDelegations(userLogin, status, since, until);
+    }
+
+    @Override
+    public Mono<Delegation> getDelegation(Long delegationId, Authentication authentication) {
+        return this.getDelegation(delegationId)
+                .map(d -> checkUserAccess(d, authentication));
+    }
+
+    @Override
+    public Mono<Delegation> updateDelegation(Long delegationId, Delegation newDelegation, Authentication authentication) {
+        return this.getDelegation(delegationId, authentication)
+                .flatMap(d -> validateAccessToNewStatus(newDelegation, d, authentication))
+                .flatMap(d -> updateDelegation(newDelegation, d));
+    }
+
+    private Mono<Delegation> validateAccessToNewStatus(Delegation newDelegation,
+            Delegation existingDelegation,
+            Authentication authentication) {
+        return Mono.just(delegationValidator.validateDelegationFlow(newDelegation, existingDelegation, authentication.getAuthorities()))
+                .map(result -> {
+                    if (!result) {
+                        LOG.warn("User: {} was trying to update delegation with id: {} to status: {}", authentication.getName(), existingDelegation.getId(), newDelegation.getDelegationStatus());
+                        throw new AccessDeniedException("User was trying to access not his delegation.");
+                    }
+                    return existingDelegation;
+                });
+    }
+
+    private Mono<Delegation> updateDelegation(Delegation newDelegation, Delegation existingDelegation) {
+        return updateDelegationService.statusUpdate(existingDelegation, newDelegation);
     }
 
     private Delegation checkUserAccess(Delegation delegation, Authentication authentication) {
@@ -144,11 +158,5 @@ public class DelegationServiceImpl implements DelegationService {
         Mono<Checklist> checklistMono = externalResourceService.getPreparedChecklist();
         Mono<Country> countryMono = externalResourceService.getCountry(countryId);
         return Mono.zip(checklistMono, countryMono);
-    }
-
-    @Override
-    public Mono<Delegation> getDelegationValidated(Long delegationId, Authentication authentication) {
-        return this.getDelegation(delegationId)
-                .map(d -> checkUserAccess(d, authentication));
     }
 }

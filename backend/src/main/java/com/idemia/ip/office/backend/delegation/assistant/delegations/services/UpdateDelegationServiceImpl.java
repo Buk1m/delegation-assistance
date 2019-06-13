@@ -32,7 +32,7 @@ public class UpdateDelegationServiceImpl implements UpdateDelegationService {
     }
 
     @Override
-    public Mono<Delegation> flowUpdate(Delegation existingDelegation, Delegation newDelegation) {
+    public Mono<Delegation> statusUpdate(Delegation existingDelegation, Delegation newDelegation) {
         notNullPropertyMapper.map(newDelegation, existingDelegation);
         return Mono.fromCallable(() -> delegationRepository.save(existingDelegation));
     }

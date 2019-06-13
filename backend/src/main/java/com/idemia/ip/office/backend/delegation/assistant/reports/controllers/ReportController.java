@@ -31,6 +31,7 @@ public class ReportController {
     @GetMapping("/delegations/{delegationId}/report-preview")
     public Mono<ResponseEntity<DelegationReportDto>> getDelegationReportPreview(
             @PathVariable("delegationId") Long delegationId, Authentication authentication) {
+
         return reportService.getDelegationPreview(delegationId, authentication)
                 .map(d -> reportModelMapper.map(d, DelegationReportDto.class))
                 .map(ResponseEntity::ok);

@@ -31,9 +31,9 @@ class DelegationValidatorCaseSpec extends Specification {
                 delegationPatchStrategyTravelManager
         ]
 
-        delegationPatchStrategyApprover.getRoleValidates() >> APPROVER
-        delegationPatchStrategyEmployee.getRoleValidates() >> EMPLOYEE
-        delegationPatchStrategyTravelManager.getRoleValidates() >> TRAVEL_MANAGER
+        delegationPatchStrategyApprover.getRoleForStatusValidation() >> APPROVER
+        delegationPatchStrategyEmployee.getRoleForStatusValidation() >> EMPLOYEE
+        delegationPatchStrategyTravelManager.getRoleForStatusValidation() >> TRAVEL_MANAGER
 
         delegationFlowStrategyContext = new DelegationValidator(patchStrategies, delegationsExceptionProperties)
         authorities = [

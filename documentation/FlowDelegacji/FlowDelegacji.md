@@ -39,6 +39,20 @@
 - `Employee` może ustawić nastepujace statusy:
   - `PREPARED`
   - `CREATED`
+  
+- `Travel Manager` może ustawić następujace statusy:
+    - `NEEDS_WORK`
+    - `CHECKED`
+    - `FINALIZED`
+    - `APPROVED`
+
+- `Approver` może ustawić następujące statusy
+    - `APPROVED`
+    - `NEEDS_WORK`
+
+-`Accountant` może ustawić następujące statusy
+    - `NEEDS_WORK`
+    - `FINALIZED`
 
 #### Prawidłowa odpowiedź:
 

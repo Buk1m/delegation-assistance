@@ -35,7 +35,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Flux<Accommodation> getAccommodations(Long delegationId, Authentication authentication) {
-        return delegationService.getDelegationValidated(delegationId, authentication)
+        return delegationService.getDelegation(delegationId, authentication)
                 .map(Delegation::getAccommodations)
                 .flatMapMany(accommodations -> {
                     accommodations.sort(Comparator.comparing(Accommodation::getCheckInDate));

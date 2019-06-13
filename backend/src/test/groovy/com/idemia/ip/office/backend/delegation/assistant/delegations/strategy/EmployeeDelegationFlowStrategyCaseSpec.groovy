@@ -1,4 +1,4 @@
-package com.idemia.ip.office.backend.delegation.assistant.delegations
+package com.idemia.ip.office.backend.delegation.assistant.delegations.strategy
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.EmployeeDelegationFlowStrategy
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
@@ -18,8 +18,11 @@ class EmployeeDelegationFlowStrategyCaseSpec extends Specification {
 
         where: 'Delegation parameters cases'
             newDelegation                     || result
-            getDelegationToValidate(CREATED)  || true
-            getDelegationToValidate(PREPARED) || true
-            getDelegationToValidate(APPROVED) || false
+            getDelegationToValidate(CREATED)    || true
+            getDelegationToValidate(NEEDS_WORK) || false
+            getDelegationToValidate(CHECKED)    || false
+            getDelegationToValidate(APPROVED)    || false
+            getDelegationToValidate(PREPARED)    || true
+            getDelegationToValidate(FINALIZED)    || false
     }
 }

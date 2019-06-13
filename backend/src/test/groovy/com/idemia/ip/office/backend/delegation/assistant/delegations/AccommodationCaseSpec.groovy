@@ -73,7 +73,7 @@ class AccommodationCaseSpec extends Specification {
             List<Accommodation> result = accommodationService.getAccommodations(delegation.getId(), authentication).collectList().block()
 
         then: 'Result size should be equals to delegation accommodations count'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> Mono.just(delegation)
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> Mono.just(delegation)
             result.size() == accommodations.size()
     }
 
@@ -82,7 +82,7 @@ class AccommodationCaseSpec extends Specification {
             accommodationService.getAccommodations(1, authentication).collectList().block()
 
         then: 'Delegation service throws EntityNotFound'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> {
                 throw new EntityNotFoundException("no-delegation", Delegation.class)
             }
             thrown(EntityNotFoundException)
@@ -93,7 +93,7 @@ class AccommodationCaseSpec extends Specification {
             accommodationService.getAccommodations(1, authentication).collectList().block()
 
         then: 'Delegation service throws AccessDeniedException'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> {
                 throw new AccessDeniedException("not own delegation")
             }
             thrown(AccessDeniedException)
@@ -109,7 +109,7 @@ class AccommodationCaseSpec extends Specification {
             List<Accommodation> result = accommodationService.getAccommodations(delegation.getId(), authentication).collectList().block()
 
         then: 'Result size should be equals to delegation accommodations count'
-            delegationService.getDelegationValidated(delegation.getId(), authentication) >> Mono.just(delegation)
+            delegationService.getDelegation(delegation.getId(), authentication) >> Mono.just(delegation)
             result.size() == accommodations.size()
     }
 
@@ -118,7 +118,7 @@ class AccommodationCaseSpec extends Specification {
             accommodationService.getAccommodations(1, authentication).collectList().block()
 
         then: 'Delegation service throws EntityNotFound'
-            delegationService.getDelegationValidated(_ as Long, _ as Authentication) >> {
+            delegationService.getDelegation(_ as Long, _ as Authentication) >> {
                 throw new EntityNotFoundException("no-delegation", Delegation.class)
             }
             thrown(EntityNotFoundException)

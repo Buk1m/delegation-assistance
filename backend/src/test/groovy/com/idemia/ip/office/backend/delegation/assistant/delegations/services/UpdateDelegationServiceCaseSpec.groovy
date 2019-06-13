@@ -32,7 +32,7 @@ class UpdateDelegationServiceCaseSpec extends Specification {
             Delegation newStatusDelegation = new Delegation([delegationStatus: CREATED])
 
         when: 'Delegation is updated'
-            updateDelegationService.flowUpdate(delegation, newStatusDelegation).block()
+            updateDelegationService.statusUpdate(delegation, newStatusDelegation).block()
 
         then: 'Status is properly mapped'
             delegation.delegationStatus == newStatusDelegation.delegationStatus

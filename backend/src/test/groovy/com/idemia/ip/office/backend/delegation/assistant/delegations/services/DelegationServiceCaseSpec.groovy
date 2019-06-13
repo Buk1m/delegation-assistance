@@ -3,8 +3,10 @@ package com.idemia.ip.office.backend.delegation.assistant.delegations.services
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationValidator
 import com.idemia.ip.office.backend.delegation.assistant.entities.*
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException
+import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import org.springframework.http.codec.multipart.FilePart
 import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.core.GrantedAuthority
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import spock.lang.Specification
@@ -79,30 +81,19 @@ class DelegationServiceCaseSpec extends Specification {
             null    | CREATED | parse('2019-01-01T10:19:19') | parse('2019-02-01T10:19:19')
     }
 
-    def 'Service validates properly delegations new status'() {
-        given: 'Delegation with status'
-            Delegation existingDelegation = anyDelegation()
-            Delegation updateDelegation = getDelegationWithStatus(PREPARED)
-
-        when: 'Service validates new status'
-            delegationService.validateNewStatus(updateDelegation, existingDelegation, []).block()
-
-        then: 'Delegation is validated'
-            delegationFlowValidator.validateDelegationFlow(updateDelegation, existingDelegation, []) >> true
-
-    }
-
     def 'Service throws exception when status is not validated'() {
         given: 'Delegation with status'
             Delegation existingDelegation = anyDelegation()
             Delegation updateDelegation = getDelegationWithStatus(PREPARED)
 
         when: 'Service validates new status'
-            delegationService.validateNewStatus(updateDelegation, existingDelegation, []).block()
+            delegationService.updateDelegation(1, updateDelegation, new AuthenticationImpl('token', '', '', [])).block()
 
         then: 'Delegation is not validated'
-            delegationFlowValidator.validateDelegationFlow(updateDelegation, existingDelegation, []) >> false
-
+            1 * readDelegationService.getDelegation(_ as Long) >> Mono.just(existingDelegation)
+            1 * delegationFlowValidator.validateUserAccess(existingDelegation, _ as AuthenticationImpl) >> true
+            1 * delegationFlowValidator.validateDelegationFlow(updateDelegation, existingDelegation, _ as Collection<? extends GrantedAuthority>) >> false
+            0 * updateDelegationService.statusUpdate(existingDelegation, updateDelegation)
             thrown(AccessDeniedException)
     }
 

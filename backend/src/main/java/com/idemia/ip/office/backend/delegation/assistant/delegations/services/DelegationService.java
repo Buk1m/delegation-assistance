@@ -33,12 +33,6 @@ public interface DelegationService {
             LocalDateTime since,
             LocalDateTime until);
 
-    Mono<Delegation> updateDelegation(Delegation updateDelegation, Delegation existingDelegation);
-
-    Mono<Delegation> validateNewStatus(Delegation newDelegation,
-            Delegation existingDelegation,
-            Collection<? extends GrantedAuthority> authorities);
-
     Mono<Expense> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
 
     Mono<Meals> updateMeals(Long delegationId, Authentication authentication, Meals meals);
@@ -51,5 +45,7 @@ public interface DelegationService {
 
     Mono<UserFile> getFile(Long delegationId, Long expenseId, Long fileId, Authentication authentication);
 
-    Mono<Delegation> getDelegationValidated(Long delegationId, Authentication authentication);
+    Mono<Delegation> getDelegation(Long delegationId, Authentication authentication);
+
+    Mono<Delegation> updateDelegation(Long delegationId, Delegation newDelegation, Authentication authentication);
 }

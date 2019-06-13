@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
 
 public interface UpdateDelegationService {
-    Mono<Delegation> flowUpdate(Delegation existingDelegation, Delegation newDelegation);
+    Mono<Delegation> statusUpdate(Delegation existingDelegation, Delegation newDelegation);
 
     Mono<Expense> addExpense(Expense e, Delegation d);
 
