@@ -1,5 +1,6 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
@@ -22,10 +23,6 @@ public interface DelegationService {
 
     Mono<Delegation> addDelegation(Delegation delegation, User name, Long countryId);
 
-    Mono<Delegation> getDelegation(Long delegationId);
-
-    Mono<Delegation> getDelegation(Long delegationId, String delegateEmployeeName);
-
     Mono<Delegation> getDelegationDetails(Long delegationId, Authentication authentication);
 
     Flux<Delegation> getDelegations(String userLogin,
@@ -33,7 +30,11 @@ public interface DelegationService {
             LocalDateTime since,
             LocalDateTime until);
 
-    Mono<Expense> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments);
+    Mono<Expense> addExpense(Expense newExpense,
+            Long userId,
+            Long delegationId,
+            List<FilePart> attachments,
+            Authentication authentication);
 
     Mono<Meals> updateMeals(Long delegationId, Authentication authentication, Meals meals);
 
@@ -45,7 +46,7 @@ public interface DelegationService {
 
     Mono<UserFile> getFile(Long delegationId, Long expenseId, Long fileId, Authentication authentication);
 
-    Mono<Delegation> getDelegation(Long delegationId, Authentication authentication);
-
     Mono<Delegation> updateDelegation(Long delegationId, Delegation newDelegation, Authentication authentication);
+
+    Mono<Delegation> getDelegation(Long delegationId, Authentication authentication, OperationType operationType);
 }

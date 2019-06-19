@@ -58,15 +58,16 @@ public class ExpenseController {
             produces = APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<ExpenseDto>> addExpense(@Valid ExpenseDto expenseDto,
             @PathVariable Long delegationId,
-            Principal principal) {
-        LOG.info("User: {} adds expenses: {}", principal.getName(), expenseDto);
+            Authentication authentication) {
+        LOG.info("User: {} adds expenses: {}", authentication.getName(), expenseDto);
         Expense newExpense = modelMapperSkipNulls.map(expenseDto, Expense.class);
 
-        return userService.getUser(principal.getName())
+        return userService.getUser(authentication.getName())
                 .flatMap(u -> delegationService.addExpense(newExpense,
                         u.getId(),
                         delegationId,
-                        expenseDto.getAttachments()))
+                        expenseDto.getAttachments(),
+                        authentication))
                 .map(e -> modelMapper.map(e, ExpenseDto.class))
                 .map(ResponseEntity::ok);
     }

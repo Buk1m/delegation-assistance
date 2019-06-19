@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface AccommodationService {
 
-    Mono<Accommodation> addAccommodation(Accommodation flight, String delegatedEmployeeLogin, Long delegationId);
+    Mono<Accommodation> addAccommodation(Accommodation flight, Authentication authentication, Long delegationId);
 
     Flux<Accommodation> getAccommodations(Long delegationId, Authentication authentication);
 }

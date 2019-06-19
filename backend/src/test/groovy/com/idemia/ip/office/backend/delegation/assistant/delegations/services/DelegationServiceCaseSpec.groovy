@@ -1,10 +1,13 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services
 
+import com.idemia.ip.office.backend.delegation.assistant.delegations.configuration.DelegationsExceptionProperties
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationValidator
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType
 import com.idemia.ip.office.backend.delegation.assistant.entities.*
 import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import org.springframework.http.codec.multipart.FilePart
 import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -18,18 +21,21 @@ import static java.time.LocalDateTime.parse
 
 class DelegationServiceCaseSpec extends Specification {
 
+    Authentication authentication = Mock()
     DelegationValidator delegationFlowValidator = Mock()
     ExternalResourceService externalResourceService = Mock()
     CreateDelegationService createDelegationService = Mock()
     ReadDelegationService readDelegationService = Mock()
     UpdateDelegationService updateDelegationService = Mock()
+    DelegationsExceptionProperties delegationsExceptionProperties = Mock()
 
     DelegationService delegationService = new DelegationServiceImpl(
             delegationFlowValidator,
             externalResourceService,
             createDelegationService,
             readDelegationService,
-            updateDelegationService)
+            updateDelegationService,
+            delegationsExceptionProperties)
 
     def 'Delegation status and user are correctly assigned'() {
         given: 'User and delegation'
@@ -90,7 +96,8 @@ class DelegationServiceCaseSpec extends Specification {
 
         then: 'Delegation is not validated'
             1 * readDelegationService.getDelegation(_ as Long) >> Mono.just(existingDelegation)
-            1 * delegationFlowValidator.validateUserAccess(existingDelegation, _ as AuthenticationImpl) >> true
+            1 * delegationFlowValidator.validateUserAccess(_ as Delegation, _ as Authentication, _ as OperationType) >> true
+            1 * delegationFlowValidator.validateOperationPermissions(_ as Delegation, _ as OperationType) >> true
             1 * delegationFlowValidator.validateDelegationFlow(updateDelegation, _ as Collection<? extends GrantedAuthority>) >> false
             0 * updateDelegationService.statusUpdate(existingDelegation, updateDelegation)
             thrown(AccessDeniedException)
@@ -107,10 +114,12 @@ class DelegationServiceCaseSpec extends Specification {
             delegation.delegatedEmployee = user
 
         when: 'Service retrieves delegation, checks with user and saves expenses'
-            delegationService.addExpense(expense, userId, delegationId, []).block()
+            delegationService.addExpense(expense, userId, delegationId, [], authentication).block()
 
         then: 'Delegation is retrieved checked with user and expenses is saved'
-            1 * readDelegationService.getDelegation(delegationId) >> Mono.just(delegation)
+            1 * readDelegationService.getDelegation(_ as Long) >> Mono.just(delegation)
+            1 * delegationFlowValidator.validateUserAccess(_ as Delegation, _ as Authentication, _ as OperationType) >> true
+            1 * delegationFlowValidator.validateOperationPermissions(_ as Delegation, _ as OperationType) >> true
             1 * externalResourceService.addExpense(expense, _ as Long, _ as Long, _ as List<FilePart>) >> Mono.just(expense)
             1 * updateDelegationService.addExpense(expense, delegation) >> Mono.just(expense)
     }
@@ -124,9 +133,10 @@ class DelegationServiceCaseSpec extends Specification {
             Long delegationId = 1
 
         when: 'Service retrieves delegation, checks an owner and save expenses'
-            delegationService.addExpense(expense, 2, delegationId, []).block()
+            delegationService.addExpense(expense, 2, delegationId, [], authentication).block()
 
         then: 'Service throws exception'
+            1 * delegationFlowValidator.validateUserAccess(_ as Delegation, _ as Authentication, _ as OperationType) >> false
             1 * readDelegationService.getDelegation(delegationId) >> Mono.just(delegation)
 
             thrown(AccessDeniedException)
@@ -138,10 +148,12 @@ class DelegationServiceCaseSpec extends Specification {
             Delegation delegation = getUserDelegation(1, user)
 
         when: 'Get delegation report'
-            Delegation report = delegationService.getDelegation(delegation.getId(), user.getLogin()).block()
+            Delegation report = delegationService.getDelegation(delegation.getId(), authentication, OperationType.READ).block()
 
         then: 'Returns user delegation report'
-            1 * readDelegationService.getDelegation(delegation.getId(), user.getLogin()) >> Mono.just(delegation)
+            1 * readDelegationService.getDelegation(delegation.getId()) >> Mono.just(delegation)
+            1 * delegationFlowValidator.validateUserAccess(_ as Delegation, _ as Authentication, _ as OperationType) >> true
+            1 * delegationFlowValidator.validateOperationPermissions(_ as Delegation, _ as OperationType) >> true
             report != null
     }
 }

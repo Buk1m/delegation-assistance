@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface FlightService {
 
-    Mono<Flight> addFlight(Flight flight, String delegatedEmployeeLogin, Long delegationId);
+    Mono<Flight> addFlight(Flight flight, Authentication authentication, Long delegationId);
 
     Flux<Flight> getFlights(Long delegationId, Authentication authentication);
 }

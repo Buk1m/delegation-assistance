@@ -41,14 +41,6 @@ public class ReadDelegationServiceImpl implements ReadDelegationService {
     }
 
     @Override
-    public Mono<Delegation> getDelegation(Long delegationId, String delegatedEmployeeLogin) {
-        return Mono.fromCallable(() -> delegationRepository.findByIdAndDelegatedEmployeeLogin(delegationId,
-                delegatedEmployeeLogin))
-                .publishOn(scheduler)
-                .map(d -> d.orElseThrow(() -> userDelegationNotFoundException(delegationId, delegatedEmployeeLogin)));
-    }
-
-    @Override
     public Flux<Delegation> getDelegations(String userLogin,
             DelegationStatus status,
             LocalDateTime since,
@@ -60,15 +52,6 @@ public class ReadDelegationServiceImpl implements ReadDelegationService {
 
     private EntityNotFoundException delegationNotFoundException(Long id) {
         LOG.info("Delegation with id {} hasn't been found.", id);
-        return new EntityNotFoundException(
-                "Delegation not found.",
-                delegationsExceptionProperties.getDelegationNotFound(),
-                Delegation.class
-        );
-    }
-
-    private EntityNotFoundException userDelegationNotFoundException(Long delegationId, String delegatedEmployeeLogin) {
-        LOG.info("Delegation with id {} and user {} hasn't been found.", delegationId, delegatedEmployeeLogin);
         return new EntityNotFoundException(
                 "Delegation not found.",
                 delegationsExceptionProperties.getDelegationNotFound(),

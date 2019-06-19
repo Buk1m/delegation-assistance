@@ -1,6 +1,9 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
+import com.idemia.ip.office.backend.delegation.assistant.delegations.configuration.DelegationsExceptionProperties;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.controllers.DelegationController;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.strategy.DelegationValidator;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Country;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
@@ -8,6 +11,7 @@ import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
 import com.idemia.ip.office.backend.delegation.assistant.entities.User;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.OperationNotAllowedException;
 import com.idemia.ip.office.backend.delegation.assistant.files.dtos.UserFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +32,6 @@ import java.util.List;
 @Service
 @Transactional
 public class DelegationServiceImpl implements DelegationService {
-
     private static final Logger LOG = LoggerFactory.getLogger(DelegationServiceImpl.class);
 
     private final DelegationValidator delegationValidator;
@@ -36,17 +39,20 @@ public class DelegationServiceImpl implements DelegationService {
     private final CreateDelegationService createDelegationService;
     private final ReadDelegationService readDelegationService;
     private final UpdateDelegationService updateDelegationService;
+    private final DelegationsExceptionProperties delegationsExceptionProperties;
 
     public DelegationServiceImpl(DelegationValidator delegationValidator,
             ExternalResourceService externalResourceService,
             CreateDelegationService createDelegationService,
             ReadDelegationService readDelegationService,
-            UpdateDelegationService updateDelegationService) {
+            UpdateDelegationService updateDelegationService,
+            DelegationsExceptionProperties delegationsExceptionProperties) {
         this.delegationValidator = delegationValidator;
         this.externalResourceService = externalResourceService;
         this.createDelegationService = createDelegationService;
         this.readDelegationService = readDelegationService;
         this.updateDelegationService = updateDelegationService;
+        this.delegationsExceptionProperties = delegationsExceptionProperties;
     }
 
     @Override
@@ -57,37 +63,26 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    public Mono<Delegation> getDelegation(Long delegationId) {
-        return readDelegationService.getDelegation(delegationId);
-    }
-
-    @Override
-    public Mono<Delegation> getDelegation(Long delegationId, String delegatedEmployeeLogin) {
-        return readDelegationService.getDelegation(delegationId, delegatedEmployeeLogin);
-    }
-
-    @Override
     public Mono<Delegation> getDelegationDetails(Long delegationId, Authentication authentication) {
-        return this.getDelegation(delegationId, authentication);
+        return this.getDelegation(delegationId, authentication, OperationType.READ);
     }
 
     @Override
     public Mono<Meals> updateMeals(Long delegationId, Authentication authentication, Meals updatedMeals) {
-        return getDelegation(delegationId, authentication).flatMap(delegation ->
+        return getDelegation(delegationId, authentication, OperationType.UPDATE).flatMap(delegation ->
                 updateDelegationService.updateMeals(updatedMeals,
-                delegation.getMeals(),
-                delegation.getStartDate(),
-                delegation.getEndDate()));
+                        delegation.getMeals(),
+                        delegation.getStartDate(),
+                        delegation.getEndDate()));
     }
 
     @Override
-    public Mono<Expense> addExpense(Expense newExpense, Long userId, Long delegationId, List<FilePart> attachments) {
-        return this.getDelegation(delegationId)
-                .doOnSuccess(d -> {
-                    if (!d.getDelegatedEmployee().getId().equals(userId)) {
-                        throw new AccessDeniedException("User was trying to access not his delegation.");
-                    }
-                })
+    public Mono<Expense> addExpense(Expense newExpense,
+            Long userId,
+            Long delegationId,
+            List<FilePart> attachments,
+            Authentication authentication) {
+        return this.getDelegation(delegationId, authentication, OperationType.CREATE)
                 .flatMap(d -> externalResourceService.addExpense(newExpense, userId, delegationId, attachments)
                         .flatMap(e -> updateDelegationService.addExpense(e, d))
                 );
@@ -99,13 +94,13 @@ public class DelegationServiceImpl implements DelegationService {
             Integer pageSize,
             List<Sort.Order> sortCriteria,
             Authentication authentication) {
-        return this.getDelegation(delegationId, authentication)
+        return this.getDelegation(delegationId, authentication, OperationType.READ)
                 .flatMap(d -> externalResourceService.getExpenses(d, pageNumber, pageSize, sortCriteria));
     }
 
     @Override
     public Mono<UserFile> getFile(Long delegationId, Long expenseId, Long fileId, Authentication authentication) {
-        return this.getDelegation(delegationId, authentication)
+        return this.getDelegation(delegationId, authentication, OperationType.READ)
                 .flatMap(d -> externalResourceService.getFile(expenseId, fileId));
     }
 
@@ -118,14 +113,8 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
-    public Mono<Delegation> getDelegation(Long delegationId, Authentication authentication) {
-        return this.getDelegation(delegationId)
-                .map(d -> checkUserAccess(d, authentication));
-    }
-
-    @Override
     public Mono<Delegation> updateDelegation(Long delegationId, Delegation newDelegation, Authentication authentication) {
-        return this.getDelegation(delegationId, authentication)
+        return this.getDelegation(delegationId, authentication, OperationType.READ)
                 .flatMap(d -> validateAccessToNewStatus(newDelegation, d, authentication))
                 .flatMap(d -> updateDelegation(newDelegation, d));
     }
@@ -147,16 +136,48 @@ public class DelegationServiceImpl implements DelegationService {
         return updateDelegationService.statusUpdate(existingDelegation, newDelegation);
     }
 
-    private Delegation checkUserAccess(Delegation delegation, Authentication authentication) {
-        if (!delegationValidator.validateUserAccess(delegation, authentication)) {
-            throw new AccessDeniedException("User was trying to access not his delegation.");
-        }
-        return delegation;
-    }
-
     private Mono<Tuple2<Checklist, Country>> getDataForNewDelegation(Long countryId) {
         Mono<Checklist> checklistMono = externalResourceService.getPreparedChecklist();
         Mono<Country> countryMono = externalResourceService.getCountry(countryId);
         return Mono.zip(checklistMono, countryMono);
+    }
+
+    @Override
+    public Mono<Delegation> getDelegation(Long delegationId,
+            Authentication authentication,
+            OperationType operationType) {
+        return readDelegationService.getDelegation(delegationId)
+                .map(d -> checkUserAccess(d, authentication, operationType));
+    }
+
+    private Delegation checkUserAccess(Delegation delegation,
+            Authentication authentication,
+            OperationType operationType) {
+        if (!delegationValidator.validateUserAccess(delegation, authentication, operationType)) {
+            throw userCanNotAccessDelegation(delegation, authentication);
+        }
+        if (!delegationValidator.validateOperationPermissions(delegation, operationType)) {
+            throw delegationCanNotBeModify(delegation, authentication);
+        }
+        return delegation;
+    }
+
+    private AccessDeniedException userCanNotAccessDelegation(Delegation delegation, Authentication authentication) {
+        LOG.warn("User with name {} was trying to access delegation {} without permissions!",
+                authentication.getName(),
+                delegation.getId());
+        throw new AccessDeniedException("User was trying to access not his delegation.");
+    }
+
+    private OperationNotAllowedException delegationCanNotBeModify(Delegation delegation,
+            Authentication authentication) {
+        LOG.warn("User with name {} was trying to modify delegation with id {} in state {}",
+                authentication.getName(),
+                delegation.getId(),
+                delegation.getDelegationStatus());
+        return new OperationNotAllowedException(
+                "User was trying to modify delegation which status does not allow this operation",
+                delegationsExceptionProperties.getDelegationStatusDoesNotAllowModifications(),
+                delegation.getDelegationStatus());
     }
 }

@@ -27,17 +27,4 @@ class ReadDelegationServiceCaseSpec extends Specification {
             delegationRepository.findById(delegationId) >> Optional.empty()
             thrown(EntityNotFoundException)
     }
-
-    def 'Service throws exception when users delegation does not exist'() {
-        given: 'DelegationId and userName'
-            Long delegationId = 1
-            String userName = 'test'
-
-        when: 'Delegation is retrieved'
-            readDelegationService.getDelegation(delegationId, userName).block()
-
-        then: 'EntityNotFoundException is thrown'
-            delegationRepository.findByIdAndDelegatedEmployeeLogin(delegationId, userName) >> Optional.empty()
-            thrown(EntityNotFoundException)
-    }
 }

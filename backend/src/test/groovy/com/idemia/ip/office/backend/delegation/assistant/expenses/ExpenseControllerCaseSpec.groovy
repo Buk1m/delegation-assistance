@@ -28,6 +28,7 @@ import static com.idemia.ip.office.backend.delegation.assistant.utils.TestDataPr
 import static org.springframework.http.HttpStatus.OK
 
 class ExpenseControllerCaseSpec extends Specification {
+    Authentication authentication = Mock()
     ModelMapper modelMapper = new ModelMapper()
     DelegationService delegationService = Mock()
     UserService userService = Mock()
@@ -38,16 +39,16 @@ class ExpenseControllerCaseSpec extends Specification {
         given: 'User is adding expenses with files'
             ExpenseDto expenseDto = anyExpenseDto()
             expenseDto.attachments = []
-            Principal principal = new AuthenticationImpl('', '', login, [])
 
         when: 'User is adding expenses'
-            ResponseEntity<ExpenseDto> response = expenseController.addExpense(expenseDto, 1, principal).block()
+            ResponseEntity<ExpenseDto> response = expenseController.addExpense(expenseDto, 1, authentication).block()
 
         then: 'Expense is added to delegation'
             response.statusCode == OK
+            authentication.getName() >> login
             1 * userService.getUser(login) >> Mono.just(getUser(1))
-            1 * delegationService.addExpense(_ as Expense, _ as Long, _ as Long, _ as List<FilePart>) >>
-                    { Expense expense, Long userId, Long delId, List<FilePart> files ->
+            1 * delegationService.addExpense(_ as Expense, _ as Long, _ as Long, _ as List<FilePart>, _ as Authentication) >>
+                    { Expense expense, Long userId, Long delId, List<FilePart> files, Authentication authentication ->
                         expense.expenseValue == expenseDto.expenseValue
                         expense.expenseName == expenseDto.expenseName
                         expense.expenseCurrency == expenseDto.expenseCurrency

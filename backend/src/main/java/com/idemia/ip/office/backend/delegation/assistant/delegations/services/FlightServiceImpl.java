@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Flight;
 import org.springframework.security.core.Authentication;
@@ -23,17 +24,18 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Mono<Flight> addFlight(Flight flight, String delegatedEmployeeLogin, Long delegationId) {
-        return delegationService.getDelegation(delegationId, delegatedEmployeeLogin).flatMap(delegation -> {
-            delegation.getFlights().add(flight);
-            return Mono.fromCallable(() -> delegationRepository.save(delegation))
-                    .map(d -> getLastSavedFlight(d));
-        });
+    public Mono<Flight> addFlight(Flight flight, Authentication authentication, Long delegationId) {
+        return delegationService.getDelegation(delegationId, authentication, OperationType.CREATE)
+                .flatMap(delegation -> {
+                    delegation.getFlights().add(flight);
+                    return Mono.fromCallable(() -> delegationRepository.save(delegation))
+                            .map(d -> getLastSavedFlight(d));
+                });
     }
 
     @Override
     public Flux<Flight> getFlights(Long delegationId, Authentication authentication) {
-        return delegationService.getDelegation(delegationId, authentication)
+        return delegationService.getDelegation(delegationId, authentication, OperationType.READ)
                 .map(Delegation::getFlights)
                 .flatMapMany(flights -> {
                     flights.sort(Comparator.comparing(Flight::getDepartureDate));

@@ -19,7 +19,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -40,14 +39,14 @@ public class AccommodationController {
     public Mono<ResponseEntity<AccommodationDto>> postDelegationAccommodation(
             @Valid @RequestBody AccommodationDto accommodationDto,
             @PathVariable("delegationId") Long delegationId,
-            Principal principal) {
+            Authentication authentication) {
         LOG.info("User: {} wants to add accommodations: {} to delegation with id: {}",
-                principal.getName(),
+                authentication.getName(),
                 accommodationDto,
                 delegationId);
         Accommodation accommodation = modelMapper.map(accommodationDto, Accommodation.class);
         return accommodationService.addAccommodation(accommodation,
-                principal.getName(),
+                authentication,
                 delegationId)
                 .map(e -> modelMapper.map(e, AccommodationDto.class))
                 .map(ResponseEntity::ok);

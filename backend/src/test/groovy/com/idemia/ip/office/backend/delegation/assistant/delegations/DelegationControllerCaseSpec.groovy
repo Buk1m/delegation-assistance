@@ -4,10 +4,10 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.controllers
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDetailsDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation
 import com.idemia.ip.office.backend.delegation.assistant.entities.User
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus
-import com.idemia.ip.office.backend.delegation.assistant.security.utils.AuthenticationImpl
 import com.idemia.ip.office.backend.delegation.assistant.users.services.UserService
 import org.modelmapper.ModelMapper
 import org.springframework.http.ResponseEntity
@@ -24,22 +24,22 @@ import static org.springframework.http.HttpStatus.OK
 
 class DelegationControllerCaseSpec extends Specification {
 
+    Authentication authentication = Mock();
     DelegationService delegationService = Mock()
     UserService userService = Mock()
     ModelMapper modelMapper = new ModelMapper()
     DelegationController delegationController = new DelegationController(delegationService, userService, modelMapper)
-    String login = 'login'
 
     def 'Delegation is correctly mapped and saved'() {
         given: 'User is creating delegation'
             DelegationDetailsDto delegationDTO = anyDelegationDetailsDto()
             String login = 'login'
-            Authentication principal = new AuthenticationImpl('', '', login, [])
 
         when: 'User is posting DelegationDto'
-            ResponseEntity<DelegationDetailsDto> response = delegationController.postDelegation(delegationDTO, principal).block()
+            ResponseEntity<DelegationDetailsDto> response = delegationController.postDelegation(delegationDTO, authentication).block()
 
         then: 'User is in the system'
+            authentication.getName() >> login
             1 * userService.getUser(login) >> Mono.just(new User(login))
 
         and: 'Delegation is saved'
@@ -60,12 +60,12 @@ class DelegationControllerCaseSpec extends Specification {
             Long delegationId = 1
             DelegationStatus preparedDelegationStatus = PREPARED
             DelegationDto updatedDelegationDto = new DelegationDto(delegationStatus: preparedDelegationStatus)
-            Authentication principal = new AuthenticationImpl("", "", login, [])
 
         when: 'User is patching FlowDelegationDto'
-            ResponseEntity<DelegationDto> response = delegationController.patchDelegation(updatedDelegationDto, delegationId, principal).block()
+            ResponseEntity<DelegationDto> response = delegationController.patchDelegation(updatedDelegationDto, delegationId, authentication).block()
 
         then: 'Delegation is updated'
+            authentication.getAuthorities() >> []
             response.statusCode == OK
 
             1 * delegationService.updateDelegation(delegationId, _ as Delegation, _ as Authentication) >> { Long id, Delegation newDel, Authentication auth ->
@@ -77,10 +77,9 @@ class DelegationControllerCaseSpec extends Specification {
     def 'Delegation with wrong status is not saved and an exception handled'() {
         given: 'User is creating patch with status without rights'
             DelegationDto patchDelegationDTO = new DelegationDto(delegationStatus: PREPARED)
-            Authentication principal = new AuthenticationImpl("", "", login, [])
 
         when: 'User is patching FlowDelegationDto'
-            delegationController.patchDelegation(patchDelegationDTO, 1, principal).block()
+            delegationController.patchDelegation(patchDelegationDTO, 1, authentication).block()
 
         then: 'Exception is handled'
             1 * delegationService.updateDelegation(_ as Long, _ as Delegation, _ as Authentication) >> { Long id, Delegation newDel, Authentication auth ->

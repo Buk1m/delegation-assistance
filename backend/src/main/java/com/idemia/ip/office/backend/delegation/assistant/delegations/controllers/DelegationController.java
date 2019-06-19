@@ -5,6 +5,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.Delega
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.DelegationDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.dtos.MealsDto;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPatch;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
@@ -31,7 +32,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -60,11 +60,11 @@ public class DelegationController {
     @Validated(OnPost.class)
     public Mono<ResponseEntity<DelegationDetailsDto>> postDelegation(@Valid @RequestBody
             DelegationDetailsDto delegationDTO,
-            Principal principal) {
-        LOG.info("Creating delegation for user with login: {} {}", principal.getName(), delegationDTO);
+            Authentication authentication) {
+        LOG.info("Creating delegation for user with login: {} {}", authentication.getName(), delegationDTO);
         Delegation delegation = modelMapper.map(delegationDTO, Delegation.class);
 
-        return userService.getUser(principal.getName())
+        return userService.getUser(authentication.getName())
                 .flatMap(u -> delegationService.addDelegation(delegation, u, delegationDTO.getDestinationCountryId()))
                 .map(this::mapToDelegationDetails)
                 .map(ResponseEntity::ok);
@@ -72,12 +72,12 @@ public class DelegationController {
 
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @GetMapping("/delegations/my")
-    public Mono<ResponseEntity<List<DelegationDto>>> getMyDelegations(Principal principal,
+    public Mono<ResponseEntity<List<DelegationDto>>> getMyDelegations(Authentication authentication,
             @RequestParam(required = false) DelegationStatus status,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime since,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime until) {
-        LOG.info("Getting 'my' delegations by user with login:{}", principal.getName());
-        Flux<Delegation> delegations = delegationService.getDelegations(principal.getName(), status, since, until);
+        LOG.info("Getting 'my' delegations by user with login:{}", authentication.getName());
+        Flux<Delegation> delegations = delegationService.getDelegations(authentication.getName(), status, since, until);
         Mono<List<DelegationDto>> delegationsDto = delegations.map(e -> modelMapper.map(e, DelegationDto.class))
                 .collectList();
         return delegationsDto.map(ResponseEntity::ok);
@@ -99,10 +99,10 @@ public class DelegationController {
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @GetMapping("/delegations/{delegationId}/checklist")
     public Mono<ResponseEntity<ChecklistDto>> getChecklist(@PathVariable("delegationId") Long delegationId,
-            Principal principal) {
-        return delegationService.getDelegation(delegationId)
+            Authentication authentication) {
+        return delegationService.getDelegation(delegationId, authentication, OperationType.READ)
                 .map(delegation -> {
-                    if (!delegation.getDelegatedEmployee().getLogin().equals(principal.getName())) {
+                    if (!delegation.getDelegatedEmployee().getLogin().equals(authentication.getName())) {
                         throw new AccessDeniedException("This checklist is owned by another user!");
                     }
                     return delegation.getChecklist();
@@ -117,8 +117,8 @@ public class DelegationController {
             @RequestParam(required = false) DelegationStatus status,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime since,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime until,
-            Principal principal) {
-        LOG.info("Getting delegations by user with login:{}", principal.getName());
+            Authentication authentication) {
+        LOG.info("Getting delegations by user with login: {}", authentication.getName());
         Flux<Delegation> delegations = delegationService.getDelegations(login, status, since, until);
         Mono<List<DelegationDto>> delegationsDto = delegations.map(e -> modelMapper.map(e,
                 DelegationDto.class))

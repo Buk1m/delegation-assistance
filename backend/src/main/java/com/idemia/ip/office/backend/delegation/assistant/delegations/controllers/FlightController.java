@@ -39,10 +39,13 @@ public class FlightController {
     @Validated(OnPost.class)
     public Mono<ResponseEntity<FlightDto>> postDelegationFlight(@Valid @RequestBody FlightDto flightDto,
             @PathVariable("delegationId") Long delegationId,
-            Principal principal) {
-        LOG.info("User: {} adds flight: {} to delegation with id: {}", principal.getName(), flightDto, delegationId);
+            Authentication authentication) {
+        LOG.info("User: {} adds flight: {} to delegation with id: {}",
+                authentication.getName(),
+                flightDto,
+                delegationId);
         Flight flight = modelMapper.map(flightDto, Flight.class);
-        return flightService.addFlight(flight, principal.getName(), delegationId)
+        return flightService.addFlight(flight, authentication, delegationId)
                 .map(e -> modelMapper.map(e, FlightDto.class))
                 .map(ResponseEntity::ok);
     }

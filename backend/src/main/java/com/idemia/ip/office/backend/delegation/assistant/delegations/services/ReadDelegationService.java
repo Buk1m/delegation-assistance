@@ -11,8 +11,6 @@ public interface ReadDelegationService {
 
     Mono<Delegation> getDelegation(Long delegationId);
 
-    Mono<Delegation> getDelegation(Long delegationId, String delegatedEmployeeLogin);
-
     Flux<Delegation> getDelegations(String userLogin,
             DelegationStatus status,
             LocalDateTime since,

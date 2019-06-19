@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
+import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Accommodation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import org.springframework.security.core.Authentication;
@@ -24,18 +25,19 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Mono<Accommodation> addAccommodation(Accommodation accommodation,
-            String delegatedEmployeeLogin,
+            Authentication authentication,
             Long delegationId) {
-        return delegationService.getDelegation(delegationId, delegatedEmployeeLogin).flatMap(delegation -> {
-            delegation.getAccommodations().add(accommodation);
-            return Mono.fromCallable(() -> delegationRepository.save(delegation))
-                    .map(d -> getLastSavedAccommodation(d));
-        });
+        return delegationService.getDelegation(delegationId, authentication, OperationType.CREATE)
+                .flatMap(delegation -> {
+                    delegation.getAccommodations().add(accommodation);
+                    return Mono.fromCallable(() -> delegationRepository.save(delegation))
+                            .map(d -> getLastSavedAccommodation(d));
+                });
     }
 
     @Override
     public Flux<Accommodation> getAccommodations(Long delegationId, Authentication authentication) {
-        return delegationService.getDelegation(delegationId, authentication)
+        return delegationService.getDelegation(delegationId, authentication, OperationType.READ)
                 .map(Delegation::getAccommodations)
                 .flatMapMany(accommodations -> {
                     accommodations.sort(Comparator.comparing(Accommodation::getCheckInDate));
