@@ -2,6 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.reports.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ApplicationException;
+import com.idemia.ip.office.backend.delegation.assistant.reports.configuration.ReportsExceptionProperties;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.DelegationReport;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.ExpenseReport;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.FlightReport;
@@ -9,8 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
-import com.idemia.ip.office.backend.delegation.assistant.exceptions.InvalidParameterException;
-import com.idemia.ip.office.backend.delegation.assistant.reports.configuration.ReportsExceptionProperties;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
@@ -19,15 +18,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeConstants.HOURS_PER_DAY;
 import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeHelper.hoursDurationBetweenDays;
 import static com.idemia.ip.office.backend.delegation.assistant.common.FinanceArithmeticStandards.MONEY_FLOATING_NUMBERS;
 import static com.idemia.ip.office.backend.delegation.assistant.common.FinanceArithmeticStandards.scale;
 import static java.math.RoundingMode.HALF_UP;
-
-import java.util.Map;
-import java.util.Set;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -87,9 +84,7 @@ public class ReportServiceImpl implements ReportService {
     private DelegationReport summarizeReport(DelegationReport delegationReport) {
         BigDecimal total = delegationReport.getDiet().getExchangeAmount();
         BigDecimal expensesTotal = getExpensesTotal(delegationReport);
-        if (delegationReport.getAdvancePayment() != null){
-            total = total.subtract(delegationReport.getAdvancePayment());
-        }
+        total = total.subtract(delegationReport.getAdvancePayment());
         total = scale(total.add(expensesTotal));
         delegationReport.setTotalRepayment(total);
         delegationReport.setTargetCurrency(TARGET_CURRENCY);

@@ -34,7 +34,7 @@ public class ExchangeCurrencyRate {
     }
 
     public ExchangeCurrencyRate(String currencyCode, LocalDate exchangeDate) {
-        this.currencyCode =  Currency.getInstance(currencyCode);
+        this.currencyCode = Currency.getInstance(currencyCode);
         this.exchangeDate = exchangeDate;
     }
 
@@ -54,6 +54,11 @@ public class ExchangeCurrencyRate {
 
     public void setCurrencyCode(String currencyCode) {
         this.currencyCode = Currency.getInstance(currencyCode);
+    }
+
+    public BigDecimal getRate() {
+        return Optional.ofNullable(rate)
+                .orElse(BigDecimal.ZERO);
     }
 
     @Override

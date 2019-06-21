@@ -57,7 +57,7 @@ class NBPConnectorCaseSpec extends Specification {
     def 'User gets CurrencyRateDto properly'() {
         given: 'Currency date and endpoint'
             Currency currency = Currency.getInstance('EUR')
-            LocalDate today = getLocalDate(DATE_FORMAT)
+            LocalDate today = getLocalDate()
             String expectedUrl = "/exchangerates/rates/c/${currency.getCurrencyCode()}/${today}"
             CurrencyRatesDto expectedDto = anyCurrencyRatesDto()
             stubEndpoint(urlEqualTo(expectedUrl), 200, expectedDto)
@@ -78,7 +78,7 @@ class NBPConnectorCaseSpec extends Specification {
     def 'NBPApi retries when got 5xx status code in return and returns response body if succeeds'() {
         given: 'Currency date and endpoint'
             Currency currency = Currency.getInstance('EUR')
-            LocalDate today = getLocalDate(DATE_FORMAT)
+            LocalDate today = getLocalDate()
             CurrencyRatesDto expectedDto = anyCurrencyRatesDto()
             String expectedUrl = "/exchangerates/rates/c/${currency.getCurrencyCode()}/${today}"
             stubEndpoint(urlEqualTo(expectedUrl), 500)
@@ -101,7 +101,7 @@ class NBPConnectorCaseSpec extends Specification {
     def 'NBPApi retries when got 5xx status code in return and throws exception if fails'() {
         given: 'Currency date and endpoint'
             Currency currency = Currency.getInstance('EUR')
-            LocalDate today = getLocalDate(DATE_FORMAT)
+            LocalDate today = getLocalDate()
             CurrencyRatesDto expectedDto = anyCurrencyRatesDto()
             String expectedUrl = "/exchangerates/rates/c/${currency.getCurrencyCode()}/${today}"
             stubEndpoint(urlEqualTo(expectedUrl), 500, expectedDto)

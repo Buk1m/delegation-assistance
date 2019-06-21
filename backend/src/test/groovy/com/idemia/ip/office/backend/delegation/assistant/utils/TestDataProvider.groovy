@@ -26,6 +26,7 @@ import com.idemia.ip.office.backend.delegation.assistant.external.clients.nbp.dt
 import com.idemia.ip.office.backend.delegation.assistant.external.clients.nbp.dtos.RatesDto
 import com.idemia.ip.office.backend.delegation.assistant.external.clients.nbp.model.ExchangeCurrencyRate
 import com.idemia.ip.office.backend.delegation.assistant.external.clients.nbp.model.ExchangeInfo
+import com.idemia.ip.office.backend.delegation.assistant.reports.model.MealsReport
 import org.springframework.data.domain.Sort
 
 import java.time.LocalDate
@@ -68,8 +69,8 @@ class TestDataProvider {
                 .delegationObjective('Objective')
                 .destinationLocation('Radom')
                 .countryName('Poland')
-                .startDate(getLocalDateTime(DATE_TIME_FORMAT))
-                .endDate(getLocalDateTime(DATE_TIME_FORMAT).plusDays(2))
+                .startDate(getLocalDateTime())
+                .endDate(getLocalDateTime().plusDays(2))
                 .build()
     }
 
@@ -80,7 +81,7 @@ class TestDataProvider {
                 .destinationCountryId(1)
                 .diet(anyDietDto())
                 .meals(anyMealsDto())
-                .startDate(getLocalDateTime(DATE_TIME_FORMAT))
+                .startDate(getLocalDateTime())
                 .endDate(getLocalDateTimePlusYears(DATE_TIME_FORMAT, 1))
                 .build()
     }
@@ -100,7 +101,7 @@ class TestDataProvider {
                 .destinationCountry(anyCountry())
                 .diet(anyDiet())
                 .meals(anyMeals())
-                .startDate(getLocalDateTime(DATE_TIME_FORMAT))
+                .startDate(getLocalDateTime())
                 .endDate(getLocalDateTimePlusYears(DATE_TIME_FORMAT, 1))
                 .checklist(anyChecklist())
                 .build()
@@ -120,6 +121,10 @@ class TestDataProvider {
 
     static MealsDto anyMealsDto() {
         new MealsDto(breakfasts: 1, dinners: 2, lunches: 3)
+    }
+
+    static MealsReport anyMealsReport(Integer breakfasts = 1, Integer dinners = 2, Integer lunches = 2) {
+        new MealsReport(breakfasts: breakfasts, dinners: dinners, lunches: lunches)
     }
 
     static Checklist anyChecklist() {
@@ -143,10 +148,10 @@ class TestDataProvider {
     }
 
     static ExchangeInfo anyExchangeInfo() {
-        return new ExchangeInfo(currencyCode: 'EUR', exchangeDate: getLocalDate(DATE_FORMAT))
+        return new ExchangeInfo(currencyCode: 'EUR', exchangeDate: getLocalDate())
     }
 
-    static ExchangeInfo getExchangeInfo(String currencyCode = 'EUR', LocalDate exchangeDate = getLocalDate(DATE_FORMAT)) {
+    static ExchangeInfo getExchangeInfo(String currencyCode = 'EUR', LocalDate exchangeDate = getLocalDate()) {
         return new ExchangeInfo(currencyCode: currencyCode, exchangeDate: exchangeDate)
     }
 
@@ -170,14 +175,14 @@ class TestDataProvider {
     }
 
     static RatesDto anyRatesDto() {
-        new RatesDto(rate: new BigDecimal("1.2"), effectiveDate: getLocalDate(DATE_FORMAT))
+        new RatesDto(rate: new BigDecimal("1.2"), effectiveDate: getLocalDate())
     }
 
-    static LocalDate getLocalDate(DateTimeFormatter formatter) {
+    static LocalDate getLocalDate(DateTimeFormatter formatter = DATE_FORMAT) {
         LocalDate.parse(LocalDate.now().format(formatter))
     }
 
-    static LocalDateTime getLocalDateTime(DateTimeFormatter formatter) {
+    static LocalDateTime getLocalDateTime(DateTimeFormatter formatter = DATE_TIME_FORMAT) {
         LocalDateTime.parse(LocalDateTime.now().format(formatter))
     }
 
@@ -225,7 +230,7 @@ class TestDataProvider {
                 .id(1)
                 .departurePlace("Warsaw")
                 .arrivalPlace("Paris")
-                .departureDate(getLocalDateTime(DATE_TIME_FORMAT))
+                .departureDate(getLocalDateTime())
                 .arrivalDate(getLocalDateTimePlusYears(DATE_TIME_FORMAT, 1))
                 .build()
     }
@@ -234,7 +239,7 @@ class TestDataProvider {
         FlightDto.builder()
                 .departurePlace('Warsaw')
                 .arrivalPlace('Paris')
-                .departureDate(getLocalDateTime(DATE_TIME_FORMAT))
+                .departureDate(getLocalDateTime())
                 .arrivalDate(getLocalDateTimePlusYears(DATE_TIME_FORMAT, 1))
                 .build()
 
@@ -251,7 +256,7 @@ class TestDataProvider {
         return Accommodation.builder()
                 .id(1)
                 .hotelName("Gloria Hotel")
-                .checkInDate(getLocalDateTime(DATE_TIME_FORMAT))
+                .checkInDate(getLocalDateTime())
                 .checkOutDate(getLocalDateTimePlusYears(DATE_TIME_FORMAT, 1))
                 .build()
     }
@@ -259,7 +264,7 @@ class TestDataProvider {
     static AccommodationDto anyAccommodationDto() {
         AccommodationDto.builder()
                 .hotelName("Gloria Hotel")
-                .checkInDate(getLocalDateTime(DATE_TIME_FORMAT))
+                .checkInDate(getLocalDateTime())
                 .checkOutDate(getLocalDateTimePlusYears(DATE_TIME_FORMAT, 1))
                 .build()
     }

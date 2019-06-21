@@ -11,6 +11,7 @@ public final class FinanceArithmeticStandards {
 
     public static final BigDecimal SHORTEST_DAY_DIEM_PART = new BigDecimal("0.33");
     public static final BigDecimal MEDIUM_DAY_DIEM_PART = new BigDecimal("0.5");
+    public static final BigDecimal FULL_DAY_DIEM_PART = new BigDecimal("1");
 
     public static final int MONEY_FLOATING_NUMBERS = 2;
 

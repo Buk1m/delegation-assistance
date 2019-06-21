@@ -52,7 +52,8 @@ public class NBPConnectorServiceImpl implements NBPConnectorService {
                 .flatMap(cacheService::getCachedRate)
                 .flatMap(o -> o.map(Flux::just)
                         .orElseGet(() -> this.makeGetRequests(exchangeCurrencyRate)
-                                .flatMap(cacheService::addRate))
+                                .flatMap(cacheService::addRate)
+                                .onErrorResume(WebClientResponseException.class, e -> Mono.just(exchangeCurrencyRate)))
                 );
     }
 

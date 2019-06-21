@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 
 import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeConstants.HOURS_PER_DAY_INT;
-import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeHelper.longHoursDurationBetweenDays;
+import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeConstants.MILLIS_PER_DAY;
+import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeConstants.MILLIS_PER_HOUR;
+import static com.idemia.ip.office.backend.delegation.assistant.common.DateTimeHelper.durationBetweenDays;
+import static com.idemia.ip.office.backend.delegation.assistant.common.FinanceArithmeticStandards.FULL_DAY_DIEM_PART;
 import static com.idemia.ip.office.backend.delegation.assistant.common.FinanceArithmeticStandards.MEDIUM_DAY_DIEM_PART;
 import static com.idemia.ip.office.backend.delegation.assistant.common.FinanceArithmeticStandards.SHORTEST_DAY_DIEM_PART;
 import static com.idemia.ip.office.backend.delegation.assistant.common.FinanceArithmeticStandards.exchange;
@@ -37,6 +41,7 @@ public class DietProcessorServiceImpl implements DietProcessorService {
         dietReport.setPerDiem(totalDiems);
         BigDecimal exchangedDiem = exchange(dietReport.getPerDiem(), dietReport.getExchangeRate());
         dietReport.setExchangeAmount(exchangedDiem);
+        delegationReport.setDiet(dietReport);
         return delegationReport;
     }
 
@@ -109,24 +114,40 @@ public class DietProcessorServiceImpl implements DietProcessorService {
     }
 
     private BigDecimal getPerDiemPercentage(DelegationReport delegationReport) {
-        long totalHours = longHoursDurationBetweenDays(delegationReport.getStartDate(), delegationReport.getEndDate());
-        BigDecimal totalFullDays = new BigDecimal(totalHours / HOURS_PER_DAY_INT);
-        long restHours = totalHours % HOURS_PER_DAY_INT;
-        BigDecimal addition = getAdditionForPartialDay(restHours);
+        Duration duration = durationBetweenDays(delegationReport.getStartDate(), delegationReport.getEndDate());
+        BigDecimal totalFullDays = new BigDecimal(duration.toHours() / HOURS_PER_DAY_INT);
+        long restTime = getNotFullDayMillis(duration);
+        BigDecimal addition = getAdditionForPartialDay(restTime);
         BigDecimal totalPerDiem = totalFullDays.add(addition);
         return scale(totalPerDiem);
     }
 
-    private BigDecimal getAdditionForPartialDay(long restHours) {
-        BigDecimal result;
-        if (restHours < 8) {
+    private long getNotFullDayMillis(Duration duration) {
+        return duration.toMillis() % MILLIS_PER_DAY;
+    }
+
+    private BigDecimal getAdditionForPartialDay(long restTime) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (dayIsShorterThan8Hours(restTime)) {
             result = SHORTEST_DAY_DIEM_PART;
-        } else if (restHours < 12) {
+        } else if (dayIsBetween8And12Hours(restTime)) {
             result = MEDIUM_DAY_DIEM_PART;
-        } else {
-            result = HUNDRED_PERCENT;
+        } else if (dayIsLongerThan12Hours(restTime)) {
+            result = FULL_DAY_DIEM_PART;
         }
         return scale(result);
+    }
+
+    private boolean dayIsLongerThan12Hours(long restTime) {
+        return restTime >= 12 * MILLIS_PER_HOUR;
+    }
+
+    private boolean dayIsBetween8And12Hours(long restTime) {
+        return restTime < 12 * MILLIS_PER_HOUR && restTime > 0;
+    }
+
+    private boolean dayIsShorterThan8Hours(long restTime) {
+        return restTime < 8 * MILLIS_PER_HOUR && restTime > 0;
     }
 
     private BigDecimal getMealPercentage(BigDecimal mealLoss, Integer mealNumber) {

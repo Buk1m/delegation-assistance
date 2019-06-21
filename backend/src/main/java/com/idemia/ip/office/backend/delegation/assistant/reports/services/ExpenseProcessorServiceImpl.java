@@ -42,7 +42,8 @@ public class ExpenseProcessorServiceImpl implements ExpenseProcessorService {
                 .filter(e -> e.getExchangeDate().equals(previousDay(expenseReport.getExpenseDate())))
                 .filter(e -> e.getCurrencyCode().equals(expenseReport.getExpenseCurrency()))
                 .findFirst()
-                .orElseThrow();
+                .orElse(exchangeRatesProvider.defaultExchangeRate(expenseReport.getExpenseCurrency(),
+                        expenseReport.getExpenseDate()));
     }
 
     private LocalDate previousDay(LocalDate date) {

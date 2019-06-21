@@ -52,14 +52,14 @@ class DatesValidatorCaseSpec extends Specification {
 
         where:
             start                       | end                                      | validator                 | result
-            getLocalDateTime(formatter) | getLocalDateTimePlusYears(formatter, 1)  | validateDates             | true
-            getLocalDateTime(formatter) | getLocalDateTimeMinusYears(formatter, 1) | validateDates             | false
+            getLocalDateTime() | getLocalDateTimePlusYears(formatter, 1)  | validateDates             | true
+            getLocalDateTime() | getLocalDateTimeMinusYears(formatter, 1) | validateDates             | false
             null                        | null                                     | validateDates             | false
             null                        | getLocalDateTime(formatter)              | validateDates             | false
-            getLocalDateTime(formatter) | null                                     | validateDates             | false
-            getLocalDateTime(formatter) | getLocalDateTimePlusYears(formatter, 1)  | invalidValidateDatesStart | false
-            getLocalDateTime(formatter) | getLocalDateTimePlusYears(formatter, 1)  | invalidValidateDatesEnd   | false
-            getLocalDateTime(formatter) | getLocalDateTimePlusYears(formatter, 1)  | invalidValidateDatesBoth  | false
+            getLocalDateTime() | null                                     | validateDates             | false
+            getLocalDateTime() | getLocalDateTimePlusYears(formatter, 1)  | invalidValidateDatesStart | false
+            getLocalDateTime() | getLocalDateTimePlusYears(formatter, 1)  | invalidValidateDatesEnd   | false
+            getLocalDateTime() | getLocalDateTimePlusYears(formatter, 1)  | invalidValidateDatesBoth  | false
     }
 
     class ObjectWithDates {

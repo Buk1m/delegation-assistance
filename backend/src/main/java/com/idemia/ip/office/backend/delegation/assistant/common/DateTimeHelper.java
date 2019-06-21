@@ -13,6 +13,10 @@ public final class DateTimeHelper {
         return Duration.between(startDate, endDate).toHours();
     }
 
+    public static Duration durationBetweenDays(LocalDateTime startDate, LocalDateTime endDate) {
+        return Duration.between(startDate, endDate);
+    }
+
     public static BigDecimal hoursDurationBetweenDays(LocalDateTime startDate, LocalDateTime endDate) {
         return new BigDecimal(longHoursDurationBetweenDays(startDate, endDate));
     }

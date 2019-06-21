@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -28,5 +29,10 @@ public class DietReport {
 
     public void setCurrency(String targetCurrency) {
         this.currency = Currency.getInstance(targetCurrency);
+    }
+
+    public BigDecimal getExchangeRate() {
+        return Optional.ofNullable(exchangeRate)
+                .orElse(BigDecimal.ZERO);
     }
 }

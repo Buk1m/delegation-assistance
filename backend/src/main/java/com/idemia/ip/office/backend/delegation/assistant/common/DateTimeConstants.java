@@ -2,6 +2,7 @@ package com.idemia.ip.office.backend.delegation.assistant.common;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 
 public interface DateTimeConstants {
 
@@ -18,5 +19,7 @@ public interface DateTimeConstants {
     DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern(TIME_FORMAT_STRING);
 
     Integer HOURS_PER_DAY_INT = 24;
+    Long MILLIS_PER_DAY = TimeUnit.DAYS.toMillis(1L);
+    Long MILLIS_PER_HOUR = TimeUnit.HOURS.toMillis(1L);
     BigDecimal HOURS_PER_DAY = new BigDecimal(HOURS_PER_DAY_INT);
 }

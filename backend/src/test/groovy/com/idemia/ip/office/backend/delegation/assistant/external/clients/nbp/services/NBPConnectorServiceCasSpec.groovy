@@ -85,7 +85,7 @@ class NBPConnectorServiceCasSpec extends Specification {
     def 'Should back in time if wont find exchange'() {
         given: 'ExchangeInfos'
             List<ExchangeInfo> exchanges = [anyExchangeInfo()]
-            LocalDate today = getLocalDate(DATE_FORMAT)
+            LocalDate today = getLocalDate()
             int retries = 0
 
         when: 'User tries to get ExchangeCurrencyRates in wrong date'
@@ -111,16 +111,18 @@ class NBPConnectorServiceCasSpec extends Specification {
             1 * cacheService.addRate(_ as ExchangeCurrencyRate)
     }
 
-    def 'Should throw exception if can not find any exchange rate'() {
+    def 'Should return default if can not find any exchange rate'() {
         given: 'ExchangeInfos'
             List<ExchangeInfo> exchanges = [anyExchangeInfo()]
-            LocalDate today = getLocalDate(DATE_FORMAT)
+            LocalDate today = getLocalDate()
             int retries = 0
 
         when: 'User tries to get ExchangeCurrencyRates in wrong date'
-            nbpApiService.getExchangeRatesForCurrencies(exchanges).block()
+            Set<ExchangeCurrencyRate> result =  nbpApiService.getExchangeRatesForCurrencies(exchanges).block()
 
         then: 'Service tries to get from previous dates'
+            result.stream().allMatch{ e -> e.rate == BigDecimal.ZERO && e.effectiveDate == null}
+
             4 * nbpConnector.getCurrencyRates(_ as Currency, _ as LocalDate) >> { Currency currency, LocalDate date ->
                 date == today.plusDays(-retries)
                 retries++
@@ -132,15 +134,13 @@ class NBPConnectorServiceCasSpec extends Specification {
             4 * nbpApiServiceProperties.getMaxDaysBack() >> 3
 
             0 * cacheService.addRate(_ as ExchangeCurrencyRate)
-
-            thrown(WebClientResponseException)
     }
 
 
     private static List<ExchangeInfo> anyExchangeInfoList() {
         [anyExchangeInfo(),
          getExchangeInfo('USD'),
-         getExchangeInfo('EUR', getLocalDate(DATE_FORMAT).plusDays(1)),
+         getExchangeInfo('EUR', getLocalDate().plusDays(1)),
          getExchangeInfo()]
     }
 

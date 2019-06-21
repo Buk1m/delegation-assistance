@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +32,12 @@ public class ExchangeRatesProviderImpl implements ExchangeRatesProvider {
         return nbpConnectorService.getExchangeRatesForCurrencies(Collections.singletonList(exchangeInfo))
                 .map(set -> set.stream()
                         .findFirst()
-                        .orElse(new ExchangeCurrencyRate(diet.getCurrency(), yesterday())));
+                        .orElse(defaultExchangeRate(diet.getCurrency(), yesterday())));
+    }
+
+    @Override
+    public ExchangeCurrencyRate defaultExchangeRate(String currency, LocalDate exchangeDate) {
+        return new ExchangeCurrencyRate(currency, exchangeDate);
     }
 
     private LocalDate yesterday() {

@@ -5,6 +5,7 @@ import com.idemia.ip.office.backend.delegation.assistant.reports.model.DietRepor
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.ExpenseReport;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -13,4 +14,6 @@ public interface ExchangeRatesProvider {
     Mono<Set<ExchangeCurrencyRate>> getExpensesExchangeRates(List<ExpenseReport> expenseReports);
 
     Mono<ExchangeCurrencyRate> getDiemExchange(DietReport diet);
+
+    ExchangeCurrencyRate defaultExchangeRate(String currency, LocalDate exchangeDate);
 }

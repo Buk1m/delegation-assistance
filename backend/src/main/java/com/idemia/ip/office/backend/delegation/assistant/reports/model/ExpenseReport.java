@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Currency;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -48,5 +49,10 @@ public class ExpenseReport {
 
     public void setTargetCurrency(String targetCurrency) {
         this.targetCurrency = Currency.getInstance(targetCurrency);
+    }
+
+    public BigDecimal getExchangeRate() {
+        return Optional.ofNullable(exchangeRate)
+                .orElse(BigDecimal.ZERO);
     }
 }

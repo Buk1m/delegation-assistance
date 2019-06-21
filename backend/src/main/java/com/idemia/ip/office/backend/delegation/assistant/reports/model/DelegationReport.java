@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -64,5 +65,10 @@ public class DelegationReport extends BaseDto {
 
     public void setTargetCurrency(String targetCurrency) {
         this.targetCurrency = Currency.getInstance(targetCurrency);
+    }
+
+    public BigDecimal getAdvancePayment() {
+        return Optional.ofNullable(advancePayment)
+                .orElse(BigDecimal.ZERO);
     }
 }
