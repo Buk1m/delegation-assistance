@@ -33,7 +33,7 @@ const addExpense = (
 
 const fetchExpenses = (
   delegationId,
-  { page = 1, sizePerPage = 10, sortOrder = "desc", sortField = "id" }
+  { page = 1, sizePerPage = 10, sortOrder = "desc", sortField = "expenseDate" }
 ) => dispatch =>
   dispatch(
     APIService.get(ACTIONS.GET_EXPENSES, {

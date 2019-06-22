@@ -28,7 +28,6 @@ const expenseReducer = (state = initialState, action) => {
     case `${ACTIONS.ADD_EXPENSE}_${FULFILLED}`:
       return {
         ...state,
-        expenses: [...state.expenses, action.payload.data],
         fetching: false
       };
 

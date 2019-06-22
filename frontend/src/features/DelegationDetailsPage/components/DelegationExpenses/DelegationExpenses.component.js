@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { array, bool, func, number } from "prop-types";
+import { array, bool, func, number, string } from "prop-types";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
@@ -9,7 +9,17 @@ import Spinner from "../../../../components/Spinner/Spinner.component";
 import Button from "../../../../components/Button/Button.component";
 import expensesColumns from "../../../../config/tableColumns/delegations/expenses.columns";
 
-const DelegationExpenses = ({ expenses, fetching, delegationId, totalSize, onTableChange, page, sizePerPage }) => {
+const DelegationExpenses = ({
+  expenses,
+  fetching,
+  delegationId,
+  totalSize,
+  onTableChange,
+  page,
+  sizePerPage,
+  sortOrder,
+  sortField
+}) => {
   return (
     <Fragment>
       <BootstrapTable
@@ -22,13 +32,26 @@ const DelegationExpenses = ({ expenses, fetching, delegationId, totalSize, onTab
         noDataIndication={() => (totalSize === 0 ? <p>No expenses, add a new one!</p> : <Spinner />)}
         loading={fetching}
         keyField="id"
+        defaultSorted={[
+          {
+            dataField: sortField,
+            order: sortOrder
+          }
+        ]}
         expandRow={ExpandRow(delegationId)}
         onTableChange={onTableChange}
         pagination={paginationFactory({ page, sizePerPage, totalSize })}
       />
       <div className="d-flex justify-content-end">
         <Button data-toggle="modal" data-target="#addExpenseModal" text="Add expense" />
-        <ExpensesModalForm delegationId={delegationId} />
+        <ExpensesModalForm
+          delegationId={delegationId}
+          onTableChange={onTableChange}
+          page={page}
+          sizePerPage={sizePerPage}
+          sortOrder={sortOrder}
+          sortField={sortField}
+        />
       </div>
     </Fragment>
   );
@@ -41,6 +64,8 @@ DelegationExpenses.propTypes = {
   onTableChange: func,
   page: number,
   sizePerPage: number,
+  sortField: string,
+  sortOrder: string,
   totalSize: number
 };
 

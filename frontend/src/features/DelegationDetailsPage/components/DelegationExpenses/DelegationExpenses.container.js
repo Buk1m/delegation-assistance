@@ -17,7 +17,9 @@ class DelegationExpensesContainer extends Component {
 
   state = {
     page: 1,
-    sizePerPage: 10
+    sizePerPage: 10,
+    sortOrder: "desc",
+    sortField: "expenseDate"
   };
 
   componentDidMount() {
@@ -38,7 +40,9 @@ class DelegationExpensesContainer extends Component {
           .then(() =>
             this.setState({
               page: page,
-              sizePerPage: sizePerPage
+              sizePerPage: sizePerPage,
+              sortOrder: sortOrder,
+              sortField: sortField
             })
           );
         break;
@@ -56,6 +60,8 @@ class DelegationExpensesContainer extends Component {
         totalSize={this.props.totalSize}
         page={this.state.page}
         sizePerPage={this.state.sizePerPage}
+        sortOrder={this.state.sortOrder}
+        sortField={this.state.sortField}
       />
     );
   }
