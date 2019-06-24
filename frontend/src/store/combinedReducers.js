@@ -5,6 +5,7 @@ import accommodationsReducer from "../reducers/accommodations.reducer";
 import checklistsReducer from "../reducers/checklists.reducer";
 import checklistTemplateReducer from "../reducers/checklistTemplate.reducer";
 import countriesReducer from "../reducers/countries.reducer";
+import countryReducer from "../reducers/country.reducer";
 import delegationChecklistReducer from "../reducers/delegationChecklist.reducer";
 import delegationsReducer from "../reducers/delegations.reducer";
 import expensesReducer from "../reducers/expenses.reducer";
@@ -18,6 +19,7 @@ const combinedReducers = combineReducers({
   checklists: checklistsReducer,
   checklistTemplate: checklistTemplateReducer,
   countries: countriesReducer,
+  country: countryReducer,
   delegationChecklist: delegationChecklistReducer,
   delegations: delegationsReducer,
   expenses: expensesReducer,

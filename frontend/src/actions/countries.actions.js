@@ -5,9 +5,8 @@ export const ACTIONS = {
 };
 
 const fetchCountries = () => (dispatch, getState) => {
+  // Fetching only when coutries collection is empty in redux store.
   const countries = getState().countries.countries;
-
-  //fetching only when coutries collection is empty in redux store
   if (countries.length === 0) {
     return dispatch(
       APIService.get(ACTIONS.FETCH_COUNTRIES, {
@@ -19,6 +18,7 @@ const fetchCountries = () => (dispatch, getState) => {
       })
     );
   }
+  return Promise.resolve();
 };
 
 export { fetchCountries };

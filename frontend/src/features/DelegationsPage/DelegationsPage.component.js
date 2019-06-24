@@ -1,40 +1,46 @@
 import React, { Fragment } from "react";
-import { bool } from "prop-types";
+import { array, bool } from "prop-types";
 
 import LayoutMain from "../../components/layouts/LayoutMain";
-import Card from "../../components/Card/Card.component";
+import LastDelegation from "./components/LastDelegation";
 import ButtonLink from "../../components/ButtonLink/ButtonLink.component";
 
-const DelegationsPage = props => {
-  const { isManager, isEmployee } = props;
+import RejectedDelegations from "./components/RejectedDelegations/RejectedDelegations.component";
+import WaitingDelegations from "./components/WaitingDelegations/WaitingDelegations.component";
+
+const DelegationsPage = ({ isEmployee, fetching, delegations, rejectedDelegations, waitingDelegations }) => {
   return (
-    <LayoutMain title="Delegations dashboard">
-      <Fragment>
-        <Card title="Statistics">
-          {isManager ? (
-            <div>
-              <ButtonLink href="/delegations/manage" text="Manage delegations" />
-            </div>
-          ) : null}
-          {isEmployee ? (
-            <Fragment>
-              <div>
-                <ButtonLink href="/delegations/my" text="My delegations" />
-              </div>
-              <div>
-                <ButtonLink href="/delegations/create" text="Create delegation" />
-              </div>
-            </Fragment>
-          ) : null}
-        </Card>
-      </Fragment>
+    <LayoutMain title="My dashboard">
+      {isEmployee ? (
+        <div className="dashboard-employee">
+          <LastDelegation delegations={delegations} />
+          <RejectedDelegations fetching={fetching} delegations={rejectedDelegations} />
+          <WaitingDelegations fetching={fetching} delegations={waitingDelegations} />
+          <div className="dashboard-e-buttons-wrapper">
+            <ButtonLink href="/delegations/create" text="Create delegation" />
+            <ButtonLink href="/checklist" text="Check countries" className="secondary" />
+          </div>
+        </div>
+      ) : (
+        <Fragment>
+          <ButtonLink href="/delegations/manage" text="Manage delegations" />
+        </Fragment>
+      )}
     </LayoutMain>
   );
 };
 
+DelegationsPage.defaultProps = {
+  rejectedDelegations: [],
+  waitingDelegations: []
+};
+
 DelegationsPage.propTypes = {
-  isManager: bool,
-  isEmployee: bool
+  delegations: array,
+  fetching: bool,
+  isEmployee: bool,
+  rejectedDelegations: array,
+  waitingDelegations: array
 };
 
 export default DelegationsPage;

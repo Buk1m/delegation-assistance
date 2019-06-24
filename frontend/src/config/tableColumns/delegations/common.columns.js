@@ -4,7 +4,6 @@ import { formatColumnDate } from "../../../helpers/formatters";
 const columns = [
   {
     dataField: "id",
-    text: "User ID",
     hidden: true
   },
   {

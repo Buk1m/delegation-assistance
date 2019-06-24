@@ -1,23 +1,32 @@
 import React from "react";
-import { string, func } from "prop-types";
+import { object, string, func, number } from "prop-types";
 import { Link } from "react-router-dom";
+import Icon from "react-icons-kit";
 
 import styles from "./ButtonLink.module.scss";
 
 const ButtonLink = props => {
-  const { href, text, className = "primary", onClick } = props;
+  const { href, text, icon, iconSize, onClick, className } = props;
   return (
     <Link onClick={onClick} to={href} className={styles[className] ? styles[className] : styles.primary}>
+      {icon ? <Icon icon={icon} size={iconSize} /> : null}
       <span>{text}</span>
     </Link>
   );
 };
 
+ButtonLink.defaultProps = {
+  iconSize: 20,
+  className: "primary"
+};
+
 ButtonLink.propTypes = {
-  text: string.isRequired,
+  className: string,
   href: string.isRequired,
+  icon: object,
+  iconSize: number,
   onClick: func,
-  className: string
+  text: string.isRequired
 };
 
 export default ButtonLink;

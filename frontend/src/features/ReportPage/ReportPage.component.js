@@ -28,7 +28,7 @@ const tableLayout = fetching => ({
   hover: true,
   condensed: true,
   bordered: false,
-  noDataIndication: fetching ? <Spinner /> : "No data"
+  noDataIndication: () => (fetching ? <Spinner /> : "No data")
 });
 
 const ReportPage = ({

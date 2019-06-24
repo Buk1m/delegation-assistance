@@ -12,7 +12,7 @@ const MenuNavigation = ({ loggedStatus, roleActive }) => {
       {navigationItems.map((navItem, index) => (
         <div className={styles["dropdown-menu"]} key={navItem.text}>
           <button
-            className={styles["usernav-toogle"]}
+            className={styles["item-toogle"]}
             type="button"
             id={"nav-item-" + index}
             data-toggle="dropdown"

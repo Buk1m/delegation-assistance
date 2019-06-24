@@ -1,27 +1,63 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bool } from "prop-types";
+import { array, bool, func } from "prop-types";
 
 import DelegationsPage from "./DelegationsPage.component";
-import { isUserTravelmanager, isUserEmployee } from "../../selectors/user.selectors";
+import { isUserEmployee } from "../../selectors/user.selectors";
+import { fetchMyDelegations, fetchDelegations } from "../../actions/delegations.actions";
+import {
+  getDelegations,
+  getRejectedDelegations,
+  getWaitingDelegations,
+  getDelegationFetching
+} from "../../selectors/delegations.selectors";
 
 class DelegationsPageContainer extends Component {
   static propTypes = {
-    isManager: bool,
-    isEmployee: bool
+    delegations: array,
+    fetchDelegations: func,
+    fetchMyDelegations: func,
+    fetching: bool,
+    isEmployee: bool,
+    rejectedDelegations: array,
+    waitingDelegations: array
   };
 
+  componentDidMount() {
+    if (this.props.isEmployee) {
+      this.props.fetchMyDelegations();
+    } else {
+      this.props.fetchDelegations();
+    }
+  }
+
   render() {
-    return <DelegationsPage isManager={this.props.isManager} isEmployee={this.props.isEmployee} />;
+    return (
+      <DelegationsPage
+        isEmployee={this.props.isEmployee}
+        fetching={this.props.fetching}
+        delegations={this.props.delegations}
+        rejectedDelegations={this.props.rejectedDelegations}
+        waitingDelegations={this.props.waitingDelegations}
+      />
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  isManager: isUserTravelmanager(state),
-  isEmployee: isUserEmployee(state)
+  isEmployee: isUserEmployee(state),
+  fetching: getDelegationFetching(state),
+  delegations: getDelegations(state),
+  rejectedDelegations: getRejectedDelegations(state),
+  waitingDelegations: getWaitingDelegations(state)
 });
+
+const mapDispatchToProps = {
+  fetchDelegations,
+  fetchMyDelegations
+};
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(DelegationsPageContainer);

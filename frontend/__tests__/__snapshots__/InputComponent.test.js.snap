@@ -14,10 +14,7 @@ exports[`Input Component should render Input correctly 1`] = `
       className="input"
       component={[Function]}
       id="input_testName"
-      label=""
       name="testName"
-      type="text"
-      validate={null}
     />
   </div>
 </div>

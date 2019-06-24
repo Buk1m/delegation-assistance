@@ -3,6 +3,7 @@ import { PENDING, FULFILLED, REJECTED } from "../middleware";
 
 const initialState = {
   countries: [],
+  countriesTypeahead: [],
   fetchingCountries: false
 };
 
@@ -37,8 +38,6 @@ const countriesReducer = (state = initialState, action) => {
 };
 
 const mapCountriesToTypeaheadItems = countries =>
-  countries.map(country => {
-    return { label: country.countryName, value: country.id };
-  });
+  countries.map(country => ({ label: country.countryName, value: country.id }));
 
 export default countriesReducer;

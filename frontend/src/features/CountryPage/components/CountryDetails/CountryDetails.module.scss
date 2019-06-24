@@ -1,0 +1,49 @@
+.details-wrapper {
+  color: #444;
+  font-size: 1.125rem;
+
+  .title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 7px;
+    display: inline-block;
+  }
+
+  .location i {
+    color: var(--yellow);
+  }
+  .country i {
+    color: var(--orange);
+  }
+  .calling-codes i {
+    color: var(--green);
+  }
+  .timezones i {
+    color: var(--blue);
+  }
+  .currencies {
+    i {
+      color: var(--purple);
+    }
+  }
+
+  .list {
+    padding: 0 0 0 22px;
+    margin: -25px 0 0;
+    list-style-type: none;
+  }
+
+  & > div {
+    margin: 2px 0;
+
+    & > i {
+      margin-right: 5px;
+      line-height: 14px;
+    }
+
+    & > span {
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+}

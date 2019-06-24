@@ -2,12 +2,13 @@
 
 exports[`Delegations Page should render correctly 1`] = `
 <Connect(LayoutMainContainer)
-  title="Delegations dashboard"
+  title="My dashboard"
 >
-  <Card
-    classes=""
-    number={0}
-    title="Statistics"
+  <ButtonLink
+    className="primary"
+    href="/delegations/manage"
+    iconSize={20}
+    text="Manage delegations"
   />
 </Connect(LayoutMainContainer)>
 `;

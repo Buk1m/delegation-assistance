@@ -4,20 +4,34 @@ import { string, bool, object } from "prop-types";
 import ValidationError from "../../ValidationError/ValidationError.component";
 import styles from "./RenderInput.module.scss";
 
-const RenderInput = ({ input, label, type, disabled, className, meta: { touched, error, warning }, ...rest }) => {
+const RenderInput = ({
+  input: { value, onChange, name, ...restInput },
+  label,
+  type,
+  disabled,
+  className,
+  meta: { touched, error, warning },
+  ...rest
+}) => {
   return (
     <div className={styles["render-field"]}>
       <input
-        {...input}
+        {...restInput}
+        value={value}
+        onChange={onChange}
         disabled={disabled}
         className={[styles[className], [touched && error ? styles["invalid"] : ""]].join(" ")}
         placeholder={label}
         type={type}
         {...rest}
       />
-      <ValidationError touched={touched} error={error} warning={warning} name={input.name} />
+      <ValidationError touched={touched} error={error} warning={warning} name={name} />
     </div>
   );
+};
+
+RenderInput.defaultProps = {
+  type: "text"
 };
 
 RenderInput.propTypes = {

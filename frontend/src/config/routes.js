@@ -11,6 +11,7 @@ import ChecklistsPage from "../features/ChecklistsPage/";
 import ChecklistGlobalTemplatePage from "../features/ChecklistGlobalTemplatePage";
 import ProfilePage from "../features/ProfilePage/";
 import SettingsPage from "../features/SettingsPage/";
+import CountryPage from "../features/CountryPage/";
 import ErrorPage from "../features/_ErrorPage/ErrorPage.component";
 
 const { accountant, approver, employee, travelmanager } = userRoles;
@@ -25,6 +26,7 @@ const routes = [
   { path: "/delegations/:delegationId/report", component: ReportPage },
   { path: "/checklist", component: ChecklistsPage },
   { path: "/checklist/global-template", component: ChecklistGlobalTemplatePage, canAccess: [travelmanager] },
+  { path: "/checklist/:countryCode", component: CountryPage },
   { path: "/profile", component: ProfilePage },
   { path: "/profile/settings", component: SettingsPage },
   { path: "*", component: ErrorPage }

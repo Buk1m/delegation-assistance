@@ -1,6 +1,27 @@
+import { delegationStatusCodes } from "../config";
+const { PREPARED, NEEDS_WORK, CHECKED, APPROVED } = delegationStatusCodes;
+
 const getDelegations = state => state.delegations.delegations;
 const getDelegation = state => state.delegations.delegation;
 const getDelegationFetching = state => state.delegations.fetching;
+const getRejectedDelegations = state => {
+  const rejected = [];
+  state.delegations.delegations.forEach(delegation => {
+    if (delegation.status === NEEDS_WORK) {
+      rejected.push(delegation);
+    }
+  });
+  return rejected;
+};
+const getWaitingDelegations = state => {
+  const waiting = [];
+  state.delegations.delegations.forEach(delegation => {
+    if (delegation.status === PREPARED || delegation.status === CHECKED || delegation.status === APPROVED) {
+      waiting.push(delegation);
+    }
+  });
+  return waiting;
+};
 const getFormatedDelegation = state => {
   const dateFormatOptions = {
     year: "numeric",
@@ -29,4 +50,12 @@ const getDelegationObject = state => {
     : {};
 };
 
-export { getDelegations, getDelegation, getDelegationObject, getFormatedDelegation, getDelegationFetching };
+export {
+  getDelegations,
+  getDelegation,
+  getDelegationObject,
+  getFormatedDelegation,
+  getDelegationFetching,
+  getRejectedDelegations,
+  getWaitingDelegations
+};

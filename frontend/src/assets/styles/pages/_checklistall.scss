@@ -1,0 +1,77 @@
+.checklist-wrapper {
+  & > hr {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+.checklist-countries {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px;
+  margin: 40px 20px 20px;
+  text-align: left;
+}
+
+.checklist-country {
+  display: flex;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 20px 12px;
+  font-weight: 500;
+  line-height: 20px;
+  font-size: 1.125rem;
+  transition: 0.2s;
+  cursor: pointer;
+  color: var(--c);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    color: var(--c);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  &-flag {
+    height: 20px;
+    margin-right: 15px;
+  }
+}
+
+.checklist-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > img {
+    max-height: 400px;
+  }
+}
+
+.checklist-search #input_search {
+  max-width: 700px;
+  height: 50px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16);
+  margin: 30px auto 50px;
+  padding: 0.5rem 1.25rem;
+}
+
+@media #{$fulldesktop} {
+  .checklist-countries {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media #{$mobile} {
+  .checklist-countries {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media #{$small} {
+  .checklist-countries {
+    grid-template-columns: 1fr;
+  }
+}

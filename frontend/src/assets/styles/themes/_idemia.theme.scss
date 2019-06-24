@@ -3,6 +3,7 @@
 body[data-theme="idemia"] {
   --bg: #fff;
   --c: #000;
+  --primary: #{$primary-color};
 
   --header-bg: #fff;
   --header-toggle-brdc: #000;

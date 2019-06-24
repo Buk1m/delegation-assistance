@@ -27,6 +27,15 @@ const formatISODate = date => {
   return formatter.format(new Date(date));
 };
 
+const formatISODateWithoutTime = date => {
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric"
+  });
+  return formatter.format(new Date(date));
+};
+
 const formatToISO = date => new Date(date).toISOString().split(".")[0];
 
 const formatISODateToDelegationDate = date => moment(new Date(date)).format("YYYY-MM-DD");
@@ -46,6 +55,7 @@ const formatDelegationDate = date => {
 export {
   formatColumnDate,
   formatISODate,
+  formatISODateWithoutTime,
   formatISODateToDelegationDate,
   formatDelegationDate,
   formatFilenameDate,

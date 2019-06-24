@@ -40,7 +40,7 @@ const DelegationDetailsPage = props => {
         <Card className="delegation-details" title="Delegation details:">
           <DelegationDetails delegationId={delegationId} />
         </Card>
-        <div className="tabs">
+        <div className="tabs" id="delegation-panels">
           <Card>
             <Tabs forceRenderTabPanel={true}>
               <TabList>

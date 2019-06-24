@@ -20,17 +20,7 @@ const components = {
   typeahead: RenderTypeahead
 };
 
-const Input = props => {
-  const {
-    name,
-    type = "text",
-    component = "input",
-    label = "",
-    placeholder = "",
-    validate = null,
-    classes = "",
-    ...rest
-  } = props;
+const Input = ({ name, component, label, placeholder, validate, classes, ...rest }) => {
   return (
     <div className={[styles.field, classes].join(" ")}>
       <div className={styles.label}>
@@ -44,7 +34,6 @@ const Input = props => {
           id={"input_" + name}
           className={"input"}
           name={name}
-          type={type}
           validate={validate}
           label={placeholder}
           component={components[component] || RenderInput}
@@ -52,6 +41,10 @@ const Input = props => {
       </div>
     </div>
   );
+};
+
+Input.defaultProps = {
+  component: "input"
 };
 
 Input.propTypes = {

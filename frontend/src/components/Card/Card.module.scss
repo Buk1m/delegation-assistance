@@ -31,6 +31,18 @@
   outline: none;
 }
 
+.db-card-footer {
+  border-top: 1px solid #ddd;
+  background-color: var(--card-header-bg);
+  border-bottom: 1px solid var(--card-header-brdc);
+  color: var(--card-header-c);
+  padding: 0.75rem 1.25rem;
+  margin-top: 0;
+  font-size: 1em;
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media #{$mobile} {
   .db-card-content {
     padding: 0.75rem;

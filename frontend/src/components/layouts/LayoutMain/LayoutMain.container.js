@@ -14,9 +14,22 @@ export class LayoutMainContainer extends Component {
     title: string
   };
 
-  componentDidMount() {
-    document.title = this.props.title ? this.props.title + " | Delegation Assistant" : "Delegation Assistant";
+  constructor(props) {
+    super(props);
+
+    this._setDocumentTitle(this.props.title);
   }
+
+  componentDidUpdate = () => {
+    if (this.docTitle !== this.props.title) {
+      this._setDocumentTitle(this.props.title);
+    }
+  };
+
+  _setDocumentTitle = title => {
+    this.docTitle = title;
+    document.title = this.docTitle ? this.docTitle + " | Delegation Assistant" : "Delegation Assistant";
+  };
 
   render() {
     return (
