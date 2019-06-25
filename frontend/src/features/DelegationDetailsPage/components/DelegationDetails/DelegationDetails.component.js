@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { object, bool, number } from "prop-types";
+import { object, bool, number, func, string } from "prop-types";
 
 import Row from "../../../../components/Row/Row.component";
 import Button from "../../../../components/Button/Button.component";
@@ -10,6 +10,8 @@ const DelegationDetails = props => {
     delegation: { destinationCountry, destinationLocation, status, startDate, endDate, delegationObjective, diet },
     fetching,
     delegationId,
+    changeEditingMeal,
+    editingMealLabel,
     edit = true
   } = props;
   return (
@@ -42,13 +44,28 @@ const DelegationDetails = props => {
           {diet && diet.perDiem + " " + diet.currency}
         </Row>
         <Row loading={fetching} label="Breakfasts:">
-          <DelegationChangeMealsAmount mealType="breakfasts" delegationId={delegationId} />
+          <DelegationChangeMealsAmount
+            mealType="breakfasts"
+            delegationId={delegationId}
+            changeEditingMeal={changeEditingMeal}
+            editingMealLabel={editingMealLabel}
+          />
         </Row>
         <Row loading={fetching} label="Lunches:">
-          <DelegationChangeMealsAmount mealType="lunches" delegationId={delegationId} />
+          <DelegationChangeMealsAmount
+            mealType="lunches"
+            delegationId={delegationId}
+            changeEditingMeal={changeEditingMeal}
+            editingMealLabel={editingMealLabel}
+          />
         </Row>
         <Row loading={fetching} label="Dinners:">
-          <DelegationChangeMealsAmount mealType="dinners" delegationId={delegationId} />
+          <DelegationChangeMealsAmount
+            mealType="dinners"
+            delegationId={delegationId}
+            changeEditingMeal={changeEditingMeal}
+            editingMealLabel={editingMealLabel}
+          />
         </Row>
       </div>
     </Fragment>
@@ -56,9 +73,11 @@ const DelegationDetails = props => {
 };
 
 DelegationDetails.propTypes = {
+  changeEditingMeal: func,
   delegation: object,
   delegationId: number,
   edit: bool,
+  editingMealLabel: string,
   fetching: bool
 };
 

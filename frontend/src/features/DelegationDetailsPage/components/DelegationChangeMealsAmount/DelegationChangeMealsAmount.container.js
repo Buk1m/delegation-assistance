@@ -12,9 +12,11 @@ import { updateDelegationMeals } from "../../../../actions/delegations.actions";
 
 export class DelegationChangeMealsAmountContainer extends Component {
   static propTypes = {
+    changeEditingMeal: func,
     delegation: object,
     delegationId: number,
     delegationUnformatted: object,
+    editingMealLabel: string,
     mealType: string,
     updateDelegationMeals: func
   };
@@ -55,6 +57,7 @@ export class DelegationChangeMealsAmountContainer extends Component {
   };
 
   handleChangeMealsAmount = async (label, signOperation) => {
+    this.props.changeEditingMeal(this.props.mealType);
     await this.updateMeals();
     const copyOfCopyMeals = { ...this.state.copyMeals };
     const mealsNo = this.state.copyMeals[label];
@@ -96,6 +99,7 @@ export class DelegationChangeMealsAmountContainer extends Component {
       });
       this.changeFetchingState("");
     }
+    this.props.changeEditingMeal(undefined);
   };
 
   handleOnBlurTyping = async (event, label) => {
@@ -108,12 +112,17 @@ export class DelegationChangeMealsAmountContainer extends Component {
     this.delayedHandleChangeMealsAmount(label);
   };
 
-  isDisabledPlus = (mealsAmount, maxMealsAmount) => {
-    return mealsAmount >= maxMealsAmount;
+  isDisabledPlus = mealsAmount => {
+    return (
+      mealsAmount >= this.delegationDiffDays ||
+      (this.props.editingMealLabel && this.props.editingMealLabel !== this.props.mealType)
+    );
   };
 
   isDisabledMinus = mealsAmount => {
-    return mealsAmount <= 0;
+    return (
+      mealsAmount <= 0 || (this.props.editingMealLabel && this.props.editingMealLabel !== this.props.mealType)
+    );
   };
 
   render() {
@@ -123,11 +132,9 @@ export class DelegationChangeMealsAmountContainer extends Component {
     );
 
     this.delegationDiffDays = diffDays;
-
     return (
       <DelegationChangeMealsAmount
         mealAmount={this.state.copyMeals[this.props.mealType]}
-        maxMealsAmount={this.delegationDiffDays}
         mealType={this.props.mealType}
         fetchingMeals={this.fetchingMeals}
         editingMeal={this.editingMeal}

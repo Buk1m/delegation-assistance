@@ -9,7 +9,6 @@ import spinnerStyle from "../../../../components/Spinner/Spinner.module.scss";
 
 const DelegationChangeMealsAmount = ({
   mealAmount,
-  maxMealsAmount,
   mealType,
   fetchingMeals,
   editingMeal,
@@ -40,7 +39,7 @@ const DelegationChangeMealsAmount = ({
             className="increment"
             text="+"
             onClick={e => onClick(mealType, "+")}
-            disabled={isDisabledPlus(mealAmount, maxMealsAmount)}
+            disabled={isDisabledPlus(mealAmount)}
           />
           {fetchingMeals && editingMeal === mealType ? <Spinner className={spinnerStyle["spinner-inline"]} /> : null}
         </div>
@@ -56,7 +55,6 @@ DelegationChangeMealsAmount.propTypes = {
   handleOnChangeTyping: func,
   isDisabledMinus: func,
   isDisabledPlus: func,
-  maxMealsAmount: number,
   mealAmount: number,
   mealType: string.isRequired,
   onClick: func

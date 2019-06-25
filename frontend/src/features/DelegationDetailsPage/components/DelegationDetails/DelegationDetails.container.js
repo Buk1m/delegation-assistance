@@ -17,6 +17,13 @@ class DelegationDetailsContainer extends Component {
     history: object
   };
 
+  state = {
+    editingMealLabel: undefined
+  };
+
+  changeEditingMeal = label => {
+    this.setState({ editingMealLabel: label });
+  };
   _redirectToDelegationsPage = () => this.props.history.push("/delegations");
 
   componentDidMount = () => {
@@ -50,6 +57,8 @@ class DelegationDetailsContainer extends Component {
         initialValues={this.props.delegation}
         fetching={this.props.fetching}
         delegationId={this.props.delegationId}
+        changeEditingMeal={this.changeEditingMeal}
+        editingMealLabel={this.state.editingMealLabel}
       />
     );
   }
