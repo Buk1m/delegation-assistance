@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { array, bool, func, number, object, string } from "prop-types";
 import { toast } from "react-toastify";
+import { toNumber, isFinite } from "lodash";
 
 import ReportPage from "./ReportPage.component";
 import { fetchReport, downloadReport } from "../../actions/report.actions";
-import { updateDelegationStatus } from "../../actions/delegations.actions";
 import {
   getReportFetching,
   getReportFlights,
@@ -22,11 +22,10 @@ import {
   getReportDuration,
   getReportPlace,
   getReportDelegationStatus,
-  getReportDelegationVersion
+  getReportDelegationVersion,
+  getReportUser
 } from "../../selectors/report.selectors";
 import { downloadFileFromResponse } from "../../helpers";
-import { delegationStatusCodes } from "../../config";
-import { confirmationModal } from "../../helpers/confirmationModal";
 
 export class ReportPageContainer extends Component {
   static propTypes = {
@@ -47,14 +46,14 @@ export class ReportPageContainer extends Component {
     meals: array,
     targetCurrency: string,
     totalRepayment: number,
-    updateDelegationStatus: func
+    user: object
   };
 
   constructor(props) {
     super(props);
 
-    this.delegationId = this.props.match.params.delegationId;
-    if (isNaN(parseInt(this.delegationId))) {
+    this.delegationId = toNumber(this.props.match.params.delegationId);
+    if (!isFinite(this.delegationId)) {
       this._rejected();
     }
   }
@@ -65,16 +64,6 @@ export class ReportPageContainer extends Component {
   };
 
   _redirectToDelegationsPage = () => this.props.history.push("/delegations/my");
-
-  _handleSendToManager = () => {
-    const action = () =>
-      this.props
-        .updateDelegationStatus(this.delegationId, delegationStatusCodes.PREPARED, this.props.delegationVersion)
-        .then(() => {
-          this._redirectToDelegationsPage();
-        });
-    confirmationModal("Send delegatiion", "This delegation will be sent to travel manager.", action);
-  };
 
   _handleDownloadReport = report => {
     if (report) {
@@ -106,7 +95,10 @@ export class ReportPageContainer extends Component {
         allowance={this.props.allowance}
         meals={this.props.meals}
         details={this.props.details}
+        delegationId={this.delegationId}
         delegationStatus={this.props.delegationStatus}
+        delegationVersion={this.props.delegationVersion}
+        user={this.props.user}
       />
     );
   }
@@ -125,6 +117,7 @@ const mapStateToProps = state => ({
   targetCurrency: getReportTargetCurrency(state),
   delegationStatus: getReportDelegationStatus(state),
   delegationVersion: getReportDelegationVersion(state),
+  user: getReportUser(state),
   details: [
     {
       startDate: getReportStartDate(state),
@@ -137,8 +130,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchReport,
-  downloadReport,
-  updateDelegationStatus
+  downloadReport
 };
 
 export default connect(

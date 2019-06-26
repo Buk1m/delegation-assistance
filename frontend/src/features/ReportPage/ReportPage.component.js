@@ -1,15 +1,15 @@
 import React, { Fragment } from "react";
-import { array, bool, func, string, number } from "prop-types";
+import { array, object, bool, func, string, number } from "prop-types";
 import BootstrapTable from "react-bootstrap-table-next";
 import Icon from "react-icons-kit";
 
 import LayoutMain from "../../components/layouts/LayoutMain";
 import SpinnerWrapper from "../../components/SpinnerWrapper/SpinnerWrapper.component";
 import Spinner from "../../components/Spinner/Spinner.component";
-import Button from "../../components/Button/Button.component";
 import Card from "../../components/Card/Card.component";
-import { reportTypes } from "../../config";
-
+import Row from "../../components/Row/Row.component";
+import { reportTypes, delegationStatuses } from "../../config";
+import UpdateStatus from "../DelegationDetailsPage/components/UpdateStatus";
 import {
   flightsColumns,
   accommodationsColumns,
@@ -20,7 +20,6 @@ import {
   allowanceColumns,
   detailsColumns
 } from "../../config/tableColumns/report";
-import { canSendToTravelManager } from "../../ui-restrictions/delegation.restriction";
 
 const tableLayout = fetching => ({
   bootstrap4: true,
@@ -33,7 +32,6 @@ const tableLayout = fetching => ({
 
 const ReportPage = ({
   handleDownloadReport,
-  handleSendToManager,
   fetching,
   flights,
   accommodations,
@@ -41,11 +39,14 @@ const ReportPage = ({
   totalRepayment,
   targetCurrency,
   diet,
+  user,
   meals,
   diemReturns,
   allowance,
   details,
-  delegationStatus
+  delegationId,
+  delegationStatus,
+  delegationVersion
 }) => {
   return (
     <LayoutMain
@@ -61,18 +62,24 @@ const ReportPage = ({
               onClick={() => handleDownloadReport(report)}
             />
           ))}
-          <Button
-            className={canSendToTravelManager(delegationStatus) ? "primary" : "disabled"}
-            text="Send to Manager"
-            onClick={() => {
-              handleSendToManager();
-            }}
-            disabled={!canSendToTravelManager(delegationStatus)}
-          />
+          <UpdateStatus delegationId={delegationId} status={delegationStatus} version={delegationVersion} />
         </Fragment>
       }
     >
       <SpinnerWrapper loading={fetching} message="loading report...">
+        <div className="mb-5">
+          <Card>
+            <Row loading={fetching} label="Name">
+              <span>{user ? `${user.firstName} ${user.lastName}` : ""}</span>
+            </Row>
+            <Row loading={fetching} label="Status:">
+              <span className={`delegation-status ${delegationStatus ? delegationStatus.toLowerCase() : null}`}>
+                {delegationStatuses[delegationStatus]}
+              </span>
+            </Row>
+          </Card>
+          <hr />
+        </div>
         <div className="r-grid">
           <Card title="Flights">
             <BootstrapTable keyField="id" data={flights} columns={flightsColumns} {...tableLayout(fetching)} />
@@ -127,7 +134,9 @@ const ReportPage = ({
 ReportPage.propTypes = {
   accommodations: array,
   allowance: array,
+  delegationId: number,
   delegationStatus: string,
+  delegationVersion: number,
   details: array,
   diemReturns: array,
   diet: array,
@@ -138,7 +147,8 @@ ReportPage.propTypes = {
   handleSendToManager: func,
   meals: array,
   targetCurrency: string,
-  totalRepayment: number
+  totalRepayment: number,
+  user: object
 };
 
 export default ReportPage;

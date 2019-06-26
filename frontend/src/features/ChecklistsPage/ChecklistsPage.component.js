@@ -1,5 +1,5 @@
 import React from "react";
-import { array, func, number } from "prop-types";
+import { array, bool, func, number } from "prop-types";
 import { Form, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import Input from "../../components/Input/Input.component";
 import countryNotFoundImage from "../../assets/images/countryNotFound.png";
 import getFlag from "../../config/flags";
 
-export const ChecklistsPage = ({ countries, countriesLength, handleSubmit, handleSearch }) => {
+export const ChecklistsPage = ({ countries, fetching, countriesLength, handleSubmit, handleSearch }) => {
   return (
     <LayoutMain title="All checklists">
       <div className="checklist-wrapper">
@@ -18,7 +18,9 @@ export const ChecklistsPage = ({ countries, countriesLength, handleSubmit, handl
           </Form>
         </div>
         <hr />
-        {countriesLength ? (
+        {fetching ? (
+          <span>Loading available countries...</span>
+        ) : countriesLength ? (
           <div className="checklist-countries">
             {countries.map(country => (
               <Link
@@ -50,6 +52,7 @@ export const ChecklistsPage = ({ countries, countriesLength, handleSubmit, handl
 ChecklistsPage.propTypes = {
   countries: array,
   countriesLength: number,
+  fetching: bool,
   handleSearch: func,
   handleSubmit: func
 };

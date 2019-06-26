@@ -1,6 +1,40 @@
 import { delegationStatusCodes } from "../config/index";
+import { userRoles } from "../config/roles";
 
-const canSendToTravelManager = status =>
-  status === delegationStatusCodes.CREATED || status === delegationStatusCodes.NEEDS_WORK;
+const { CREATED, PREPARED, NEEDS_WORK, CHECKED, APPROVED, FINALIZED } = delegationStatusCodes;
+const { employee, travelmanager, approver, accountant } = userRoles;
 
-export { canSendToTravelManager };
+const updateStatusOptions = [
+  {
+    status: [NEEDS_WORK, CREATED],
+    newStatus: PREPARED,
+    roles: [employee],
+    text: "Send to Manager"
+  },
+  {
+    status: [PREPARED],
+    newStatus: CHECKED,
+    roles: [travelmanager],
+    text: "Send to Approver"
+  },
+  {
+    status: [CHECKED],
+    newStatus: APPROVED,
+    roles: [approver],
+    text: "Send to Accountant"
+  },
+  {
+    status: [APPROVED],
+    newStatus: FINALIZED,
+    roles: [accountant],
+    text: "Finalize"
+  },
+  {
+    status: [PREPARED, CHECKED, APPROVED],
+    newStatus: NEEDS_WORK,
+    roles: [travelmanager, approver, accountant],
+    text: "Needs work"
+  }
+];
+
+export { updateStatusOptions };

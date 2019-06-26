@@ -4,6 +4,7 @@ import { object, bool, number, func, string } from "prop-types";
 import Row from "../../../../components/Row/Row.component";
 import Button from "../../../../components/Button/Button.component";
 import DelegationChangeMealsAmount from "./../DelegationChangeMealsAmount/DelegationChangeMealsAmount.container.js";
+import { delegationStatuses } from "../../../../config";
 
 const DelegationDetails = props => {
   const {
@@ -29,7 +30,9 @@ const DelegationDetails = props => {
           {destinationLocation}
         </Row>
         <Row loading={fetching} label="Status:">
-          {status}
+          <span className={`delegation-status ${status ? status.toLowerCase() : null}`}>
+            {delegationStatuses[status]}
+          </span>
         </Row>
         <Row loading={fetching} label="Date from:">
           {startDate}

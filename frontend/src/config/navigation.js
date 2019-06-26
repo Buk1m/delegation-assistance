@@ -1,4 +1,4 @@
-import { userRoles } from "./index";
+import { userRoles } from "./roles";
 
 const { accountant, approver, employee, travelmanager } = userRoles;
 

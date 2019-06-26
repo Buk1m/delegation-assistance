@@ -7,17 +7,13 @@ import { toast } from "react-toastify";
 import DelegationDetailsPage from "./DelegationDetailsPage.component";
 import { deleteDelegation, updateDelegationStatus } from "../../actions/delegations.actions";
 import { confirmationModal } from "../../helpers/confirmationModal";
-import { getDelegation } from "../../selectors/delegations.selectors";
-import { delegationStatusCodes } from "../../config";
 
 class DelegationDetailsPageContainer extends Component {
   static propTypes = {
-    delegation: object,
     delegationId: number,
     deleteDelegation: func,
     history: object,
-    match: object,
-    updateDelegationStatus: func
+    match: object
   };
 
   constructor(props) {
@@ -41,31 +37,12 @@ class DelegationDetailsPageContainer extends Component {
     confirmationModal("Delete delegation", "This delegation will be deleted permanently.", action);
   };
 
-  _handleSendToManager = () => {
-    const action = () =>
-      this.props
-        .updateDelegationStatus(this.delegationId, delegationStatusCodes.PREPARED, this.props.delegation.version)
-        .then(() => {
-          this._redirectToDelegationsPage();
-        });
-    confirmationModal("Send delegatiion", "This delegation will be sent to travel manager.", action);
-  };
-
   render() {
     return !this.invalidDelegationId ? (
-      <DelegationDetailsPage
-        delegationId={this.delegationId}
-        handleDelete={this._handleDelete}
-        handleSendToManager={this._handleSendToManager}
-        status={this.props.delegation.status}
-      />
+      <DelegationDetailsPage delegationId={this.delegationId} handleDelete={this._handleDelete} />
     ) : null;
   }
 }
-
-const mapStateToProps = state => ({
-  delegation: getDelegation(state)
-});
 
 const mapDispatchToProps = {
   deleteDelegation,
@@ -73,6 +50,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(DelegationDetailsPageContainer);

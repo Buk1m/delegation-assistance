@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { array, func } from "prop-types";
+import { array, bool, func } from "prop-types";
 
 import ChecklistsPage from "./ChecklistsPage.component";
 import { fetchCountries } from "../../actions/countries.actions";
-import { getCountries } from "../../selectors/countries.selectors";
+import { getCountries, getCountriesFetching } from "../../selectors/countries.selectors";
 
-
-class ChecklistsPageContainer extends Component {
+export class ChecklistsPageContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +17,8 @@ class ChecklistsPageContainer extends Component {
 
   static propTypes = {
     countries: array,
-    fetchCountries: func
+    fetchCountries: func,
+    fetching: bool
   };
 
   componentDidMount() {
@@ -52,13 +52,15 @@ class ChecklistsPageContainer extends Component {
         countriesLength={this.state.countries.length}
         onSubmit={this._handleSubmit}
         handleSearch={this._handleSearch}
+        fetching={this.props.fetching}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  countries: getCountries(state)
+  countries: getCountries(state),
+  fetching: getCountriesFetching(state)
 });
 
 const mapDispatchToProps = {

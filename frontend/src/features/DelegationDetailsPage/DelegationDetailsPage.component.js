@@ -5,7 +5,6 @@ import { bed, check, plane } from "react-icons-kit/fa";
 import { ic_payment } from "react-icons-kit/md/ic_payment";
 
 import ActivitiesList from "../../components/ActivitiesList/ActivitiesList.container";
-import Button from "../../components/Button/Button.component";
 import ButtonLink from "../../components/ButtonLink/ButtonLink.component";
 import Card from "../../components/Card/Card.component";
 import DelegationAccommodations from "./components/DelegationAccommodations";
@@ -14,25 +13,18 @@ import DelegationExpenses from "./components/DelegationExpenses";
 import DelegationFlights from "./components/DelegationFlights";
 import LayoutMain from "../../components/layouts/LayoutMain";
 import RenderTab from "../../components/renderers/RenderTab/RenderTab.renderer";
-import { canSendToTravelManager } from "../../ui-restrictions/delegation.restriction";
+import UpdateStatus from "./components/UpdateStatus";
 
 import "react-tabs/style/react-tabs.css";
 
-const DelegationDetailsPage = props => {
-  const { delegationId, handleDelete, handleSendToManager, status } = props;
+const DelegationDetailsPage = ({ delegationId }) => {
   return (
     <LayoutMain
       title={"Delegation No. " + delegationId}
       buttons={
         <Fragment>
-          <ButtonLink href={`/delegations/${delegationId}/report`} className="primary" text="Preview Report" />
-          <Button
-            className={canSendToTravelManager(status) ? "primary" : "disabled"}
-            text="Send to Manager"
-            onClick={handleSendToManager}
-            disabled={!canSendToTravelManager(status)}
-          />
-          <Button className="warning" text="Delete" onClick={handleDelete} />
+          <ButtonLink href={`/delegations/${delegationId}/report`} className="primary" text="Report" />
+          <UpdateStatus delegationId={delegationId} />
         </Fragment>
       }
     >

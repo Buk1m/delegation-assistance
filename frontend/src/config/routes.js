@@ -1,4 +1,4 @@
-import { userRoles } from "./index";
+import { userRoles } from "./roles";
 
 import DelegationsPage from "../features/DelegationsPage/";
 import LoginPage from "../features/LoginPage/";

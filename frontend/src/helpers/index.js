@@ -1,4 +1,4 @@
-import { userRolesMap } from "../config";
+import { userRolesMap } from "../config/roles";
 
 const prepareToken = token => {
   const base64Url = token.split(".")[1];

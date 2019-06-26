@@ -4,8 +4,7 @@ import { string, object, number } from "prop-types";
 
 import styles from "./RenderTab.module.scss";
 
-const RenderTab = props => {
-  const { title, icon, size = 18 } = props;
+const RenderTab = ({ title, icon, size = 18 }) => {
   return (
     <div className={styles.tab}>
       <div className={styles.icon}>
@@ -17,9 +16,9 @@ const RenderTab = props => {
 };
 
 RenderTab.propTypes = {
-  title: string,
   icon: object,
-  size: number
+  size: number,
+  title: string
 };
 
 export default RenderTab;

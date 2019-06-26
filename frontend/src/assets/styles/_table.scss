@@ -4,30 +4,37 @@
   padding: 3px 10px;
   font-weight: bold;
   font-size: 14px;
-  display: flex;
+  display: inline-flex;
   color: #fff;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
 
+  &.prepared,
   .prepared & {
     background-color: var(--dlg-s-prepared);
   }
+  &.created,
   .created & {
     background-color: var(--dlg-s-created);
   }
 
+  &.needs_work,
   .needs_work & {
     background-color: var(--dlg-s-needs-work);
   }
 
+  &.checked,
   .checked & {
     background-color: var(--dlg-s-checked);
   }
 
+  &.approved,
   .approved & {
     background-color: var(--dlg-s-approved);
   }
 
+  &.finalized,
   .finalized & {
     background-color: var(--dlg-s-finalized);
   }

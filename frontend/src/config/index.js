@@ -1,20 +1,6 @@
 import { filePdfO, fileExcelO } from "react-icons-kit/fa";
 import { formatFilenameDate } from "../helpers/formatters";
 
-const userRoles = {
-  employee: "Employee",
-  travelmanager: "Manager",
-  approver: "Approver",
-  accountant: "Accountant"
-};
-
-const userRolesMap = {
-  ROLE_TRAVEL_MANAGER: userRoles.travelmanager,
-  ROLE_EMPLOYEE: userRoles.employee,
-  ROLE_APPROVER: userRoles.approver,
-  ROLE_ACCOUNTANT: userRoles.accountant
-};
-
 const environments = {
   NODE_ENV: process.env.NODE_ENV || "development",
   LOGS: process.env.REACT_APP_LOGS || "none",
@@ -61,13 +47,4 @@ const reportTypes = [
 
 const paymentTypes = [{ label: "Cash", value: "CASH" }, { label: "Credit card", value: "CREDIT_CARD" }];
 
-export {
-  delegationStatuses,
-  delegationStatusCodes,
-  environments,
-  paymentTypes,
-  reportTypes,
-  themes,
-  userRoles,
-  userRolesMap
-};
+export { delegationStatuses, delegationStatusCodes, environments, paymentTypes, reportTypes, themes };
