@@ -5,6 +5,8 @@ import com.idemia.ip.office.backend.delegation.assistant.reports.model.Delegatio
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.FopFactoryBuilder;
+import org.apache.fop.apps.FopFactoryConfig;
 import org.apache.fop.apps.MimeConstants;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -48,12 +50,13 @@ public class PdfReportGenerator implements ReportGenerator {
             throws IOException, FOPException, TransformerException {
         Map<String, Object> reportParams = new HashMap<>();
         reportParams.put("delegationReport", delegationReport);
-        reportParams.put("formatter", DateTimeConstants.DATE_TIME_REPORT_FORMAT);
+        reportParams.put("dateTimeFormatter", DateTimeConstants.DATE_TIME_REPORT_FORMAT);
         String template = Files.readString(reportTemplateFilePath);
         String evaluatedTemplate = evaluateTemplate(template, reportParams);
 
         try (ByteArrayOutputStream reportOutputStream = new ByteArrayOutputStream()) {
-            Fop fop = FopFactory.newInstance(new File(".").toURI()).newFop(MimeConstants.MIME_PDF, reportOutputStream);
+            FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, reportOutputStream);
             transformTemplateToPdf(evaluatedTemplate, fop);
             return reportOutputStream.toByteArray();
         }

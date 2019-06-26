@@ -159,6 +159,11 @@
       "name": "xlsx-report-generator.template-file-name",
       "type": "java.lang.String",
       "description": "Report template file name."
+    },
+    {
+      "name": "exception.reports.report-generation-not-allowed",
+      "type": "java.lang.String",
+      "description": "Error code for and exception which is thrown if report generation is not allowed due to illegal delegation status."
     }
   ]
 }

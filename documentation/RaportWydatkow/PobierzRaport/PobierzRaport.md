@@ -45,8 +45,8 @@
 
 #### Możliwe kody błędów:
 
-- wrong-delegation-status - jeśli delegacja posiada nieodpowiedni status
-- report-file-not-found - jeśli nie można odnaleźć pliku z wygenerowanym raportem
+- report-generation-not-allowed - jeśli delegacja posiada nieodpowiedni status (CREATED lub NEEDS_WORK)
+- report-generation-problem - jeśli wystąpi problem podczas generowania pliku z raportem
 
 ### 3. Mockupy
 

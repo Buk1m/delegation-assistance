@@ -14,4 +14,5 @@ import org.springframework.stereotype.Component;
 public class ReportsExceptionProperties {
     String reportTypeNotSupported;
     String reportGenerationProblem;
+    String reportGenerationNotAllowed;
 }

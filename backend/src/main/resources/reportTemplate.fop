@@ -55,6 +55,9 @@
                         </fo:table-row>
                     </fo:table-header>
                     <fo:table-body>
+                    #if( $param.delegationReport.flights.size() == 0 )
+                        <fo:table-cell><fo:block /></fo:table-cell>
+                    #else
                         #foreach( $flight in $param.delegationReport.flights )
                         <fo:table-row border-width="1pt" border-style="solid">
                             <fo:table-cell padding="1pt">
@@ -77,12 +80,13 @@
                             </fo:table-cell>
                         </fo:table-row>
                         #end
+                    #end
                     </fo:table-body>
                 </fo:table>
             </fo:block>
 
             <!--ACCOMMODATIONS-->
-            <fo:block font-weight="bold" text-align="center" space-after="5mm">Accommodation</fo:block>
+            <fo:block font-weight="bold" text-align="center" space-after="5mm">Accommodations</fo:block>
             <fo:block space-after="10mm">
                 <fo:table table-layout="fixed" font-size="12pt" text-align="center" width="100%" border-width="1pt" border-style="solid">
                     <fo:table-column column-width="proportional-column-width(1)" border-width="1pt" border-style="solid"/>
@@ -102,6 +106,9 @@
                         </fo:table-row>
                     </fo:table-header>
                     <fo:table-body>
+                    #if( $param.delegationReport.accommodations.size() == 0 )
+                        <fo:table-cell><fo:block /></fo:table-cell>
+                    #else
                         #foreach( $accommodation in $param.delegationReport.accommodations )
                         <fo:table-row border-width="1pt" border-style="solid">
                             <fo:table-cell padding="1pt">
@@ -115,6 +122,7 @@
                             </fo:table-cell>
                         </fo:table-row>
                         #end
+                    #end
                     </fo:table-body>
                 </fo:table>
             </fo:block>
@@ -372,10 +380,10 @@
                     <fo:table-body>
                         <fo:table-row border-width="1pt" border-style="solid">
                             <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9" number-columns-spanned="2">
-                                <fo:block>$param.delegationReport.startDate.format($param.formatter)</fo:block>
+                                <fo:block>$param.delegationReport.startDate.format($param.dateTimeFormatter)</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="1pt" border-width="1pt" border-style="solid" background-color="#D9D9D9" number-columns-spanned="2">
-                                <fo:block>$param.delegationReport.endDate.format($param.formatter)</fo:block>
+                                <fo:block>$param.delegationReport.endDate.format($param.dateTimeFormatter)</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="1pt" border-width="1pt" border-style="solid">
                                 <fo:block>$param.delegationReport.duration</fo:block>

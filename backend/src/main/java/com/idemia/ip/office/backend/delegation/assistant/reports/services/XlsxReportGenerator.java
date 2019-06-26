@@ -35,7 +35,7 @@ public class XlsxReportGenerator implements ReportGenerator {
     public byte[] generateReport(DelegationReport delegationReport) throws IOException {
         Map<String, Object> reportParams = new HashMap<>();
         reportParams.put("delegationReport", delegationReport);
-        reportParams.put("formatter", DateTimeConstants.DATE_TIME_FORMAT);
+        reportParams.put("dateTimeFormatter", DateTimeConstants.DATE_TIME_FORMAT);
         String template = Files.readString(reportTemplateFilePath);
         return evaluateTemplate(template, reportParams);
     }

@@ -1,8 +1,11 @@
 package com.idemia.ip.office.backend.delegation.assistant.reports.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.services.DelegationService;
+import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
 import com.idemia.ip.office.backend.delegation.assistant.exceptions.ApplicationException;
+import com.idemia.ip.office.backend.delegation.assistant.exceptions.OperationNotAllowedException;
 import com.idemia.ip.office.backend.delegation.assistant.reports.configuration.ReportsExceptionProperties;
+import com.idemia.ip.office.backend.delegation.assistant.reports.exceptions.ReportGenerationException;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.DelegationReport;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.ExpenseReport;
 import com.idemia.ip.office.backend.delegation.assistant.reports.model.FlightReport;
@@ -67,16 +70,19 @@ public class ReportServiceImpl implements ReportService {
     public Mono<byte[]> getReportFile(Long delegationId,
             Authentication authentication,
             String reportGeneratorTypeName) {
-        return getDelegationPreview(delegationId, authentication).flatMap(reportPreview -> {
+        return getDelegationReport(delegationId, authentication).flatMap(report -> {
             try {
-                return Mono.just(getReportGenerator(reportGeneratorTypeName).generateReport(reportPreview));
+                return Mono.just(getReportGenerator(reportGeneratorTypeName).generateReport(report));
             } catch (Exception e) {
                 LOG.info("Report generation for delegation with id {} failed at {} for type {} caused by {}",
                         delegationId,
                         LocalDateTime.now(),
                         reportGeneratorTypeName,
                         e);
-                throw new ApplicationException(exceptionProperties.getReportGenerationProblem());
+                throw new ReportGenerationException("Report generation failed.",
+                        e,
+                        exceptionProperties.getReportGenerationProblem(),
+                        reportGeneratorTypeName);
             }
         });
     }
@@ -156,5 +162,25 @@ public class ReportServiceImpl implements ReportService {
 
     private ReportGenerator getReportGenerator(String reportGeneratorTypeName) {
         return reportGenerators.get(reportGeneratorTypeName);
+    }
+
+    private Mono<DelegationReport> getDelegationReport(Long delegationId, Authentication authentication) {
+        return getDelegation(delegationId, authentication)
+                .publishOn(scheduler)
+                .flatMap(delegation -> {
+                    DelegationStatus delegationStatus = delegation.getDelegationStatus();
+                    if (!hasValidStatusForReportGeneration(delegationStatus)) {
+                        throw new OperationNotAllowedException(
+                                "Report generation is not allowed due to delegation status.",
+                                exceptionProperties.getReportGenerationNotAllowed(),
+                                delegationStatus);
+                    }
+                    return processDelegationReport(delegation);
+                })
+                .map(this::summarizeReport);
+    }
+
+    private boolean hasValidStatusForReportGeneration(DelegationStatus delegationStatus) {
+        return delegationStatus != DelegationStatus.CREATED && delegationStatus != DelegationStatus.NEEDS_WORK;
     }
 }
