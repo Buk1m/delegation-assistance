@@ -40,7 +40,7 @@ const reportTypes = [
     type: "XLSX",
     icon: fileExcelO,
     iconSize: 30,
-    filename: delegationId => `Report_${delegationId}_${formatFilenameDate(Date.now())}.xlsx`,
+    filename: delegationId => `Report_${delegationId}_${formatFilenameDate(Date.now())}.xml`,
     contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   }
 ];
