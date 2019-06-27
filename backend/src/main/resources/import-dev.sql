@@ -1,5 +1,5 @@
-INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (1, uuid(), 0, 'employee', 'Bartosz', 'Kudra');
-INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (2, uuid(), 0, 'manager', 'Kacper', 'Hałuszczak');
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (1, uuid(), 0, 'bkudra@idemia.com', 'Bartosz', 'Kudra');
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (2, uuid(), 0, 'khaluszczak@idemia.com', 'Kacper', 'Hałuszczak');
 INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (3, uuid(), 0, 'approver', 'Wiktoria', 'Chetmańczyk');
 INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (4, uuid(), 0, 'accountant', 'Monika', 'Piorun');
 
