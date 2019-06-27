@@ -1,0 +1,38 @@
+@import "../../../assets/styles/colorPalette";
+
+.header {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: $primaryColor;
+  text-align: center;
+}
+
+.row {
+  margin-top: 15px;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.textinput {
+  border-radius: 3px;
+  border-color: $gpalette1000;
+  border-width: 1px;
+  align-self: center;
+  text-align: center;
+  width: 35%;
+}
+
+.textinputEnabled {
+  @extend .textinput;
+  background-color: $primaryTextColor;
+}
+
+.textinputDisabled {
+  @extend .textinput;
+  background-color: $gpalette0100;
+}
+
+.disabledButton {
+  background-color: $disabled;
+}

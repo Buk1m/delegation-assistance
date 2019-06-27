@@ -3,6 +3,7 @@ import ScrollableTabView, { ScrollableTabBar } from "react-native-scrollable-tab
 import { func, number, object } from "prop-types";
 import DelegationChecklist from "./DelegationChecklist/DelegationChecklist.container";
 import DelegationDetails from "./DelegationDetails/DelegationDetails.container";
+import DelegationMeals from "./DelegationMeals/DelegationMeals.container";
 import DelegationExpenses from "./DelegationExpenses/DelegationExpenses.container";
 import DelegationAccommodations from "./DelegationAccommodations/DelegationAccommodations.container";
 import DelegationFlights from "./DelegationFlights/DelegationFlights.container";
@@ -10,6 +11,7 @@ import styles from "./DelegationDetailsScreen.module.scss";
 
 const tabsNames = [
   "DelegationDetails",
+  "DelegationMeals",
   "DelegationChecklist",
   "DelegationExpenses",
   "DelegationAccommodations",
@@ -36,6 +38,7 @@ const DelegationDetailsScreen = props => {
       onChangeTab={({ i }) => handleChangeTab(i, setCurrentTabName)}
     >
       <DelegationDetails delegationId={delegationId} tabLabel="Details" />
+      <DelegationMeals delegationId={delegationId} tabLabel="Meals" />
       <DelegationChecklist delegationId={delegationId} tabLabel="Checklist" />
       <DelegationExpenses
         delegationId={delegationId}

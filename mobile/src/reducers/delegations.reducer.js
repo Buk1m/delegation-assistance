@@ -15,7 +15,8 @@ const initialState = {
   isSortFilterPanelCollapsed: true,
   fetching: true,
   errors: "",
-  subErrors: []
+  subErrors: [],
+  updatingMeals: false
 };
 
 const delegationsReducer = (state = initialState, action) => {
@@ -35,6 +36,8 @@ const delegationsReducer = (state = initialState, action) => {
       return { ...state, delegationFetching: true };
     case `${ACTIONS.FETCH_MY_DELEGATIONS}_${PENDING}`:
       return { ...state, fetching: true };
+    case `${ACTIONS.UPDATE_DELEGATION_MEALS}_${PENDING}`:
+      return { ...state, updatingMeals: true };
 
     case `${ACTIONS.FETCH_MY_DELEGATIONS}_${FULFILLED}`: {
       const delegations = prepareDelegations(action.payload.data);
@@ -43,6 +46,8 @@ const delegationsReducer = (state = initialState, action) => {
     case `${ACTIONS.FETCH_DELEGATION}_${FULFILLED}`: {
       return { ...state, delegationFetching: false, delegation: action.payload.data };
     }
+    case `${ACTIONS.UPDATE_DELEGATION_MEALS}_${FULFILLED}`:
+      return { ...state, delegation: { ...state.delegation, meals: action.payload.data }, updatingMeals: false };
 
     case `${ACTIONS.FETCH_MY_DELEGATIONS}_${REJECTED}`:
       showMessage({ message: `Error occured while fetching delegations: ${action.payload.Message}`, type: "danger" });
@@ -55,6 +60,9 @@ const delegationsReducer = (state = initialState, action) => {
         errors: action.payload.Message,
         subErrors: action.payload.SubErrors
       };
+    case `${ACTIONS.UPDATE_DELEGATION_MEALS}_${REJECTED}`:
+      showMessage({ message: `Failed to update meals.`, type: "danger" });
+      return { ...state, errors: action.payload.Message, subErrors: action.payload.SubErrors, updatingMeals: false };
 
     case ACTIONS.SET_DELEGATIONS:
       return { ...state, delegations: action.payload };

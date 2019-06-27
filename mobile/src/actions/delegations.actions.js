@@ -8,7 +8,8 @@ export const ACTIONS = {
   SET_DATES_ARE_VALID: "DELEGATIONS_SET_DATES_ARE_VALID",
   SET_DELEGATIONS: "DELEGATIONS_SET_DELEGATIONS",
   SET_IS_SORT_FILTER_PANEL_COLLAPSED: "DELEGATIONS_SET_IS_SORT_FILTER_PANEL_COLLAPSED",
-  SET_TEMP_DELEGATIONS: "DELEGATIONS_SET_TEMP_DELEGATIONS"
+  SET_TEMP_DELEGATIONS: "DELEGATIONS_SET_TEMP_DELEGATIONS",
+  UPDATE_DELEGATION_MEALS: "DELEGATIONS_UPDATE_DELEGATION_MEALS"
 };
 
 const addNewDelegation = delegation => dispatch => {
@@ -96,6 +97,19 @@ const setTempDelegations = tempDelegations => dispatch => {
   });
 };
 
+const updateDelegationMeals = (meals, delegationId) => dispatch => {
+  return dispatch(
+    APIService.patch(ACTIONS.UPDATE_DELEGATION_MEALS, {
+      url: `/delegations/${delegationId}/meals`,
+      needAuth: true,
+      headers: {
+        "Content-type": "application/json"
+      },
+      data: meals
+    })
+  );
+};
+
 export {
   addNewDelegation,
   fetchMyDelegations,
@@ -103,5 +117,6 @@ export {
   setDatesAreValid,
   setDelegations,
   setIsSortFilterPanelCollapsed,
-  setTempDelegations
+  setTempDelegations,
+  updateDelegationMeals
 };

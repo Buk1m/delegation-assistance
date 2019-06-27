@@ -3,6 +3,7 @@ const getDelegation = state => state.delegations.delegation;
 const getDelegationFetching = state => state.delegations.delegationFetching;
 const getDelegations = state => state.delegations.delegations;
 const getDelegationsFetching = state => state.delegations.fetching;
+const getDelegationUpdatingMeals = state => state.delegations.updatingMeals;
 const getFormatedDelegation = state => {
   const dateFormatOptions = {
     year: "numeric",
@@ -31,5 +32,6 @@ export {
   getDelegationsFetching,
   getFormatedDelegation,
   getIsSortFilterPanelCollapsed,
-  getTempDelegations
+  getTempDelegations,
+  getDelegationUpdatingMeals
 };

@@ -83,6 +83,22 @@ class RequestServiceCreator {
     );
   }
 
+  patch(type, { url, needAuth, headers, data, ...rest }, meta) {
+    return this.makeCall.call(
+      this,
+      type,
+      {
+        url,
+        method: "patch",
+        needAuth,
+        headers,
+        data,
+        ...rest
+      },
+      meta
+    );
+  }
+
   static create(args) {
     return new RequestServiceCreator(args);
   }

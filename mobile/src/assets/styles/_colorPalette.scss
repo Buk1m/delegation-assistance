@@ -45,6 +45,8 @@ $darkBackgroundColor: $gpalette0500;
 
 $lightBorderColor: $gpalette0200;
 
+$disabled: $gpalette0300;
+
 :export {
   primary: $primaryColor;
   secondary: $secondaryColor;
@@ -52,4 +54,5 @@ $lightBorderColor: $gpalette0200;
   textColor: $textColor;
   lightGrey: $gpalette050;
   lightPurple: $palette0100;
+  disabled: $gpalette0300;
 }
