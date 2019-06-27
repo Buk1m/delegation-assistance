@@ -25,10 +25,10 @@ public class AuthServiceMock implements AuthService {
 	public List<String> authenticate(String login, String password) {
 		List<String> authorities = new ArrayList<>();
 
-		if(login.equals("employee") && password.equals("pass1")) {
+		if(login.equals("bkudra@idemia.com") && password.equals("pass1")) {
 			authorities.add(Role.EMPLOYEE.toString());
 		}
-		else if(login.equals("manager") && password.equals("pass2")) {
+		else if(login.equals("khaluszczak@idemia.com") && password.equals("pass2")) {
 			authorities.add(Role.TRAVEL_MANAGER.toString());
 		}
 		else if(login.equals("approver") && password.equals("pass3")) {
