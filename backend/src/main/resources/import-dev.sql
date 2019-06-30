@@ -2,6 +2,12 @@ INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (1, uui
 INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (2, uuid(), 0, 'manager', 'Andrzej', 'Baranowski');
 INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (3, uuid(), 0, 'approver', 'Wiktoria', 'Chetmańczyk');
 INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (4, uuid(), 0, 'accountant', 'Monika', 'Piorun');
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (5, uuid(), 0, 'employee2', 'Jan', 'Arkund');
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (6, uuid(), 0, 'manager2', 'Wiktor', 'Kobza');
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (7, uuid(), 0, 'approver2', 'Janina', 'Machaj');
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (8, uuid(), 0, 'accountant2', 'Robert', 'Lewandowski');
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (8, uuid(), 0, 'employeemanager', 'Marian', 'Subit');
+INSERT INTO user(id, uuid, version, login, first_name, last_name) VALUES (8, uuid(), 0, 'employeeapprover', 'Leopold', 'Koniecpolski');
 
 INSERT INTO checklist_template(id, uuid, version) VALUES (1, uuid(), 0);
 

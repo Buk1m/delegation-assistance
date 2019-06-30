@@ -25,17 +25,25 @@ public class AuthServiceMock implements AuthService {
 	public List<String> authenticate(String login, String password) {
 		List<String> authorities = new ArrayList<>();
 
-		if(login.equals("employee") && password.equals("pass1")) {
+		if(login.contains("employee") && password.equals("pass1")) {
 			authorities.add(Role.EMPLOYEE.toString());
 		}
-		else if(login.equals("manager") && password.equals("pass2")) {
+		else if(login.contains("manager") && password.equals("pass2")) {
 			authorities.add(Role.TRAVEL_MANAGER.toString());
 		}
-		else if(login.equals("approver") && password.equals("pass3")) {
+		else if(login.contains("approver") && password.equals("pass3")) {
 			authorities.add(Role.APPROVER.toString());
 		}
-		else if(login.equals("accountant") && password.equals("pass4")) {
+		else if(login.contains("accountant") && password.equals("pass4")) {
 			authorities.add(Role.ACCOUNTANT.toString());
+		}
+		else if(login.equals("employeemanager") && password.equals("pass5")) {
+			authorities.add(Role.EMPLOYEE.toString());
+			authorities.add(Role.TRAVEL_MANAGER.toString());
+		}
+		else if(login.equals("employeeapprover") && password.equals("pass6")) {
+			authorities.add(Role.EMPLOYEE.toString());
+			authorities.add(Role.APPROVER.toString());
 		}
 		else {
 			LOG.info("Incorrect credentials for user {}.", login);

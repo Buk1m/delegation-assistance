@@ -23,6 +23,12 @@ List of test accounts:
 - login: manager, password: pass2 (ROLE_TRAVEL_MANAGER)
 - login: approver, password: pass3 (ROLE_APPROVER)
 - login: accountant, password: pass4 (ROLE_ACCOUNTANT)
+- login: employee2, password: pass1 (ROLE_EMPLOYEE)
+- login: manager2, password: pass2 (ROLE_TRAVEL_MANAGER)
+- login: approver2, password: pass3 (ROLE_APPROVER)
+- login: accountant2, password: pass4 (ROLE_ACCOUNTANT)
+- login: employeemanager, password: pass5 (ROLE_EMPLOYEE, ROLE_TRAVEL_MANAGER)
+- login: employeeapprover, password: pass6 (ROLE_EMPLOYEE, ROLE_APPROVER)
 
 ## Docker
 Before starting Docker should be installed and launched on your OS. \
