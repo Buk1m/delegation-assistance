@@ -73,20 +73,15 @@ public class Delegation extends BaseEntity {
     @ManyToOne
     private User delegatedEmployee;
 
-    @OneToMany(fetch = EAGER, cascade = ALL)
-    @JoinColumn(name = "delegation_id")
+    @OneToMany(mappedBy = "delegation", fetch = EAGER, cascade = ALL)
     private List<Expense> expenses = new ArrayList<>();
 
-    @OneToMany(fetch = EAGER, cascade = ALL)
-    @JoinColumn(name = "delegation_id")
+    @OneToMany(mappedBy = "delegation", fetch = EAGER, cascade = ALL)
     @Fetch(FetchMode.SELECT)
-    @BatchSize(size = 10)
     private List<Flight> flights = new ArrayList<>();
 
-    @OneToMany(fetch = EAGER, cascade = ALL)
-    @JoinColumn(name = "delegation_id")
+    @OneToMany(mappedBy = "delegation", fetch = EAGER, cascade = ALL)
     @Fetch(FetchMode.SELECT)
-    @BatchSize(size = 10)
     private List<Accommodation> accommodations = new ArrayList<>();
 
     @JoinColumn(name = "checklist_id", nullable = false)
@@ -98,6 +93,21 @@ public class Delegation extends BaseEntity {
 
     @OneToOne(mappedBy = "delegation", cascade = {PERSIST, REMOVE, REFRESH, DETACH})
     private Meals meals;
+
+    public void addExpense(Expense expense) {
+        expense.setDelegation(this);
+        expenses.add(expense);
+    }
+
+    public void addFlight(Flight flight) {
+        flight.setDelegation(this);
+        flights.add(flight);
+    }
+
+    public void addAccommodation(Accommodation accommodation) {
+        accommodation.setDelegation(this);
+        accommodations.add(accommodation);
+    }
 
     /**
      * Sets a bidirectional association between Delegation and Diet.

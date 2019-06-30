@@ -77,6 +77,13 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     @Override
+    public Mono<Checklist> updateChecklist(Long delegationId, Authentication authentication, Checklist updatedChecklist) {
+        return getDelegation(delegationId, authentication, OperationType.UPDATE).flatMap(delegation ->
+                updateDelegationService.updateChecklist(updatedChecklist,
+                        delegation.getChecklist()));
+    }
+
+    @Override
     public Mono<Expense> addExpense(Expense newExpense,
             Long userId,
             Long delegationId,

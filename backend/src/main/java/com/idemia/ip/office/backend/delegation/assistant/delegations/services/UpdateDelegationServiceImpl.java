@@ -1,8 +1,10 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
+import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.ChecklistRepository;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.MealsRepository;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.MealsAdjuster;
+import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
@@ -19,15 +21,18 @@ public class UpdateDelegationServiceImpl implements UpdateDelegationService {
     private final DelegationRepository delegationRepository;
     private final MealsRepository mealsRepository;
     private final MealsAdjuster mealsAdjuster;
+    private final ChecklistRepository checklistRepository;
     private final ModelMapper notNullPropertyMapper;
 
     public UpdateDelegationServiceImpl(DelegationRepository delegationRepository,
             MealsRepository mealsRepository,
             MealsAdjuster mealsAdjuster,
+            ChecklistRepository checklistRepository,
             @Qualifier("notNullProperty") ModelMapper notNullPropertyMapper) {
         this.delegationRepository = delegationRepository;
         this.mealsRepository = mealsRepository;
         this.mealsAdjuster = mealsAdjuster;
+        this.checklistRepository = checklistRepository;
         this.notNullPropertyMapper = notNullPropertyMapper;
     }
 
@@ -39,7 +44,7 @@ public class UpdateDelegationServiceImpl implements UpdateDelegationService {
 
     @Override
     public Mono<Expense> addExpense(Expense expense, Delegation delegation) {
-        delegation.getExpenses().add(expense);
+        delegation.addExpense(expense);
         return Mono.fromCallable(() -> delegationRepository.save(delegation))
                 .map(d -> expense);
     }
@@ -49,12 +54,18 @@ public class UpdateDelegationServiceImpl implements UpdateDelegationService {
             Meals oldMeals,
             LocalDateTime delegationStartDate,
             LocalDateTime delegationEndDate) {
-            if(updatedMeals == null) {
-                updatedMeals = new Meals();
-            }
+        if (updatedMeals == null) {
+            updatedMeals = new Meals();
+        }
 
-            notNullPropertyMapper.map(updatedMeals, oldMeals);
+        notNullPropertyMapper.map(updatedMeals, oldMeals);
         mealsAdjuster.adjustNumberOfMeals(oldMeals, delegationStartDate, delegationEndDate);
         return Mono.fromCallable(() -> mealsRepository.save(oldMeals));
+    }
+
+    @Override
+    public Mono<Checklist> updateChecklist(Checklist updatedChecklist, Checklist oldChecklist) {
+        notNullPropertyMapper.map(updatedChecklist, oldChecklist);
+        return Mono.fromCallable(() -> checklistRepository.save(oldChecklist));
     }
 }

@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
 import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType;
+import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
@@ -37,6 +38,8 @@ public interface DelegationService {
             Authentication authentication);
 
     Mono<Meals> updateMeals(Long delegationId, Authentication authentication, Meals meals);
+
+    Mono<Checklist> updateChecklist(Long delegationId, Authentication authentication, Checklist checklist);
 
     Mono<Page<Expense>> getExpenses(Long delegationId,
             Integer pageNumber,

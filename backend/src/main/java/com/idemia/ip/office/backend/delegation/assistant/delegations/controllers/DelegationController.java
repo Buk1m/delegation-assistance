@@ -8,6 +8,7 @@ import com.idemia.ip.office.backend.delegation.assistant.delegations.services.De
 import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.OperationType;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPatch;
 import com.idemia.ip.office.backend.delegation.assistant.delegations.validationgroups.OnPost;
+import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
 import com.idemia.ip.office.backend.delegation.assistant.entities.enums.DelegationStatus;
@@ -149,6 +150,18 @@ public class DelegationController {
         Meals meals = modelMapper.map(mealsDto, Meals.class);
         return delegationService.updateMeals(delegationId, authentication, meals)
                 .map(updatedMeals -> modelMapper.map(updatedMeals, MealsDto.class))
+                .map(ResponseEntity::ok);
+    }
+
+    @PatchMapping("/delegations/{delegationId}/checklist")
+    @Validated(OnPatch.class)
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    public Mono<ResponseEntity<ChecklistDto>> patchDelegationChecklist(@Valid @RequestBody ChecklistDto checklistDto,
+            @PathVariable("delegationId") Long delegationId,
+            Authentication authentication) {
+        Checklist checklist = modelMapper.map(checklistDto, Checklist.class);
+        return delegationService.updateChecklist(delegationId, authentication, checklist)
+                .map(updatedChecklist -> modelMapper.map(updatedChecklist, ChecklistDto.class))
                 .map(ResponseEntity::ok);
     }
 

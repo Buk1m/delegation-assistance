@@ -29,7 +29,7 @@ public class AccommodationServiceImpl implements AccommodationService {
             Long delegationId) {
         return delegationService.getDelegation(delegationId, authentication, OperationType.CREATE)
                 .flatMap(delegation -> {
-                    delegation.getAccommodations().add(accommodation);
+                    delegation.addAccommodation(accommodation);
                     return Mono.fromCallable(() -> delegationRepository.save(delegation))
                             .map(d -> getLastSavedAccommodation(d));
                 });

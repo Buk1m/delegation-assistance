@@ -27,7 +27,7 @@ public class FlightServiceImpl implements FlightService {
     public Mono<Flight> addFlight(Flight flight, Authentication authentication, Long delegationId) {
         return delegationService.getDelegation(delegationId, authentication, OperationType.CREATE)
                 .flatMap(delegation -> {
-                    delegation.getFlights().add(flight);
+                    delegation.addFlight(flight);
                     return Mono.fromCallable(() -> delegationRepository.save(delegation))
                             .map(d -> getLastSavedFlight(d));
                 });

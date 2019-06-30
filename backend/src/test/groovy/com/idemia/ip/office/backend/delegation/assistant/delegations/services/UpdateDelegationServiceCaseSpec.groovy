@@ -1,6 +1,7 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services
 
 import com.idemia.ip.office.backend.delegation.assistant.configuration.ModelMapperConfiguration
+import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.ChecklistRepository
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.DelegationRepository
 import com.idemia.ip.office.backend.delegation.assistant.delegations.repositories.MealsRepository
 import com.idemia.ip.office.backend.delegation.assistant.delegations.utils.MealsAdjuster
@@ -18,12 +19,14 @@ class UpdateDelegationServiceCaseSpec extends Specification {
 
     DelegationRepository delegationRepository = Mock()
     MealsRepository mealsRepository = Mock()
+    ChecklistRepository checklistRepository = Mock()
     MealsAdjuster mealsAdjuster = Mock()
 
     UpdateDelegationService updateDelegationService = new UpdateDelegationServiceImpl(
             delegationRepository,
             mealsRepository,
             mealsAdjuster,
+            checklistRepository,
             new ModelMapperConfiguration().getModelMapperPropertyConditionNotNull())
 
     def 'Flow status is properly mapped'() {

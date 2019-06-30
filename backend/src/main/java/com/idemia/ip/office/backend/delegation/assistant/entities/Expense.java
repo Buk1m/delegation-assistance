@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import java.math.BigDecimal;
@@ -31,6 +32,7 @@ import java.util.List;
 @Setter
 @Entity
 public class Expense extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
@@ -59,4 +61,8 @@ public class Expense extends BaseEntity {
     @JoinColumn(name = "expense_id", referencedColumnName = "id", nullable = false)
     @OrderBy("id")
     private List<File> files = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "delegation_id", nullable = false)
+    private Delegation delegation;
 }

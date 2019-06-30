@@ -1,5 +1,6 @@
 package com.idemia.ip.office.backend.delegation.assistant.delegations.services;
 
+import com.idemia.ip.office.backend.delegation.assistant.entities.Checklist;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Delegation;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Expense;
 import com.idemia.ip.office.backend.delegation.assistant.entities.Meals;
@@ -16,4 +17,6 @@ public interface UpdateDelegationService {
             Meals oldMeals,
             LocalDateTime delegationStartDate,
             LocalDateTime delegationEndDate);
+
+    Mono<Checklist> updateChecklist(Checklist updatedChecklist, Checklist oldChecklist);
 }
