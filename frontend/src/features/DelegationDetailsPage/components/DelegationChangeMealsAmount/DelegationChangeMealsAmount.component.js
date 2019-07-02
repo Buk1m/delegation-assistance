@@ -16,17 +16,18 @@ const DelegationChangeMealsAmount = ({
   handleOnChangeTyping,
   handleOnBlurTyping,
   isDisabledPlus,
-  isDisabledMinus
+  isDisabledMinus,
+  disabled
 }) => {
   return (
     <form>
       <fieldset disabled={fetchingMeals}>
-        <div>
+        <div className="d-flex align-items-center">
           <Button
             className="decrement"
-            text="-"
-            onClick={e => onClick(mealType, "-")}
-            disabled={isDisabledMinus(mealAmount)}
+            onClick={() => onClick(mealType, "-")}
+            text="–"
+            disabled={disabled || isDisabledMinus(mealAmount)}
           />
           <input
             type="number"
@@ -34,12 +35,13 @@ const DelegationChangeMealsAmount = ({
             id="meal_input"
             onBlur={e => handleOnBlurTyping(e, mealType)}
             onChange={e => handleOnChangeTyping(e, mealType)}
+            disabled={disabled}
           />
           <Button
             className="increment"
             text="+"
-            onClick={e => onClick(mealType, "+")}
-            disabled={isDisabledPlus(mealAmount)}
+            onClick={() => onClick(mealType, "+")}
+            disabled={disabled || isDisabledPlus(mealAmount)}
           />
           {fetchingMeals && editingMeal === mealType ? <Spinner className={spinnerStyle["spinner-inline"]} /> : null}
         </div>
@@ -49,6 +51,7 @@ const DelegationChangeMealsAmount = ({
 };
 
 DelegationChangeMealsAmount.propTypes = {
+  disabled: bool,
   editingMeal: string,
   fetchingMeals: bool,
   handleOnBlurTyping: func,

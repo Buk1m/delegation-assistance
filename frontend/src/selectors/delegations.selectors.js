@@ -1,5 +1,5 @@
 import { delegationStatusCodes } from "../config";
-const { PREPARED, NEEDS_WORK, CHECKED, APPROVED } = delegationStatusCodes;
+const { NEEDS_WORK } = delegationStatusCodes;
 
 const getDelegations = state => state.delegations.delegations;
 const getDelegation = state => state.delegations.delegation;
@@ -16,7 +16,7 @@ const getRejectedDelegations = state => {
 const getWaitingDelegations = state => {
   const waiting = [];
   state.delegations.delegations.forEach(delegation => {
-    if (delegation.status === PREPARED || delegation.status === CHECKED || delegation.status === APPROVED) {
+    if (state.delegations.waitingStatus.includes(delegation.status)) {
       waiting.push(delegation);
     }
   });

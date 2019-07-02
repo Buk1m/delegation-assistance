@@ -14,8 +14,7 @@ const initialState = {
   datesAreValid: true,
   isSortFilterPanelCollapsed: true,
   fetching: true,
-  errors: "",
-  subErrors: [],
+  errors: null,
   updatingMeals: false
 };
 
@@ -29,7 +28,7 @@ const delegationsReducer = (state = initialState, action) => {
     }
     case `${ACTIONS.ADD_DELEGATION}_${REJECTED}`: {
       showMessage({ message: `Cannot create delegation. ${action.payload.Message}`, type: "danger" });
-      return { ...state, fetching: false, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+      return { ...state, fetching: false, errors: action.payload.response.data };
     }
 
     case `${ACTIONS.FETCH_DELEGATION}_${PENDING}`:
@@ -51,18 +50,17 @@ const delegationsReducer = (state = initialState, action) => {
 
     case `${ACTIONS.FETCH_MY_DELEGATIONS}_${REJECTED}`:
       showMessage({ message: `Error occured while fetching delegations: ${action.payload.Message}`, type: "danger" });
-      return { ...state, fetching: false, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+      return { ...state, fetching: false, errors: action.payload.response.data };
     case `${ACTIONS.FETCH_DELEGATION}_${REJECTED}`:
       showMessage({ message: `Error occured while fetching details: ${action.payload.Message}`, type: "danger" });
       return {
         ...state,
         delegationFetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
     case `${ACTIONS.UPDATE_DELEGATION_MEALS}_${REJECTED}`:
       showMessage({ message: `Failed to update meals.`, type: "danger" });
-      return { ...state, errors: action.payload.Message, subErrors: action.payload.SubErrors, updatingMeals: false };
+      return { ...state, errors: action.payload.response.data, updatingMeals: false };
 
     case ACTIONS.SET_DELEGATIONS:
       return { ...state, delegations: action.payload };

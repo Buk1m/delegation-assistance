@@ -8,6 +8,7 @@ import { addNewDelegation } from "../../actions/delegations.actions";
 import { fetchCountries } from "../../actions/countries.actions";
 import { formatToISO } from "../../helpers/formatters";
 import { getCountriesTypeahead, getCountriesFetching } from "../../selectors/countries.selectors";
+import handleFormErrors from "../../helpers/handlers/errorHandler";
 
 class DelegationCreatePageContainer extends Component {
   static propTypes = {
@@ -33,9 +34,14 @@ class DelegationCreatePageContainer extends Component {
       delegation.diet = { perDiem: values.diet.perDiem, currency: values.diet.currency.value };
     }
 
-    return this.props.addNewDelegation(delegation).then(() => {
-      this._redirectToDelegationsPage();
-    });
+    return this.props
+      .addNewDelegation(delegation)
+      .then(() => {
+        this._redirectToDelegationsPage();
+      })
+      .catch(err => {
+        handleFormErrors(err);
+      });
   };
 
   render() {

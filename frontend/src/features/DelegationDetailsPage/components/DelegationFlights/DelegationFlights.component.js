@@ -12,7 +12,7 @@ import SpinnerWrapper from "../../../../components/SpinnerWrapper/SpinnerWrapper
 import styles from "./DelegationFlights.module.scss";
 
 const DelegationFlights = props => {
-  const { addingFlight, delegationId, fetching, flights, handleSortChange, sortOrder } = props;
+  const { addingFlight, delegationId, fetching, flights, handleSortChange, sortOrder, canEditDelegation } = props;
   return (
     <SpinnerWrapper loading={fetching} message="loading flights">
       {flights.length === 0 ? (
@@ -54,7 +54,7 @@ const DelegationFlights = props => {
           data-target="#addFlightModal"
           text="Add Flight"
           submitting={addingFlight}
-          disabled={addingFlight}
+          disabled={addingFlight || !canEditDelegation}
         />
       </div>
       <FlightModalForm delegationId={delegationId} />
@@ -64,6 +64,7 @@ const DelegationFlights = props => {
 
 DelegationFlights.propTypes = {
   addingFlight: bool,
+  canEditDelegation: bool,
   delegationId: number,
   fetching: bool,
   flights: array,

@@ -3,6 +3,7 @@ import React from "react";
 import { formatColumnDate } from "../../../helpers/formatters";
 import ButtonLink from "../../../components/ButtonLink/ButtonLink.component";
 import { columnsCentered } from "../_styles";
+import { delegationStatuses } from "../..";
 
 const columns = [
   {
@@ -36,9 +37,18 @@ const columns = [
     ...columnsCentered()
   },
   {
+    dataField: "status",
+    text: "Status",
+    sort: true,
+    classes: (cell, row) => (row.status ? row.status.toLowerCase() : ""),
+    formatter: cell => <span className="delegation-status">{delegationStatuses[cell]}</span>,
+    ...columnsCentered()
+  },
+  {
     dataField: "view",
     text: "View",
     isDummyField: true,
+    editable: false,
     formatter: (cell, row) => <ButtonLink href={`/delegations/${row.id}`} text="View" />,
     ...columnsCentered()
   }

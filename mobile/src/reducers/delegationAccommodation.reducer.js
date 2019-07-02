@@ -5,8 +5,7 @@ import { showMessage } from "react-native-flash-message";
 const initialState = {
   accommodations: [],
   fetching: true,
-  errors: "",
-  subErrors: []
+  errors: null
 };
 
 const delegationAccommodationReducer = (state = initialState, action) => {
@@ -37,8 +36,7 @@ const delegationAccommodationReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
 
     case `${ACTIONS.FETCH_DELEGATION_ACCOMMODATIONS}_${REJECTED}`:
@@ -49,8 +47,7 @@ const delegationAccommodationReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
 
     default:

@@ -1,11 +1,13 @@
 import { ACTIONS } from "../actions/checklistTemplate.action";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
+import { toast } from "react-toastify";
+import { notify } from "../helpers/notifications";
 
 const initialState = {
   fetching: false,
   globalTemplate: [],
-  errors: "",
-  subErrors: []
+  umodifiedTemplate: [],
+  error: null
 };
 
 const arrayMove = (array, from, to) => {
@@ -30,21 +32,26 @@ const checklistTemplateReducer = (state = initialState, action) => {
       };
 
     case `${ACTIONS.GET_GLOBAL_TEMPLATE}_${FULFILLED}`:
-    case `${ACTIONS.SAVE_GLOBAL_TEMPLATE}_${FULFILLED}`:
+    case `${ACTIONS.SAVE_GLOBAL_TEMPLATE}_${FULFILLED}`: {
+      const template = action.payload.data.activities.sort((a, b) => a.priority - b.priority);
       return {
         ...state,
         fetching: false,
-        globalTemplate: action.payload.data.activities.sort((a, b) => a.priority - b.priority)
+        globalTemplate: template,
+        umodifiedTemplate: template
       };
+    }
 
     case `${ACTIONS.GET_GLOBAL_TEMPLATE}_${REJECTED}`:
-    case `${ACTIONS.SAVE_GLOBAL_TEMPLATE}_${REJECTED}`:
+    case `${ACTIONS.SAVE_GLOBAL_TEMPLATE}_${REJECTED}`: {
+      notify(`Error during template processing: ${action.payload.response.data.errorMessage}`, toast.TYPE.ERROR);
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data,
+        globalTemplate: state.umodifiedTemplate
       };
+    }
 
     case ACTIONS.REORDER_GLOBAL_TEMPLATE:
       return {
@@ -52,6 +59,11 @@ const checklistTemplateReducer = (state = initialState, action) => {
         globalTemplate: updatePriority(
           arrayMove([...state.globalTemplate], action.payload.oldIndex, action.payload.newIndex)
         )
+      };
+    case ACTIONS.RESTORE_GLOBAL_TEMPLATE:
+      return {
+        ...state,
+        globalTemplate: state.umodifiedTemplate
       };
     case ACTIONS.DELETE_TASK:
       return {

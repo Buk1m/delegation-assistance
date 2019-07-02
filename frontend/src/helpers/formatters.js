@@ -18,7 +18,6 @@ const formatISODate = date => {
   const formatter = new Intl.DateTimeFormat("en-GB", {
     hour: "numeric",
     minute: "numeric",
-    second: "numeric",
     hour12: false,
     day: "numeric",
     month: "numeric",

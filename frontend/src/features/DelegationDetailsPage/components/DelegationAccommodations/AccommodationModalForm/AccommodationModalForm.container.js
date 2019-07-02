@@ -4,6 +4,7 @@ import { func, object, number } from "prop-types";
 
 import AccommodationModalForm from "./AccommodationModalForm.component";
 import { addAccommodation } from "../../../../../actions/accommodations.actions";
+import handleFormErrors from "../../../../../helpers/handlers/errorHandler";
 
 export class AccommodationModalFormContainer extends Component {
   static propTypes = {
@@ -13,7 +14,9 @@ export class AccommodationModalFormContainer extends Component {
   };
 
   _handleSubmit = values => {
-    return this.props.addAccommodation(this.props.delegationId, values);
+    return this.props.addAccommodation(this.props.delegationId, values).catch(err => {
+      handleFormErrors(err);
+    });
   };
 
   render() {

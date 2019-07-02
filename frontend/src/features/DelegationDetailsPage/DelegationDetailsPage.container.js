@@ -1,19 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { toNumber } from "lodash";
-import { object, func, number } from "prop-types";
+import { func, number, object, string } from "prop-types";
 import { toast } from "react-toastify";
 
 import DelegationDetailsPage from "./DelegationDetailsPage.component";
-import { deleteDelegation, updateDelegationStatus } from "../../actions/delegations.actions";
+import { deleteDelegation, fetchDelegation, updateDelegationStatus } from "../../actions/delegations.actions";
 import { confirmationModal } from "../../helpers/confirmationModal";
+import { getDelegation } from "../../selectors/delegations.selectors";
+import { getRoleActive } from "../../selectors/user.selectors";
+import { canEditDelegation } from "../../ui-restrictions/delegation.restriction";
 
 class DelegationDetailsPageContainer extends Component {
   static propTypes = {
+    delegation: object,
     delegationId: number,
     deleteDelegation: func,
+    fetchDelegation: func,
     history: object,
-    match: object
+    match: object,
+    roleActive: string
   };
 
   constructor(props) {
@@ -29,6 +35,27 @@ class DelegationDetailsPageContainer extends Component {
     this.delegationId = toNumber(this.delegationId);
   }
 
+  componentDidMount = () => {
+    this.props.fetchDelegation(this.delegationId).catch(error => {
+      if (!error.response) {
+        toast.error(error.message);
+        return;
+      }
+      switch (error.response.status) {
+        case 401:
+          toast.error("Unauthorized.");
+          break;
+        case 404:
+          toast.error(`Delegation with id "${this.delegationId}" not found.`);
+          break;
+        default:
+          toast.error(`Unexpected error.`);
+          break;
+      }
+      this._redirectToDelegationsPage();
+    });
+  };
+
   _redirectToDelegationsPage = () => this.props.history.push("/delegations/my");
 
   _handleDelete = () => {
@@ -39,17 +66,28 @@ class DelegationDetailsPageContainer extends Component {
 
   render() {
     return !this.invalidDelegationId ? (
-      <DelegationDetailsPage delegationId={this.delegationId} handleDelete={this._handleDelete} />
+      <DelegationDetailsPage
+        delegationId={this.delegationId}
+        delegation={this.delegation}
+        handleDelete={this._handleDelete}
+        canEditDelegation={canEditDelegation(this.props.delegation.status, this.props.roleActive)}
+      />
     ) : null;
   }
 }
 
+const mapStateToProps = state => ({
+  roleActive: getRoleActive(state),
+  delegation: getDelegation(state)
+});
+
 const mapDispatchToProps = {
   deleteDelegation,
+  fetchDelegation,
   updateDelegationStatus
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(DelegationDetailsPageContainer);

@@ -8,6 +8,7 @@ import { addExpense, fetchExpenses } from "../../../../actions/expenses.actions"
 
 class DelegationExpensesContainer extends Component {
   static propTypes = {
+    canEditDelegation: bool,
     delegationId: number,
     expenses: array,
     fetchExpenses: func,
@@ -62,6 +63,7 @@ class DelegationExpensesContainer extends Component {
         sizePerPage={this.state.sizePerPage}
         sortOrder={this.state.sortOrder}
         sortField={this.state.sortField}
+        canEditDelegation={this.props.canEditDelegation}
       />
     );
   }

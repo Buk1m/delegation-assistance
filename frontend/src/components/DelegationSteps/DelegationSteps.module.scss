@@ -1,0 +1,43 @@
+@import "../../assets/styles/_constants";
+
+.step {
+  padding: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 5px;
+  transition: linear 300ms;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  &:hover {
+    transform: scale(1.25);
+    transition: linear 300ms;
+  }
+}
+
+.accomplished {
+  @extend .step;
+  background: $primary-color;
+}
+
+.pending {
+  @extend .step;
+  background: $disabled-color;
+}
+
+@media (max-width: 540px) {
+  .accomplished {
+    transform: rotate(90deg);
+    &:hover {
+      transform: scale(1.25) rotate(90deg);
+      transition: linear 300ms;
+    }
+  }
+
+  .pending {
+    transform: rotate(90deg);
+    &:hover {
+      transform: scale(1.25) rotate(90deg);
+      transition: linear 300ms;
+    }
+  }
+}

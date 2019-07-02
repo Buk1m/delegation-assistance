@@ -1,10 +1,11 @@
 import { APIService } from "../services/data";
 
 export const ACTIONS = {
-  FETCH_DELEGATION_CHECKLIST: "DELEGATION_CHECKLIST_FETCH_DELEGATION_CHECKLIST"
+  FETCH_DELEGATION_CHECKLIST: "DELEGATION_CHECKLIST_FETCH_DELEGATION_CHECKLIST",
+  UPDATE_DELEGATION_CHECKLIST: "DELEGATION_CHECKLIST_UPDATE_DELEGATION_CHECKLIST"
 };
 
-const fetchChecklist = delegationId => dispatch => {
+const fetchDelegationChecklist = delegationId => dispatch => {
   return dispatch(
     APIService.get(ACTIONS.FETCH_DELEGATION_CHECKLIST, {
       url: `/delegations/${delegationId}/checklist`,
@@ -16,4 +17,17 @@ const fetchChecklist = delegationId => dispatch => {
   );
 };
 
-export { fetchChecklist };
+const updateDelegationChecklist = (delegationId, checklist) => dispatch => {
+  return dispatch(
+    APIService.patch(ACTIONS.UPDATE_DELEGATION_CHECKLIST, {
+      url: `/delegations/${delegationId}/checklist`,
+      headers: {
+        "Content-type": "application/json"
+      },
+      needAuth: true,
+      data: checklist
+    })
+  );
+};
+
+export { fetchDelegationChecklist, updateDelegationChecklist };

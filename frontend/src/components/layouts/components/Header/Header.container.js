@@ -8,12 +8,12 @@ import { getLoggedStatus, getFullName, getRoleActive, getRoles } from "../../../
 
 export class HeaderContainer extends Component {
   static propTypes = {
-    loggedStatus: bool,
-    logoutUser: func,
     changeRole: func,
     fullname: string,
-    roles: array,
-    roleActive: string
+    loggedStatus: bool,
+    logoutUser: func,
+    roleActive: string,
+    roles: array
   };
 
   _handleLogout = () => {

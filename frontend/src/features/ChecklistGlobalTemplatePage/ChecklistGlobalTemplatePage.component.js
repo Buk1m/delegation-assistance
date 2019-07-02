@@ -11,6 +11,7 @@ const ChecklistGlobalTemplatePage = props => {
   const {
     onSortEnd,
     changeMode,
+    cancelEdit,
     handleUpdateModal,
     handleDeleteTask,
     itemForModal = null,
@@ -24,14 +25,17 @@ const ChecklistGlobalTemplatePage = props => {
       buttons={
         <Fragment>
           {isInEditMode ? (
-            <Button
-              type="button"
-              className="add"
-              data-toggle="modal"
-              data-target="#checklistModal"
-              text="Add task"
-              onClick={() => handleUpdateModal(-1)}
-            />
+            <>
+              <Button text="cancel" className="warning" onClick={cancelEdit} submitting={isFetching} />
+              <Button
+                type="button"
+                className="add"
+                data-toggle="modal"
+                data-target="#checklistModal"
+                text="Add task"
+                onClick={() => handleUpdateModal(-1)}
+              />
+            </>
           ) : null}
           <Button
             text={isInEditMode ? "save" : "edit"}
@@ -62,14 +66,15 @@ const ChecklistGlobalTemplatePage = props => {
 };
 
 ChecklistGlobalTemplatePage.propTypes = {
-  onSortEnd: func.isRequired,
+  cancelEdit: func,
   changeMode: func,
-  handleUpdateModal: func,
+  globalTemplateItems: array,
   handleDeleteTask: func,
-  isInEditMode: bool,
+  handleUpdateModal: func,
   isFetching: bool,
+  isInEditMode: bool,
   itemForModal: object,
-  globalTemplateItems: array
+  onSortEnd: func.isRequired
 };
 
 export default ChecklistGlobalTemplatePage;

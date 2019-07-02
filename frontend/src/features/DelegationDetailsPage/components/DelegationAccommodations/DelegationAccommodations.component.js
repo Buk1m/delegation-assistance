@@ -12,7 +12,15 @@ import styles from "./DelegationAccommodations.module.scss";
 import SpinnerWrapper from "../../../../components/SpinnerWrapper/SpinnerWrapper.component";
 
 const DelegationAccommodations = props => {
-  const { accommodations, addingAccommodation, delegationId, fetching, handleSortChange, sortOrder } = props;
+  const {
+    accommodations,
+    addingAccommodation,
+    delegationId,
+    fetching,
+    handleSortChange,
+    sortOrder,
+    canEditDelegation
+  } = props;
 
   return (
     <SpinnerWrapper loading={fetching} message="loading accommodations">
@@ -47,7 +55,7 @@ const DelegationAccommodations = props => {
           data-target="#addAccommodationModal"
           text="Add Accommodation"
           submitting={addingAccommodation}
-          disabled={addingAccommodation}
+          disabled={addingAccommodation || !canEditDelegation}
         />
       </div>
       <AccommodationModalForm delegationId={delegationId} />
@@ -58,6 +66,7 @@ const DelegationAccommodations = props => {
 DelegationAccommodations.propTypes = {
   accommodations: array,
   addingAccommodation: bool,
+  canEditDelegation: bool,
   delegationId: number,
   fetching: bool,
   handleSortChange: func,

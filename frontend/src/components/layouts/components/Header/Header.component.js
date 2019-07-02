@@ -40,12 +40,12 @@ const Header = ({ loggedStatus, logout, fullname, roles, roleActive, changeRole 
 };
 
 Header.propTypes = {
+  changeRole: func,
+  fullname: string,
   loggedStatus: bool,
   logout: func,
-  fullname: string,
-  roles: array,
   roleActive: string,
-  changeRole: func
+  roles: array
 };
 
 export default Header;

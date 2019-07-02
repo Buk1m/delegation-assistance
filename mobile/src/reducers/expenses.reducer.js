@@ -29,8 +29,7 @@ const expensesReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
     }
     default:

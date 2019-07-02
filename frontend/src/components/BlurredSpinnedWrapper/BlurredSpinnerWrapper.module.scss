@@ -1,0 +1,23 @@
+.blur {
+  transition: 200ms -webkit-filter linear;
+  filter: blur(5px);
+}
+
+.msg {
+  color: var(--spinner-c);
+  margin-top: 16px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

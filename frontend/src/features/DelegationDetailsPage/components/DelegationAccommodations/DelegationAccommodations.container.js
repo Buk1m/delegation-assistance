@@ -15,6 +15,7 @@ class DelegationAccommodationsContainer extends Component {
   static propTypes = {
     accommodations: array,
     addingAccommodation: bool,
+    canEditDelegation: bool,
     delegationId: number,
     fetchAccommodations: func,
     fetching: bool,
@@ -40,6 +41,7 @@ class DelegationAccommodationsContainer extends Component {
         fetching={this.props.fetching}
         handleSortChange={this._handleSortChange}
         sortOrder={this.props.sortOrder}
+        canEditDelegation={this.props.canEditDelegation}
       />
     );
   }

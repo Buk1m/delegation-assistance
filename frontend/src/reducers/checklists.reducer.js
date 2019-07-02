@@ -4,8 +4,7 @@ import { PENDING, FULFILLED, REJECTED } from "../middleware";
 const initialState = {
   fetching: false,
   activites: [],
-  errors: "",
-  subErrors: []
+  error: null
 };
 
 const checklistsReducer = (state = initialState, action) => {
@@ -27,8 +26,7 @@ const checklistsReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
 
     default:

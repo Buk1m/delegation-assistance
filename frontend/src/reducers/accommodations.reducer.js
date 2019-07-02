@@ -2,6 +2,7 @@ import { ACTIONS } from "../actions/accommodations.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
 import { orderBy } from "lodash";
 import { toast } from "react-toastify";
+import { notify } from "../helpers/notifications";
 
 const initialState = {
   accommodations: [],
@@ -21,7 +22,7 @@ const accommodationsReducer = (state = initialState, action) => {
     case `${ACTIONS.ADD_ACCOMMODATION}_${FULFILLED}`: {
       const accommodations = [...state.accommodations, parseAccommodationDate(action.payload.data)];
       const sortedAccommodations = sortAccommodationsByCheckInDate(state.sortOrder, accommodations);
-      toast.success(`Added new accommodation at ${action.payload.data.hotelName}.`);
+      notify(`Added new accommodation at ${action.payload.data.hotelName}.`, toast.TYPE.SUCCESS);
       return { ...state, addingAccommodation: false, accommodations: sortedAccommodations };
     }
     case `${ACTIONS.FETCH_ACCOMMODATIONS}_${FULFILLED}`: {
@@ -30,16 +31,15 @@ const accommodationsReducer = (state = initialState, action) => {
       return { ...state, fetching: false, accommodations: sortedAccommodations };
     }
     case `${ACTIONS.ADD_ACCOMMODATION}_${REJECTED}`:
-      toast.error(`Error while adding accommodation: ${action.payload.Message}.`);
+      notify(`Error while adding accommodation: ${action.payload.response.data.Message}.`, toast.TYPE.ERROR);
       return {
         ...state,
         addingAccommodation: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
     case `${ACTIONS.FETCH_ACCOMMODATIONS}_${REJECTED}`:
-      toast.error(`Error while fetching accommodations: ${action.payload.Message}.`);
-      return { ...state, fetching: false, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+      notify(`Error while fetching accommodations: ${action.payload.Message}.`, toast.TYPE.ERROR);
+      return { ...state, fetching: false, errors: action.payload.Message };
 
     case ACTIONS.SORT_ACCOMMODATIONS: {
       const order = action.payload;

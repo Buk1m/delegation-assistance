@@ -34,7 +34,7 @@ const userReducer = (state = initialState, action) => {
         token: action.payload.data.token,
         tokenExpDate: token.exp,
         roles: roles,
-        roleActive: state.roleActive || roles[0]
+        roleActive: roles[0]
       };
     }
 

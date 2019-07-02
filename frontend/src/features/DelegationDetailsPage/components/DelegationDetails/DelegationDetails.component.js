@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { object, bool, number, func, string } from "prop-types";
+import { object, bool, func, string } from "prop-types";
 
 import Row from "../../../../components/Row/Row.component";
 import Button from "../../../../components/Button/Button.component";
@@ -8,9 +8,18 @@ import { delegationStatuses } from "../../../../config";
 
 const DelegationDetails = props => {
   const {
-    delegation: { destinationCountry, destinationLocation, status, startDate, endDate, delegationObjective, diet },
+    delegation: {
+      delegationId,
+      destinationCountry,
+      destinationLocation,
+      status,
+      startDate,
+      endDate,
+      delegationObjective,
+      diet
+    },
+    canEditDelegation,
     fetching,
-    delegationId,
     changeEditingMeal,
     editingMealLabel,
     edit = true
@@ -19,7 +28,7 @@ const DelegationDetails = props => {
     <Fragment>
       {edit ? (
         <div className="edit-btn">
-          <Button text="Edit" />
+          <Button text="Edit" disabled={!canEditDelegation} />
         </div>
       ) : null}
       <div className="display-container pl-2 pr-2">
@@ -52,6 +61,7 @@ const DelegationDetails = props => {
             delegationId={delegationId}
             changeEditingMeal={changeEditingMeal}
             editingMealLabel={editingMealLabel}
+            canEditDelegation={canEditDelegation}
           />
         </Row>
         <Row loading={fetching} label="Lunches:">
@@ -60,6 +70,7 @@ const DelegationDetails = props => {
             delegationId={delegationId}
             changeEditingMeal={changeEditingMeal}
             editingMealLabel={editingMealLabel}
+            canEditDelegation={canEditDelegation}
           />
         </Row>
         <Row loading={fetching} label="Dinners:">
@@ -68,6 +79,7 @@ const DelegationDetails = props => {
             delegationId={delegationId}
             changeEditingMeal={changeEditingMeal}
             editingMealLabel={editingMealLabel}
+            canEditDelegation={canEditDelegation}
           />
         </Row>
       </div>
@@ -76,9 +88,9 @@ const DelegationDetails = props => {
 };
 
 DelegationDetails.propTypes = {
+  canEditDelegation: bool,
   changeEditingMeal: func,
   delegation: object,
-  delegationId: number,
   edit: bool,
   editingMealLabel: string,
   fetching: bool

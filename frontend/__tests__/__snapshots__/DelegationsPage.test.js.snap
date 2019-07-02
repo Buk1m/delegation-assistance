@@ -4,11 +4,8 @@ exports[`Delegations Page should render correctly 1`] = `
 <Connect(LayoutMainContainer)
   title="My dashboard"
 >
-  <ButtonLink
-    className="primary"
-    href="/delegations/manage"
-    iconSize={20}
-    text="Manage delegations"
+  <PendingDelegations
+    delegations={Array []}
   />
 </Connect(LayoutMainContainer)>
 `;

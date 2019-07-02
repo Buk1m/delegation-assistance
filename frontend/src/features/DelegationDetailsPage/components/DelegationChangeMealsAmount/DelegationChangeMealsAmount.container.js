@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { func, number, string, object } from "prop-types";
+import { bool, func, string, object } from "prop-types";
 import { toast } from "react-toastify";
 import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
@@ -9,12 +9,11 @@ import { getFormatedDelegation, getDelegationObject } from "../../../../selector
 
 import DelegationChangeMealsAmount from "./DelegationChangeMealsAmount.component";
 import { updateDelegationMeals } from "../../../../actions/delegations.actions";
-
-export class DelegationChangeMealsAmountContainer extends Component {
+export class DelegationChangeMealsAmountContainer extends PureComponent {
   static propTypes = {
+    canEditDelegation: bool,
     changeEditingMeal: func,
     delegation: object,
-    delegationId: number,
     delegationUnformatted: object,
     editingMealLabel: string,
     mealType: string,
@@ -94,7 +93,7 @@ export class DelegationChangeMealsAmountContainer extends Component {
   delayedHandleChangeMealsAmount = label => {
     if (!isEqual(this.state.copyMeals, this.props.delegation.meals)) {
       this.changeFetchingState(label);
-      this.props.updateDelegationMeals(this.state.copyMeals, this.props.delegationId).finally(() => {
+      this.props.updateDelegationMeals(this.state.copyMeals, this.props.delegation.id).finally(() => {
         this.setState({ copyMeals: this.props.delegation.meals });
       });
       this.changeFetchingState("");
@@ -120,9 +119,7 @@ export class DelegationChangeMealsAmountContainer extends Component {
   };
 
   isDisabledMinus = mealsAmount => {
-    return (
-      mealsAmount <= 0 || (this.props.editingMealLabel && this.props.editingMealLabel !== this.props.mealType)
-    );
+    return mealsAmount <= 0 || (this.props.editingMealLabel && this.props.editingMealLabel !== this.props.mealType);
   };
 
   render() {
@@ -143,6 +140,7 @@ export class DelegationChangeMealsAmountContainer extends Component {
         handleOnBlurTyping={this.handleOnBlurTyping}
         isDisabledPlus={this.isDisabledPlus}
         isDisabledMinus={this.isDisabledMinus}
+        disabled={!this.props.canEditDelegation}
       />
     );
   }

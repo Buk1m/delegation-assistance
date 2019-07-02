@@ -3,6 +3,7 @@ import { APIService } from "../services/data";
 export const ACTIONS = {
   GET_GLOBAL_TEMPLATE: "CHECKLIST_TEMPLATE_GET_GLOBAL_TEMPLATE",
   REORDER_GLOBAL_TEMPLATE: "CHECKLIST_TEMPLATE_REORDER_GLOBAL_TEMPLATE",
+  RESTORE_GLOBAL_TEMPLATE: "CHECKLIST_TEMPLATE_RESTORE_GLOBAL_TEMPLATE",
   SAVE_GLOBAL_TEMPLATE: "CHECKLIST_TEMPLATE_SAVE_GLOBAL_TEMPLATE",
   ADD_TASK: "CHECKLIST_TEMPLATE_ADD_TASK",
   EDIT_TASK: "CHECKLIST_TEMPLATE_EDIT_TASK",
@@ -45,6 +46,11 @@ const reorderGlobalTemplate = ({ oldIndex, newIndex }) => dispatch =>
     }
   });
 
+const restoreGlobalTemplate = () => dispatch =>
+  dispatch({
+    type: ACTIONS.RESTORE_GLOBAL_TEMPLATE
+  });
+
 const addTask = ({ task, description }) => dispatch =>
   dispatch({
     type: ACTIONS.ADD_TASK,
@@ -74,4 +80,12 @@ const deleteTask = index => dispatch =>
     }
   });
 
-export { fetchGlobalTemplate, reorderGlobalTemplate, saveGlobalTemplate, addTask, editTask, deleteTask };
+export {
+  fetchGlobalTemplate,
+  saveGlobalTemplate,
+  reorderGlobalTemplate,
+  restoreGlobalTemplate,
+  addTask,
+  editTask,
+  deleteTask
+};

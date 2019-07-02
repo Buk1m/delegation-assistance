@@ -7,7 +7,8 @@ export const ACTIONS = {
   GET_DELEGATION: "DELEGATIONS_GET_DELEGATION",
   UPDATE_DELEGATION: "DELEGATIONS_UPDATE_DELEGATION",
   UPDATE_DELEGATION_MEALS: "DELEGATIONS_UPDATE_DELEGATION_MEALS",
-  UPDATE_DELEGATION_STATUS: "DELEGATIONS_UPDATE_DELEGATION_STATUS"
+  UPDATE_DELEGATION_STATUS: "DELEGATIONS_UPDATE_DELEGATION_STATUS",
+  SET_WAITING_STATUS: "DELEGATIONS_SET_WAITING_STATUS"
 };
 
 const addNewDelegation = delegation => dispatch => {
@@ -84,6 +85,14 @@ const fetchMyDelegations = () => dispatch => {
   );
 };
 
+const setWaitingStatus = (status = []) => dispatch =>
+  dispatch({
+    type: ACTIONS.SET_WAITING_STATUS,
+    payload: {
+      status
+    }
+  });
+
 const updateDelegationStatus = (delegationId, status, version) => dispatch => {
   return dispatch(
     APIService.patch(
@@ -144,6 +153,7 @@ export {
   fetchDelegations,
   fetchDelegation,
   fetchMyDelegations,
+  setWaitingStatus,
   updateDelegationStatus,
   updateDelegation,
   updateDelegationMeals

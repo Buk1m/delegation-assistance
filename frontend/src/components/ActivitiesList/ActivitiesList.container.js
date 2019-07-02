@@ -1,44 +1,79 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bool, func, number, array } from "prop-types";
+import { bool, func, object, number } from "prop-types";
+import cloneDeep from "lodash/cloneDeep";
+import debounce from "lodash/debounce";
 
-import { getActivities, getActivitiesFetching } from "../../selectors/delegationChecklist.selectors.js";
-import { fetchChecklist } from "../../actions/delegationChecklist.action";
+import {
+  getDelegationChecklist,
+  getDelegationChecklistFetching,
+  getDelegationChecklistUpdating
+} from "../../selectors/delegationChecklist.selectors.js";
+import { fetchDelegationChecklist, updateDelegationChecklist } from "../../actions/delegationChecklist.action";
 import ActivitiesList from "./ActivitiesList.component.js";
 
 export class ActivitiesListContainer extends Component {
   static propTypes = {
-    activities: array,
+    delegationChecklist: object,
     delegationId: number,
-    fetchChecklist: func,
-    fetching: bool
+    fetchDelegationChecklist: func,
+    fetching: bool,
+    updateDelegationChecklist: func,
+    updating: bool
+  };
+
+  state = {
+    delegationChecklist: {
+      activities: []
+    }
   };
 
   componentDidMount() {
-    this.props.fetchChecklist(this.props.delegationId);
+    this.props.fetchDelegationChecklist(this.props.delegationId).then(() => {
+      this.setState({ delegationChecklist: this.props.delegationChecklist });
+    });
   }
 
-  handleCheck = () => {
-    // TODO: add proper handling with backend comunication
-    // IDEMIA2019-18 Jako pracownik mogę oznaczyć zadania z checklisty
+  _debouceUpdateChecklist = debounce(
+    activities =>
+      this.props
+        .updateDelegationChecklist(this.props.delegationId, activities)
+        .finally(() => this.setState({ delegationChecklist: this.props.delegationChecklist })),
+    800
+  );
+
+  _handleCheck = activitiy => {
+    const activitiesCopy = cloneDeep(this.state.delegationChecklist.activities);
+    activitiesCopy.find(ac => ac.id === activitiy.id).isDone = !activitiy.isDone;
+    const checklistCopy = { activities: activitiesCopy, version: this.state.delegationChecklist.version };
+    this.setState({ delegationChecklist: checklistCopy }, () =>
+      this._debouceUpdateChecklist(this.state.delegationChecklist)
+    );
   };
 
   render() {
     return (
-      <ActivitiesList activities={this.props.activities} handleCheck={this.handleCheck} loading={this.props.fetching} />
+      <ActivitiesList
+        activities={this.state.delegationChecklist.activities}
+        handleCheck={this._handleCheck}
+        loading={this.props.fetching}
+        updating={this.props.updating}
+      />
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    activities: getActivities(state),
-    fetching: getActivitiesFetching(state)
+    delegationChecklist: getDelegationChecklist(state),
+    fetching: getDelegationChecklistFetching(state),
+    updating: getDelegationChecklistUpdating(state)
   };
 };
 
 const mapDispatchToProps = {
-  fetchChecklist
+  fetchDelegationChecklist,
+  updateDelegationChecklist
 };
 
 export default connect(

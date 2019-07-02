@@ -9,7 +9,8 @@ const updateStatusOptions = [
     status: [NEEDS_WORK, CREATED],
     newStatus: PREPARED,
     roles: [employee],
-    text: "Send to Manager"
+    text: "Send to Manager",
+    canEdit: true
   },
   {
     status: [PREPARED],
@@ -37,4 +38,20 @@ const updateStatusOptions = [
   }
 ];
 
-export { updateStatusOptions };
+const getAvailableOptions = (status, roleActive) => {
+  const availableOptions = [];
+  updateStatusOptions.forEach(option => {
+    if (option.roles.includes(roleActive) && option.status.includes(status)) {
+      availableOptions.push(option);
+    }
+  });
+
+  return availableOptions;
+};
+
+const canEditDelegation = (status, roleActive) => {
+  const availableOptions = getAvailableOptions(status, roleActive);
+  return availableOptions.some(ao => ao.canEdit) > 0;
+};
+
+export { canEditDelegation, getAvailableOptions, updateStatusOptions };

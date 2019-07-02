@@ -38,6 +38,7 @@ const columns = [
     dataField: "view",
     text: "View",
     isDummyField: true,
+    editable: false,
     formatter: (cell, row) => <ButtonLink href={`/delegations/${row.id}`} text="View" />
   }
 ];

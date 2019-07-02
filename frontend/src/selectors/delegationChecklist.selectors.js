@@ -1,5 +1,6 @@
 const getDelegationId = state => state.delegationChecklist.delegationId;
-const getActivities = state => state.delegationChecklist.activities;
-const getActivitiesFetching = state => state.delegationChecklist.fetching;
+const getDelegationChecklist = state => state.delegationChecklist.delegationChecklist;
+const getDelegationChecklistFetching = state => state.delegationChecklist.fetching;
+const getDelegationChecklistUpdating = state => state.delegationChecklist.updating;
 
-export { getDelegationId, getActivities, getActivitiesFetching };
+export { getDelegationId, getDelegationChecklist, getDelegationChecklistFetching, getDelegationChecklistUpdating };

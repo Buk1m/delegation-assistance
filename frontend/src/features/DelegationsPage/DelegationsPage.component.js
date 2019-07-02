@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { array, bool } from "prop-types";
+import React from "react";
+import { array, bool, string } from "prop-types";
 
 import LayoutMain from "../../components/layouts/LayoutMain";
 import LastDelegation from "./components/LastDelegation";
@@ -7,8 +7,9 @@ import ButtonLink from "../../components/ButtonLink/ButtonLink.component";
 
 import RejectedDelegations from "./components/RejectedDelegations/RejectedDelegations.component";
 import WaitingDelegations from "./components/WaitingDelegations/WaitingDelegations.component";
+import PendingDelegations from "./components/PendingDelegations/PendingDelegations.component";
 
-const DelegationsPage = ({ isEmployee, fetching, delegations, rejectedDelegations, waitingDelegations }) => {
+const DelegationsPage = ({ isEmployee, fetching, delegations, rejectedDelegations, waitingDelegations, title }) => {
   return (
     <LayoutMain title="My dashboard">
       {isEmployee ? (
@@ -22,9 +23,7 @@ const DelegationsPage = ({ isEmployee, fetching, delegations, rejectedDelegation
           </div>
         </div>
       ) : (
-        <Fragment>
-          <ButtonLink href="/delegations/manage" text="Manage delegations" />
-        </Fragment>
+        <PendingDelegations fetching={fetching} delegations={waitingDelegations} title={title} />
       )}
     </LayoutMain>
   );
@@ -40,6 +39,7 @@ DelegationsPage.propTypes = {
   fetching: bool,
   isEmployee: bool,
   rejectedDelegations: array,
+  title: string,
   waitingDelegations: array
 };
 

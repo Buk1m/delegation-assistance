@@ -7,8 +7,7 @@ const initialState = {
   data: [],
   currentPage: 1,
   fetching: true,
-  errors: "",
-  subErrors: []
+  errors: null
 };
 
 const delegationExpensesReducer = (state = initialState, action) => {
@@ -32,8 +31,7 @@ const delegationExpensesReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
 
     case `${ACTIONS.CLEAR_EXPENSES}`:

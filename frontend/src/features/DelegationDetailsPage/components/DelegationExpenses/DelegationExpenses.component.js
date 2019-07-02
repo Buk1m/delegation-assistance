@@ -18,7 +18,8 @@ const DelegationExpenses = ({
   page,
   sizePerPage,
   sortOrder,
-  sortField
+  sortField,
+  canEditDelegation
 }) => {
   return (
     <Fragment>
@@ -43,7 +44,7 @@ const DelegationExpenses = ({
         pagination={paginationFactory({ page, sizePerPage, totalSize })}
       />
       <div className="d-flex justify-content-end">
-        <Button data-toggle="modal" data-target="#addExpenseModal" text="Add expense" />
+        <Button data-toggle="modal" data-target="#addExpenseModal" text="Add expense" disabled={!canEditDelegation} />
         <ExpensesModalForm
           delegationId={delegationId}
           onTableChange={onTableChange}
@@ -58,6 +59,7 @@ const DelegationExpenses = ({
 };
 
 DelegationExpenses.propTypes = {
+  canEditDelegation: bool,
   delegationId: number,
   expenses: array,
   fetching: bool,

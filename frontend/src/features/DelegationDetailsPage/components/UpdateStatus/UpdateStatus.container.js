@@ -1,33 +1,28 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { func, object, number, string } from "prop-types";
+import { func, number, object, string } from "prop-types";
 import { withRouter } from "react-router-dom";
 
 import UpdateStatus from "./UpdateStatus.component";
-import { getRoleActive } from "../../../../selectors/user.selectors";
 import { updateDelegationStatus } from "../../../../actions/delegations.actions";
 import { confirmationModal } from "../../../../helpers/confirmationModal";
 import { getDelegation } from "../../../../selectors/delegations.selectors";
-import { updateStatusOptions } from "../../../../ui-restrictions/delegation.restriction";
 import { delegationStatuses } from "../../../../config";
+import { getAvailableOptions } from "../../../../ui-restrictions/delegation.restriction";
+import { getRoleActive } from "../../../../selectors/user.selectors";
 
-export class UpdateStatusContainer extends Component {
+export class UpdateStatusContainer extends PureComponent {
   static propTypes = {
     delegation: object,
     delegationId: number,
-    history: object,
     roleActive: string,
-    status: string,
     updateDelegationStatus: func,
     version: number
   };
 
   handleUpdateStatus = newStatus => {
     const version = this.props.version || this.props.delegation.version;
-    const action = () =>
-      this.props.updateDelegationStatus(this.props.delegationId, newStatus, version).then(() => {
-        this._redirectToAllDelegations();
-      });
+    const action = () => this.props.updateDelegationStatus(this.props.delegationId, newStatus, version);
     confirmationModal(
       "Change status",
       `This delegation will change status to "${delegationStatuses[newStatus]}"`,
@@ -35,28 +30,19 @@ export class UpdateStatusContainer extends Component {
     );
   };
 
-  _redirectToAllDelegations = () => this.props.history.push("/delegations/my");
-
-  _getAvailableOptions = () => {
-    const availableOptions = [];
-    const status = this.props.status || this.props.delegation.status;
-    updateStatusOptions.forEach(option => {
-      if (option.roles.includes(this.props.roleActive) && option.status.includes(status)) {
-        availableOptions.push(option);
-      }
-    });
-
-    return availableOptions;
-  };
-
   render() {
-    return <UpdateStatus handleUpdateStatus={this.handleUpdateStatus} availableOptions={this._getAvailableOptions()} />;
+    return (
+      <UpdateStatus
+        handleUpdateStatus={this.handleUpdateStatus}
+        availableOptions={getAvailableOptions(this.props.delegation.status, this.props.roleActive)}
+      />
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  roleActive: getRoleActive(state),
-  delegation: getDelegation(state)
+  delegation: getDelegation(state),
+  roleActive: getRoleActive(state)
 });
 
 const mapDispatchToProps = {

@@ -6,8 +6,7 @@ const initialState = {
   delegationId: 0,
   activities: [],
   fetching: true,
-  errors: "",
-  subErrors: []
+  errors: null
 };
 
 const delegationChecklistReducer = (state = initialState, action) => {
@@ -31,8 +30,7 @@ const delegationChecklistReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
     default:
       return { ...state };

@@ -2,6 +2,7 @@ import { ACTIONS } from "../actions/flights.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
 import { orderBy } from "lodash";
 import { toast } from "react-toastify";
+import { notify } from "../helpers/notifications";
 
 const initialState = {
   addingFlight: false,
@@ -21,7 +22,7 @@ const flightsReducer = (state = initialState, action) => {
     case `${ACTIONS.ADD_FLIGHT}_${FULFILLED}`: {
       const flights = [...state.flights, parseFlightDate(action.payload.data)];
       const sortedFlights = sortFlightsByDepartureDate(state.sortOrder, flights);
-      toast.success(`Added new flight to ${action.payload.data.to}.`);
+      notify(`Added new flight to ${action.payload.data.to}.`, toast.TYPE.SUCCESS);
       return { ...state, addingFlight: false, flights: sortedFlights };
     }
     case `${ACTIONS.FETCH_FLIGHTS}_${FULFILLED}`: {
@@ -30,11 +31,11 @@ const flightsReducer = (state = initialState, action) => {
       return { ...state, fetching: false, flights: sortedFlights };
     }
     case `${ACTIONS.ADD_FLIGHT}_${REJECTED}`:
-      toast.error(`Error while adding flight: ${action.payload.Message}.`);
-      return { ...state, addingFlight: false, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+      notify(`Error while adding flight: ${action.payload.Message}.`, toast.TYPE.ERROR);
+      return { ...state, addingFlight: false, errors: action.payload.response.data };
     case `${ACTIONS.FETCH_FLIGHTS}_${REJECTED}`:
-      toast.error(`Error while feching flights: ${action.payload.Message}.`);
-      return { ...state, fetching: false, errors: action.payload.Message, subErrors: action.payload.SubErrors };
+      notify(`Error while feching flights: ${action.payload.Message}.`, toast.TYPE.ERROR);
+      return { ...state, fetching: false, errors: action.payload.response.data };
 
     case ACTIONS.SORT_FLIGHTS: {
       const order = action.payload;

@@ -21,12 +21,14 @@ const delegationStatusCodes = {
 
 const delegationStatuses = {
   [delegationStatusCodes.CREATED]: "Created",
-  [delegationStatusCodes.PREPARED]: "Prepared",
   [delegationStatusCodes.NEEDS_WORK]: "Needs work",
-  [delegationStatusCodes.CHECKED]: "Confirmed by Manager",
+  [delegationStatusCodes.PREPARED]: "Prepared",
+  [delegationStatusCodes.CHECKED]: "Confirmed",
   [delegationStatusCodes.APPROVED]: "Approved",
   [delegationStatusCodes.FINALIZED]: "Finalized"
 };
+
+const NO_NETWORK_TOAST_ID = "no-network-toast";
 
 const reportTypes = [
   {
@@ -47,4 +49,12 @@ const reportTypes = [
 
 const paymentTypes = [{ label: "Cash", value: "CASH" }, { label: "Credit card", value: "CREDIT_CARD" }];
 
-export { delegationStatuses, delegationStatusCodes, environments, paymentTypes, reportTypes, themes };
+export {
+  delegationStatuses,
+  delegationStatusCodes,
+  environments,
+  NO_NETWORK_TOAST_ID,
+  paymentTypes,
+  reportTypes,
+  themes
+};

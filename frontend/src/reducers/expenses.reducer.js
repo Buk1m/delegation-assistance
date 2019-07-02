@@ -5,8 +5,7 @@ const initialState = {
   fetching: false,
   expenses: [],
   totalSize: 0,
-  errors: "",
-  subErrors: []
+  errors: null
 };
 
 const expenseReducer = (state = initialState, action) => {
@@ -36,8 +35,7 @@ const expenseReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
 
     default:

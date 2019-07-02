@@ -45,11 +45,6 @@ describe("Delegation checklist page", () => {
     expect(enzymeWrapper.find('label[htmlFor="1"]').text()).toBe("Sell PC");
   });
 
-  it("should correctly render checkboxes states", () => {
-    expect(enzymeWrapper.find('Checkbox[name="0"]').prop("checked")).toBe(false);
-    expect(enzymeWrapper.find('Checkbox[name="1"]').prop("checked")).toBe(true);
-  });
-
   it("should call handlecheck", () => {
     enzymeWrapper
       .find('Checkbox[name="0"]')

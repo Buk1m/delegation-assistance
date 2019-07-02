@@ -8,18 +8,21 @@ import {
   fetchGlobalTemplate,
   saveGlobalTemplate,
   reorderGlobalTemplate,
+  restoreGlobalTemplate,
   addTask,
   deleteTask
 } from "../../actions/checklistTemplate.action";
+import { confirmationModal } from "../../helpers/confirmationModal";
 
 export class ChecklistGlobalTemplatePageContainer extends Component {
   static propTypes = {
-    fetchGlobalTemplate: func,
-    reorderGlobalTemplate: func,
-    saveGlobalTemplate: func,
-    isFetching: bool,
     deleteTask: func,
-    globalTemplate: array
+    fetchGlobalTemplate: func,
+    globalTemplate: array,
+    isFetching: bool,
+    reorderGlobalTemplate: func,
+    restoreGlobalTemplate: func,
+    saveGlobalTemplate: func
   };
 
   state = {
@@ -33,11 +36,22 @@ export class ChecklistGlobalTemplatePageContainer extends Component {
 
   _changeMode = () => {
     if (this.state.isInEditMode) {
-      this.setState({ isInEditMode: false });
-      this.props.saveGlobalTemplate(this.props.globalTemplate);
+      const action = () => {
+        this.setState({ isInEditMode: false });
+        this.props.saveGlobalTemplate(this.props.globalTemplate);
+      };
+      confirmationModal("Save changes", "Saving will override current template.", action);
     } else {
       this.setState({ isInEditMode: true });
     }
+  };
+
+  _cancelEdit = () => {
+    const action = () => {
+      this.setState({ isInEditMode: false });
+      this.props.restoreGlobalTemplate();
+    };
+    confirmationModal("Cancel editing", "This will discard all changes.", action);
   };
 
   _onSortEnd = ({ oldIndex, newIndex }) => {
@@ -70,6 +84,7 @@ export class ChecklistGlobalTemplatePageContainer extends Component {
         isFetching={this.props.isFetching}
         handleUpdateModal={this._handleUpdateModal}
         handleDeleteTask={this._handleDeleteTask}
+        cancelEdit={this._cancelEdit}
         itemForModal={this.state.itemForModal}
       />
     );
@@ -85,6 +100,7 @@ const mapDispatchToProps = {
   fetchGlobalTemplate,
   saveGlobalTemplate,
   reorderGlobalTemplate,
+  restoreGlobalTemplate,
   addTask,
   deleteTask
 };

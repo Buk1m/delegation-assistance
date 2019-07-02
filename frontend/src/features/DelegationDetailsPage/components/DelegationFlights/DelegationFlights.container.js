@@ -14,6 +14,7 @@ import { fetchFlights, sortFlightsByDepartureDate } from "../../../../actions/fl
 class DelegationFlightsContainer extends Component {
   static propTypes = {
     addingFlight: bool,
+    canEditDelegation: bool,
     delegationId: number,
     fetchFlights: func,
     fetching: bool,
@@ -40,6 +41,7 @@ class DelegationFlightsContainer extends Component {
         flights={this.props.flights}
         handleSortChange={this._handleSortChange}
         sortOrder={this.props.sortOrder}
+        canEditDelegation={this.props.canEditDelegation}
       />
     );
   }

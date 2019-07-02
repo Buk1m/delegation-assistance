@@ -1,5 +1,7 @@
 import { ACTIONS } from "../actions/countries.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
+import { toast } from "react-toastify";
+import { notify } from "../helpers/notifications";
 
 const initialState = {
   countries: [],
@@ -25,11 +27,11 @@ const countriesReducer = (state = initialState, action) => {
     }
 
     case `${ACTIONS.FETCH_COUNTRIES}_${REJECTED}`:
+      notify(`Cannot fetch country: ${action.payload.response.data.errorMessage}`, toast.TYPE.ERROR);
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
 
     default:

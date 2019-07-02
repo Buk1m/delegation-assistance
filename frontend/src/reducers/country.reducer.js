@@ -1,6 +1,8 @@
 import { ACTIONS } from "../actions/country.actions";
 import { PENDING, FULFILLED, REJECTED } from "../middleware";
 import getFlag from "../config/flags";
+import { toast } from "react-toastify";
+import { notify } from "../helpers/notifications";
 
 import emptyFlag from "../assets/images/flags/_empty.svg";
 
@@ -15,8 +17,7 @@ const initialState = {
   timezones: [],
   alpha3Code: "",
   flag: emptyFlag,
-  errors: null,
-  subErrors: null
+  errors: null
 };
 
 const countriesReducer = (state = initialState, action) => {
@@ -43,13 +44,14 @@ const countriesReducer = (state = initialState, action) => {
       };
     }
 
-    case `${ACTIONS.FETCH_COUNTRY}_${REJECTED}`:
+    case `${ACTIONS.FETCH_COUNTRY}_${REJECTED}`: {
+      notify(`Cannot fetch countries: ${action.payload.response.data.errorMessage}`, toast.TYPE.ERROR);
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
+    }
 
     default:
       return state;

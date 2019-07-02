@@ -15,11 +15,12 @@ public class MealsAdjusterImpl implements MealsAdjuster {
         Duration delegationDuration = Duration.between(delegationStartDate, delegationEndDate);
         long delegationDurationInDays = delegationDuration.toDays();
         long maximumNumberOfMeal = ((long) Math.ceil((delegationDuration.toMillis() / MILLIS_IN_DAY)));
-
-        meals.setBreakfasts(validateNumberOfMeal(meals.getBreakfasts(), delegationDurationInDays, maximumNumberOfMeal));
-        meals.setDinners(validateNumberOfMeal(meals.getDinners(), delegationDurationInDays, maximumNumberOfMeal));
-        meals.setLunches(validateNumberOfMeal(meals.getLunches(), delegationDurationInDays, maximumNumberOfMeal));
-
+        if(meals!=null){
+            meals.setBreakfasts(validateNumberOfMeal(meals.getBreakfasts(), delegationDurationInDays, maximumNumberOfMeal));
+            meals.setDinners(validateNumberOfMeal(meals.getDinners(), delegationDurationInDays, maximumNumberOfMeal));
+            meals.setLunches(validateNumberOfMeal(meals.getLunches(), delegationDurationInDays, maximumNumberOfMeal));
+        }
+       
         return meals;
     }
 

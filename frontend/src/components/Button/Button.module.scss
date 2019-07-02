@@ -22,6 +22,11 @@
   &:hover {
     text-decoration: none;
   }
+
+  &:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+  }
 }
 
 .primary {

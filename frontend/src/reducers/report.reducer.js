@@ -3,8 +3,7 @@ import { PENDING, FULFILLED, REJECTED } from "../middleware";
 
 const initialState = {
   fetching: false,
-  errors: "",
-  subErrors: [],
+  errors: null,
   flights: [],
   accommodations: [],
   expenses: [],
@@ -63,8 +62,7 @@ const reportReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        errors: action.payload.Message,
-        subErrors: action.payload.SubErrors
+        errors: action.payload.response.data
       };
 
     default:

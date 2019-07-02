@@ -6,12 +6,14 @@ import { withRouter } from "react-router-dom";
 import { loginUser } from "../../actions/user.actions";
 import { getLoggedStatus, getToken } from "../../selectors/user.selectors";
 import LoginPage from "./LoginPage.component";
+import { toast } from "react-toastify";
+
 class LoginPageContainer extends Component {
   static propTypes = {
-    loginUser: func,
+    history: object,
     loggedStatus: bool,
-    token: string,
-    history: object
+    loginUser: func,
+    token: string
   };
 
   constructor() {
@@ -39,8 +41,12 @@ class LoginPageContainer extends Component {
         }
       })
       .catch(err => {
-        this.setState({ errors: "Invalid Username or Password" });
-        console.log(err);
+        if (!err.response) {
+          this.setState({ errors: "Cannot reach server." });
+          toast.warn("Server is unreachable. Check your internet connection.");
+        } else {
+          this.setState({ errors: "Invalid Username or Password" });
+        }
       });
   };
 

@@ -4,6 +4,7 @@ import { number, func, string } from "prop-types";
 
 import ExpensesModalForm from "./ExpensesModalForm.component";
 import { addExpense } from "../../../../../actions/expenses.actions";
+import handleFormErrors from "../../../../../helpers/handlers/errorHandler";
 
 export class ExpensesModalFormContainer extends Component {
   static propTypes = {
@@ -18,12 +19,16 @@ export class ExpensesModalFormContainer extends Component {
 
   _handleSubmit = values =>
     this.props.addExpense(this.props.delegationId, values).then(() =>
-      this.props.onTableChange("sort", {
-        page: this.props.page,
-        sizePerPage: this.props.sizePerPage,
-        sortOrder: this.props.sortOrder,
-        sortField: this.props.sortField
-      })
+      this.props
+        .onTableChange("sort", {
+          page: this.props.page,
+          sizePerPage: this.props.sizePerPage,
+          sortOrder: this.props.sortOrder,
+          sortField: this.props.sortField
+        })
+        .catch(err => {
+          handleFormErrors(err);
+        })
     );
 
   render() {
