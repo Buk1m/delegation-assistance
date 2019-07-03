@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ScrollView, KeyboardAvoidingView, Text } from "react-native";
 import { reduxForm, reset, Field } from "redux-form";
-import { func } from "prop-types";
+import { array, func, string } from "prop-types";
 
 import Button from "../../components/Button/Button.component";
 import Currencies from "../../components/Currencies/Currencies";
@@ -131,7 +131,14 @@ const ExpensesScreen = props => {
 };
 
 ExpensesScreen.propTypes = {
-  handleSubmit: func
+  attachments: array,
+  choosePayType: func,
+  deleteFile: func,
+  getFile: func,
+  getImageFromCamera: func,
+  getImageFromCameraRoll: func,
+  handleSubmit: func,
+  payType: string
 };
 
 export default reduxForm({

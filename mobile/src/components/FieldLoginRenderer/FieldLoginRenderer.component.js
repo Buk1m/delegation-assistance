@@ -1,30 +1,32 @@
 import React from "react";
-import { Text, TextInput, View } from "react-native";
+import { View } from "react-native";
+import { object, string } from "prop-types";
+import { TextInput, HelperText } from "react-native-paper";
 
 import styles from "./FieldLoginRenderer.module.scss";
 
-const FieldLoginRenderer = ({
-  label,
-  placeholder,
-  isSecure,
-  meta: { touched, error },
-  input: { onChange, ...restInput }
-}) => {
+const FieldLoginRenderer = ({ placeholder, meta: { touched, error }, input: { onChange, restInput }, rest }) => {
   return (
-    <View>
-      <View>
-        <TextInput
-          {...restInput}
-          style={styles["input-login"]}
-          onChangeText={onChange}
-          placeholder={placeholder}
-          autoCapitalize="none"
-          secureTextEntry={isSecure}
-        />
-      </View>
-      {touched && (error && <Text style={{ color: "red", paddingLeft: 20 }}>{error}</Text>)}
+    <View style={styles.container}>
+      <TextInput
+        {...rest}
+        {...restInput}
+        label={placeholder}
+        mode="outlined"
+        onChangeText={onChange}
+        error={touched && error}
+      />
+      <HelperText type="error" visible={touched && error}>
+        {error}
+      </HelperText>
     </View>
   );
+};
+FieldLoginRenderer.propTypes = {
+  input: object,
+  label: string,
+  meta: object,
+  placeholder: string
 };
 
 export default FieldLoginRenderer;

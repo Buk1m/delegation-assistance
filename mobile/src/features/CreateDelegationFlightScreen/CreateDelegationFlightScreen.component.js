@@ -16,7 +16,7 @@ const CreateDelegationFlightScreen = props => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <KeyboardAvoidingView behavior="padding" enable>
+        <KeyboardAvoidingView enable>
           <TextField title="Flight From" iconName="jet" fieldName="departurePlace" placeholder="Flight From" />
           <TextField
             title="Flight To"

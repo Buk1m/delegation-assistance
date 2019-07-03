@@ -1,9 +1,10 @@
 const statuses = [
     { label: "CREATED", value: "CREATED" },
     { label: "PREPARED", value: "PREPARED" },
-    { label: "TRAVEL_MANGER_APPROVED", value: "TRAVEL_MANGER_APPROVED" },
-    { label: "APPROVER_APPROVED", value: "APPROVER_APPROVED" },
-    { label: "RATIFIED", value: "RATIFIED" }
+    { label: "NEEDS_WORK", value: "NEEDS_WORK" },
+    { label: "CHECKED", value: "CHECKED" },
+    { label: "APPROVED", value: "APPROVED" },
+    { label: "FINALIZED", value: "FINALIZED" }
 ];
 
 export default statuses;

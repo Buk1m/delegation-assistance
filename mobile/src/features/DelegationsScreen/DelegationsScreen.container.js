@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { func, bool, array } from "prop-types";
-import { Icon } from "expo";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import {
   fetchMyDelegations,
@@ -63,7 +63,7 @@ class DelegationsScreenContainer extends Component {
           style={styles.collapseButtonHeader}
           onPress={navigation.getParam("changeIsSortFilterPanelCollapsed")}
         >
-          <Icon.MaterialCommunityIcons name="filter-outline" style={styles.iconStyle} />
+          <MaterialCommunityIcons name="filter-outline" style={styles.iconStyle} />
         </TouchableOpacity>
       )
     };

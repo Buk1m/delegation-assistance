@@ -1,12 +1,17 @@
 @import "../../assets/styles/constants";
 
 .container {
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 150px;
+  width: 90%;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
 }
 
+.center {
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
 .title-text {
   padding-right: 60px;
   position: relative;

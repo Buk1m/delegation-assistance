@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { object } from "prop-types";
-import { Icon } from "expo";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import StatusProp from "../../../../components/StatusProp/StatusProp.component";
 
@@ -18,13 +18,12 @@ const Delegation = props => {
         <Text style={styles.header}>Delegation no.{id}</Text>
       </View>
       <View style={[styles.dataRow, styles.location]}>
-        <Icon.Ionicons size={18} name="md-pin" style={styles["pin-icon"]} />
+        <Ionicons size={18} name="md-pin" style={styles["pin-icon"]} />
         <Text style={styles["location-content"]}>
           {destinationCountry} - {destinationLocation}
         </Text>
       </View>
       <View style={[styles.dataRow, styles.dates]}>
-        <Icon.MaterialIcons size={18} name="date-range" style={styles["date-icon"]} />
         <Text style={styles["dates-content"]}>
           {startDate} - {endDate}
         </Text>

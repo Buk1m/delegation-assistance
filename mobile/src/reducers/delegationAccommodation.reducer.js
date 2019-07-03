@@ -21,6 +21,7 @@ const delegationAccommodationReducer = (state = initialState, action) => {
       showMessage({ message: "Added new accommodation.", type: "success" });
       return {
         ...state,
+        accommodations: [...state.accommodations, action.payload.data],
         fetching: false
       };
 

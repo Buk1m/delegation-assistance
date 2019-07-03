@@ -11,7 +11,7 @@ const FieldRenderer = ({
   multiline = false,
   numberOfLines = 1,
   meta: { touched, error },
-  input: { onChange, ...restInput },
+  input: { onChange, restInput },
   style: { inputStyle, validationFieldStyle = styles.validationField } = {}
 }) => {
   const inputStyles = multiline ? styles.textarea : styles.input;
@@ -44,8 +44,7 @@ FieldRenderer.propTypes = {
   numberOfLines: number,
   placeholder: string,
   placeholderTextColor: string,
-  style: object,
-  validationFieldStyle: object
+  style: object
 };
 
 export default FieldRenderer;

@@ -23,6 +23,7 @@ export default class DelegationExpenseContainer extends Component {
   render() {
     return (
       <DelegationExpense
+        navigate={this.props.navigate}
         expense={this.props.expense}
         delegationId={this.props.delegationId}
         isCollapsed={this.state.isAttachmentsButtonCollapsed}

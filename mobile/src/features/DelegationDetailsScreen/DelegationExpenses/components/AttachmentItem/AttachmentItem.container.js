@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { func, string, number } from "prop-types";
 
 import { openFile } from "../../../../../actions/delegationExpenseFile.actions";
+import { getToken } from "../../../../../selectors/user.selectors";
 import AttachmentItem from "./AttachmentItem.component";
 
 class AttachmentItemContainer extends Component {
@@ -12,11 +13,18 @@ class AttachmentItemContainer extends Component {
     expenseId: number,
     openFile: func,
     title: string,
+    token: string,
     type: string
   };
 
   downloadAttachment = () => {
-    this.props.openFile(this.props.delegationId, this.props.expenseId, this.props.attachmentId);
+    this.props.openFile(
+      this.props.delegationId,
+      this.props.expenseId,
+      this.props.attachmentId,
+      this.props.title,
+      this.props.token
+    );
   };
 
   render() {
@@ -26,7 +34,13 @@ class AttachmentItemContainer extends Component {
 
 const mapDispatchToProps = { openFile };
 
+const mapStateToProps = state => {
+  return {
+    token: getToken(state)
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AttachmentItemContainer);

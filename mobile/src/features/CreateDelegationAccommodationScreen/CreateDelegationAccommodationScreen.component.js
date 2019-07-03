@@ -16,7 +16,7 @@ const CreateDelegationAccommodationScreen = props => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <KeyboardAvoidingView behavior="padding" enable>
+        <KeyboardAvoidingView enable>
           <TextField title="Hotel Name" iconName="bed" fieldName="hotelName" placeholder="Hotel Name" />
           <DatePickerField
             title="Check In Date"

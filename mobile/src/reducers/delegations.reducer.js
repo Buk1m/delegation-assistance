@@ -24,7 +24,12 @@ const delegationsReducer = (state = initialState, action) => {
       return { ...state, fetching: false };
     case `${ACTIONS.ADD_DELEGATION}_${FULFILLED}`: {
       showMessage({ message: "Delegation created.", type: "success" });
-      return { ...state, fetching: false };
+      return { 
+        ...state, 
+        delegations: [...state.delegations, action.payload.data],
+        tempDelegations: [...state.tempDelegations, action.payload.data],
+        fetching: false 
+      };
     }
     case `${ACTIONS.ADD_DELEGATION}_${REJECTED}`: {
       showMessage({ message: `Cannot create delegation. ${action.payload.Message}`, type: "danger" });

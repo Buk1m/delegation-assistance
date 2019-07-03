@@ -14,13 +14,14 @@ const isAttachmentsButtonDisabled = files => {
   return files.length === 0;
 };
 
-const renderAttachment = (delegationId, expenseId, attachment) => {
+const renderAttachment = (delegationId, expenseId, attachment, navigate) => {
   const getFileExtension = fileName => {
     return fileName.split(".").pop();
   };
 
   return (
     <AttachmentItem
+      navigate={navigate}
       type={getFileExtension(attachment.item.filename)}
       title={attachment.item.filename}
       delegationId={delegationId}
@@ -31,7 +32,7 @@ const renderAttachment = (delegationId, expenseId, attachment) => {
 };
 
 const DelegationExpense = props => {
-  const { expense, delegationId, isCollapsed, action } = props;
+  const { expense, delegationId, isCollapsed, action, navigate } = props;
   const { expenseDate, expenseCurrency, expenseName, expenseValue, id, files, paymentType } = expense;
 
   return (
@@ -60,7 +61,7 @@ const DelegationExpense = props => {
         <FlatList
           data={files}
           keyExtractor={extractKey}
-          renderItem={attachment => renderAttachment(delegationId, id, attachment)}
+          renderItem={attachment => renderAttachment(delegationId, id, attachment, navigate)}
         />
       </Collapsible>
     </View>

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Alert } from "react-native";
 import { connect } from "react-redux";
-import { addNewExpense } from "../../actions/expenses.actions";
 import { func } from "prop-types";
-import { ImagePicker } from "expo";
-import { DocumentPicker } from "expo";
+import ImagePicker from "react-native-image-picker";
+import { DocumentPicker, DocumentPickerUtil } from "react-native-document-picker";
 
+import { addNewExpense } from "../../actions/delegationExpenses.actions";
 import ExpensesScreen from "./ExpensesScreen.component";
 
 class ExpensesScreenContainer extends Component {
@@ -23,77 +24,65 @@ class ExpensesScreenContainer extends Component {
     fileId: 1
   };
 
-  getFile = async () => {
-    const capturedFile = await DocumentPicker.getDocumentAsync({
-      type: "application/*",
-      copyToCacheDirectory: true
+  getFile = () => {
+    DocumentPicker.show(
+      {
+        filetype: [DocumentPickerUtil.allFiles()]
+      },
+      (error, response) => {
+        if (response) {
+          this.addFileToList(response);
+        } else if (error) {
+          Alert.alert("Something went wrong while adding files");
+        }
+      } 
+    );
+  };
+
+  getImageFromCamera = () => {
+    const options = {
+      noData: true
+    };
+
+    ImagePicker.launchCamera(options, response => {
+      if (response.uri) {
+        this.addFileToList(response);
+      }
     });
-
-    if (!capturedFile.cancelled && capturedFile.type !== "cancel") {
-      this.addFileToList(capturedFile, capturedFile.name);
-    }
   };
 
-  getImageFromCamera = async () => {
-    const { Permissions } = Expo;
-    const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
-    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL); //Required on IOS
+  getImageFromCameraRoll = () => {
+    const options = {
+      noData: true
+    };
 
-    if (cameraPermission.status === "granted" && cameraRollPermission.status === "granted") {
-      const capturedImage = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        quality: 1, // Value {0..1}, 1 is maximum - without compression
-        mediaTypes: "Images"
-      });
-
-      if (!capturedImage.cancelled) {
-        const fileName = capturedImage.uri.split("/").pop();
-        this.addFileToList(capturedImage, fileName);
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.uri) {
+        this.addFileToList(response);
       }
-    }
-  };
-
-  getImageFromCameraRoll = async () => {
-    const { Permissions } = Expo;
-    const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
-    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL); //Required on IOS
-
-    if (cameraPermission.status === "granted" && cameraRollPermission.status === "granted") {
-      const capturedImage = await ImagePicker.launchImageLibraryAsync({
-        allowsEditing: true,
-        quality: 1, // Value {0..1}, 1 is maximum - without compression
-        mediaTypes: "Images"
-      });
-
-      if (!capturedImage.cancelled) {
-        const fileName = capturedImage.uri.split("/").pop();
-        this.addFileToList(capturedImage, fileName);
-      }
-    }
+    });
   };
 
   handleSubmit = values => {
     const attachments = this.state.attachments.map(value => {
-      return { uri: value.file.uri, type: value.file.type, filename: value.file.uri.split('/').pop() };
+      return { name: value.fileName, type: value.type, uri: value.uri };
     });
 
     const payType = this.state.payType;
     const delegationId = this.state.delegationId;
 
-    this.props.addNewExpense(values, { attachments }, payType, delegationId);
+    this.props.addNewExpense(values, { attachments }, payType, delegationId).then(() => {
+      this.props.navigation.goBack();
+    });
   };
 
-  addFileToList = (file, fileName) => {
+  addFileToList = file => {
     this.setState({
       fileId: this.state.fileId + 1
     });
-    const fileObject = {
-      id: this.state.fileId,
-      fileName: fileName,
-      file: file
-    };
+
     this.setState({
-      attachments: [...this.state.attachments, fileObject]
+      attachments: [...this.state.attachments, file]
     });
   };
 
@@ -103,7 +92,7 @@ class ExpensesScreenContainer extends Component {
     });
   };
 
-  deleteFile = (index,) => {
+  deleteFile = index => {
     const files = Object.assign([], this.state.attachments);
     files.splice(index, 1);
     this.setState({ attachments: files });

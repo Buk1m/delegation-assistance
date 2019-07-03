@@ -4,7 +4,7 @@ import { func, string } from "prop-types";
 
 import Button from "../../../../../components/Button/Button.component";
 import PlatformIcon from "../../../../../components/PlatformIcon/PlatformIcon.component";
-import { Icon } from "expo";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import styles from "./AttachmentItem.module.scss";
 import colors from "../../../../../assets/styles/_colorPalette.scss";
@@ -35,7 +35,7 @@ const AttachmentItem = props => {
   const { type, title, onDownload } = props;
   return (
     <View style={styles.attachment}>
-      <Icon.MaterialCommunityIcons
+      <MaterialCommunityIcons
         name={getFileTypeIconName(type)}
         size={fileTypeIconSize}
         color={colors.primaryTextColor}

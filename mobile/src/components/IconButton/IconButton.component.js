@@ -1,7 +1,8 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { Icon } from "expo";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { string, object, func } from "prop-types";
+
 import PlatformIcon from "../PlatformIcon/PlatformIcon.component";
 
 const getProperIcon = (iconName, iconStyle, iconPackName) => {
@@ -9,7 +10,7 @@ const getProperIcon = (iconName, iconStyle, iconPackName) => {
     case "ionicons":
       return <PlatformIcon name={iconName} style={iconStyle} />;
     case "materialcommunityicons":
-      return <Icon.MaterialCommunityIcons name={iconName} style={iconStyle} />;
+      return <MaterialCommunityIcons name={iconName} style={iconStyle} />;
     default:
       return <PlatformIcon name="help" style={iconStyle} />;
   }

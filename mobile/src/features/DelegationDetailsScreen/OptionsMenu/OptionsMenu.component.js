@@ -1,6 +1,7 @@
 import React from "react";
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
-import { Icon } from "expo";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+
 import { TouchableOpacity, View } from "react-native";
 
 import styles from "../DelegationDetailsScreen.module";
@@ -13,7 +14,7 @@ const OptionsMenu = props => {
         ref={navigation.getParam("setMenuRef")}
         button={
           <TouchableOpacity onPress={navigation.getParam("showMenu")}>
-            <Icon.SimpleLineIcons size={28} color={styles.primary} name={`options-vertical`} />
+            <SimpleLineIcons size={28} color={styles.primary} name="options-vertical" />
           </TouchableOpacity>
         }
       >

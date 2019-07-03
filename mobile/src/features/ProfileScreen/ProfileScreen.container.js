@@ -1,18 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import ProfileScreen from "./ProfileScreen.component";
-import { logoutUser } from "../../actions/user.actions";
 import { func } from "prop-types";
+
+import { logoutUser } from "../../actions/user.actions";
+import ProfileScreen from "./ProfileScreen.component";
+import Button from "../../components/Button/Button.component";
+
+import styles from "./ProfileScreen.module.scss";
 
 class ProfileScreenContainer extends Component {
   static propTypes = {
     logoutUser: func
   };
 
-  static navigationOptions = {
-    title: "Profile"
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Profile",
+      headerTintColor: styles.primary,
+      headerRight: <Button style={styles.logoutButton} onPress={navigation.getParam("logoutUser")} title="Logout" />
+    };
   };
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      logoutUser: this._handleLogoutUser
+    });
+  }
 
   _handleLogoutUser = () => {
     this.props.logoutUser();
@@ -20,7 +33,7 @@ class ProfileScreenContainer extends Component {
   };
 
   render() {
-    return <ProfileScreen logoutUser={this._handleLogoutUser} />;
+    return <ProfileScreen />;
   }
 }
 

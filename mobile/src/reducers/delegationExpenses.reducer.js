@@ -40,6 +40,32 @@ const delegationExpensesReducer = (state = initialState, action) => {
         data: []
       };
 
+    case `${ACTIONS.ADD_EXPENSE}_${PENDING}`: {
+      return {
+        ...state,
+        fetching: true
+      };
+    }
+
+    case `${ACTIONS.ADD_EXPENSE}_${FULFILLED}`: {
+      showMessage({ message: "Added new expense.", type: "success" });
+      return {
+        ...state,
+        data: [...state.data, action.payload.data],
+        fetching: false
+      };
+    }
+    
+    case `${ACTIONS.ADD_EXPENSE}_${REJECTED}`: {
+      showMessage({ message: `Error occurred while adding expense: ${action.payload.Message}`, type: "danger" });
+      return {
+        ...state,
+        fetching: false,
+        errors: action.payload.Message,
+        subErrors: action.payload.SubErrors
+      };
+    }
+
     default:
       return { ...state };
   }

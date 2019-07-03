@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 
 import { loginUser } from "../../actions/user.actions";
@@ -6,51 +6,37 @@ import { bool, string, func } from "prop-types";
 import { getLoggedStatus, getToken } from "../../selectors/user.selectors";
 import LoginScreen from "./LoginScreen.component";
 
-class LoginScreenContainer extends Component {
+class LoginScreenContainer extends PureComponent {
   static propTypes = {
     loggedStatus: bool,
     loginUser: func,
     myToken: string
   };
 
-  static navigatonOptions = {
-    header: null
+  state = {
+    loginError: ""
   };
-
-  constructor() {
-    super();
-    this.state = {
-      errors: ""
-    };
-  }
 
   componentDidMount = () => {
     if (this.props.loggedStatus && this.props.myToken) {
       this.props.navigation.navigate("Main");
     }
-    this.setState(() => {
-      return {
-        errors: ""
-      };
-    });
   };
 
   handleSubmit = values => {
-    this.setState({ errors: "Loading..." });
     return this.props
       .loginUser(values.login, values.password)
-      .then(response => {
-        if (response.status === 200) {
-          this.props.navigation.navigate("Main");
-        }
+      .then(() => {
+        this.props.navigation.navigate("Main");
       })
       .catch(() => {
-        this.setState({ errors: "Invalid Username or Password" });
+        this.setState({ loginError: "Invalid Username or Password" });
+        console.log(this.state.loginError);
       });
   };
 
   render() {
-    return <LoginScreen onSubmit={this.handleSubmit} errors={this.state.errors} />;
+    return <LoginScreen onSubmit={this.handleSubmit} loginError={this.state.loginError} />;
   }
 }
 

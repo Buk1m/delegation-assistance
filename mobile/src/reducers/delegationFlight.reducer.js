@@ -21,6 +21,7 @@ const delegationFlightReducer = (state = initialState, action) => {
       showMessage({ message: "Added new flight.", type: "success" });
       return {
         ...state,
+        flights: [...state.flights, action.payload.data],
         fetching: false
       };
 

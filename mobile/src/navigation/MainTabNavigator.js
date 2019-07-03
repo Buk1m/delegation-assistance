@@ -6,8 +6,6 @@ import HomeScreen from "../features/HomeScreen";
 import ProfileScreen from "../features/ProfileScreen";
 import DelegationsScreen from "../features/DelegationsScreen";
 import CreateDelegationScreen from "../features/CreateDelegationScreen";
-import ChecklistScreen from "../features/ChecklistScreen";
-import CreateTaskScreen from "../features/CreateTaskScreen";
 import ExpensesScreen from "../features/ExpensesScreen";
 import DelegationDetailsScreen from "../features/DelegationDetailsScreen";
 import CreateDelegationFlightScreen from "../features/CreateDelegationFlightScreen";
@@ -35,16 +33,6 @@ DelegationsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="briefcase" />
 };
 
-const ChecklistStack = createStackNavigator({
-  Checklist: ChecklistScreen,
-  CreateTask: CreateTaskScreen
-});
-
-ChecklistStack.navigationOptions = {
-  tabBarLabel: "Checklist",
-  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="checkbox-outline" />
-};
-
 const ProfileStack = createStackNavigator({
   Home: ProfileScreen
 });
@@ -56,6 +44,5 @@ ProfileStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   DelegationsStack,
-  ChecklistStack,
   ProfileStack
 });

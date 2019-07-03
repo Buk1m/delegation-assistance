@@ -8,7 +8,7 @@ import styles from "./AttachmentsButton.module.scss";
 import colors from "../../../../../assets/styles/_colorPalette.scss";
 
 const getButtonStyle = disabled => {
-  return disabled ? styles.disabled : styles.enabled;
+  return disabled ? styles.disabledButton : styles.enabledButton;
 };
 
 const getIconStyle = isCollapsed => {

@@ -1,7 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import { bool, object } from "prop-types";
-import { Icon } from "expo";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import StatusProp from "../../../components/StatusProp/StatusProp.component";
 import Button from "../../../components/Button/Button.component";
@@ -38,25 +40,25 @@ const DelegationDetails = props => {
       <RenderDetailsRow
         title="Delegation period:"
         content={`${startDate} - ${endDate}`}
-        icon={<Icon.MaterialIcons size={detailsIconSize} color={colors.primaryTextColor} name="date-range" />}
+        icon={<MaterialIcons size={detailsIconSize} color={colors.primaryTextColor} name="date-range" />}
         fetching={props.fetching}
       />
       <RenderDetailsRow
         title="Diet:"
         content={`${diet.perDiem} ${diet.currency}`}
-        icon={<Icon.MaterialCommunityIcons size={detailsIconSize} color={colors.primaryTextColor} name="food-apple" />}
+        icon={<MaterialCommunityIcons size={detailsIconSize} color={colors.primaryTextColor} name="food-apple" />}
         fetching={props.fetching}
       />
       <RenderDetailsRow
         title="Objective:"
         content={`${delegationObjective}`}
-        icon={<Icon.MaterialCommunityIcons size={detailsIconSize} color={colors.primaryTextColor} name="target" />}
+        icon={<MaterialCommunityIcons size={detailsIconSize} color={colors.primaryTextColor} name="target" />}
         fetching={props.fetching}
       />
       <View style={styles.submit}>
         <Button
           title="Submit delegation"
-          icon={<Icon.FontAwesome size={submitIconSize} color={colors.primaryTextColor} name="send" />}
+          icon={<FontAwesome size={submitIconSize} color={colors.primaryTextColor} name="send" />}
         />
       </View>
     </View>

@@ -36,8 +36,7 @@ Recommended extensions:
 
 1. Clone this repository
 2. Go to `mobile` directory in this repository
-3. `yarn install`
-4. `yarn`
+3. `yarn`
 
 ### Running the app
 
@@ -47,7 +46,7 @@ You have to install Android Studio. If you already have it, **run emulator or de
 
 #### Run on iOS
 
-Please visit https://developer.apple.com/xcode/download/ to download Xcode and the iOS simulator. If you already have the latest version of Xcode installed, you may have to run the command `sudo xcode-select -s /Applications/Xcode.app`. If the emulator is working, enter `yarn ios` in CLI.
+Please visit https://developer.apple.com/xcode/download/ to download Xcode and the iOS simulator. If you already have the latest version of Xcode installed, you may have to run the command `sudo xcode-select -s /Applications/Xcode.app`. If the emulator is working, enter `react-native run-ios` in CLI.
 
 ### Tests
 

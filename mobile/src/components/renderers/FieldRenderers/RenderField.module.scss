@@ -20,13 +20,13 @@
   border-width: 1px;
   border-color: $primaryColor;
   height: 2.6rem;
-  width: 17rem;
+  width: 15rem;
   background-color: $primaryTextColor;
 }
 
 .subtitle {
   padding-left: 1rem;
-  margin: 1rem 0rem 0rem 0rem;
+  margin: 0.5rem 0rem 0rem 0rem;
   font-size: 1.2rem;
   font-weight: bold;
   color: $primaryColor;
@@ -35,7 +35,6 @@
 .textInput {
   @extend .input;
   padding-left: 1rem;
-  padding-right: 1rem;
   margin: 0rem;
   color: $primaryColor;
   font-size: 1.1rem;

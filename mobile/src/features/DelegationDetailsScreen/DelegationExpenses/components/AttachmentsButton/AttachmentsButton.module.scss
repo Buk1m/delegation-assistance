@@ -9,12 +9,12 @@
   align-items: center;
 }
 
-.enabled {
+.enabledButton {
   @extend .attachment;
   background-color: $primaryColor;
 }
 
-.disabled {
+.disabledButton {
   @extend .attachment;
   background-color: $gpalette0100;
 }
