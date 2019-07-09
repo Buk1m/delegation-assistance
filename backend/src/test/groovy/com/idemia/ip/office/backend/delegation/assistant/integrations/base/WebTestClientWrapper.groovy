@@ -17,8 +17,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON
 
 @Component
 class WebTestClientWrapper {
+
     @Autowired
     private WebTestClient webTestClient
+
     @Autowired
     private ObjectMapper objectMapper
 

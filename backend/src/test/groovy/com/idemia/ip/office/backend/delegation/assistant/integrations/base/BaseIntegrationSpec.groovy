@@ -9,15 +9,18 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestPropertySource
 import spock.lang.Specification
 
+import com.idemia.ip.office.backend.delegation.assistant.integrations.providers.AuthLogicProvider
+
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ContextConfiguration
-@AutoConfigureWebTestClient
 @EnableConfigurationProperties
 @TestPropertySource(locations = "classpath:test.properties")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@AutoConfigureWebTestClient
+@ContextConfiguration
 abstract class BaseIntegrationSpec extends Specification {
+
     @Autowired
-    protected BusinessLogicProvider businessLogicProvider
+    AuthLogicProvider authLogicProvider
 }
