@@ -13,7 +13,4 @@ public class AuthToken {
 	public AuthToken(@JsonProperty("token") String token) {
 		this.token = token;
 	}
-    private void setToken(String token) {
-        this.token = token;
-    }
 }
